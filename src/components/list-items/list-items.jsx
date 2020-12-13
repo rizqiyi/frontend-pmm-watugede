@@ -9,21 +9,11 @@ import {
 import React, { useState } from "react";
 import { ListItem, useStyles } from "./list-items.style";
 import { Link } from "react-router-dom";
-import StarBorder from "@material-ui/icons/StarBorder";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import { listMenu, listMenuNested } from "../../utilities/list-items";
+import { listMenu } from "../../utilities/list-items";
 
 export const ListItemsComponent = () => {
   const [selected, setSelected] = useState(0);
   const classes = useStyles();
-
-  const [open, setOpen] = React.useState(true);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
 
   const updateSelected = (event, selectedIndex) => {
     setSelected(selectedIndex);
@@ -46,58 +36,109 @@ export const ListItemsComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
 
+  const controlTextMenu = (params) => {
+    switch (params.name) {
+      case "Penduduk":
+        return "Kependudukan";
+
+      case "Activity Logs":
+        return "Aktifitas Admin";
+
+      default:
+        break;
+    }
+  };
+
+  const controlSpace = (params) => {
+    switch (params.name) {
+      case "Penduduk":
+        return 2;
+
+      case "Activity Logs":
+        return 2;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <React.Fragment>
       <List>
         {listMenu.map((list, idx) => (
           <Box key={list.id}>
-            {idx === 1 ? (
-              <Box>
-                <ListItem button onClick={handleClick}>
-                  <ListItemIcon>
-                    <InboxIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Kependudukan" />
-                  {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                {listMenuNested.map((l, idx) => (
-                  <Collapse key={idx} in={open} timeout="auto" unmountOnExit>
-                    <Link to={l.link} className={classes.itemText}>
-                      <List component="div" disablePadding>
-                        <ListItem button className={classes.nested}>
-                          <ListItemIcon>
-                            <StarBorder />
-                          </ListItemIcon>
-                          <ListItemText primary={l.name} />
-                        </ListItem>
-                      </List>
-                    </Link>
+            <Box marginTop={controlSpace(list)}>
+              <Typography className={classes.controlText} variant="subtitle1">
+                {controlTextMenu(list)}
+              </Typography>
+              <Link to={list.link} className={classes.itemText}>
+                {idx > 3 && idx < 6 ? (
+                  <Collapse key={idx} in={true}>
+                    <List component="div" disablePadding>
+                      <ListItem
+                        button
+                        className={classes.selectedBorderRadiusNested}
+                        selected={selected === idx}
+                        onClick={(event) => updateSelected(event, idx)}
+                      >
+                        <ListItemIcon
+                          className={
+                            selected === idx
+                              ? classes.selectedIcons
+                              : classes.notSelectedIcons
+                          }
+                        >
+                          {selected === idx
+                            ? list.icons.containedIcon
+                            : list.icons.outlinedIcon}
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={
+                            <Typography
+                              className={classes.controlFont}
+                              variant="subtitle2"
+                            >
+                              {list.name}
+                            </Typography>
+                          }
+                        />
+                      </ListItem>
+                    </List>
                   </Collapse>
-                ))}
-              </Box>
-            ) : null}
-            <Link to={list.link} className={classes.itemText}>
-              <ListItem
-                button
-                selected={selected === idx}
-                onClick={(event) => updateSelected(event, idx)}
-              >
-                <ListItemIcon
-                  className={
-                    selected === idx
-                      ? classes.selectedIcons
-                      : classes.notSelectedIcons
-                  }
-                >
-                  {selected === idx
-                    ? list.icons.containedIcon
-                    : list.icons.outlinedIcon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={<Typography variant="body1">{list.name}</Typography>}
-                />
-              </ListItem>
-            </Link>
+                ) : (
+                  <ListItem
+                    button
+                    selected={selected === idx}
+                    className={
+                      selected === idx ? classes.selectedBorderRadius : null
+                    }
+                    onClick={(event) => updateSelected(event, idx)}
+                  >
+                    <ListItemIcon
+                      className={
+                        selected === idx
+                          ? classes.selectedIcons
+                          : classes.notSelectedIcons
+                      }
+                    >
+                      {selected === idx
+                        ? list.icons.containedIcon
+                        : list.icons.outlinedIcon}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={
+                        <Typography
+                          className={classes.controlFont}
+                          variant="subtitle2"
+                        >
+                          {list.name}
+                        </Typography>
+                      }
+                    />
+                  </ListItem>
+                )}
+              </Link>
+            </Box>
           </Box>
         ))}
       </List>

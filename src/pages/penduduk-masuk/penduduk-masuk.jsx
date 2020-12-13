@@ -1,5 +1,6 @@
+import { Typography } from "@material-ui/core";
 import React from "react";
 
 export const PendudukMasukPage = () => {
-  return <div>Hello Penduduk Masuk</div>;
+  return <Typography>Hello Penduduk Masuk</Typography>;
 };

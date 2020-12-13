@@ -33,8 +33,36 @@ const listMenu = [
       containedIcon: <AssignmentIndIcon />,
     },
   },
+
   {
     id: 4,
+    name: "Penduduk",
+    link: "/penduduk",
+    icons: {
+      outlinedIcon: <AccountBalanceWalletOutlinedIcon />,
+      containedIcon: <AccountBalanceWalletIcon />,
+    },
+  },
+  {
+    id: 5,
+    name: "Penduduk Masuk",
+    link: "/penduduk_masuk",
+    icons: {
+      outlinedIcon: <AccountBalanceWalletOutlinedIcon />,
+      containedIcon: <AccountBalanceWalletIcon />,
+    },
+  },
+  {
+    id: 6,
+    name: "Penduduk Keluar",
+    link: "/penduduk_keluar",
+    icons: {
+      outlinedIcon: <LibraryBooksOutlinedIcon />,
+      containedIcon: <LibraryBooksIcon />,
+    },
+  },
+  {
+    id: 7,
     name: "Activity Logs",
     link: "/activity",
     icons: {
@@ -44,34 +72,4 @@ const listMenu = [
   },
 ];
 
-const listMenuNested = [
-  {
-    id: 1,
-    name: "Penduduk",
-    link: "/penduduk",
-    icons: {
-      outlinedIcon: <AccountBalanceWalletOutlinedIcon />,
-      containedIcon: <AccountBalanceWalletIcon />,
-    },
-  },
-  {
-    id: 2,
-    name: "Penduduk Masuk",
-    link: "/penduduk_masuk",
-    icons: {
-      outlinedIcon: <AccountBalanceWalletOutlinedIcon />,
-      containedIcon: <AccountBalanceWalletIcon />,
-    },
-  },
-  {
-    id: 2,
-    name: "Penduduk Keluar",
-    link: "/penduduk_keluar",
-    icons: {
-      outlinedIcon: <LibraryBooksOutlinedIcon />,
-      containedIcon: <LibraryBooksIcon />,
-    },
-  },
-];
-
-export { listMenu, listMenuNested };
+export { listMenu };

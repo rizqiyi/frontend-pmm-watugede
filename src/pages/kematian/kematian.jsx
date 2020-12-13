@@ -1,5 +1,6 @@
+import { Typography } from "@material-ui/core";
 import React from "react";
 
 export const KematianPage = () => {
-  return <div>Hello Kematian</div>;
+  return <Typography>Hello Kematian</Typography>;
 };
