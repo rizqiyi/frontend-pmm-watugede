@@ -1,5 +1,5 @@
 import { Box, Button, Paper, Typography } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useStyles } from "./login.style";
 import {
   PasswordField,
@@ -8,11 +8,23 @@ import {
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import { loginAdmin } from "../../reducers/users/users.actions";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
+import { Alert, AlertTitle } from "@material-ui/lab";
+import { clearErrors } from "../../reducers/errors/error.actions";
+import { LinearProgComponent } from "../../components/linear-progress/linear-progress";
 
-const LoginPage = ({ loginAdmin }) => {
+const LoginPage = ({ loginAdmin, clearErrors }) => {
   const classes = useStyles();
   const history = useHistory();
+  const isFirstRender = useRef(true);
+  const isError = useSelector((state) => state.errors);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      clearErrors();
+    }
+  }, [clearErrors]);
 
   const formik = useFormik({
     initialValues: {
@@ -32,6 +44,7 @@ const LoginPage = ({ loginAdmin }) => {
 
   return (
     <React.Fragment>
+      <LinearProgComponent />
       <Paper className={classes.root}>
         <Box
           display="flex"
@@ -40,6 +53,12 @@ const LoginPage = ({ loginAdmin }) => {
           p={3}
           paddingBottom={6}
         >
+          {isError.id === "LOGIN_FAIL" ? (
+            <Alert severity="error">
+              <AlertTitle>Login Fail</AlertTitle>
+              <strong>{isError.message.message}!</strong>
+            </Alert>
+          ) : null}
           <Box
             marginLeft={5}
             marginTop={3}
@@ -91,6 +110,7 @@ const LoginPage = ({ loginAdmin }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loginAdmin: (values, onSuccess) => dispatch(loginAdmin(values, onSuccess)),
+    clearErrors: () => dispatch(clearErrors()),
   };
 };
 

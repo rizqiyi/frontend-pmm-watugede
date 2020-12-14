@@ -21,6 +21,22 @@ export const StyledTextField = (props) => {
   );
 };
 
+export const TextFormField = (props) => {
+  const classes = useStyles();
+  return (
+    <TextField
+      InputLabelProps={{
+        className: classes.input,
+      }}
+      InputProps={{
+        classes,
+        disableUnderline: true,
+      }}
+      {...props}
+    />
+  );
+};
+
 export const PasswordField = (props) => {
   const classes = useStyles();
 

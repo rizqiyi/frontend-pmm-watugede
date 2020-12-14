@@ -1,13 +1,16 @@
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { logoutAdmin } from "../../reducers/users/users.actions";
 import { useStyles } from "./account-menu.style";
 
 export const AccountMenuComponent = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const openAccountMenu = Boolean(anchorEl);
+  const dispatch = useDispatch();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -43,7 +46,11 @@ export const AccountMenuComponent = () => {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose} component={Link} to="/">
+        <MenuItem
+          onClick={() => dispatch(logoutAdmin())}
+          component={Link}
+          to="/"
+        >
           Log Out
         </MenuItem>
       </Menu>

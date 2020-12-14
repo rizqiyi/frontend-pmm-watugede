@@ -25,6 +25,9 @@ export const loadAdmin = () => (dispatch, getState) => {
 };
 
 export const loginAdmin = ({ username, password }, onSuccess) => (dispatch) => {
+  dispatch({
+    type: userTypes.USER_LOADING,
+  });
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -51,6 +54,12 @@ export const loginAdmin = ({ username, password }, onSuccess) => (dispatch) => {
         type: userTypes.LOGIN_FAIL,
       });
     });
+};
+
+export const logoutAdmin = () => {
+  return {
+    type: userTypes.LOGOUT_SUCCESS,
+  };
 };
 
 export const tokenConfig = (getState) => {

@@ -4,7 +4,7 @@ const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: false,
   isLoading: false,
-  admin: null,
+  user: null,
   isComplete: false,
 };
 
@@ -43,7 +43,6 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         token: null,
-        user: null,
         isAuthenticated: false,
         isLoading: false,
         isComplete: false,
