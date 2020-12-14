@@ -3,6 +3,27 @@ import axios from "axios";
 import initialURL from "../../utilities/baseURL";
 import { returnErrors } from "../errors/error.actions";
 
+export const loadAdmin = () => (dispatch, getState) => {
+  dispatch({
+    type: userTypes.USER_LOADING,
+  });
+
+  axios
+    .get(initialURL.adminData, tokenConfig(getState))
+    .then((res) => {
+      dispatch({
+        type: userTypes.USER_LOADED,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({
+        type: userTypes.AUTH_ERROR,
+      });
+    });
+};
+
 export const loginAdmin = ({ username, password }, onSuccess) => (dispatch) => {
   const config = {
     headers: {
@@ -33,7 +54,7 @@ export const loginAdmin = ({ username, password }, onSuccess) => (dispatch) => {
 };
 
 export const tokenConfig = (getState) => {
-  const token = getState().auth.token;
+  const token = getState().users.token;
 
   const config = {
     headers: {

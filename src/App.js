@@ -1,10 +1,8 @@
 import React from "react";
-import { Navigations } from "./pages/navigations/navigation";
+import Navigations from "./routes/navigation";
 
-export const App = () => {
-  return (
-    <React.Fragment>
-      <Navigations />
-    </React.Fragment>
-  );
+const App = () => {
+  return <Navigations />;
 };
+
+export default App;

@@ -2,6 +2,7 @@ const baseURL = "http://localhost:5000/";
 
 const initialURL = {
   loginURI: `${baseURL}api/auth/admin`,
+  adminData: `${baseURL}api/auth`,
   activityURI: `${baseURL}api/activity`,
   kelahiranURI: `${baseURL}api/kelahiran`,
   kematianURI: `${baseURL}api/kematian`,

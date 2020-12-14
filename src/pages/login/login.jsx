@@ -20,7 +20,7 @@ const LoginPage = ({ loginAdmin }) => {
       password: "",
     },
     onSubmit: (values) => {
-      const onSuccess = () => setTimeout(() => history.push("/"), 500);
+      const onSuccess = () => history.push("/");
       loginAdmin(values, onSuccess);
     },
   });

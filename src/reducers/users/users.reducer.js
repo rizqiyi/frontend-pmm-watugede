@@ -3,7 +3,8 @@ import Types from "./users.types";
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: false,
-  user: null,
+  isLoading: false,
+  admin: null,
   isComplete: false,
 };
 
