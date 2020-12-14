@@ -9,7 +9,11 @@ import {
 import React, { useState } from "react";
 import { ListItem, useStyles } from "./list-items.style";
 import { Link } from "react-router-dom";
-import { listMenu } from "../../utilities/list-items";
+import {
+  listMenu,
+  controlSpace,
+  controlTextMenu,
+} from "../../utilities/list-items";
 
 export const ListItemsComponent = () => {
   const [selected, setSelected] = useState(0);
@@ -35,32 +39,6 @@ export const ListItemsComponent = () => {
     linkPath();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
-
-  const controlTextMenu = (params) => {
-    switch (params.name) {
-      case "Penduduk":
-        return "Kependudukan";
-
-      case "Activity Logs":
-        return "Aktifitas Admin";
-
-      default:
-        break;
-    }
-  };
-
-  const controlSpace = (params) => {
-    switch (params.name) {
-      case "Penduduk":
-        return 2;
-
-      case "Activity Logs":
-        return 2;
-
-      default:
-        break;
-    }
-  };
 
   return (
     <React.Fragment>

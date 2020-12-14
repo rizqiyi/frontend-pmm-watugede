@@ -72,4 +72,30 @@ const listMenu = [
   },
 ];
 
-export { listMenu };
+const controlTextMenu = (params) => {
+  switch (params.name) {
+    case "Penduduk":
+      return "Kependudukan";
+
+    case "Activity Logs":
+      return "Aktifitas Admin";
+
+    default:
+      break;
+  }
+};
+
+const controlSpace = (params) => {
+  switch (params.name) {
+    case "Penduduk":
+      return 2;
+
+    case "Activity Logs":
+      return 2;
+
+    default:
+      break;
+  }
+};
+
+export { listMenu, controlTextMenu, controlSpace };
