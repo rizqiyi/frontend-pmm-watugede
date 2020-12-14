@@ -1,18 +1,35 @@
 import { Box, Button, Paper, Typography } from "@material-ui/core";
 import React from "react";
 import { useStyles } from "./login.style";
-// import { useSelector } from "react-redux";
 import {
   PasswordField,
   StyledTextField,
 } from "../../components/styled-textfield/styled-textfield";
 import { useHistory } from "react-router-dom";
+import { useFormik } from "formik";
+import { loginAdmin } from "../../reducers/users/users.actions";
+import { connect } from "react-redux";
 
-export const LoginPage = () => {
+const LoginPage = ({ loginAdmin }) => {
   const classes = useStyles();
   const history = useHistory();
-  // const a = useSelector((state) => state.users);
-  // console.log(a);
+
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    onSubmit: (values) => {
+      const onSuccess = () => setTimeout(() => history.push("/"), 500);
+      loginAdmin(values, onSuccess);
+    },
+  });
+
+  const change = (value, e) => {
+    e.persist();
+    formik.handleChange(e);
+  };
+
   return (
     <React.Fragment>
       <Paper className={classes.root}>
@@ -43,11 +60,15 @@ export const LoginPage = () => {
           >
             <StyledTextField
               label="Username"
+              name="username"
+              onChange={change.bind(null, "username")}
               className={classes.margin}
               variant="filled"
             />
             <PasswordField
               label="Password"
+              name="password"
+              onChange={change.bind(null, "password")}
               className={classes.margin}
               variant="filled"
             />
@@ -55,7 +76,8 @@ export const LoginPage = () => {
               variant="contained"
               className={classes.controlButton}
               color="secondary"
-              onClick={() => history.push("/dashboard")}
+              type="submit"
+              onClick={formik.handleSubmit}
             >
               Login
             </Button>
@@ -65,3 +87,11 @@ export const LoginPage = () => {
     </React.Fragment>
   );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginAdmin: (values, onSuccess) => dispatch(loginAdmin(values, onSuccess)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(LoginPage);

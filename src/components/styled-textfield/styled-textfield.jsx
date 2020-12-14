@@ -7,7 +7,6 @@ import IconButton from "@material-ui/core/IconButton";
 
 export const StyledTextField = (props) => {
   const classes = useStyles();
-
   return (
     <TextField
       InputLabelProps={{

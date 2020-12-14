@@ -9,7 +9,7 @@ const listMenu = [
   {
     id: 1,
     name: "Dashboard",
-    link: "/dashboard",
+    link: "/",
     icons: {
       outlinedIcon: <AccountBalanceWalletOutlinedIcon />,
       containedIcon: <AccountBalanceWalletIcon />,
