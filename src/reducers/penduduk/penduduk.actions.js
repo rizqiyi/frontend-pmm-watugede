@@ -19,3 +19,21 @@ export const fetchPenduduk = () => (dispatch, getState) => {
       dispatch(returnErrors(err.response.message, err.response.status));
     });
 };
+
+export const postPenduduk = ({ ...request }) => (dispatch, getState) => {
+  dispatch({ type: Types.START_REQUEST });
+
+  const body = JSON.stringify({ ...request });
+
+  axios
+    .post(initialURL.pendudukURI, body, tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.POST_PENDUDUK_SUCCESS,
+        payload: result.data,
+      });
+    })
+    .catch((err) => {
+      returnErrors(err.response.message, err.response.status);
+    });
+};

@@ -11,8 +11,9 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TableBodyComponent } from "../../components/penduduk-components/table-body/table-body";
-import { EnhancedTableHead } from "../../components/penduduk-components/table-head/table-head";
+import { Link } from "react-router-dom";
+import { PendudukTableBodyComponent } from "../../components/penduduk-components/table-body/table-body";
+import { PendudukEnhancedTableHead } from "../../components/penduduk-components/table-head/table-head";
 import { fetchPenduduk } from "../../reducers/penduduk/penduduk.actions";
 import { useStyles } from "./penduduk.style";
 
@@ -50,6 +51,8 @@ export const PendudukPage = () => {
       <Box marginBottom={2}>
         <Button
           color="primary"
+          component={Link}
+          to="/penduduk/insert"
           className={classes.textButton}
           startIcon={<AddIcon />}
           variant="contained"
@@ -69,7 +72,7 @@ export const PendudukPage = () => {
                 aria-labelledby="tableTitle"
                 aria-label="enhanced table"
               >
-                <EnhancedTableHead
+                <PendudukEnhancedTableHead
                   classes={classes}
                   order={order}
                   orderBy={orderBy}
@@ -77,7 +80,7 @@ export const PendudukPage = () => {
                   setOrderBy={setOrderBy}
                   rowCount={rows.length}
                 />
-                <TableBodyComponent
+                <PendudukTableBodyComponent
                   rows={rows}
                   order={order}
                   orderBy={orderBy}

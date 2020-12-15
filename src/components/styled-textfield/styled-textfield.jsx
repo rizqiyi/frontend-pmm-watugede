@@ -4,6 +4,7 @@ import { useStyles } from "./styled.textfield.style";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
+import { getIn } from "formik";
 
 export const StyledTextField = (props) => {
   const classes = useStyles();
@@ -21,8 +22,11 @@ export const StyledTextField = (props) => {
   );
 };
 
-export const TextFormField = (props) => {
+export const TextFormField = ({ field, form, ...props }) => {
   const classes = useStyles();
+  const errorText =
+    getIn(form.touched, field.name) && getIn(form.errors, field.name);
+
   return (
     <TextField
       InputLabelProps={{
@@ -32,6 +36,9 @@ export const TextFormField = (props) => {
         classes,
         disableUnderline: true,
       }}
+      helperText={errorText}
+      error={!!errorText}
+      {...field}
       {...props}
     />
   );

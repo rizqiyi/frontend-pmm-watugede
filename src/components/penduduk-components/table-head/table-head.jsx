@@ -5,48 +5,9 @@ import {
   TableSortLabel,
 } from "@material-ui/core";
 import React from "react";
+import { headCellsPenduduk } from "../../../helpers/headCells";
 
-const headCells = [
-  { id: "nik", numeric: false, disablePadding: false, label: "NIK" },
-  {
-    id: "nama_lengkap",
-    numeric: false,
-    disablePadding: false,
-    label: "Nama Lengkap",
-  },
-  {
-    id: "ttl",
-    numeric: false,
-    disablePadding: false,
-    label: "Tempat Tgl. Lahir",
-  },
-  {
-    id: "umur",
-    numeric: true,
-    disablePadding: false,
-    label: "Umur",
-  },
-  {
-    id: "alamat",
-    numeric: false,
-    disablePadding: false,
-    label: "Alamat",
-  },
-  {
-    id: "jenis_kelamin",
-    numeric: false,
-    disablePadding: false,
-    label: "Jenis Kelamin",
-  },
-  {
-    id: "action",
-    numeric: true,
-    disablePadding: false,
-    label: "",
-  },
-];
-
-const EnhancedTableHead = ({ ...props }) => {
+const PendudukEnhancedTableHead = ({ ...props }) => {
   const { order, orderBy, classes, setOrder, setOrderBy } = props;
 
   const createSortHandler = (property) => (event) => {
@@ -63,7 +24,7 @@ const EnhancedTableHead = ({ ...props }) => {
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox"></TableCell>
-        {headCells.map((headCell) => (
+        {headCellsPenduduk.map((headCell) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? "left" : "left"}
@@ -89,4 +50,4 @@ const EnhancedTableHead = ({ ...props }) => {
   );
 };
 
-export { EnhancedTableHead };
+export { PendudukEnhancedTableHead };

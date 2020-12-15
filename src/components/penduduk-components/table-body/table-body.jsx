@@ -1,10 +1,10 @@
 import { TableBody, TableCell, TableRow, Typography } from "@material-ui/core";
 import React from "react";
 import { useStyles } from "./table-body.style";
-import { getComparator, stableSort } from "../../../utilities/table";
+import { getComparator, stableSort } from "../../../helpers/table";
 import { Link } from "react-router-dom";
 
-export const TableBodyComponent = ({ ...props }) => {
+export const PendudukTableBodyComponent = ({ ...props }) => {
   const classes = useStyles();
 
   return (
@@ -33,7 +33,7 @@ export const TableBodyComponent = ({ ...props }) => {
                   <Typography variant="body2">
                     <Link
                       className={classes.controlLink}
-                      to="#"
+                      to={`/penduduk/${row._id}/d`}
                       color="primary"
                     >
                       Lihat Detail
