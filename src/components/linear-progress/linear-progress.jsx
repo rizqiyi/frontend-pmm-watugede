@@ -16,7 +16,7 @@ export const LinearProgComponent = () => {
         const diff = Math.random() * 10;
         return Math.min(oldProgress + diff, 100);
       });
-    }, 100);
+    }, 500);
 
     return () => {
       clearInterval(timer);
@@ -26,7 +26,7 @@ export const LinearProgComponent = () => {
   const isLoading = useSelector((state) => state.users.isLoading);
   return isLoading ? (
     <div className={classes.linear}>
-      <LinearProgress variant="determinate" value={progress} />
+      <LinearProgress value={progress} />
     </div>
   ) : null;
 };

@@ -1,6 +1,104 @@
-import { Typography } from "@material-ui/core";
-import React from "react";
+import {
+  Box,
+  Button,
+  Paper,
+  Table,
+  TableContainer,
+  TablePagination,
+  Typography,
+  useMediaQuery,
+} from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { TableBodyComponent } from "../../components/penduduk-components/table-body/table-body";
+import { EnhancedTableHead } from "../../components/penduduk-components/table-head/table-head";
+import { fetchPenduduk } from "../../reducers/penduduk/penduduk.actions";
+import { useStyles } from "./penduduk.style";
 
 export const PendudukPage = () => {
-  return <Typography>Hello Penduduk</Typography>;
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("");
+  const classes = useStyles();
+  const matches = useMediaQuery("(max-width:600px)");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPenduduk());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const data = useSelector((state) => state.penduduks.penduduk);
+  const rows = data.map((d) => d);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+
+  return (
+    <React.Fragment>
+      <Box marginBottom={2}>
+        <Button
+          color="primary"
+          className={classes.textButton}
+          startIcon={<AddIcon />}
+          variant="contained"
+        >
+          Tambah Penduduk
+        </Button>
+      </Box>
+      <div className={classes.root}>
+        <Box marginTop={3} marginBottom={matches ? 10 : 2}>
+          <Paper className={classes.paper}>
+            <Box p={2}>
+              <Typography variant="h6">Daftar Penduduk</Typography>
+            </Box>
+            <TableContainer>
+              <Table
+                className={classes.table}
+                aria-labelledby="tableTitle"
+                aria-label="enhanced table"
+              >
+                <EnhancedTableHead
+                  classes={classes}
+                  order={order}
+                  orderBy={orderBy}
+                  setOrder={setOrder}
+                  setOrderBy={setOrderBy}
+                  rowCount={rows.length}
+                />
+                <TableBodyComponent
+                  rows={rows}
+                  order={order}
+                  orderBy={orderBy}
+                  page={page}
+                  rowsPerPage={rowsPerPage}
+                  emptyRows={emptyRows}
+                />
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </Box>
+      </div>
+    </React.Fragment>
+  );
 };
