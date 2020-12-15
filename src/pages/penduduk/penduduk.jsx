@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Divider,
   Paper,
   Table,
   TableContainer,
@@ -16,6 +17,7 @@ import { PendudukTableBodyComponent } from "../../components/penduduk-components
 import { PendudukEnhancedTableHead } from "../../components/penduduk-components/table-head/table-head";
 import { fetchPenduduk } from "../../reducers/penduduk/penduduk.actions";
 import { useStyles } from "./penduduk.style";
+import GetAppIcon from "@material-ui/icons/GetApp";
 
 export const PendudukPage = () => {
   const [page, setPage] = useState(0);
@@ -58,6 +60,21 @@ export const PendudukPage = () => {
           variant="contained"
         >
           Tambah Penduduk
+        </Button>
+      </Box>
+      <Box marginTop={2} marginBottom={2}>
+        <Divider />
+      </Box>
+      <Box display="flex" justifyContent="flex-end">
+        <Button
+          color="primary"
+          component={Link}
+          to="#!"
+          size="small"
+          startIcon={<GetAppIcon />}
+          variant="contained"
+        >
+          Download CSV
         </Button>
       </Box>
       <div className={classes.root}>

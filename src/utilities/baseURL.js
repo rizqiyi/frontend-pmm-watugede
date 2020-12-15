@@ -12,4 +12,7 @@ const initialURL = {
   keteranganURI: `${baseURL}api/keterangan`,
 };
 
-export default initialURL;
+const getPendudukById = (id) => `${initialURL.pendudukURI}/${id}`;
+const updatePendudukURI = (id) => `${initialURL.pendudukURI}/${id}`;
+
+export { initialURL, getPendudukById, updatePendudukURI };

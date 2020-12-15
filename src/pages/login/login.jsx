@@ -10,10 +10,10 @@ import { useFormik } from "formik";
 import { loginAdmin } from "../../reducers/users/users.actions";
 import { connect, useSelector } from "react-redux";
 import { Alert, AlertTitle } from "@material-ui/lab";
-import { clearErrors } from "../../reducers/errors/error.actions";
+import { clearInfos } from "../../reducers/infos/info.actions";
 import { LinearProgComponent } from "../../components/linear-progress/linear-progress";
 
-const LoginPage = ({ loginAdmin, clearErrors }) => {
+const LoginPage = ({ loginAdmin, clearInfos }) => {
   const classes = useStyles();
   const history = useHistory();
   const isFirstRender = useRef(true);
@@ -22,9 +22,9 @@ const LoginPage = ({ loginAdmin, clearErrors }) => {
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
-      clearErrors();
+      clearInfos();
     }
-  }, [clearErrors]);
+  }, [clearInfos]);
 
   const formik = useFormik({
     initialValues: {
@@ -110,7 +110,7 @@ const LoginPage = ({ loginAdmin, clearErrors }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loginAdmin: (values, onSuccess) => dispatch(loginAdmin(values, onSuccess)),
-    clearErrors: () => dispatch(clearErrors()),
+    clearInfos: () => dispatch(clearInfos()),
   };
 };
 

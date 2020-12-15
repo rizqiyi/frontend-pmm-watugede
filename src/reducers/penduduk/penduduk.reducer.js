@@ -21,11 +21,26 @@ export const pendudukReducer = (state = initialState, action) => {
         penduduk: action.payload,
       };
 
+    case Types.FETCH_PENDUDUK_SUCCESS_BY_ID:
+    case Types.PUT_PENDUDUK_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        penduduk_obj: action.payload,
+      };
+
     case Types.POST_PENDUDUK_SUCCESS:
       return {
         ...state,
         isLoading: false,
         penduduk_obj: action.payload,
+      };
+
+    case Types.DELETE_PENDUDUK_SUCCESS:
+      return {
+        ...state,
+        penduduk: state.penduduk.filter((d) => d._id !== action.payload.id),
+        isLoading: false,
       };
 
     default:

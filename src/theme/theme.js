@@ -8,6 +8,9 @@ export const theme = createMuiTheme({
     secondary: {
       main: "#2F14DE",
     },
+    error: {
+      main: "#d50000",
+    },
   },
   typography: {
     fontFamily: ["Noto Sans JP", "sans-serif"].join(","),

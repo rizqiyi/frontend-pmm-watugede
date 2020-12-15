@@ -1,7 +1,7 @@
 import userTypes from "./users.types";
 import axios from "axios";
-import initialURL from "../../utilities/baseURL";
-import { returnErrors } from "../errors/error.actions";
+import { initialURL } from "../../utilities/baseURL";
+import { returnInfos } from "../infos/info.actions";
 
 export const loadAdmin = () => (dispatch, getState) => {
   dispatch({
@@ -17,7 +17,7 @@ export const loadAdmin = () => (dispatch, getState) => {
       });
     })
     .catch((err) => {
-      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch(returnInfos(err.response.data, err.response.status));
       dispatch({
         type: userTypes.AUTH_ERROR,
       });
@@ -47,7 +47,7 @@ export const loginAdmin = ({ username, password }, onSuccess) => (dispatch) => {
     .then(() => onSuccess())
     .catch((err) => {
       dispatch(
-        returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
+        returnInfos(err.response.data, err.response.status, "LOGIN_FAIL")
       );
 
       dispatch({

@@ -1,4 +1,4 @@
-import Types from "./error.types";
+import Types from "./info.types";
 
 const initialState = {
   message: {},
@@ -6,16 +6,16 @@ const initialState = {
   id: null,
 };
 
-const errorsReducer = (state = initialState, action) => {
+const infoReducer = (state = initialState, action) => {
   switch (action.type) {
-    case Types.GET_ERRORS:
+    case Types.GET_INFO:
       return {
         message: action.payload.message,
         status: action.payload.status,
         id: action.payload.id,
       };
 
-    case Types.CLEAR_ERRORS:
+    case Types.CLEAR_INFO:
       return {
         message: {},
         status: null,
@@ -27,4 +27,4 @@ const errorsReducer = (state = initialState, action) => {
   }
 };
 
-export default errorsReducer;
+export default infoReducer;
