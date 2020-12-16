@@ -1,5 +1,12 @@
-import { Box, Button, Paper, Typography } from "@material-ui/core";
-import React, { useEffect, useRef } from "react";
+import {
+  Box,
+  Button,
+  IconButton,
+  Paper,
+  Snackbar,
+  Typography,
+} from "@material-ui/core";
+import React, { useEffect, useRef, useState } from "react";
 import { useStyles } from "./login.style";
 import {
   PasswordField,
@@ -9,9 +16,14 @@ import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import { loginAdmin } from "../../reducers/users/users.actions";
 import { connect, useSelector } from "react-redux";
-import { Alert, AlertTitle } from "@material-ui/lab";
 import { clearInfos } from "../../reducers/infos/info.actions";
 import { LinearProgComponent } from "../../components/linear-progress/linear-progress";
+import MuiAlert from "@material-ui/lab/Alert";
+import CloseIcon from "@material-ui/icons/Close";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const LoginPage = ({ loginAdmin, clearInfos }) => {
   const classes = useStyles();
@@ -19,12 +31,28 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
   const isFirstRender = useRef(true);
   const isError = useSelector((state) => state.infos);
 
+  console.log(isError);
+
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
       clearInfos();
     }
   }, [clearInfos]);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -34,6 +62,8 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
     onSubmit: (values) => {
       const onSuccess = () => history.push("/");
       loginAdmin(values, onSuccess);
+      handleClick();
+      clearInfos();
     },
   });
 
@@ -53,12 +83,6 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
           p={3}
           paddingBottom={6}
         >
-          {isError.id === "LOGIN_FAIL" ? (
-            <Alert severity="error">
-              <AlertTitle>Login Fail</AlertTitle>
-              <strong>{isError.message.message}!</strong>
-            </Alert>
-          ) : null}
           <Box
             marginLeft={5}
             marginTop={3}
@@ -103,6 +127,30 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
           </Box>
         </Box>
       </Paper>
+      {isError.id === "LOGIN_FAIL" ? (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          message={`${isError.message.message}`}
+          action={
+            <React.Fragment>
+              <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </React.Fragment>
+          }
+        />
+      ) : null}
     </React.Fragment>
   );
 };

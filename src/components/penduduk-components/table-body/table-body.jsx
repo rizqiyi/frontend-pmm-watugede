@@ -27,7 +27,9 @@ export const PendudukTableBodyComponent = ({ ...props }) => {
                   {row.tempat_tanggal_lahir}
                 </TableCell>
                 <TableCell align="left">{row.umur}</TableCell>
-                <TableCell align="left">{row.alamat_asal}</TableCell>
+                <TableCell align="left" className={classes.controlText}>
+                  {row.alamat_asal}
+                </TableCell>
                 <TableCell align="left">{row.jenis_kelamin}</TableCell>
                 <TableCell align="left">
                   <Typography variant="body2">

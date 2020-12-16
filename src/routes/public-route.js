@@ -9,7 +9,7 @@ const PublicRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        isAuthenticated && isSuccess ? (
+        isAuthenticated && isSuccess && localStorage.getItem("token") ? (
           <Redirect to="/" />
         ) : (
           <Component {...props} />

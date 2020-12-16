@@ -1,7 +1,7 @@
 import userTypes from "./users.types";
 import axios from "axios";
 import { initialURL } from "../../utilities/baseURL";
-import { returnInfos } from "../infos/info.actions";
+import { clearInfos, returnInfos } from "../infos/info.actions";
 
 export const loadAdmin = () => (dispatch, getState) => {
   dispatch({

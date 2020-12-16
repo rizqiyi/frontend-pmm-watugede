@@ -42,6 +42,8 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         token: null,
+        success: false,
+        message: "",
         isAuthenticated: false,
         isLoading: false,
         isComplete: false,
