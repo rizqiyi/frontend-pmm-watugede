@@ -1,16 +1,26 @@
 import { Box, Button, Divider, Typography } from "@material-ui/core";
 import { FastField, Form, Formik } from "formik";
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useRef } from "react";
+import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { postPenduduk } from "../../../reducers/penduduk/penduduk.actions";
 import { useStyles } from "./insert.style";
 import { pendudukInsertValidation } from "../../../validations/penduduk";
 import { TextFormField } from "../../../components/styled-textfield/styled-textfield";
+import Alert from "@material-ui/lab/Alert";
+import { clearInfos } from "../../../reducers/infos/info.actions";
 
-export const PendudukInsertPage = () => {
+const PendudukInsertPage = ({ clearInfos, infos }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      clearInfos();
+    }
+  }, [clearInfos]);
 
   return (
     <React.Fragment>
@@ -39,6 +49,11 @@ export const PendudukInsertPage = () => {
       >
         {() => (
           <Form>
+            {infos.status ? (
+              <Box marginLeft={1.4} width="95%" marginBottom={2}>
+                <Alert>{infos.message}</Alert>
+              </Box>
+            ) : null}
             <FastField
               component={TextFormField}
               label="Nomor Induk Keluarga"
@@ -152,3 +167,17 @@ export const PendudukInsertPage = () => {
     </React.Fragment>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+    infos: state.infos,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearInfos: () => dispatch(clearInfos()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PendudukInsertPage);

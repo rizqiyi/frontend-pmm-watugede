@@ -5,7 +5,7 @@ import DashboardPage from "../pages/dashboard/dashboard";
 import LoginPage from "../pages/login/login";
 import { PendudukPage } from "../pages/penduduk/penduduk";
 import PendudukDetailsPage from "../pages/penduduk/details/details";
-import { PendudukInsertPage } from "../pages/penduduk/insert/insert";
+import PendudukInsertPage from "../pages/penduduk/insert/insert";
 import { PendudukMasukPage } from "../pages/penduduk-masuk/penduduk-masuk";
 import { PendudukKeluarPage } from "../pages/penduduk-keluar/penduduk-keluar";
 import { KelahiranPage } from "../pages/kelahiran/kelahiran";

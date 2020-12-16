@@ -1,28 +1,21 @@
 import { Box, Button, Divider, Typography } from "@material-ui/core";
 import { FastField, Form, Formik } from "formik";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { TextFormField } from "../../../components/styled-textfield/styled-textfield";
 import { clearInfos } from "../../../reducers/infos/info.actions";
 import {
-  deletePenduduk,
   fetchPendudukById,
   patchPenduduk,
 } from "../../../reducers/penduduk/penduduk.actions";
 import { useStyles } from "./details.style";
+import DeleteActions from "./delete-actions/delete-actions";
 
 const PendudukDetailsPage = ({ ...props }) => {
-  const {
-    match,
-    fetchPenduduk,
-    admin,
-    updatePenduduk,
-    deletePenduduk,
-    clearInfos,
-  } = props;
+  const { match, fetchPenduduk, admin, updatePenduduk, clearInfos } = props;
   const paramsId = match.params.id;
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
   const isFirstRender = useRef(true);
 
   useEffect(() => {
@@ -38,7 +31,13 @@ const PendudukDetailsPage = ({ ...props }) => {
     return data ? data : "";
   };
 
-  const history = useHistory();
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <React.Fragment>
@@ -48,31 +47,16 @@ const PendudukDetailsPage = ({ ...props }) => {
             Halaman Detail Informasi Penduduk
           </Typography>
         </Box>
-        <Formik
-          initialValues={{
-            id: params(admin._id),
-          }}
-          enableReinitialize={true}
-          onSubmit={(values) => {
-            const onSuccess = () => history.push("/penduduk");
-            deletePenduduk(values.id, onSuccess);
-          }}
-        >
-          {() => (
-            <Form>
-              <Box>
-                <Button
-                  size="small"
-                  className={classes.deleteButton}
-                  variant="contained"
-                  type="submit"
-                >
-                  Delete Penduduk
-                </Button>
-              </Box>
-            </Form>
-          )}
-        </Formik>
+        <Box>
+          <Button
+            size="small"
+            className={classes.deleteButton}
+            variant="contained"
+            onClick={handleClickOpen}
+          >
+            Delete Penduduk
+          </Button>
+        </Box>
       </Box>
       <Box marginTop={2} marginBottom={2}>
         <Divider />
@@ -206,6 +190,12 @@ const PendudukDetailsPage = ({ ...props }) => {
           </Form>
         )}
       </Formik>
+      <DeleteActions
+        open={open}
+        handleClose={handleClose}
+        params={params}
+        admin={admin}
+      />
     </React.Fragment>
   );
 };
@@ -220,7 +210,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchPenduduk: (id) => dispatch(fetchPendudukById(id)),
     updatePenduduk: (values, id) => dispatch(patchPenduduk(values, id)),
-    deletePenduduk: (id, onSuccess) => dispatch(deletePenduduk(id, onSuccess)),
     clearInfos: () => dispatch(clearInfos()),
   };
 };

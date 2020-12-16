@@ -52,6 +52,7 @@ export const postPenduduk = ({ ...request }) => (dispatch, getState) => {
         type: Types.POST_PENDUDUK_SUCCESS,
         payload: result.data,
       });
+      dispatch(returnInfos(result.data.message, result.data.success));
     })
     .catch((err) => {
       returnInfos(err.response.message, err.response.status);

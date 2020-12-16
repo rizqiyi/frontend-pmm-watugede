@@ -17,7 +17,7 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
   const classes = useStyles();
   const history = useHistory();
   const isFirstRender = useRef(true);
-  const isError = useSelector((state) => state.errors);
+  const isError = useSelector((state) => state.infos);
 
   useEffect(() => {
     if (isFirstRender.current) {
