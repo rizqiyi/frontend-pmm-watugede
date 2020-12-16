@@ -1,7 +1,7 @@
 import userTypes from "./users.types";
 import axios from "axios";
 import { initialURL } from "../../utilities/baseURL";
-import { clearInfos, returnInfos } from "../infos/info.actions";
+import { returnInfos } from "../infos/info.actions";
 
 export const loadAdmin = () => (dispatch, getState) => {
   dispatch({
@@ -43,6 +43,7 @@ export const loginAdmin = ({ username, password }, onSuccess) => (dispatch) => {
         type: userTypes.LOGIN_SUCCESS,
         payload: res.data,
       });
+      dispatch(returnInfos(res.data.message, 200, "LOGIN_SUCCESS"));
     })
     .then(() => onSuccess())
     .catch((err) => {

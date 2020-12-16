@@ -10,9 +10,17 @@ import {
 } from "../../../reducers/penduduk/penduduk.actions";
 import { useStyles } from "./details.style";
 import DeleteActions from "./delete-actions/delete-actions";
+import Alert from "@material-ui/lab/Alert";
 
 const PendudukDetailsPage = ({ ...props }) => {
-  const { match, fetchPenduduk, admin, updatePenduduk, clearInfos } = props;
+  const {
+    match,
+    fetchPenduduk,
+    admin,
+    updatePenduduk,
+    clearInfos,
+    infos,
+  } = props;
   const paramsId = match.params.id;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -61,6 +69,11 @@ const PendudukDetailsPage = ({ ...props }) => {
       <Box marginTop={2} marginBottom={2}>
         <Divider />
       </Box>
+      {infos.status === 200 ? (
+        <Box marginLeft={1.4} width="95%" marginBottom={1}>
+          <Alert>{infos.message}</Alert>
+        </Box>
+      ) : null}
       <Formik
         // validationSchema={pendudukInsertValidation}
         initialValues={{
@@ -203,6 +216,7 @@ const PendudukDetailsPage = ({ ...props }) => {
 const mapStateToProps = (state) => {
   return {
     admin: state.penduduks.penduduk_obj,
+    infos: state.infos,
   };
 };
 

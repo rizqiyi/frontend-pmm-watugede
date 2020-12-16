@@ -6,7 +6,7 @@ import {
   ListItemText,
   Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ListItem, useStyles } from "./list-items.style";
 import { Link } from "react-router-dom";
 import {
@@ -14,16 +14,23 @@ import {
   controlSpace,
   controlTextMenu,
 } from "../../utilities/list-items";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 export const ListItemsComponent = () => {
   const [selected, setSelected] = useState(0);
   const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
   const updateSelected = (event, selectedIndex) => {
     setSelected(selectedIndex);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const linkPath = () => {
       let path = window.location.pathname;
       let menuPath = [];
@@ -50,39 +57,50 @@ export const ListItemsComponent = () => {
                 {controlTextMenu(list)}
               </Typography>
               <Link to={list.link} className={classes.itemText}>
-                {idx > 3 && idx < 6 ? (
-                  <Collapse key={idx} in={true}>
-                    <List component="div" disablePadding>
-                      <ListItem
-                        button
-                        className={classes.selectedBorderRadiusNested}
-                        selected={selected === idx}
-                        onClick={(event) => updateSelected(event, idx)}
-                      >
-                        <ListItemIcon
-                          className={
-                            selected === idx
-                              ? classes.selectedIcons
-                              : classes.notSelectedIcons
-                          }
-                        >
-                          {selected === idx
-                            ? list.icons.containedIcon
-                            : list.icons.outlinedIcon}
-                        </ListItemIcon>
+                {idx > 2 && idx < 6 ? (
+                  <Box>
+                    {idx === 3 ? (
+                      <ListItem button onClick={handleClick}>
                         <ListItemText
-                          primary={
-                            <Typography
-                              className={classes.controlFont}
-                              variant="subtitle2"
-                            >
-                              {list.name}
-                            </Typography>
-                          }
+                          className={classes.textVillage}
+                          primary="Kependudukan"
                         />
+                        {open ? <ExpandLess /> : <ExpandMore />}
                       </ListItem>
-                    </List>
-                  </Collapse>
+                    ) : null}
+                    <Collapse key={idx} in={open}>
+                      <List component="div" disablePadding>
+                        <ListItem
+                          button
+                          className={classes.selectedBorderRadiusNested}
+                          selected={selected === idx}
+                          onClick={(event) => updateSelected(event, idx)}
+                        >
+                          <ListItemIcon
+                            className={
+                              selected === idx
+                                ? classes.selectedIcons
+                                : classes.notSelectedIcons
+                            }
+                          >
+                            {selected === idx
+                              ? list.icons.containedIcon
+                              : list.icons.outlinedIcon}
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={
+                              <Typography
+                                className={classes.controlFont}
+                                variant="subtitle2"
+                              >
+                                {list.name}
+                              </Typography>
+                            }
+                          />
+                        </ListItem>
+                      </List>
+                    </Collapse>
+                  </Box>
                 ) : (
                   <ListItem
                     button

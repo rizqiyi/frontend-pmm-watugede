@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  Paper,
-  Snackbar,
-  Typography,
-} from "@material-ui/core";
+import { Box, Button, Paper, Snackbar, Typography } from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import { useStyles } from "./login.style";
 import {
@@ -18,20 +11,20 @@ import { loginAdmin } from "../../reducers/users/users.actions";
 import { connect, useSelector } from "react-redux";
 import { clearInfos } from "../../reducers/infos/info.actions";
 import { LinearProgComponent } from "../../components/linear-progress/linear-progress";
-import MuiAlert from "@material-ui/lab/Alert";
-import CloseIcon from "@material-ui/icons/Close";
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+import Alert from "@material-ui/lab/Alert";
 
 const LoginPage = ({ loginAdmin, clearInfos }) => {
   const classes = useStyles();
   const history = useHistory();
   const isFirstRender = useRef(true);
   const isError = useSelector((state) => state.infos);
+  const [state, setState] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
 
-  console.log(isError);
+  const { vertical, horizontal, open } = state;
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -40,18 +33,8 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
     }
   }, [clearInfos]);
 
-  const [open, setOpen] = useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
+  const handleClose = () => {
+    setState({ ...state, open: false });
   };
 
   const formik = useFormik({
@@ -59,10 +42,11 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
       username: "",
       password: "",
     },
+    enableReinitialize: true,
     onSubmit: (values) => {
       const onSuccess = () => history.push("/");
       loginAdmin(values, onSuccess);
-      handleClick();
+      setState({ open: true, vertical: "bottom", horizontal: "left" });
       clearInfos();
     },
   });
@@ -129,27 +113,16 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
       </Paper>
       {isError.id === "LOGIN_FAIL" ? (
         <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
+          anchorOrigin={{ vertical, horizontal }}
           open={open}
-          autoHideDuration={6000}
+          autoHideDuration={4000}
           onClose={handleClose}
-          message={`${isError.message.message}`}
-          action={
-            <React.Fragment>
-              <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={handleClose}
-              >
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </React.Fragment>
-          }
-        />
+          key={vertical + horizontal}
+        >
+          <Alert variant="filled" severity="error" onClose={handleClose}>
+            {isError.message.message}
+          </Alert>
+        </Snackbar>
       ) : null}
     </React.Fragment>
   );

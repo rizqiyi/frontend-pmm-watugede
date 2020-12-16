@@ -49,7 +49,7 @@ const PendudukInsertPage = ({ clearInfos, infos }) => {
       >
         {() => (
           <Form>
-            {infos.status ? (
+            {infos.status === 200 ? (
               <Box marginLeft={1.4} width="95%" marginBottom={2}>
                 <Alert>{infos.message}</Alert>
               </Box>

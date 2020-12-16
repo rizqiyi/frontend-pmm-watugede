@@ -74,9 +74,6 @@ const listMenu = [
 
 const controlTextMenu = (params) => {
   switch (params.name) {
-    case "Penduduk":
-      return "Kependudukan";
-
     case "Activity Logs":
       return "Aktifitas Admin";
 

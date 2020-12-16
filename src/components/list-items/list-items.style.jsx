@@ -11,7 +11,7 @@ export const useStyles = makeStyles((theme) => ({
     color: "black",
   },
   selectedBorderRadiusNested: {
-    paddingLeft: theme.spacing(4),
+    paddingLeft: theme.spacing(6),
   },
   controlText: {
     marginLeft: theme.spacing(2),
@@ -25,6 +25,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   selectedText: {
     borderBottom: "3px solid black",
+  },
+  textVillage: {
+    paddingRight: theme.spacing(4),
   },
 }));
 

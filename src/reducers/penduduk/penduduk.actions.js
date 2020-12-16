@@ -71,6 +71,7 @@ export const patchPenduduk = ({ ...request }, id) => (dispatch, getState) => {
         type: Types.PUT_PENDUDUK_SUCCESS,
         payload: result.data,
       });
+      dispatch(returnInfos(result.data.message, result.status));
     })
     .then(() => dispatch(fetchPendudukById(id)))
     .catch((err) => {
