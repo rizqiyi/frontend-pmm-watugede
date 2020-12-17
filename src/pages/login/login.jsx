@@ -10,7 +10,7 @@ import { useFormik } from "formik";
 import { loginAdmin } from "../../reducers/users/users.actions";
 import { connect, useSelector } from "react-redux";
 import { clearInfos } from "../../reducers/infos/info.actions";
-import { LinearProgComponent } from "../../components/linear-progress/linear-progress";
+import LinearProgComponent from "../../components/linear-progress/linear-progress";
 import Alert from "@material-ui/lab/Alert";
 
 const LoginPage = ({ loginAdmin, clearInfos }) => {

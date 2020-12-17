@@ -52,7 +52,7 @@ export const postPenduduk = ({ ...request }) => (dispatch, getState) => {
         type: Types.POST_PENDUDUK_SUCCESS,
         payload: result.data,
       });
-      dispatch(returnInfos(result.data.message, result.data.success));
+      dispatch(returnInfos(result.data.message, 200));
     })
     .catch((err) => {
       returnInfos(err.response.message, err.response.status);
@@ -71,7 +71,9 @@ export const patchPenduduk = ({ ...request }, id) => (dispatch, getState) => {
         type: Types.PUT_PENDUDUK_SUCCESS,
         payload: result.data,
       });
-      dispatch(returnInfos(result.data.message, result.status));
+      dispatch(
+        returnInfos(result.data.message, result.status, "UPDATED_PENDUDUK")
+      );
     })
     .then(() => dispatch(fetchPendudukById(id)))
     .catch((err) => {
@@ -89,7 +91,7 @@ export const deletePenduduk = (id, onSuccess) => (dispatch, getState) => {
         type: Types.DELETE_PENDUDUK_SUCCESS,
         payload: { id, data: result.data },
       });
-      dispatch(returnInfos(result.data.message, result.data.success));
+      dispatch(returnInfos(result.data.message, 200, "DELETE_SUCCESS"));
     })
     .then(() => onSuccess())
     .catch((err) => {

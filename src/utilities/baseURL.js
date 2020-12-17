@@ -14,5 +14,11 @@ const initialURL = {
 
 const getPendudukById = (id) => `${initialURL.pendudukURI}/${id}`;
 const updatePendudukURI = (id) => `${initialURL.pendudukURI}/${id}`;
+const postPengikutKeluarURI = (id) => `${initialURL.pendudukKeluarURI}/${id}`;
 
-export { initialURL, getPendudukById, updatePendudukURI };
+export {
+  initialURL,
+  getPendudukById,
+  updatePendudukURI,
+  postPengikutKeluarURI,
+};

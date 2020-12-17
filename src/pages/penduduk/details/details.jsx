@@ -11,6 +11,9 @@ import {
 import { useStyles } from "./details.style";
 import DeleteActions from "./delete-actions/delete-actions";
 import Alert from "@material-ui/lab/Alert";
+import LinearProgComponent from "../../../components/linear-progress/linear-progress";
+import { Link } from "react-router-dom";
+import { TextLink } from "../../../components/text-link/text-link";
 
 const PendudukDetailsPage = ({ ...props }) => {
   const {
@@ -20,6 +23,7 @@ const PendudukDetailsPage = ({ ...props }) => {
     updatePenduduk,
     clearInfos,
     infos,
+    isLoading,
   } = props;
   const paramsId = match.params.id;
   const classes = useStyles();
@@ -49,27 +53,22 @@ const PendudukDetailsPage = ({ ...props }) => {
 
   return (
     <React.Fragment>
-      <Box display="flex" justifyContent="space-between">
-        <Box>
-          <Typography variant="h6">
-            Halaman Detail Informasi Penduduk
-          </Typography>
-        </Box>
-        <Box>
-          <Button
-            size="small"
-            className={classes.deleteButton}
-            variant="contained"
-            onClick={handleClickOpen}
-          >
-            Delete Penduduk
-          </Button>
-        </Box>
+      <TextLink
+        data="Detail Penduduk"
+        link="/penduduk"
+        component={
+          <Box marginRight={1}>
+            <Typography>/</Typography>
+          </Box>
+        }
+      />
+      <Box marginTop={5}>
+        <Typography variant="h6">Halaman Detail Informasi Penduduk</Typography>
       </Box>
       <Box marginTop={2} marginBottom={2}>
         <Divider />
       </Box>
-      {infos.status === 200 ? (
+      {infos.id === "UPDATED_PENDUDUK" ? (
         <Box marginLeft={1.4} width="95%" marginBottom={1}>
           <Alert>{infos.message}</Alert>
         </Box>
@@ -97,103 +96,127 @@ const PendudukDetailsPage = ({ ...props }) => {
       >
         {() => (
           <Form>
-            <FastField
-              component={TextFormField}
-              label="Nomor Induk Keluarga"
-              name="nik"
-              id="nik"
-              size="small"
-              className={classes.largeTextField}
-              variant="filled"
-            />
-            <FastField
-              component={TextFormField}
-              label="Nama Lengkap"
-              name="nama_lengkap"
-              size="small"
-              id="nama_lengkap"
-              className={classes.largeTextField}
-              variant="filled"
-            />
-            <FastField
-              component={TextFormField}
-              label="Jenis Kelamin"
-              name="jenis_kelamin"
-              size="small"
-              id="jenis_kelamin"
-              className={classes.smallTextField}
-              variant="filled"
-            />
-            <FastField
-              component={TextFormField}
-              label="Tempat Tanggal Lahir"
-              name="tempat_tanggal_lahir"
-              size="small"
-              id="tempat_tanggal_lahir"
-              className={classes.largeTextField}
-              variant="filled"
-            />
-            <FastField
-              component={TextFormField}
-              label="Umur"
-              name="umur"
-              size="small"
-              className={classes.smallTextField}
-              variant="filled"
-            />
-            <FastField
-              component={TextFormField}
-              label="Agama"
-              name="agama"
-              size="small"
-              className={classes.smallTextField}
-              variant="filled"
-            />
-            <FastField
-              component={TextFormField}
-              label="Status Perkawinan"
-              name="status_perkawinan"
-              size="small"
-              className={classes.smallTextField}
-              variant="filled"
-            />
-            <FastField
-              component={TextFormField}
-              label="Pekerjaan"
-              name="pekerjaan"
-              size="small"
-              className={classes.pekerjaanField}
-              variant="filled"
-            />
-            <FastField
-              component={TextFormField}
-              label="Pendidikan Terakhir"
-              name="pendidikan_terakhir"
-              size="small"
-              className={classes.mediumTextField}
-              variant="filled"
-            />
-            <FastField
-              component={TextFormField}
-              label="Posisi Dalam Keluarga"
-              name="posisi_dalam_keluarga"
-              size="small"
-              className={classes.mediumTextField}
-              variant="filled"
-            />
-            <FastField
-              component={TextFormField}
-              label="Alamat"
-              name="alamat_asal"
-              size="small"
-              className={classes.largeTextField}
-              variant="filled"
-            />
-
+            {isLoading ? (
+              <LinearProgComponent />
+            ) : (
+              <Box>
+                <FastField
+                  component={TextFormField}
+                  label="Nomor Induk Keluarga"
+                  name="nik"
+                  id="nik"
+                  size="small"
+                  className={classes.largeTextField}
+                  variant="filled"
+                />
+                <FastField
+                  component={TextFormField}
+                  label="Nama Lengkap"
+                  name="nama_lengkap"
+                  size="small"
+                  id="nama_lengkap"
+                  className={classes.largeTextField}
+                  variant="filled"
+                />
+                <FastField
+                  component={TextFormField}
+                  label="Jenis Kelamin"
+                  name="jenis_kelamin"
+                  size="small"
+                  id="jenis_kelamin"
+                  className={classes.smallTextField}
+                  variant="filled"
+                />
+                <FastField
+                  component={TextFormField}
+                  label="Tempat Tanggal Lahir"
+                  name="tempat_tanggal_lahir"
+                  size="small"
+                  id="tempat_tanggal_lahir"
+                  className={classes.largeTextField}
+                  variant="filled"
+                />
+                <FastField
+                  component={TextFormField}
+                  label="Umur"
+                  name="umur"
+                  size="small"
+                  className={classes.smallTextField}
+                  variant="filled"
+                />
+                <FastField
+                  component={TextFormField}
+                  label="Agama"
+                  name="agama"
+                  size="small"
+                  className={classes.smallTextField}
+                  variant="filled"
+                />
+                <FastField
+                  component={TextFormField}
+                  label="Status Perkawinan"
+                  name="status_perkawinan"
+                  size="small"
+                  className={classes.smallTextField}
+                  variant="filled"
+                />
+                <FastField
+                  component={TextFormField}
+                  label="Pekerjaan"
+                  name="pekerjaan"
+                  size="small"
+                  className={classes.pekerjaanField}
+                  variant="filled"
+                />
+                <FastField
+                  component={TextFormField}
+                  label="Pendidikan Terakhir"
+                  name="pendidikan_terakhir"
+                  size="small"
+                  className={classes.mediumTextField}
+                  variant="filled"
+                />
+                <FastField
+                  component={TextFormField}
+                  label="Posisi Dalam Keluarga"
+                  name="posisi_dalam_keluarga"
+                  size="small"
+                  className={classes.mediumTextField}
+                  variant="filled"
+                />
+                <FastField
+                  component={TextFormField}
+                  label="Alamat"
+                  name="alamat_asal"
+                  size="small"
+                  className={classes.largeTextField}
+                  variant="filled"
+                />
+              </Box>
+            )}
             <Box marginTop={2} marginBottom={2}>
               <Divider />
             </Box>
             <Box display="flex" justifyContent="flex-end">
+              <Box marginRight={3}>
+                <Button
+                  className={classes.deleteButton}
+                  variant="contained"
+                  onClick={handleClickOpen}
+                >
+                  Delete Penduduk
+                </Button>
+              </Box>
+              <Box marginRight={3}>
+                <Button
+                  variant="contained"
+                  component={Link}
+                  to={`/penduduk/p/mutasi_keluar/${paramsId}`}
+                  className={classes.buttonWarning}
+                >
+                  Mutasi Keluar Penduduk
+                </Button>
+              </Box>
               <Box>
                 <Button variant="contained" color="primary" type="submit">
                   Update Penduduk
@@ -217,6 +240,7 @@ const mapStateToProps = (state) => {
   return {
     admin: state.penduduks.penduduk_obj,
     infos: state.infos,
+    isLoading: state.penduduks.isLoading,
   };
 };
 

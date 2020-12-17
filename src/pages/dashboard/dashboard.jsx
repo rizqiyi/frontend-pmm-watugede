@@ -18,7 +18,7 @@ const DashboardPage = ({ infos, clearInfos }) => {
     <React.Fragment>
       {infos.id === "LOGIN_SUCCESS" ? (
         <Box marginLeft={1.4} width="95%" marginBottom={2}>
-          <Alert>{infos.message}</Alert>
+          <Alert icon={false}>{infos.message}</Alert>
         </Box>
       ) : null}
     </React.Fragment>

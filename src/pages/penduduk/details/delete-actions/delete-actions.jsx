@@ -49,7 +49,6 @@ export const DeleteActions = ({
             }}
             enableReinitialize={true}
             onSubmit={(values) => {
-              console.log(values);
               const onSuccess = () => history.push("/penduduk");
               deletePenduduk(values.id, onSuccess);
             }}

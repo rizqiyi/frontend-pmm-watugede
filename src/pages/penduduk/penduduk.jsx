@@ -18,6 +18,7 @@ import { PendudukEnhancedTableHead } from "../../components/penduduk-components/
 import { fetchPenduduk } from "../../reducers/penduduk/penduduk.actions";
 import { useStyles } from "./penduduk.style";
 import GetAppIcon from "@material-ui/icons/GetApp";
+import { clearInfos } from "../../reducers/infos/info.actions";
 
 export const PendudukPage = () => {
   const [page, setPage] = useState(0);
@@ -31,9 +32,10 @@ export const PendudukPage = () => {
   useEffect(() => {
     dispatch(fetchPenduduk());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [clearInfos]);
 
   const data = useSelector((state) => state.penduduks.penduduk);
+
   const rows = data.map((d) => d);
 
   const handleChangePage = (event, newPage) => {

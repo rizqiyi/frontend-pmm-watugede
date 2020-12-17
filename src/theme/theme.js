@@ -11,6 +11,9 @@ export const theme = createMuiTheme({
     error: {
       main: "#d50000",
     },
+    warning: {
+      main: "#ffab00",
+    },
   },
   typography: {
     fontFamily: ["Noto Sans JP", "sans-serif"].join(","),

@@ -13,6 +13,7 @@ import { KematianPage } from "../pages/kematian/kematian";
 import { ActivityPage } from "../pages/activity/activity";
 import PrivateRoute from "./private-route";
 import PublicRoute from "./public-route";
+import MutasiKeluarPage from "../pages/penduduk/mutasi-keluar/mutasi-keluar";
 
 const Navigations = () => {
   return (
@@ -25,6 +26,10 @@ const Navigations = () => {
           <PrivateRoute
             component={PendudukDetailsPage}
             path="/penduduk/:id/d"
+          />
+          <PrivateRoute
+            component={MutasiKeluarPage}
+            path="/penduduk/p/mutasi_keluar/:id"
           />
           <PrivateRoute
             component={PendudukInsertPage}

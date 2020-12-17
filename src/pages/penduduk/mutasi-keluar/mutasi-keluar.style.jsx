@@ -6,6 +6,11 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     width: "60%",
   },
+  namaLengkapTextField: {
+    margin: theme.spacing(1.5),
+    marginTop: theme.spacing(2),
+    width: "75%",
+  },
   mediumTextField: {
     margin: theme.spacing(1.5),
     marginTop: theme.spacing(2),
@@ -14,29 +19,14 @@ export const useStyles = makeStyles((theme) => ({
   smallTextField: {
     margin: theme.spacing(1.5),
     marginTop: theme.spacing(2),
-    width: "20%",
-  },
-  pekerjaanField: {
-    margin: theme.spacing(1.5),
-    marginTop: theme.spacing(2),
-    width: "30%",
-  },
-  buttonWarning: {
-    background: theme.palette.warning.main,
-    color: "#fff",
-    "&:hover": {
-      background: theme.palette.warning.main,
-    },
-  },
-  deleteButton: {
-    background: theme.palette.error.main,
-    color: "#fff",
-    "&:hover": {
-      background: theme.palette.error.main,
-    },
+    width: "25%",
   },
   controlLink: {
     textDecoration: "none",
     color: theme.palette.primary.main,
+  },
+  controlCurrentLink: {
+    textDecoration: "none",
+    color: "#424242",
   },
 }));
