@@ -43,8 +43,9 @@ const PendudukInsertPage = ({ clearInfos, infos }) => {
           posisi_dalam_keluarga: "",
           alamat_asal: "",
         }}
-        onSubmit={(values) => {
+        onSubmit={(values, { resetForm }) => {
           dispatch(postPenduduk(values));
+          resetForm({});
         }}
       >
         {() => (

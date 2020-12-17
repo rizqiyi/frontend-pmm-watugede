@@ -5,6 +5,7 @@ import {
   Box,
   Container,
   Divider,
+  Grid,
   Paper,
   Typography,
 } from "@material-ui/core";
@@ -12,6 +13,7 @@ import { useStyles } from "./mutasi-keluar-header.style";
 import { connect, useSelector } from "react-redux";
 import { getPengikutKeluar } from "../../reducers/pengikut_keluar/pengikut_keluar.actions";
 import { PaperPengikutKeluar } from "./pengikut-keluar/pengikut-keluar";
+import { KeteranganKeluarComponent } from "./keterangan-keluar/keterangan-keluar";
 
 const MutasiKeluarHeader = ({ ...props }) => {
   const classes = useStyles();
@@ -41,16 +43,15 @@ const MutasiKeluarHeader = ({ ...props }) => {
       <Box marginTop={2} marginBottom={2}>
         <Divider />
       </Box>
-      <Box marginTop={2} marginBottom={2}>
-        <Container maxWidth="md">
-          <Box>
-            <Typography variant="h6">Pengusul Pengikut Keluar</Typography>
-          </Box>
-        </Container>
-      </Box>
+
       <Container maxWidth="md">
         <Paper>
           <Box display="flex" flexDirection="column">
+            <Box marginTop={1} marginLeft={3}>
+              <Typography variant="h6" style={{ textDecoration: "underline" }}>
+                Pengusul Pengikut Keluar
+              </Typography>
+            </Box>
             <Box display="flex" p={3} flexDirection="row">
               <Box>
                 <Avatar style={{ height: "140px", width: "140px" }}>
@@ -125,21 +126,32 @@ const MutasiKeluarHeader = ({ ...props }) => {
               </Box>
             </Box>
           </Box>
+          <Box marginTop={2}>
+            <Divider />
+          </Box>
+          <Box marginTop={2} marginLeft={3}>
+            <Typography variant="h6">Keterangan Keluar</Typography>
+          </Box>
+          <KeteranganKeluarComponent />
         </Paper>
       </Container>
+      <Box marginTop={2} marginBottom={2}>
+        <Divider />
+      </Box>
       <Box marginTop={2} marginBottom={2} marginLeft={7}>
         <Box>
           <Typography variant="h6">Pengikut Keluar</Typography>
         </Box>
       </Box>
-      <Box marginTop={2} marginBottom={2}>
-        <Divider />
-      </Box>
-      <Box display="flex" justifyContent="center" flexDirection="row">
-        {pengikutKeluar.map((d, idx) => (
-          <PaperPengikutKeluar fixedData={fixedData} d={d} key={idx} />
-        ))}
-      </Box>
+      <Grid container spacing={3}>
+        <Grid container item spacing={3} justify="center" sm={12}>
+          {pengikutKeluar.map((d, idx) => (
+            <Grid item key={idx}>
+              <PaperPengikutKeluar fixedData={fixedData} d={d} key={idx} />
+            </Grid>
+          ))}
+        </Grid>
+      </Grid>
       <Box marginTop={2} marginBottom={2}>
         <Divider />
       </Box>

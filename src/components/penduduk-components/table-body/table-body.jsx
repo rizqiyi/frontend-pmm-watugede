@@ -3,9 +3,12 @@ import React from "react";
 import { useStyles } from "./table-body.style";
 import { getComparator, stableSort } from "../../../helpers/table";
 import { Link } from "react-router-dom";
+import { Skeleton } from "@material-ui/lab";
+import { useSelector } from "react-redux";
 
 export const PendudukTableBodyComponent = ({ ...props }) => {
   const classes = useStyles();
+  const isLoading = useSelector((state) => state.penduduks.isLoading);
 
   return (
     <React.Fragment>
@@ -19,28 +22,38 @@ export const PendudukTableBodyComponent = ({ ...props }) => {
             return (
               <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                 <TableCell></TableCell>
-                <TableCell align="left">{row.nik}</TableCell>
-                <TableCell align="left" className={classes.controlText}>
-                  {row.nama_lengkap}
-                </TableCell>
-                <TableCell align="left" className={classes.controlText}>
-                  {row.tempat_tanggal_lahir}
-                </TableCell>
-                <TableCell align="left">{row.umur}</TableCell>
-                <TableCell align="left" className={classes.controlText}>
-                  {row.alamat_asal}
-                </TableCell>
-                <TableCell align="left">{row.jenis_kelamin}</TableCell>
                 <TableCell align="left">
-                  <Typography variant="body2">
-                    <Link
-                      className={classes.controlLink}
-                      to={`/penduduk/${row._id}/d`}
-                      color="primary"
-                    >
-                      Lihat Detail
-                    </Link>
-                  </Typography>
+                  {isLoading ? <Skeleton /> : row.nik}
+                </TableCell>
+                <TableCell align="left" className={classes.controlText}>
+                  {isLoading ? <Skeleton /> : row.nama_lengkap}
+                </TableCell>
+                <TableCell align="left" className={classes.controlText}>
+                  {isLoading ? <Skeleton /> : row.tempat_tanggal_lahir}
+                </TableCell>
+                <TableCell align="left">
+                  {isLoading ? <Skeleton /> : row.umur}
+                </TableCell>
+                <TableCell align="left" className={classes.controlText}>
+                  {isLoading ? <Skeleton /> : row.alamat_asal}
+                </TableCell>
+                <TableCell align="left">
+                  {isLoading ? <Skeleton /> : row.jenis_kelamin}
+                </TableCell>
+                <TableCell align="left">
+                  {isLoading ? (
+                    <Skeleton />
+                  ) : (
+                    <Typography variant="body2">
+                      <Link
+                        className={classes.controlLink}
+                        to={`/penduduk/${row._id}/d`}
+                        color="primary"
+                      >
+                        Lihat Detail
+                      </Link>
+                    </Typography>
+                  )}
                 </TableCell>
               </TableRow>
             );

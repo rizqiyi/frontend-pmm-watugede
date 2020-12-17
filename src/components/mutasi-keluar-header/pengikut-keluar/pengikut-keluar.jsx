@@ -15,10 +15,10 @@ export const PaperPengikutKeluar = ({ d, fixedData }) => {
 
   return (
     <React.Fragment>
-      <Paper style={{ width: "fit-content", marginLeft: "10px" }}>
+      <Paper style={{ width: "fit-content" }}>
         <Box display="flex" flexDirection="column">
-          <Box display="flex" p={3} marginRight={3} flexDirection="row">
-            <Box marginLeft={5} display="flex" flexDirection="column">
+          <Box display="flex" p={3} flexDirection="row">
+            <Box display="flex" flexDirection="column">
               <Box>
                 <Typography
                   variant="subtitle2"

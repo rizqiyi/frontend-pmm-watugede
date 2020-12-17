@@ -7,6 +7,7 @@ import { useStyles } from "./mutasi-keluar.style";
 import { TextFormField } from "../../../components/styled-textfield/styled-textfield";
 import { postPengikutKeluar } from "../../../reducers/pengikut_keluar/pengikut_keluar.actions";
 import MutasiKeluarHeader from "../../../components/mutasi-keluar-header/mutasi-keluar-header";
+import { mutasiKeluarInsertValidation } from "../../../validations/mutasi-keluar";
 
 const MutasiKeluarPage = ({ ...props }) => {
   const { match, postPengikutKeluar } = props;
@@ -43,10 +44,8 @@ const MutasiKeluarPage = ({ ...props }) => {
         <Box marginLeft={1.4}>
           <Typography variant="h6">Tambah Pengikut Penduduk Keluar</Typography>
         </Box>
-        <Box marginTop={2} marginBottom={2}>
-          <Divider />
-        </Box>
         <Formik
+          validationSchema={mutasiKeluarInsertValidation}
           initialValues={{
             id: paramsId,
             nama_lengkap_keluarga: "",
@@ -58,9 +57,9 @@ const MutasiKeluarPage = ({ ...props }) => {
             keterangan_dalam_keluarga: "",
           }}
           enableReinitialize={true}
-          onSubmit={(values) => {
-            console.log(values.id);
+          onSubmit={(values, { resetForm }) => {
             postPengikutKeluar(values, values.id);
+            resetForm({});
           }}
         >
           {() => (
