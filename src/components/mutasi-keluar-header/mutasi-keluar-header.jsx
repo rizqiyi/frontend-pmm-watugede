@@ -43,7 +43,6 @@ const MutasiKeluarHeader = ({ ...props }) => {
       <Box marginTop={2} marginBottom={2}>
         <Divider />
       </Box>
-
       <Container maxWidth="md">
         <Paper>
           <Box display="flex" flexDirection="column">
@@ -132,7 +131,10 @@ const MutasiKeluarHeader = ({ ...props }) => {
           <Box marginTop={2} marginLeft={3}>
             <Typography variant="h6">Keterangan Keluar</Typography>
           </Box>
-          <KeteranganKeluarComponent />
+          <KeteranganKeluarComponent
+            dataPengikutKeluar={pengikutKeluar}
+            data={fixedData}
+          />
         </Paper>
       </Container>
       <Box marginTop={2} marginBottom={2}>
