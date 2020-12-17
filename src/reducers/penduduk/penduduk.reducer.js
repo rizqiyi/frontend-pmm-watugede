@@ -4,11 +4,12 @@ const initialState = {
   isLoading: false,
   penduduk: [],
   penduduk_obj: {},
+  id: null,
 };
 
 export const pendudukReducer = (state = initialState, action) => {
   switch (action.type) {
-    case Types.START_REQUEST:
+    case Types.START_REQUEST_PENDUDUK:
       return {
         ...state,
         isLoading: true,
@@ -26,7 +27,8 @@ export const pendudukReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        penduduk_obj: action.payload,
+        penduduk_obj: action.payload.data,
+        id: action.payload.id,
       };
 
     case Types.POST_PENDUDUK_SUCCESS:

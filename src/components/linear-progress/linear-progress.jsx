@@ -1,9 +1,8 @@
 import { LinearProgress } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
 import { useStyles } from "./linear-progress.style";
 
-const LinearProgComponent = ({ admin, penduduk }) => {
+const LinearProgComponent = () => {
   const [progress, setProgress] = useState(0);
   const classes = useStyles();
 
@@ -23,18 +22,11 @@ const LinearProgComponent = ({ admin, penduduk }) => {
     };
   });
 
-  return admin || penduduk ? (
+  return (
     <div className={classes.linear}>
       <LinearProgress variant="determinate" value={progress} />
     </div>
-  ) : null;
+  );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    admin: state.users.isLoading,
-    penduduk: state.penduduks.isLoading,
-  };
-};
-
-export default connect(mapStateToProps, null)(LinearProgComponent);
+export default LinearProgComponent;

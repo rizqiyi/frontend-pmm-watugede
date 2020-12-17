@@ -5,9 +5,11 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { useStyles } from "./mutasi-keluar.style";
 import { TextFormField } from "../../../components/styled-textfield/styled-textfield";
+import { postPengikutKeluar } from "../../../reducers/pengikut_keluar/pengikut_keluar.actions";
+import MutasiKeluarHeader from "../../../components/mutasi-keluar-header/mutasi-keluar-header";
 
 const MutasiKeluarPage = ({ ...props }) => {
-  const { match } = props;
+  const { match, postPengikutKeluar } = props;
   const paramsId = match.params.id;
   const classes = useStyles();
 
@@ -36,9 +38,7 @@ const MutasiKeluarPage = ({ ...props }) => {
           </Typography>
         </Box>
       </Box>
-      <Box marginTop={2} marginBottom={2}>
-        <Divider />
-      </Box>
+      <MutasiKeluarHeader paramsId={paramsId} />
       <Container maxWidth="md">
         <Box marginLeft={1.4}>
           <Typography variant="h6">Tambah Pengikut Penduduk Keluar</Typography>
@@ -48,6 +48,7 @@ const MutasiKeluarPage = ({ ...props }) => {
         </Box>
         <Formik
           initialValues={{
+            id: paramsId,
             nama_lengkap_keluarga: "",
             jenis_kelamin_keluarga: "",
             umur_keluarga: "",
@@ -56,8 +57,10 @@ const MutasiKeluarPage = ({ ...props }) => {
             nik_keluarga: "",
             keterangan_dalam_keluarga: "",
           }}
+          enableReinitialize={true}
           onSubmit={(values) => {
-            console.log(values);
+            console.log(values.id);
+            postPengikutKeluar(values, values.id);
           }}
         >
           {() => (
@@ -135,4 +138,10 @@ const MutasiKeluarPage = ({ ...props }) => {
   );
 };
 
-export default connect(null, null)(MutasiKeluarPage);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    postPengikutKeluar: (val, id) => dispatch(postPengikutKeluar(val, id)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(MutasiKeluarPage);

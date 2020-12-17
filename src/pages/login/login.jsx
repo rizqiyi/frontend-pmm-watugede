@@ -18,6 +18,7 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
   const history = useHistory();
   const isFirstRender = useRef(true);
   const isError = useSelector((state) => state.infos);
+  const isLoading = useSelector((state) => state.users.isLoading);
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -58,7 +59,7 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
 
   return (
     <React.Fragment>
-      <LinearProgComponent />
+      {isLoading ? <LinearProgComponent /> : null}
       <Paper className={classes.root}>
         <Box
           display="flex"

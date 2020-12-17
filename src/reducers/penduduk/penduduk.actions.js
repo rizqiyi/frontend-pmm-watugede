@@ -9,7 +9,7 @@ import { tokenConfig } from "../users/users.actions";
 import { returnInfos } from "../infos/info.actions";
 
 export const fetchPenduduk = () => (dispatch, getState) => {
-  dispatch({ type: Types.START_REQUEST });
+  dispatch({ type: Types.START_REQUEST_PENDUDUK });
 
   axios
     .get(initialURL.pendudukURI, tokenConfig(getState))
@@ -25,14 +25,14 @@ export const fetchPenduduk = () => (dispatch, getState) => {
 };
 
 export const fetchPendudukById = (id) => (dispatch, getState) => {
-  dispatch({ type: Types.START_REQUEST });
+  dispatch({ type: Types.START_REQUEST_PENDUDUK });
 
   axios
     .get(getPendudukById(id), tokenConfig(getState))
     .then((result) => {
       dispatch({
         type: Types.FETCH_PENDUDUK_SUCCESS_BY_ID,
-        payload: result.data.data,
+        payload: { data: result.data.data, id: result.data.data._id },
       });
     })
     .catch((err) => {
@@ -41,7 +41,7 @@ export const fetchPendudukById = (id) => (dispatch, getState) => {
 };
 
 export const postPenduduk = ({ ...request }) => (dispatch, getState) => {
-  dispatch({ type: Types.START_REQUEST });
+  dispatch({ type: Types.START_REQUEST_PENDUDUK });
 
   const body = JSON.stringify({ ...request });
 
@@ -60,7 +60,7 @@ export const postPenduduk = ({ ...request }) => (dispatch, getState) => {
 };
 
 export const patchPenduduk = ({ ...request }, id) => (dispatch, getState) => {
-  dispatch({ type: Types.START_REQUEST });
+  dispatch({ type: Types.START_REQUEST_PENDUDUK });
 
   const body = JSON.stringify({ ...request });
 
@@ -69,7 +69,7 @@ export const patchPenduduk = ({ ...request }, id) => (dispatch, getState) => {
     .then((result) => {
       dispatch({
         type: Types.PUT_PENDUDUK_SUCCESS,
-        payload: result.data,
+        payload: { data: result.data.data, id: result.data.data._id },
       });
       dispatch(
         returnInfos(result.data.message, result.status, "UPDATED_PENDUDUK")
@@ -82,7 +82,7 @@ export const patchPenduduk = ({ ...request }, id) => (dispatch, getState) => {
 };
 
 export const deletePenduduk = (id, onSuccess) => (dispatch, getState) => {
-  dispatch({ type: Types.START_REQUEST });
+  dispatch({ type: Types.START_REQUEST_PENDUDUK });
 
   axios
     .delete(updatePendudukURI(id), tokenConfig(getState))
