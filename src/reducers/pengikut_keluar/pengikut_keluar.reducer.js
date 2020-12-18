@@ -16,12 +16,18 @@ export const pengikutKeluarReducer = (state = initialState, action) => {
         isLoading: true,
       };
 
-    case Types.FETCH_KETERANGAN_PENGIKUT_KELUAR_SUCCESS:
+    case Types.FETCH_PENGIKUT_KELUAR_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        pengikut_keluar: action.payload.pengikut_keluar,
+      };
+
+    case Types.FETCH_KETERANGAN_KELUAR_SUCCESS:
       return {
         ...state,
         isLoading: false,
         keterangan_keluar: action.payload.keterangan_keluar,
-        pengikut_keluar_obj: action.payload.pengikut_keluar_obj,
       };
 
     case Types.POST_KETERANGAN_KELUAR_SUCCESS:

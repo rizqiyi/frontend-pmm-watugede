@@ -4,9 +4,14 @@ import AddIcon from "@material-ui/icons/Add";
 import { useStyles } from "./keterangan-keluar.style";
 import KeteranganKeluarInsert from "../dialog-insert/dialog-insert";
 import { Skeleton } from "@material-ui/lab";
-import { useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
+import { getKeteranganKeluar } from "../../../reducers/pengikut_keluar/pengikut_keluar.actions";
 
-export const KeteranganKeluarComponent = ({ data, dataPengikutKeluar }) => {
+const KeteranganKeluarComponent = ({
+  data,
+  dataPengikutKeluar,
+  mappedDataPengusul,
+}) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -29,44 +34,44 @@ export const KeteranganKeluarComponent = ({ data, dataPengikutKeluar }) => {
   return (
     <React.Fragment>
       <Container maxWidth="md">
-        {dataPengikutKeluar.length === 0 ? (
-          isLoading ? (
-            <Skeleton animation="wave" width="100%" height={140} />
-          ) : (
-            <Box p={3} display="flex" justifyContent="center">
-              <Typography style={{ fontWeight: 350 }}>
-                Harap menambahkan Pengikut keluar terlebih dahulu
-              </Typography>
-            </Box>
-          )
-        ) : data.keterangan_keluar === undefined ? (
-          isLoading ? (
-            <Skeleton animation="wave" width="100%" height={140} />
-          ) : (
-            <React.Fragment>
-              <Box
-                marginTop={3}
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                border="2px dotted #9e9e9e"
-                borderRadius="20px"
-                p={3}
+        {isLoading ? (
+          <Box>
+            <Skeleton animation="wave" width="100%" height={50} />
+          </Box>
+        ) : dataPengikutKeluar.length === 0 ? (
+          <Box p={3} display="flex" justifyContent="center">
+            <Typography style={{ fontWeight: 350 }}>
+              Harap menambahkan Pengikut keluar terlebih dahulu
+            </Typography>
+          </Box>
+        ) : null}
+        {isLoading ? (
+          <Skeleton animation="wave" width="100%" height={50} />
+        ) : dataPengikutKeluar.length !== 0 && !data.keterangan_keluar ? (
+          <React.Fragment>
+            <Box
+              marginTop={3}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              border="2px dotted #9e9e9e"
+              borderRadius="20px"
+              p={3}
+            >
+              <IconButton
+                color="primary"
+                onClick={handleClickOpen}
+                className={classes.iconButton}
               >
-                <IconButton
-                  color="primary"
-                  onClick={handleClickOpen}
-                  className={classes.iconButton}
-                >
-                  <AddIcon color="primary" className={classes.addIcon} />
-                </IconButton>
-              </Box>
-              <Box p={2}></Box>
-            </React.Fragment>
-          )
-        ) : isLoading ? (
-          <Skeleton animation="wave" width="100%" height={140} />
-        ) : (
+                <AddIcon color="primary" className={classes.addIcon} />
+              </IconButton>
+            </Box>
+            <Box p={2}></Box>
+          </React.Fragment>
+        ) : null}
+        {isLoading ? (
+          <Skeleton animation="wave" width="100%" height={50} />
+        ) : data.keterangan_keluar ? (
           <Box display="flex" flexDirection="column">
             <Box display="flex" p={3} flexDirection="row">
               <Box marginLeft={1} display="flex" flexDirection="column">
@@ -75,7 +80,7 @@ export const KeteranganKeluarComponent = ({ data, dataPengikutKeluar }) => {
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Tanggal KTP : 21 Maret 2020
+                    Tanggal KTP : {mappedDataPengusul.tanggal_ktp}
                   </Typography>
                 </Box>
                 <Box marginTop={1}>
@@ -83,7 +88,7 @@ export const KeteranganKeluarComponent = ({ data, dataPengikutKeluar }) => {
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Alamat Pindah : Menteng, Jakarta
+                    Alamat Pindah : {mappedDataPengusul.alamat_pindah}
                   </Typography>
                 </Box>
                 <Box marginTop={1}>
@@ -91,7 +96,7 @@ export const KeteranganKeluarComponent = ({ data, dataPengikutKeluar }) => {
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Pengikut : 4 Orang
+                    Pengikut : {mappedDataPengusul.pengikut}
                   </Typography>
                 </Box>
                 <Box marginTop={1}>
@@ -99,7 +104,7 @@ export const KeteranganKeluarComponent = ({ data, dataPengikutKeluar }) => {
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Alasan Pindah : Dinas
+                    Alasan Pindah : {mappedDataPengusul.alasan_pindah}
                   </Typography>
                 </Box>
                 <Box marginTop={1}>
@@ -107,13 +112,13 @@ export const KeteranganKeluarComponent = ({ data, dataPengikutKeluar }) => {
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Catatan : Tidak ada
+                    Catatan : {mappedDataPengusul.catatan}
                   </Typography>
                 </Box>
               </Box>
             </Box>
           </Box>
-        )}
+        ) : null}
       </Container>
       <KeteranganKeluarInsert
         data={data}
@@ -125,3 +130,11 @@ export const KeteranganKeluarComponent = ({ data, dataPengikutKeluar }) => {
     </React.Fragment>
   );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getKeteranganKeluar: (id) => dispatch(getKeteranganKeluar(id)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(KeteranganKeluarComponent);

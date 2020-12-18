@@ -11,35 +11,54 @@ import {
 } from "@material-ui/core";
 import { useStyles } from "./mutasi-keluar-header.style";
 import { connect, useSelector } from "react-redux";
-import { getPengikutKeluar } from "../../reducers/pengikut_keluar/pengikut_keluar.actions";
+import {
+  getPengikutKeluar,
+  getKeteranganKeluar,
+} from "../../reducers/pengikut_keluar/pengikut_keluar.actions";
 import { PaperPengikutKeluar } from "./pengikut-keluar/pengikut-keluar";
-import { KeteranganKeluarComponent } from "./keterangan-keluar/keterangan-keluar";
+import KeteranganKeluarComponent from "./keterangan-keluar/keterangan-keluar";
 import { Skeleton } from "@material-ui/lab";
+import { photoPath } from "../../helpers/getAvatars";
 
 const MutasiKeluarHeader = ({ ...props }) => {
-  const classes = useStyles();
   const idPenduduk = useSelector((state) => state.penduduks.id);
+  const classes = useStyles();
   const dataPengusul = useSelector(
-    (state) => state.pengikut_keluar.pengikut_keluar_obj.t
+    (state) => state.pengikut_keluar.pengikut_keluar.t
   );
-  const { getPengikutKeluar, paramsId } = props;
+  const keteranganPengusul = useSelector(
+    (state) => state.pengikut_keluar.keterangan_keluar.data
+  );
+
+  const { getPengikutKeluar, paramsId, getKeteranganKeluar } = props;
 
   useEffect(() => {
     const fetchData = async () => {
       await getPengikutKeluar(idPenduduk !== null ? idPenduduk : paramsId);
+      await getKeteranganKeluar(idPenduduk !== null ? idPenduduk : paramsId);
     };
     fetchData();
-  }, [getPengikutKeluar, idPenduduk, paramsId]);
+  }, [getPengikutKeluar, idPenduduk, paramsId, getKeteranganKeluar]);
 
   const params = (data) => {
     return data ? data : "";
   };
 
   const fixedData = params(dataPengusul);
+
+  const fixedDataKeterangan = params(keteranganPengusul);
+
   const pengikutKeluar =
     fixedData.pengikut_keluar === undefined ? [{}] : fixedData.pengikut_keluar;
 
+  const mappedDataPengusul =
+    fixedDataKeterangan === "" ? [{}] : fixedDataKeterangan;
+
   const isLoading = useSelector((state) => state.pengikut_keluar.isLoading);
+
+  const path = mappedDataPengusul[0].foto_pengusul
+    ? mappedDataPengusul[0].foto_pengusul
+    : "//";
 
   return (
     <React.Fragment>
@@ -51,14 +70,15 @@ const MutasiKeluarHeader = ({ ...props }) => {
           <Box display="flex" flexDirection="column">
             <Box marginTop={1} marginLeft={3}>
               <Typography variant="h6" style={{ textDecoration: "underline" }}>
-                Pengusul Pengikut Keluar
+                Pengusul Keluar Desa
               </Typography>
             </Box>
             <Box display="flex" p={3} flexDirection="row">
               <Box>
-                <Avatar style={{ height: "140px", width: "140px" }}>
-                  <FaceIcon style={{ height: "70px", width: "70px" }} />
-                </Avatar>
+                <Avatar
+                  style={{ height: "140px", width: "140px" }}
+                  src={photoPath(path)}
+                ></Avatar>
               </Box>
               <Box marginLeft={5} display="flex" flexDirection="column">
                 <Box>
@@ -134,10 +154,14 @@ const MutasiKeluarHeader = ({ ...props }) => {
           <Box marginTop={2} marginLeft={3}>
             <Typography variant="h6">Keterangan Keluar</Typography>
           </Box>
-          <KeteranganKeluarComponent
-            dataPengikutKeluar={pengikutKeluar}
-            data={fixedData}
-          />
+          {mappedDataPengusul.map((d, idx) => (
+            <KeteranganKeluarComponent
+              key={idx}
+              dataPengikutKeluar={pengikutKeluar}
+              data={fixedData}
+              mappedDataPengusul={d}
+            />
+          ))}
         </Paper>
       </Container>
       <Box marginTop={2} marginBottom={2}>
@@ -173,6 +197,7 @@ const MutasiKeluarHeader = ({ ...props }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getPengikutKeluar: (id) => dispatch(getPengikutKeluar(id)),
+    getKeteranganKeluar: (id) => dispatch(getKeteranganKeluar(id)),
   };
 };
 
