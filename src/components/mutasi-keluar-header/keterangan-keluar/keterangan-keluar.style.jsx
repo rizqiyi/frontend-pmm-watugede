@@ -30,4 +30,10 @@ export const useStyles = makeStyles((theme) => ({
     width: "60px",
     height: "60px",
   },
+  input: {
+    display: "none",
+  },
+  controlFileName: {
+    color: theme.palette.primary.main,
+  },
 }));

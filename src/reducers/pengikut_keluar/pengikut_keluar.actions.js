@@ -3,6 +3,7 @@ import axios from "axios";
 import {
   postPengikutKeluarURI,
   getPengikutKeluarURI,
+  postKeteranganKeluarURI,
 } from "../../utilities/baseURL";
 import { tokenConfig } from "../users/users.actions";
 import { returnInfos } from "../infos/info.actions";
@@ -43,6 +44,26 @@ export const postPengikutKeluar = ({ ...request }, id) => (
         },
       });
       dispatch(returnInfos(result.data.message, 200, "POST_PENGIKUT_KELUAR"));
+    })
+    .then(() => dispatch(getPengikutKeluar(id)))
+    .catch((err) => {
+      dispatch(returnInfos(err.response.message, err.response.status));
+    });
+};
+
+export const postKeteranganKeluar = (request, id) => (dispatch, getState) => {
+  dispatch({ type: Types.START_REQUEST });
+
+  axios
+    .post(postKeteranganKeluarURI(id), request, tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.POST_KETERANGAN_KELUAR_SUCCESS,
+        payload: {
+          keterangan_keluar_obj: result.data,
+        },
+      });
+      dispatch(returnInfos(result.data.message, 200, "POST_KETERANGAN_KELUAR"));
     })
     .then(() => dispatch(getPengikutKeluar(id)))
     .catch((err) => {

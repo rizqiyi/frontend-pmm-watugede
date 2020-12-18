@@ -14,6 +14,7 @@ import { connect, useSelector } from "react-redux";
 import { getPengikutKeluar } from "../../reducers/pengikut_keluar/pengikut_keluar.actions";
 import { PaperPengikutKeluar } from "./pengikut-keluar/pengikut-keluar";
 import { KeteranganKeluarComponent } from "./keterangan-keluar/keterangan-keluar";
+import { Skeleton } from "@material-ui/lab";
 
 const MutasiKeluarHeader = ({ ...props }) => {
   const classes = useStyles();
@@ -37,6 +38,8 @@ const MutasiKeluarHeader = ({ ...props }) => {
   const fixedData = params(dataPengusul);
   const pengikutKeluar =
     fixedData.pengikut_keluar === undefined ? [{}] : fixedData.pengikut_keluar;
+
+  const isLoading = useSelector((state) => state.pengikut_keluar.isLoading);
 
   return (
     <React.Fragment>
@@ -146,13 +149,19 @@ const MutasiKeluarHeader = ({ ...props }) => {
         </Box>
       </Box>
       <Grid container spacing={3}>
-        <Grid container item spacing={3} justify="center" sm={12}>
-          {pengikutKeluar.map((d, idx) => (
-            <Grid item key={idx}>
-              <PaperPengikutKeluar fixedData={fixedData} d={d} key={idx} />
-            </Grid>
-          ))}
-        </Grid>
+        {isLoading ? (
+          <Grid container item justify="center" sm={12}>
+            <Skeleton animation="wave" width="40%" height={200} />
+          </Grid>
+        ) : (
+          <Grid container item spacing={3} justify="center" sm={12}>
+            {pengikutKeluar.map((d, idx) => (
+              <Grid item key={idx}>
+                <PaperPengikutKeluar fixedData={fixedData} d={d} key={idx} />
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Grid>
       <Box marginTop={2} marginBottom={2}>
         <Divider />
