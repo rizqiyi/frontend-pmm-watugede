@@ -10,10 +10,9 @@ import MutasiKeluarHeader from "../../../components/mutasi-keluar-header/mutasi-
 import { mutasiKeluarInsertValidation } from "../../../validations/mutasi-keluar";
 
 const MutasiKeluarPage = ({ ...props }) => {
-  const { match, postPengikutKeluar, keteranganKeluar } = props;
+  const { match, postPengikutKeluar } = props;
   const paramsId = match.params.id;
   const classes = useStyles();
-  // console.log(typeof keteranganKeluar);
 
   return (
     <React.Fragment>
@@ -151,16 +150,10 @@ const MutasiKeluarPage = ({ ...props }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    keteranganKeluar: state.pengikut_keluar.keterangan_keluar.data,
-  };
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
     postPengikutKeluar: (val, id) => dispatch(postPengikutKeluar(val, id)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MutasiKeluarPage);
+export default connect(null, mapDispatchToProps)(MutasiKeluarPage);

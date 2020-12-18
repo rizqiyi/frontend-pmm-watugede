@@ -11,9 +11,6 @@ export const useStyles = makeStyles((theme) => ({
   controlFileName: {
     color: theme.palette.primary.main,
   },
-  controlFileName: {
-    color: theme.palette.primary.main,
-  },
   controlFileError: {
     color: theme.palette.error.main,
   },

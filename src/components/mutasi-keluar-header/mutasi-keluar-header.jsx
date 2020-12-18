@@ -59,8 +59,6 @@ const MutasiKeluarHeader = ({ ...props }) => {
     ? keteranganPengusul[0].foto_pengusul
     : "//";
 
-  console.log(mappedDataPengusul);
-
   return (
     <React.Fragment>
       <Box marginTop={2} marginBottom={2}>

@@ -19,6 +19,7 @@ import { fetchPenduduk } from "../../reducers/penduduk/penduduk.actions";
 import { useStyles } from "./penduduk.style";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { clearInfos } from "../../reducers/infos/info.actions";
+import { CSVLink } from "react-csv";
 
 export const PendudukPage = () => {
   const [page, setPage] = useState(0);
@@ -70,11 +71,13 @@ export const PendudukPage = () => {
       <Box display="flex" justifyContent="flex-end">
         <Button
           color="primary"
-          component={Link}
-          to="#!"
           size="small"
+          component={CSVLink}
           startIcon={<GetAppIcon />}
           variant="contained"
+          data={rows}
+          target="#!"
+          filename="penduduk.csv"
         >
           Download CSV
         </Button>
