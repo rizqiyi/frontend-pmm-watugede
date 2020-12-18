@@ -14,27 +14,14 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import {
-  Box,
-  IconButton,
-  FormControl,
-  InputLabel,
-  FilledInput,
-  FormHelperText,
-} from "@material-ui/core";
+import { Box, IconButton, InputLabel, FormHelperText } from "@material-ui/core";
 import { connect } from "react-redux";
 import { postKeteranganKeluar } from "../../../reducers/pengikut_keluar/pengikut_keluar.actions";
+import { keteranganKeluarInsertValidation } from "../../../validations/mutasi-keluar";
 
 const KeteranganKeluarInsert = ({ ...props }) => {
   const classes = useStyles();
-  const {
-    postKeteranganKeluar,
-    open,
-    handleClose,
-    dataPengikutKeluar,
-    data,
-    change,
-  } = props;
+  const { postKeteranganKeluar, open, handleClose, data, change } = props;
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleDateChange = (date) => {
@@ -58,9 +45,10 @@ const KeteranganKeluarInsert = ({ ...props }) => {
         </DialogTitle>
         <DialogContent>
           <Formik
+            validationSchema={keteranganKeluarInsertValidation}
             initialValues={{
               id: data._id,
-              pengikut: dataPengikutKeluar.length,
+              pengikut: 0,
               tanggal_ktp: selectedDate
                 .toLocaleDateString("id-ID", {
                   year: "numeric",
@@ -84,9 +72,10 @@ const KeteranganKeluarInsert = ({ ...props }) => {
             onSubmit={(values) => {
               const { data } = DataSet(values);
               postKeteranganKeluar(data, values.id);
+              handleClose();
             }}
           >
-            {({ handleChange, setFieldValue, values }) => (
+            {({ setFieldValue, values, errors, touched }) => (
               <Form>
                 <DialogContentText>
                   Tambah Keterangan Keluar untuk Pengusul yang bernama{" "}
@@ -95,20 +84,16 @@ const KeteranganKeluarInsert = ({ ...props }) => {
                   </span>
                 </DialogContentText>
                 <Box>
-                  <FormControl
-                    disabled
-                    className={classes.pengikutTextField}
-                    onChange={handleChange}
+                  <FastField
+                    margin="dense"
+                    label="Pengikut Keluar"
+                    name="pengikut"
+                    size="small"
+                    component={TextFormField}
+                    id="pengikut"
+                    fullWidth
                     variant="filled"
-                  >
-                    <InputLabel htmlFor="component-disabled">Name</InputLabel>
-                    <FilledInput
-                      id="component-disabled"
-                      name="pengikut"
-                      onChange={handleChange}
-                      value={dataPengikutKeluar.length}
-                    />
-                  </FormControl>
+                  />
                 </Box>
                 <Box>
                   <MuiPickersUtilsProvider
@@ -216,13 +201,21 @@ const KeteranganKeluarInsert = ({ ...props }) => {
                       <PhotoCamera style={{ width: "35px", height: "35px" }} />
                     </IconButton>
                   </label>
-                  <FormHelperText className={classes.controlFileName}>
-                    {values.foto_pengusul.name}
-                  </FormHelperText>
+                  <Box marginTop={1} marginLeft={1}>
+                    {Boolean(errors.foto_pengusul) && touched.foto_pengusul ? (
+                      <FormHelperText className={classes.controlFileError}>
+                        {errors.foto_pengusul}
+                      </FormHelperText>
+                    ) : (
+                      <FormHelperText className={classes.controlFileName}>
+                        {values.foto_pengusul.name}
+                      </FormHelperText>
+                    )}
+                  </Box>
                 </Box>
                 <DialogActions>
                   <Button onClick={handleClose}>Cancel</Button>
-                  <Button onClick={handleClose} color="primary" type="submit">
+                  <Button color="primary" type="submit">
                     Tambahkan
                   </Button>
                 </DialogActions>

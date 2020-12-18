@@ -20,4 +20,27 @@ const mutasiKeluarInsertValidation = yup.object({
     .required("Posisi dalam keluarga tidak boleh kosong"),
 });
 
-export { mutasiKeluarInsertValidation };
+const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
+
+const keteranganKeluarInsertValidation = yup.object({
+  pengikut: yup
+    .number()
+    .typeError("Input harus berupa angka")
+    .required("Pengikut tidak boleh kosong"),
+  alamat_pindah: yup.string().required("Alamat Pindah tidak boleh kosong"),
+  tanggal_ktp: yup.string().required("Tanggal ktp tidak boleh kosong"),
+  meninggalkan_desa_pada: yup
+    .string()
+    .required("Tanggal meninggalkan desa tidak boleh kosong"),
+  foto_pengusul: yup
+    .mixed()
+    .required("A file is Required")
+    .test(
+      "fileFormat",
+      "File tidak didukung, harap ganti dengan format : jpg/jpeg/png",
+      (value) => value && SUPPORTED_FORMATS.includes(value.type)
+    ),
+  alasan_pindah: yup.string().required("Alasan pindah tidak boleh kosong"),
+});
+
+export { mutasiKeluarInsertValidation, keteranganKeluarInsertValidation };

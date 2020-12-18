@@ -59,6 +59,8 @@ const MutasiKeluarHeader = ({ ...props }) => {
     ? keteranganPengusul[0].foto_pengusul
     : "//";
 
+  console.log(mappedDataPengusul);
+
   return (
     <React.Fragment>
       <Box marginTop={2} marginBottom={2}>
@@ -227,7 +229,25 @@ const MutasiKeluarHeader = ({ ...props }) => {
           </Grid>
         )}
       </Grid>
-      <Box marginTop={2} marginBottom={2}>
+      {pengikutKeluar.length !== 0 ? (
+        <Box marginTop={3}>
+          <Typography
+            variant="subtitle2"
+            style={{
+              fontWeight: 400,
+              fontStyle: "italic",
+              fontSize: 12,
+              wordWrap: "break-word",
+              maxWidth: 400,
+            }}
+          >
+            *Jika ingin update pengikut setelah input pengikut keluar harap
+            update kolom pada halaman penduduk keluar.
+          </Typography>
+        </Box>
+      ) : null}
+
+      <Box marginTop={1} marginBottom={2}>
         <Divider />
       </Box>
     </React.Fragment>
