@@ -39,4 +39,8 @@ export const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: theme.palette.primary.main,
   },
+  controlCurrentLink: {
+    textDecoration: "none",
+    color: "#424242",
+  },
 }));

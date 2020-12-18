@@ -58,7 +58,7 @@ export const DeleteActions = ({
                 <DialogContent>
                   <DialogContentText id="alert-dialog-slide-description">
                     Data akan dihapus permanen setelah anda menekan tombol
-                    delete.
+                    delete. Termasuk data penduduk keluar.
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>

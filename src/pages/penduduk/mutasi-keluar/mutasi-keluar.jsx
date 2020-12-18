@@ -23,11 +23,24 @@ const MutasiKeluarPage = ({ ...props }) => {
         <Box>
           <Typography
             component={Link}
+            to="/penduduk"
+            variant="body1"
+            className={classes.controlLink}
+          >
+            Halaman Penduduk
+          </Typography>
+        </Box>
+        <Box marginLeft={1} marginRight={1}>
+          <Typography>/</Typography>
+        </Box>
+        <Box>
+          <Typography
+            component={Link}
             to={`/penduduk/${paramsId}/d`}
             variant="body1"
             className={classes.controlLink}
           >
-            Detail Penduduk
+            Detail Informasi Penduduk
           </Typography>
         </Box>
         <Box marginLeft={1} marginRight={1}>

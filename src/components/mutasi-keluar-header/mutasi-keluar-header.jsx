@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import FaceIcon from "@material-ui/icons/Face";
 import {
   Avatar,
   Box,
@@ -21,11 +20,11 @@ import { Skeleton } from "@material-ui/lab";
 import { photoPath } from "../../helpers/getAvatars";
 
 const MutasiKeluarHeader = ({ ...props }) => {
-  const idPenduduk = useSelector((state) => state.penduduks.id);
   const classes = useStyles();
   const dataPengusul = useSelector(
     (state) => state.pengikut_keluar.pengikut_keluar.t
   );
+  const isLoading = useSelector((state) => state.pengikut_keluar.isLoading);
   const keteranganPengusul = useSelector(
     (state) => state.pengikut_keluar.keterangan_keluar.data
   );
@@ -34,11 +33,11 @@ const MutasiKeluarHeader = ({ ...props }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await getPengikutKeluar(idPenduduk !== null ? idPenduduk : paramsId);
-      await getKeteranganKeluar(idPenduduk !== null ? idPenduduk : paramsId);
+      await getPengikutKeluar(paramsId);
+      await getKeteranganKeluar(paramsId);
     };
     fetchData();
-  }, [getPengikutKeluar, idPenduduk, paramsId, getKeteranganKeluar]);
+  }, [getPengikutKeluar, paramsId, getKeteranganKeluar]);
 
   const params = (data) => {
     return data ? data : "";
@@ -54,10 +53,10 @@ const MutasiKeluarHeader = ({ ...props }) => {
   const mappedDataPengusul =
     fixedDataKeterangan === "" ? [{}] : fixedDataKeterangan;
 
-  const isLoading = useSelector((state) => state.pengikut_keluar.isLoading);
-
-  const path = mappedDataPengusul[0].foto_pengusul
-    ? mappedDataPengusul[0].foto_pengusul
+  const path = isLoading
+    ? "//"
+    : keteranganPengusul
+    ? keteranganPengusul[0].foto_pengusul
     : "//";
 
   return (
@@ -75,75 +74,116 @@ const MutasiKeluarHeader = ({ ...props }) => {
             </Box>
             <Box display="flex" p={3} flexDirection="row">
               <Box>
-                <Avatar
-                  style={{ height: "140px", width: "140px" }}
-                  src={photoPath(path)}
-                ></Avatar>
+                {isLoading ? (
+                  <Skeleton
+                    variant="circle"
+                    animation="wave"
+                    width={140}
+                    height={140}
+                  />
+                ) : (
+                  <Avatar
+                    style={{ height: "140px", width: "140px" }}
+                    src={photoPath(path)}
+                  ></Avatar>
+                )}
               </Box>
               <Box marginLeft={5} display="flex" flexDirection="column">
                 <Box>
-                  <Typography
-                    variant="subtitle2"
-                    className={classes.textPengusul}
-                  >
-                    Nama Pengusul : {fixedData.nama_lengkap}
-                  </Typography>
+                  {isLoading ? (
+                    <Skeleton animation="wave" width={300} />
+                  ) : (
+                    <Typography
+                      variant="subtitle2"
+                      className={classes.textPengusul}
+                    >
+                      Nama Pengusul : {fixedData.nama_lengkap}
+                    </Typography>
+                  )}
                 </Box>
                 <Box marginTop={1}>
-                  <Typography
-                    variant="subtitle2"
-                    className={classes.textPengusul}
-                  >
-                    NIK : {fixedData.nik}
-                  </Typography>
+                  {isLoading ? (
+                    <Skeleton animation="wave" width={300} />
+                  ) : (
+                    <Typography
+                      variant="subtitle2"
+                      className={classes.textPengusul}
+                    >
+                      NIK : {fixedData.nik}
+                    </Typography>
+                  )}
                 </Box>
                 <Box marginTop={1}>
-                  <Typography
-                    variant="subtitle2"
-                    className={classes.textPengusul}
-                  >
-                    Umur : {fixedData.umur}
-                  </Typography>
+                  {isLoading ? (
+                    <Skeleton animation="wave" width={300} />
+                  ) : (
+                    <Typography
+                      variant="subtitle2"
+                      className={classes.textPengusul}
+                    >
+                      Umur : {fixedData.umur}
+                    </Typography>
+                  )}
                 </Box>
                 <Box marginTop={1}>
-                  <Typography
-                    variant="subtitle2"
-                    className={classes.textPengusul}
-                  >
-                    Tempat Tgl. Lahir : {fixedData.tempat_tanggal_lahir}
-                  </Typography>
+                  {isLoading ? (
+                    <Skeleton animation="wave" width={300} />
+                  ) : (
+                    <Typography
+                      variant="subtitle2"
+                      className={classes.textPengusul}
+                    >
+                      Tempat Tgl. Lahir : {fixedData.tempat_tanggal_lahir}
+                    </Typography>
+                  )}
                 </Box>
                 <Box marginTop={1}>
-                  <Typography
-                    variant="subtitle2"
-                    className={classes.textPengusul}
-                  >
-                    Agama : {fixedData.agama}
-                  </Typography>
+                  {isLoading ? (
+                    <Skeleton animation="wave" width={300} />
+                  ) : (
+                    <Typography
+                      variant="subtitle2"
+                      className={classes.textPengusul}
+                    >
+                      Agama : {fixedData.agama}
+                    </Typography>
+                  )}
                 </Box>
                 <Box marginTop={1}>
-                  <Typography
-                    variant="subtitle2"
-                    className={classes.textPengusul}
-                  >
-                    Alamat Asal : {fixedData.alamat_asal}
-                  </Typography>
+                  {isLoading ? (
+                    <Skeleton animation="wave" width={300} />
+                  ) : (
+                    <Typography
+                      variant="subtitle2"
+                      className={classes.textPengusul}
+                    >
+                      Alamat Asal : {fixedData.alamat_asal}
+                    </Typography>
+                  )}
                 </Box>
                 <Box marginTop={1}>
-                  <Typography
-                    variant="subtitle2"
-                    className={classes.textPengusul}
-                  >
-                    Pekerjaan : {fixedData.pekerjaan}
-                  </Typography>
+                  {isLoading ? (
+                    <Skeleton animation="wave" width={300} />
+                  ) : (
+                    <Typography
+                      variant="subtitle2"
+                      className={classes.textPengusul}
+                    >
+                      Pekerjaan : {fixedData.pekerjaan}
+                    </Typography>
+                  )}
                 </Box>
                 <Box marginTop={1}>
-                  <Typography
-                    variant="subtitle2"
-                    className={classes.textPengusul}
-                  >
-                    Posisi Dalam Keluarga : {fixedData.posisi_dalam_keluarga}
-                  </Typography>
+                  {isLoading ? (
+                    <Skeleton animation="wave" width={300} />
+                  ) : (
+                    <Typography
+                      variant="subtitle2"
+                      className={classes.textPengusul}
+                    >
+                      Posisi Dalam Keluarga : {fixedData.posisi_dalam_keluarga}
+                    </Typography>
+                  )}
                 </Box>
               </Box>
             </Box>
