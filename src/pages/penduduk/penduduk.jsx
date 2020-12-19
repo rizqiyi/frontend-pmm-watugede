@@ -21,6 +21,7 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import { clearInfos } from "../../reducers/infos/info.actions";
 import { CSVLink } from "react-csv";
 import dataIsNull from "../../assets/images/no-data-found.svg";
+import { Skeleton } from "@material-ui/lab";
 
 export const PendudukPage = () => {
   const [page, setPage] = useState(0);
@@ -37,6 +38,7 @@ export const PendudukPage = () => {
   }, [clearInfos]);
 
   const data = useSelector((state) => state.penduduks.penduduk);
+  const isLoading = useSelector((state) => state.penduduks.isLoading);
 
   const rows = data.map((d) => d);
 
@@ -70,39 +72,54 @@ export const PendudukPage = () => {
         <Divider />
       </Box>
       <Box display="flex" justifyContent="flex-end">
-        <Button
-          color="primary"
-          size="small"
-          component={CSVLink}
-          startIcon={<GetAppIcon />}
-          variant="contained"
-          data={rows}
-          className={classes.controlButton}
-          disabled={rows.length === 0}
-          filename="penduduk.csv"
-        >
-          Download CSV
-        </Button>
+        {isLoading ? (
+          <Skeleton animation="wave" width={150} height={30} />
+        ) : (
+          <Button
+            color="primary"
+            size="small"
+            component={CSVLink}
+            startIcon={<GetAppIcon />}
+            variant="contained"
+            data={rows}
+            className={classes.controlButton}
+            disabled={rows.length === 0}
+            filename="penduduk.csv"
+          >
+            Download CSV
+          </Button>
+        )}
       </Box>
       <div className={classes.root}>
         {rows.length === 0 ? (
-          <Box display="flex" flexDirection="column">
-            <Box>
-              <img
-                src={dataIsNull}
-                className={classes.dataIsNull}
-                alt="Data Not Found"
-              />
+          isLoading ? (
+            <Box className={classes.isLoading}>
+              <Skeleton height={400} width={250} />
             </Box>
-            <Box
-              display="flex"
-              justifyContent="center"
-              className={classes.textIsNull}
-            >
-              <Typography>Data kosong</Typography>
+          ) : (
+            <Box display="flex" flexDirection="column">
+              <Box>
+                <img
+                  src={dataIsNull}
+                  className={classes.dataIsNull}
+                  alt="Data Not Found"
+                />
+              </Box>
+              <Box
+                display="flex"
+                justifyContent="center"
+                className={classes.textIsNull}
+              >
+                <Typography>Data kosong</Typography>
+              </Box>
             </Box>
+          )
+        ) : null}
+        {isLoading ? (
+          <Box className={classes.isLoading}>
+            <Skeleton height={400} width={250} />
           </Box>
-        ) : (
+        ) : rows.length !== 0 ? (
           <Box marginTop={3} marginBottom={matches ? 10 : 2}>
             <Paper className={classes.paper}>
               <Box p={2}>
@@ -143,7 +160,7 @@ export const PendudukPage = () => {
               />
             </Paper>
           </Box>
-        )}
+        ) : null}
       </div>
     </React.Fragment>
   );

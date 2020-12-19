@@ -2,10 +2,9 @@ import { Box, Button, Typography } from "@material-ui/core";
 import React from "react";
 import pageNotFoundImage from "../../assets/images/page-not-found.svg";
 import { useStyles } from "./page-not-found.style";
-import { useLocation, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const PageNotFound = () => {
-  const location = useLocation();
   const history = useHistory();
   const classes = useStyles();
 
@@ -33,8 +32,7 @@ export const PageNotFound = () => {
         </Box>
         <Box marginTop={1.5}>
           <Typography variant="subtitle2" style={{ fontWeight: 350 }}>
-            Sorry, We couldn't find for{" "}
-            <span style={{ fontWeight: 500 }}>'{location.pathname}'</span> page
+            Sorry, We couldn't find for that page
           </Typography>
         </Box>
         <Box marginTop={4}>

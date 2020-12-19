@@ -86,4 +86,11 @@ export const useStyles = makeStyles((theme) => ({
     margin: "0 auto",
     marginTop: theme.spacing(12),
   },
+  isLoading: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "0 auto",
+    marginTop: theme.spacing(4),
+  },
 }));
