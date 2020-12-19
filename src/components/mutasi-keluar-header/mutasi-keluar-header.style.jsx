@@ -21,4 +21,8 @@ export const useStyles = makeStyles((theme) => ({
     width: "60px",
     height: "60px",
   },
+  textIsNull: {
+    color: theme.palette.primary.main,
+    opacity: "0.6",
+  },
 }));

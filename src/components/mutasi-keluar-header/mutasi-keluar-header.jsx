@@ -222,12 +222,22 @@ const MutasiKeluarHeader = ({ ...props }) => {
           </Grid>
         ) : isNull ? (
           <Box
+            display="flex"
+            justifyContent="center"
+            alignItem="center"
+            margin="0 auto"
             marginTop={3}
             marginBottom={4}
-            marginLeft="auto"
-            marginRight="auto"
+            flexDirection="column"
           >
-            <img src={dataIsNullImage} alt="Data Not Found" />
+            <Box>
+              <img src={dataIsNullImage} alt="Data Not Found" />
+            </Box>
+            <Box display="flex" justifyContent="center">
+              <Typography className={classes.textIsNull}>
+                Data Kosong
+              </Typography>
+            </Box>
           </Box>
         ) : null}
         {isLoading ? (

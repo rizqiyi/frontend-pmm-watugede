@@ -14,4 +14,10 @@ export const useStyles = makeStyles((theme) => ({
   controlFileError: {
     color: theme.palette.error.main,
   },
+  insertButton: {
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.dark,
+    },
+  },
 }));

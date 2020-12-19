@@ -33,6 +33,9 @@ export const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     opacity: "0.6",
   },
+  container: {
+    marginTop: theme.spacing(13),
+  },
   controlButton: {
     color: "#fff",
     "&:hover": {

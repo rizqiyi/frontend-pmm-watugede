@@ -50,7 +50,7 @@ export const AccountMenuComponent = () => {
         <MenuItem
           onClick={() => dispatch(logoutAdmin())}
           component={Link}
-          to="/"
+          to="/login"
         >
           Log Out
         </MenuItem>

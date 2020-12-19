@@ -20,6 +20,6 @@ export const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: ["Noto Sans JP", "sans-serif"].join(","),
+    fontFamily: ["Poppins", "sans-serif"].join(","),
   },
 });

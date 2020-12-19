@@ -215,7 +215,12 @@ const KeteranganKeluarInsert = ({ ...props }) => {
                 </Box>
                 <DialogActions>
                   <Button onClick={handleClose}>Cancel</Button>
-                  <Button color="primary" type="submit">
+                  <Button
+                    color="primary"
+                    className={classes.insertButton}
+                    variant="contained"
+                    type="submit"
+                  >
                     Tambahkan
                   </Button>
                 </DialogActions>

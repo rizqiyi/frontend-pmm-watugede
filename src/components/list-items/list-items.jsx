@@ -20,7 +20,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 export const ListItemsComponent = () => {
   const [selected, setSelected] = useState(0);
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
 
   const handleClick = () => {
     setOpen(!open);
@@ -60,7 +60,12 @@ export const ListItemsComponent = () => {
                 {idx > 2 && idx < 6 ? (
                   <Box>
                     {idx === 3 ? (
-                      <ListItem button onClick={handleClick}>
+                      <ListItem
+                        button
+                        onClick={() => {
+                          handleClick();
+                        }}
+                      >
                         <ListItemText
                           className={classes.textVillage}
                           primary="Kependudukan"
@@ -74,7 +79,9 @@ export const ListItemsComponent = () => {
                           button
                           className={classes.selectedBorderRadiusNested}
                           selected={selected === idx}
-                          onClick={(event) => updateSelected(event, idx)}
+                          onClick={(event) => {
+                            updateSelected(event, idx);
+                          }}
                         >
                           <ListItemIcon
                             className={
