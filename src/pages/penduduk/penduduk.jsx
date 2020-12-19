@@ -20,6 +20,7 @@ import { useStyles } from "./penduduk.style";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { clearInfos } from "../../reducers/infos/info.actions";
 import { CSVLink } from "react-csv";
+import dataIsNull from "../../assets/images/no-data-found.svg";
 
 export const PendudukPage = () => {
   const [page, setPage] = useState(0);
@@ -76,53 +77,73 @@ export const PendudukPage = () => {
           startIcon={<GetAppIcon />}
           variant="contained"
           data={rows}
-          target="#!"
+          className={classes.controlButton}
+          disabled={rows.length === 0}
           filename="penduduk.csv"
         >
           Download CSV
         </Button>
       </Box>
       <div className={classes.root}>
-        <Box marginTop={3} marginBottom={matches ? 10 : 2}>
-          <Paper className={classes.paper}>
-            <Box p={2}>
-              <Typography variant="h6">Daftar Penduduk</Typography>
+        {rows.length === 0 ? (
+          <Box display="flex" flexDirection="column">
+            <Box>
+              <img
+                src={dataIsNull}
+                className={classes.dataIsNull}
+                alt="Data Not Found"
+              />
             </Box>
-            <TableContainer>
-              <Table
-                className={classes.table}
-                aria-labelledby="tableTitle"
-                aria-label="enhanced table"
-              >
-                <PendudukEnhancedTableHead
-                  classes={classes}
-                  order={order}
-                  orderBy={orderBy}
-                  setOrder={setOrder}
-                  setOrderBy={setOrderBy}
-                  rowCount={rows.length}
-                />
-                <PendudukTableBodyComponent
-                  rows={rows}
-                  order={order}
-                  orderBy={orderBy}
-                  page={page}
-                  rowsPerPage={rowsPerPage}
-                  emptyRows={emptyRows}
-                />
-              </Table>
-            </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-          </Paper>
-        </Box>
+            <Box
+              display="flex"
+              justifyContent="center"
+              className={classes.textIsNull}
+            >
+              <Typography>Data kosong</Typography>
+            </Box>
+          </Box>
+        ) : (
+          <Box marginTop={3} marginBottom={matches ? 10 : 2}>
+            <Paper className={classes.paper}>
+              <Box p={2}>
+                <Typography variant="h6">Daftar Penduduk</Typography>
+              </Box>
+              <TableContainer>
+                <Table
+                  className={classes.table}
+                  aria-labelledby="tableTitle"
+                  aria-label="enhanced table"
+                >
+                  <PendudukEnhancedTableHead
+                    classes={classes}
+                    order={order}
+                    orderBy={orderBy}
+                    setOrder={setOrder}
+                    setOrderBy={setOrderBy}
+                    rowCount={rows.length}
+                  />
+                  <PendudukTableBodyComponent
+                    rows={rows}
+                    order={order}
+                    orderBy={orderBy}
+                    page={page}
+                    rowsPerPage={rowsPerPage}
+                    emptyRows={emptyRows}
+                  />
+                </Table>
+              </TableContainer>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+              />
+            </Paper>
+          </Box>
+        )}
       </div>
     </React.Fragment>
   );

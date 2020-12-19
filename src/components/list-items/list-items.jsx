@@ -90,7 +90,11 @@ export const ListItemsComponent = () => {
                           <ListItemText
                             primary={
                               <Typography
-                                className={classes.controlFont}
+                                className={
+                                  selected === idx
+                                    ? classes.selectedText
+                                    : classes.controlFont
+                                }
                                 variant="subtitle2"
                               >
                                 {list.name}
@@ -124,7 +128,11 @@ export const ListItemsComponent = () => {
                     <ListItemText
                       primary={
                         <Typography
-                          className={classes.controlFont}
+                          className={
+                            selected === idx
+                              ? classes.selectedText
+                              : classes.controlFont
+                          }
                           variant="subtitle2"
                         >
                           {list.name}

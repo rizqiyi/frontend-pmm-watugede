@@ -275,7 +275,12 @@ const PendudukDetailsPage = ({ ...props }) => {
                 </Button>
               </Box>
               <Box>
-                <Button variant="contained" color="primary" type="submit">
+                <Button
+                  variant="contained"
+                  className={classes.updateButton}
+                  color="primary"
+                  type="submit"
+                >
                   Update Penduduk
                 </Button>
               </Box>

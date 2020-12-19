@@ -4,14 +4,14 @@ import { makeStyles } from "@material-ui/styles";
 
 export const useStyles = makeStyles((theme) => ({
   selectedIcons: {
-    color: "#673ab7",
+    color: "#fff",
   },
   itemText: {
     textDecoration: "none",
     color: "black",
   },
   selectedBorderRadiusNested: {
-    paddingLeft: theme.spacing(6),
+    paddingLeft: theme.spacing(4),
   },
   controlText: {
     marginLeft: theme.spacing(2),
@@ -24,7 +24,7 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: 20,
   },
   selectedText: {
-    borderBottom: "3px solid black",
+    color: "#fff",
   },
   textVillage: {
     paddingRight: theme.spacing(4),
@@ -35,16 +35,16 @@ export const ListItem = withStyles({
   root: {
     borderRadius: 20,
     "&$selected": {
-      backgroundColor: "#ede7f6",
+      backgroundColor: "#329DF7",
       borderRadius: 20,
     },
     "&$selected:hover": {
-      backgroundColor: "#d1c4e9",
+      backgroundColor: "#1E94F8",
       borderRadius: 20,
     },
-    // "&:hover": {
-    //   backgroundColor: "#ede7f6",
-    // },
+    "&:hover": {
+      backgroundColor: "#DAEFF7",
+    },
   },
   selected: {},
 })(MuiListItem);

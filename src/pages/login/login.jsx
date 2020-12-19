@@ -103,7 +103,7 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
             <Button
               variant="contained"
               className={classes.controlButton}
-              color="secondary"
+              color="primary"
               type="submit"
               onClick={formik.handleSubmit}
             >

@@ -29,4 +29,10 @@ export const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "#424242",
   },
+  controlButton: {
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: "#1E94F8",
+    },
+  },
 }));

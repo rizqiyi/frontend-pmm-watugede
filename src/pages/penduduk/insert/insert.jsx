@@ -157,7 +157,12 @@ const PendudukInsertPage = ({ clearInfos, infos }) => {
                 </Button>
               </Box>
               <Box>
-                <Button variant="contained" color="primary" type="submit">
+                <Button
+                  variant="contained"
+                  className={classes.controlButton}
+                  color="primary"
+                  type="submit"
+                >
                   Tambahkan Penduduk
                 </Button>
               </Box>

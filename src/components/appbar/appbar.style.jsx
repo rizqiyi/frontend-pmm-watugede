@@ -19,12 +19,17 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.dark,
+    },
   },
   hide: {
     display: "none",
   },
   title: {
     flexGrow: 1,
+    color: "#fff",
   },
 }));
 

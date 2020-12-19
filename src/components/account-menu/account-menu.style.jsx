@@ -5,4 +5,10 @@ export const useStyles = makeStyles((theme) => ({
     color: "#fff",
     flexGrow: 1,
   },
+  iconButton: {
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.dark,
+    },
+  },
 }));

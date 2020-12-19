@@ -76,7 +76,7 @@ export const PasswordField = (props) => {
               onMouseDown={handleMouseDownPassword}
             >
               {values.showPassword ? (
-                <Visibility color="primary" />
+                <Visibility style={{ color: "#2340F5" }} />
               ) : (
                 <VisibilityOff />
               )}

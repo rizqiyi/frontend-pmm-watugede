@@ -18,6 +18,7 @@ import { PaperPengikutKeluar } from "./pengikut-keluar/pengikut-keluar";
 import KeteranganKeluarComponent from "./keterangan-keluar/keterangan-keluar";
 import { Skeleton } from "@material-ui/lab";
 import { photoPath } from "../../helpers/getAvatars";
+import dataIsNullImage from "../../assets/images/no-data-found.svg";
 
 const MutasiKeluarHeader = ({ ...props }) => {
   const classes = useStyles();
@@ -58,6 +59,8 @@ const MutasiKeluarHeader = ({ ...props }) => {
     : keteranganPengusul
     ? keteranganPengusul[0].foto_pengusul
     : "//";
+
+  const isNull = pengikutKeluar.length === 0;
 
   return (
     <React.Fragment>
@@ -207,7 +210,7 @@ const MutasiKeluarHeader = ({ ...props }) => {
       <Box marginTop={2} marginBottom={2}>
         <Divider />
       </Box>
-      <Box marginTop={2} marginBottom={2} marginLeft={7}>
+      <Box marginTop={2} marginBottom={2} marginLeft={6}>
         <Box>
           <Typography variant="h6">Pengikut Keluar</Typography>
         </Box>
@@ -215,7 +218,21 @@ const MutasiKeluarHeader = ({ ...props }) => {
       <Grid container spacing={3}>
         {isLoading ? (
           <Grid container item justify="center" sm={12}>
-            <Skeleton animation="wave" width="40%" height={200} />
+            <Skeleton animation="wave" width="80%" height={60} />
+          </Grid>
+        ) : isNull ? (
+          <Box
+            marginTop={3}
+            marginBottom={4}
+            marginLeft="auto"
+            marginRight="auto"
+          >
+            <img src={dataIsNullImage} alt="Data Not Found" />
+          </Box>
+        ) : null}
+        {isLoading ? (
+          <Grid container item justify="center" sm={12}>
+            <Skeleton animation="wave" width="80%" height={60} />
           </Grid>
         ) : (
           <Grid container item spacing={3} justify="center" sm={12}>
@@ -244,7 +261,6 @@ const MutasiKeluarHeader = ({ ...props }) => {
           </Typography>
         </Box>
       ) : null}
-
       <Box marginTop={1} marginBottom={2}>
         <Divider />
       </Box>

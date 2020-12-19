@@ -3,7 +3,8 @@ import { unstable_createMuiStrictModeTheme as createMuiTheme } from "@material-u
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#2340F5",
+      main: "#329DF7",
+      dark: "#1E94F8",
     },
     secondary: {
       main: "#2F14DE",
@@ -13,6 +14,9 @@ export const theme = createMuiTheme({
     },
     warning: {
       main: "#ffab00",
+    },
+    info: {
+      main: "#2340F5",
     },
   },
   typography: {

@@ -13,12 +13,12 @@ export const useStyles = makeStyles((theme) => ({
     },
     "&$focused": {
       backgroundColor: "#f5f5f5",
-      boxShadow: `${fade(theme.palette.primary.main, 0.6)} 0 0 0 2px`,
+      boxShadow: `${fade(theme.palette.info.main, 0.6)} 0 0 0 2px`,
     },
   },
   input: {
     "&.Mui-focused": {
-      color: theme.palette.primary.main,
+      color: theme.palette.info.main,
     },
   },
   focused: {},

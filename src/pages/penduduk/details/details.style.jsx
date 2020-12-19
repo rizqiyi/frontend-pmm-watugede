@@ -43,4 +43,10 @@ export const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "#424242",
   },
+  updateButton: {
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.dark,
+    },
+  },
 }));

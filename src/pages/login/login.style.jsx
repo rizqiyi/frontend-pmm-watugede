@@ -17,9 +17,14 @@ export const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1.5),
     width: "80%",
+    color: theme.palette.info.main,
   },
   controlButton: {
     width: "80%",
     marginTop: theme.spacing(3),
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.dark,
+    },
   },
 }));

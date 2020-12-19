@@ -24,6 +24,20 @@ export const useStyles = makeStyles((theme) => ({
   },
   textButton: {
     textTransform: "inherit",
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.dark,
+    },
+  },
+  textIsNull: {
+    color: theme.palette.primary.main,
+    opacity: "0.6",
+  },
+  controlButton: {
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.dark,
+    },
   },
   controlEdit: {
     padding: "5px",
@@ -61,5 +75,12 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       background: theme.palette.error.main,
     },
+  },
+  dataIsNull: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "0 auto",
+    marginTop: theme.spacing(12),
   },
 }));

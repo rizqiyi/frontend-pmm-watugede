@@ -26,6 +26,7 @@ export const AccountMenuComponent = () => {
         aria-controls="menu-appbar"
         aria-haspopup="true"
         onClick={handleMenu}
+        className={classes.iconButton}
         color="inherit"
       >
         <AccountCircle className={classes.typography} />

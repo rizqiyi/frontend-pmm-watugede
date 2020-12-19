@@ -138,7 +138,12 @@ const MutasiKeluarPage = ({ ...props }) => {
                 <Divider />
               </Box>
               <Box display="flex" justifyContent="flex-end">
-                <Button variant="contained" color="primary" type="submit">
+                <Button
+                  variant="contained"
+                  className={classes.controlButton}
+                  color="primary"
+                  type="submit"
+                >
                   Tambahkan
                 </Button>
               </Box>

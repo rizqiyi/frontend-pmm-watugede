@@ -21,4 +21,10 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     width: "30%",
   },
+  controlButton: {
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: "#1E94F8",
+    },
+  },
 }));
