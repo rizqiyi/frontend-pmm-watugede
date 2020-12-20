@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
+    justifyContent: "flex-start",
   },
   content: {
     flexGrow: 1,
@@ -57,6 +57,13 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
+  },
+  bgIcons: {
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.grey.main,
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.main,
+    },
   },
 }));
 

@@ -32,10 +32,6 @@ const KeteranganKeluarComponent = ({
 
   const isLoading = useSelector((state) => state.pengikut_keluar.isLoading);
 
-  const params = (data, flag) => {
-    return data.length !== 0 ? data : "";
-  };
-
   return (
     <React.Fragment>
       <Container maxWidth="md">

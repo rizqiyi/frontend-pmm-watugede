@@ -2,27 +2,48 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles((theme) => ({
   largeTextField: {
-    margin: theme.spacing(1.5),
-    marginTop: theme.spacing(2),
-    width: "60%",
+    width: "150%",
+    // margin: "10px",
+    margin: "28px 0px 0px 0px",
   },
-  mediumTextField: {
-    margin: theme.spacing(1.5),
-    marginTop: theme.spacing(2),
-    width: "40%",
+  lastField: {
+    width: "130%",
+    // margin: "10px",
+    margin: "28px 0px 0px 0px",
   },
-  smallTextField: {
-    margin: theme.spacing(1.5),
-    marginTop: theme.spacing(2),
-    width: "20%",
+  paper: {
+    width: "100%",
   },
-  pekerjaanField: {
-    margin: theme.spacing(1.5),
-    marginTop: theme.spacing(2),
-    width: "30%",
+  alamatTextField: {
+    width: "280%",
+    // height: "100%",
+    margin: "28px 0px 0px 0px",
+  },
+  resetText: {
+    color: theme.palette.grey.main,
+    fontWeight: 400,
+    wordSpacing: "1px",
+    cursor: "pointer",
+    textDecoration: "none",
+  },
+  backButton: {
+    color: "#8F8F8F",
+    fontWeight: 500,
+    border: "2px solid rgba(143, 143, 143, 0.5)",
+    width: theme.spacing(16),
+    padding: "10px",
+    borderRadius: 50,
+    textTransform: "inherit",
+    // "&:hover": {
+    //   backgroundColor: "white",
+    // },
   },
   controlButton: {
     color: "#fff",
+    width: theme.spacing(30),
+    padding: "10px",
+    borderRadius: 50,
+    textTransform: "inherit",
     "&:hover": {
       backgroundColor: "#1E94F8",
     },
