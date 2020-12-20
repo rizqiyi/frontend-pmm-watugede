@@ -10,11 +10,12 @@ import DashboardPage from "../pages/dashboard/dashboard";
 import { PendudukPage } from "../pages/penduduk/penduduk";
 import PendudukInsertPage from "../pages/penduduk/insert/insert";
 import { PendudukMasukPage } from "../pages/penduduk-masuk/penduduk-masuk";
-import { PendudukKeluarPage } from "../pages/penduduk-keluar/penduduk-keluar";
+import PendudukKeluarPage from "../pages/penduduk-keluar/penduduk-keluar";
 import { KelahiranPage } from "../pages/kelahiran/kelahiran";
 import { KematianPage } from "../pages/kematian/kematian";
 import { ActivityPage } from "../pages/activity/activity";
 import { PageNotFound } from "../pages/404-page/page-not-found";
+import { PendudukKeluarDetailsPage } from "../pages/penduduk-keluar/details/penduduk-keluar-details";
 
 const Navigations = () => {
   return (
@@ -28,6 +29,10 @@ const Navigations = () => {
             <PrivateRoute
               component={PendudukDetailsPage}
               path="/penduduk/:id/d"
+            />
+            <PrivateRoute
+              component={PendudukKeluarDetailsPage}
+              path="/penduduk_keluar/:id/d"
             />
             <PrivateRoute
               component={MutasiKeluarPage}
@@ -45,6 +50,7 @@ const Navigations = () => {
               component={PendudukKeluarPage}
               path="/penduduk_keluar"
             />
+
             <PrivateRoute component={KelahiranPage} path="/kelahiran" />
             <PrivateRoute component={KematianPage} path="/kematian" />
             <PrivateRoute component={ActivityPage} path="/activity" />

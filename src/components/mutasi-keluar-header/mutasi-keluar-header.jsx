@@ -211,9 +211,9 @@ const MutasiKeluarHeader = ({ ...props }) => {
         <Divider />
       </Box>
       <Box marginTop={2} marginBottom={2} marginLeft={6}>
-        <Box>
+        <Container maxWidth="md">
           <Typography variant="h6">Pengikut Keluar</Typography>
-        </Box>
+        </Container>
       </Box>
       <Grid container spacing={3}>
         {isLoading ? (
@@ -224,7 +224,7 @@ const MutasiKeluarHeader = ({ ...props }) => {
           <Box
             display="flex"
             justifyContent="center"
-            alignItem="center"
+            alignItems="center"
             margin="0 auto"
             marginTop={3}
             marginBottom={4}
