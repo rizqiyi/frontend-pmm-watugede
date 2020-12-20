@@ -12,8 +12,6 @@ import {
   Typography,
   useMediaQuery,
 } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
-import { Link } from "react-router-dom";
 import { PendudukTableBodyComponent } from "../../components/penduduk-keluar-components/table-body/table-body";
 import { PendudukEnhancedTableHead } from "../../components/penduduk-keluar-components/table-head/table-head";
 import GetAppIcon from "@material-ui/icons/GetApp";
@@ -100,42 +98,45 @@ const PendudukKeluarPage = ({ ...props }) => {
         ) : rows.length !== 0 ? (
           <Box marginTop={3} marginBottom={matches ? 10 : 2}>
             <Paper className={classes.paper}>
-              <Box p={2}>
-                <Typography variant="h6">Daftar Penduduk Keluar</Typography>
+              <Box p={3}>
+                <Box p={2}>
+                  <Typography variant="h6">Daftar Penduduk Keluar</Typography>
+                </Box>
+                <TableContainer>
+                  <Divider />
+                  <Table
+                    className={classes.table}
+                    aria-labelledby="tableTitle"
+                    aria-label="enhanced table"
+                  >
+                    <PendudukEnhancedTableHead
+                      classes={classes}
+                      order={order}
+                      orderBy={orderBy}
+                      setOrder={setOrder}
+                      setOrderBy={setOrderBy}
+                      rowCount={rows.length}
+                    />
+                    <PendudukTableBodyComponent
+                      rows={rows}
+                      order={order}
+                      orderBy={orderBy}
+                      page={page}
+                      rowsPerPage={rowsPerPage}
+                      emptyRows={emptyRows}
+                    />
+                  </Table>
+                </TableContainer>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25]}
+                  component="div"
+                  count={rows.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onChangePage={handleChangePage}
+                  onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
               </Box>
-              <TableContainer>
-                <Table
-                  className={classes.table}
-                  aria-labelledby="tableTitle"
-                  aria-label="enhanced table"
-                >
-                  <PendudukEnhancedTableHead
-                    classes={classes}
-                    order={order}
-                    orderBy={orderBy}
-                    setOrder={setOrder}
-                    setOrderBy={setOrderBy}
-                    rowCount={rows.length}
-                  />
-                  <PendudukTableBodyComponent
-                    rows={rows}
-                    order={order}
-                    orderBy={orderBy}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    emptyRows={emptyRows}
-                  />
-                </Table>
-              </TableContainer>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-              />
             </Paper>
           </Box>
         ) : null}

@@ -7,7 +7,7 @@ export const theme = createMuiTheme({
       dark: "#1E94F8",
     },
     secondary: {
-      main: "#2F14DE",
+      main: "#DAEFF7",
     },
     error: {
       main: "#d50000",
@@ -17,6 +17,9 @@ export const theme = createMuiTheme({
     },
     info: {
       main: "#2340F5",
+    },
+    grey: {
+      main: "#8F8F8F",
     },
   },
   typography: {

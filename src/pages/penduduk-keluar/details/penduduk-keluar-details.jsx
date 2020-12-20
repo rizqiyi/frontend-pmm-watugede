@@ -2,7 +2,6 @@ import {
   Avatar,
   Box,
   Button,
-  Container,
   Divider,
   Grid,
   Paper,
@@ -60,7 +59,7 @@ export const PendudukKeluarDetailsPage = () => {
             <Box
               display="flex"
               justifyContent="space-evenly"
-              alignItems="center"
+              alignItems="baseline"
             >
               <Box>
                 <Box marginTop={2}>
@@ -81,9 +80,6 @@ export const PendudukKeluarDetailsPage = () => {
                 <Box marginTop={2}>
                   <Typography variant="subtitle1">Umur : 100</Typography>
                 </Box>
-                <Box marginTop={2}>
-                  <Typography variant="subtitle1">Agama : Islam</Typography>
-                </Box>
               </Box>
               <Box>
                 <Box>
@@ -103,15 +99,25 @@ export const PendudukKeluarDetailsPage = () => {
                     </Typography>
                   </Box>
                   <Box marginTop={2}>
-                    <Typography variant="subtitle1">
-                      Posisi Dalam Keluarga : Ayah
-                    </Typography>
+                    <Typography variant="subtitle1">Agama : Islam</Typography>
                   </Box>
-                  <Box marginTop={2}>
-                    <Typography variant="subtitle1">
-                      Alamat Asal : Watugede Malang
-                    </Typography>
-                  </Box>
+                </Box>
+              </Box>
+              <Box>
+                <Box marginTop={2}>
+                  <Typography variant="subtitle1">
+                    Posisi Dalam Keluarga : Ayah
+                  </Typography>
+                </Box>
+                <Box
+                  marginTop={2}
+                  style={{
+                    maxWidth: "340px",
+                  }}
+                >
+                  <Typography variant="subtitle1">
+                    Alamat Asal : Watugede Malang
+                  </Typography>
                 </Box>
               </Box>
             </Box>

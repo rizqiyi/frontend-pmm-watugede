@@ -16,6 +16,7 @@ import {
 } from "../../utilities/list-items";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
+import { GreyText } from "../typography/typography";
 
 export const ListItemsComponent = () => {
   const [selected, setSelected] = useState(0);
@@ -56,99 +57,26 @@ export const ListItemsComponent = () => {
               <Typography className={classes.controlText} variant="subtitle1">
                 {controlTextMenu(list)}
               </Typography>
-              <Link to={list.link} className={classes.itemText}>
-                {idx > 2 && idx < 6 ? (
-                  <Box>
-                    {idx === 3 ? (
-                      <ListItem
-                        button
-                        onClick={() => {
-                          handleClick();
-                        }}
-                      >
-                        <ListItemText
-                          className={classes.textVillage}
-                          primary="Kependudukan"
-                        />
-                        {open ? <ExpandLess /> : <ExpandMore />}
-                      </ListItem>
-                    ) : null}
-                    <Collapse key={idx} in={open}>
-                      <List component="div" disablePadding>
-                        <ListItem
-                          button
-                          className={classes.selectedBorderRadiusNested}
-                          selected={selected === idx}
-                          onClick={(event) => {
-                            updateSelected(event, idx);
-                          }}
-                        >
-                          <ListItemIcon
-                            className={
-                              selected === idx
-                                ? classes.selectedIcons
-                                : classes.notSelectedIcons
-                            }
-                          >
-                            {selected === idx
-                              ? list.icons.containedIcon
-                              : list.icons.outlinedIcon}
-                          </ListItemIcon>
-                          <ListItemText
-                            primary={
-                              <Typography
-                                className={
-                                  selected === idx
-                                    ? classes.selectedText
-                                    : classes.controlFont
-                                }
-                                variant="subtitle2"
-                              >
-                                {list.name}
-                              </Typography>
-                            }
-                          />
-                        </ListItem>
-                      </List>
-                    </Collapse>
-                  </Box>
-                ) : (
+              <Box marginTop={idx === 3 || idx === 6 ? 2 : 0}>
+                <Link to={list.link} className={classes.itemText}>
                   <ListItem
                     button
                     selected={selected === idx}
-                    className={
-                      selected === idx ? classes.selectedBorderRadius : null
-                    }
                     onClick={(event) => updateSelected(event, idx)}
                   >
-                    <ListItemIcon
-                      className={
-                        selected === idx
-                          ? classes.selectedIcons
-                          : classes.notSelectedIcons
-                      }
-                    >
+                    <ListItemIcon className={classes.controlIcons}>
                       {selected === idx
                         ? list.icons.containedIcon
                         : list.icons.outlinedIcon}
                     </ListItemIcon>
                     <ListItemText
                       primary={
-                        <Typography
-                          className={
-                            selected === idx
-                              ? classes.selectedText
-                              : classes.controlFont
-                          }
-                          variant="subtitle2"
-                        >
-                          {list.name}
-                        </Typography>
+                        <GreyText variant="subtitle2" text={list.name} />
                       }
                     />
                   </ListItem>
-                )}
-              </Link>
+                </Link>
+              </Box>
             </Box>
           </Box>
         ))}

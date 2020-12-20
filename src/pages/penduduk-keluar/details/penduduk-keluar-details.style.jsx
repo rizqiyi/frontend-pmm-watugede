@@ -9,7 +9,6 @@ export const useStyles = makeStyles((theme) => ({
     color: "#fff",
     borderRadius: theme.spacing(13),
     width: theme.spacing(20),
-
     textTransform: "inherit",
     padding: theme.spacing(1.2),
     "&:hover": {

@@ -17,7 +17,6 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
       };
 
     case Types.FETCH_PENDUDUK_KELUAR_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         isLoading: false,
