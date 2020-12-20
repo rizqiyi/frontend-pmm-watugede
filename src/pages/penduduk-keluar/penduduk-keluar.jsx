@@ -53,21 +53,6 @@ const PendudukKeluarPage = ({ ...props }) => {
 
   return (
     <React.Fragment>
-      <Box marginBottom={2}>
-        <Button
-          color="primary"
-          component={Link}
-          to="/penduduk_keluar/insert"
-          className={classes.textButton}
-          startIcon={<AddIcon />}
-          variant="contained"
-        >
-          Tambah Penduduk
-        </Button>
-      </Box>
-      <Box marginTop={2} marginBottom={2}>
-        <Divider />
-      </Box>
       <Box display="flex" justifyContent="flex-end">
         {isLoading ? (
           <Skeleton animation="wave" width={150} height={30} />
@@ -89,11 +74,7 @@ const PendudukKeluarPage = ({ ...props }) => {
       </Box>
       <div className={classes.root}>
         {rows.length === 0 ? (
-          isLoading ? (
-            <Box className={classes.isLoading}>
-              <Skeleton height={400} width={250} />
-            </Box>
-          ) : (
+          isLoading ? null : (
             <Box display="flex" flexDirection="column">
               <Box>
                 <img
@@ -114,7 +95,7 @@ const PendudukKeluarPage = ({ ...props }) => {
         ) : null}
         {isLoading ? (
           <Box className={classes.isLoading}>
-            <Skeleton height={400} width={250} />
+            <Skeleton height={400} width={1000} />
           </Box>
         ) : rows.length !== 0 ? (
           <Box marginTop={3} marginBottom={matches ? 10 : 2}>
