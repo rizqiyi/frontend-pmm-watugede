@@ -23,7 +23,6 @@ const PendudukEnhancedTableHead = ({ ...props }) => {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox"></TableCell>
         {headCellsPenduduk.map((headCell) => (
           <TableCell
             key={headCell.id}

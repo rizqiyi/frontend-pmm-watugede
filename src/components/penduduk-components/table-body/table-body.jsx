@@ -21,7 +21,6 @@ export const PendudukTableBodyComponent = ({ ...props }) => {
           .map((row, index) => {
             return (
               <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                <TableCell></TableCell>
                 <TableCell align="left">
                   {isLoading ? <Skeleton /> : row.nik}
                 </TableCell>

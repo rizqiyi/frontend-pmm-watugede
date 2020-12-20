@@ -9,6 +9,7 @@ import { getKeteranganKeluar } from "../../../reducers/pengikut_keluar/pengikut_
 
 const KeteranganKeluarComponent = ({
   data,
+  id,
   dataPengikutKeluar,
   mappedDataPengusul,
 }) => {
@@ -31,6 +32,10 @@ const KeteranganKeluarComponent = ({
 
   const isLoading = useSelector((state) => state.pengikut_keluar.isLoading);
 
+  const params = (data, flag) => {
+    return data.length !== 0 ? data : "";
+  };
+
   return (
     <React.Fragment>
       <Container maxWidth="md">
@@ -47,7 +52,7 @@ const KeteranganKeluarComponent = ({
         ) : null}
         {isLoading ? (
           <Skeleton animation="wave" width="100%" height={50} />
-        ) : dataPengikutKeluar.length !== 0 && !data.keterangan_keluar ? (
+        ) : dataPengikutKeluar.length !== 0 && !data ? (
           <React.Fragment>
             <Box
               marginTop={3}
@@ -71,7 +76,7 @@ const KeteranganKeluarComponent = ({
         ) : null}
         {isLoading ? (
           <Skeleton animation="wave" width="100%" height={50} />
-        ) : data.keterangan_keluar ? (
+        ) : data !== undefined ? (
           <Box display="flex" flexDirection="column">
             <Box display="flex" p={3} flexDirection="row">
               <Box marginLeft={1} display="flex" flexDirection="column">
@@ -80,7 +85,7 @@ const KeteranganKeluarComponent = ({
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Tanggal KTP : {mappedDataPengusul.tanggal_ktp}
+                    Tanggal KTP : {data.length === 0 ? "" : data[0].tanggal_ktp}
                   </Typography>
                 </Box>
                 <Box marginTop={1}>
@@ -88,7 +93,8 @@ const KeteranganKeluarComponent = ({
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Alamat Pindah : {mappedDataPengusul.alamat_pindah}
+                    Alamat Pindah :{" "}
+                    {data.length === 0 ? "" : data[0].alamat_pindah}
                   </Typography>
                 </Box>
                 <Box marginTop={1}>
@@ -96,7 +102,7 @@ const KeteranganKeluarComponent = ({
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Pengikut : {mappedDataPengusul.pengikut}
+                    Pengikut : {data.length === 0 ? "" : data[0].pengikut}
                   </Typography>
                 </Box>
                 <Box marginTop={1}>
@@ -104,7 +110,8 @@ const KeteranganKeluarComponent = ({
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Alasan Pindah : {mappedDataPengusul.alasan_pindah}
+                    Alasan Pindah :{" "}
+                    {data.length === 0 ? "" : data[0].alasan_pindah}
                   </Typography>
                 </Box>
                 <Box marginTop={1}>
@@ -112,7 +119,7 @@ const KeteranganKeluarComponent = ({
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Catatan : {mappedDataPengusul.catatan}
+                    Catatan : {data.length === 0 ? "" : data[0].catatan}
                   </Typography>
                 </Box>
               </Box>
@@ -121,7 +128,7 @@ const KeteranganKeluarComponent = ({
         ) : null}
       </Container>
       <KeteranganKeluarInsert
-        data={data}
+        data={id}
         dataPengikutKeluar={dataPengikutKeluar}
         change={change}
         handleClose={handleClose}

@@ -30,8 +30,12 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   textIsNull: {
-    color: theme.palette.primary.main,
-    opacity: "0.6",
+    color: "black",
+    fontSize: "18px",
+    fontWeight: 500,
+  },
+  textCons: {
+    fontWeight: 350,
   },
   container: {
     marginTop: theme.spacing(13),
@@ -84,13 +88,12 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     margin: "0 auto",
-    marginTop: theme.spacing(12),
+    marginTop: theme.spacing(7),
   },
   isLoading: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     margin: "0 auto",
-    marginTop: theme.spacing(4),
   },
 }));

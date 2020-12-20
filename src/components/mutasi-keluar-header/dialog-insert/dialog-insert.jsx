@@ -33,6 +33,7 @@ const KeteranganKeluarInsert = ({ ...props }) => {
   const handleDateChangeLeave = (date) => {
     setSelectedDateLeave(date);
   };
+
   return (
     <React.Fragment>
       <Dialog
@@ -47,7 +48,7 @@ const KeteranganKeluarInsert = ({ ...props }) => {
           <Formik
             validationSchema={keteranganKeluarInsertValidation}
             initialValues={{
-              id: data._id,
+              id: data,
               pengikut: 0,
               tanggal_ktp: selectedDate
                 .toLocaleDateString("id-ID", {

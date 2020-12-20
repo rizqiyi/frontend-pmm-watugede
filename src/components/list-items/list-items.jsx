@@ -1,6 +1,5 @@
 import {
   Box,
-  Collapse,
   List,
   ListItemIcon,
   ListItemText,
@@ -14,18 +13,11 @@ import {
   controlSpace,
   controlTextMenu,
 } from "../../utilities/list-items";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
 import { GreyText } from "../typography/typography";
 
 export const ListItemsComponent = () => {
   const [selected, setSelected] = useState(0);
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
 
   const updateSelected = (event, selectedIndex) => {
     setSelected(selectedIndex);

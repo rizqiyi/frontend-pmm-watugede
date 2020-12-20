@@ -22,6 +22,7 @@ import { clearInfos } from "../../reducers/infos/info.actions";
 import { CSVLink } from "react-csv";
 import dataIsNull from "../../assets/images/no-data-found.svg";
 import { Skeleton } from "@material-ui/lab";
+import { GreyText } from "../../components/typography/typography";
 
 export const PendudukPage = () => {
   const [page, setPage] = useState(0);
@@ -101,59 +102,74 @@ export const PendudukPage = () => {
                   alt="Data Not Found"
                 />
               </Box>
-              <Box
-                display="flex"
-                justifyContent="center"
-                className={classes.textIsNull}
-              >
-                <Typography>Data kosong</Typography>
+              <Box display="flex" marginTop={4} justifyContent="center">
+                <Typography className={classes.textIsNull}>
+                  DATA PENDUDUK KOSONG
+                </Typography>
+              </Box>
+              <Box display="flex" marginTop={2} justifyContent="center">
+                <GreyText
+                  text="Silakan tambah data penduduk terlebih dahulu"
+                  className={classes.textCons}
+                />
               </Box>
             </Box>
           )
         ) : null}
         {isLoading ? (
-          <Box className={classes.isLoading}>
-            <Skeleton height={400} width={1000} />
+          <Box marginTop={20}>
+            <Box className={classes.isLoading}>
+              <Skeleton height={50} width={1000} />
+            </Box>
+            <Box className={classes.isLoading}>
+              <Skeleton height={50} width={1000} />
+            </Box>
+            <Box className={classes.isLoading}>
+              <Skeleton height={50} width={1000} />
+            </Box>
           </Box>
         ) : rows.length !== 0 ? (
           <Box marginTop={3} marginBottom={matches ? 10 : 2}>
             <Paper className={classes.paper}>
-              <Box p={2}>
-                <Typography variant="h6">Daftar Penduduk</Typography>
+              <Box p={3}>
+                <Box p={2}>
+                  <Typography variant="h6">Daftar Penduduk</Typography>
+                </Box>
+                <TableContainer>
+                  <Divider />
+                  <Table
+                    className={classes.table}
+                    aria-labelledby="tableTitle"
+                    aria-label="enhanced table"
+                  >
+                    <PendudukEnhancedTableHead
+                      classes={classes}
+                      order={order}
+                      orderBy={orderBy}
+                      setOrder={setOrder}
+                      setOrderBy={setOrderBy}
+                      rowCount={rows.length}
+                    />
+                    <PendudukTableBodyComponent
+                      rows={rows}
+                      order={order}
+                      orderBy={orderBy}
+                      page={page}
+                      rowsPerPage={rowsPerPage}
+                      emptyRows={emptyRows}
+                    />
+                  </Table>
+                </TableContainer>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25]}
+                  component="div"
+                  count={rows.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onChangePage={handleChangePage}
+                  onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
               </Box>
-              <TableContainer>
-                <Table
-                  className={classes.table}
-                  aria-labelledby="tableTitle"
-                  aria-label="enhanced table"
-                >
-                  <PendudukEnhancedTableHead
-                    classes={classes}
-                    order={order}
-                    orderBy={orderBy}
-                    setOrder={setOrder}
-                    setOrderBy={setOrderBy}
-                    rowCount={rows.length}
-                  />
-                  <PendudukTableBodyComponent
-                    rows={rows}
-                    order={order}
-                    orderBy={orderBy}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    emptyRows={emptyRows}
-                  />
-                </Table>
-              </TableContainer>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-              />
             </Paper>
           </Box>
         ) : null}

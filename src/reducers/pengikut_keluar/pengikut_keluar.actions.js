@@ -17,9 +17,23 @@ export const getPengikutKeluar = (id) => (dispatch, getState) => {
     .then((result) => {
       dispatch({
         type: Types.FETCH_PENGIKUT_KELUAR_SUCCESS,
-        payload: {
-          pengikut_keluar: result.data,
-        },
+        payload: result.data.data.pengikut_keluar,
+      });
+    })
+    .catch((err) => {
+      dispatch(returnInfos(err.response.message, err.response.status));
+    });
+};
+
+export const getPengusulKeluar = (id) => (dispatch, getState) => {
+  dispatch({ type: Types.START_REQUEST });
+
+  axios
+    .get(getPengikutKeluarURI(id), tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.FETCH_PENGUSUL_KELUAR_SUCCESS,
+        payload: result.data.data,
       });
     })
     .catch((err) => {
@@ -34,13 +48,12 @@ export const getKeteranganKeluar = (id) => (dispatch, getState) => {
     .get(getKeteranganKeluarURI(id), tokenConfig(getState))
     .then((result) => {
       dispatch({
-        type: Types.FETCH_KETERANGAN_KELUAR_SUCCESS,
-        payload: {
-          keterangan_keluar: result.data,
-        },
+        type: Types.FETCH_KETERANGAN_KELUAR_MUTASI_SUCCESS,
+        payload: result.data.data,
       });
     })
     .catch((err) => {
+      console.log(err);
       dispatch(returnInfos(err.response.message, err.response.status));
     });
 };
@@ -64,9 +77,9 @@ export const postPengikutKeluar = ({ ...request }, id) => (
       });
       dispatch(returnInfos(result.data.message, 200, "POST_PENGIKUT_KELUAR"));
     })
-    .then(() => {
-      dispatch(getPengikutKeluar(id));
-      dispatch(getKeteranganKeluar(id));
+    .then(async () => {
+      await dispatch(getPengikutKeluar(id));
+      await dispatch(getKeteranganKeluar(id));
     })
     .catch((err) => {
       dispatch(returnInfos(err.response.message, err.response.status));
@@ -87,9 +100,9 @@ export const postKeteranganKeluar = (request, id) => (dispatch, getState) => {
       });
       dispatch(returnInfos(result.data.message, 200, "POST_KETERANGAN_KELUAR"));
     })
-    .then(() => {
-      dispatch(getPengikutKeluar(id));
-      dispatch(getKeteranganKeluar(id));
+    .then(async () => {
+      await dispatch(getPengikutKeluar(id));
+      await dispatch(getKeteranganKeluar(id));
     })
     .catch((err) => {
       dispatch(returnInfos(err.response.message, err.response.status));

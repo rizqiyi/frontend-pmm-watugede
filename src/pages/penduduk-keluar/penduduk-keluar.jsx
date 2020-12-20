@@ -19,6 +19,7 @@ import { CSVLink } from "react-csv";
 import dataIsNull from "../../assets/images/no-data-found.svg";
 import { Skeleton } from "@material-ui/lab";
 import { useStyles } from "./penduduk-keluar.style";
+import { GreyText } from "../../components/typography/typography";
 
 const PendudukKeluarPage = ({ ...props }) => {
   const { pendudukKeluar, isLoading, fetchPendudukKeluar } = props;
@@ -81,19 +82,31 @@ const PendudukKeluarPage = ({ ...props }) => {
                   alt="Data Not Found"
                 />
               </Box>
-              <Box
-                display="flex"
-                justifyContent="center"
-                className={classes.textIsNull}
-              >
-                <Typography>Data kosong</Typography>
+              <Box display="flex" marginTop={4} justifyContent="center">
+                <Typography className={classes.textIsNull}>
+                  DATA PENDUDUK KELUAR KOSONG
+                </Typography>
+              </Box>
+              <Box display="flex" marginTop={2} justifyContent="center">
+                <GreyText
+                  text="Silakan tambah data penduduk keluar pada halaman mutasi keluar terlebih dahulu"
+                  className={classes.textCons}
+                />
               </Box>
             </Box>
           )
         ) : null}
         {isLoading ? (
-          <Box className={classes.isLoading}>
-            <Skeleton height={400} width={1000} />
+          <Box marginTop={20}>
+            <Box className={classes.isLoading}>
+              <Skeleton height={50} width={1000} />
+            </Box>
+            <Box className={classes.isLoading}>
+              <Skeleton height={50} width={1000} />
+            </Box>
+            <Box className={classes.isLoading}>
+              <Skeleton height={50} width={1000} />
+            </Box>
           </Box>
         ) : rows.length !== 0 ? (
           <Box marginTop={3} marginBottom={matches ? 10 : 2}>

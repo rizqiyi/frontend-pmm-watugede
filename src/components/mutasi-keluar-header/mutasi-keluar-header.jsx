@@ -9,10 +9,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useStyles } from "./mutasi-keluar-header.style";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import {
   getPengikutKeluar,
   getKeteranganKeluar,
+  getPengusulKeluar,
 } from "../../reducers/pengikut_keluar/pengikut_keluar.actions";
 import { PaperPengikutKeluar } from "./pengikut-keluar/pengikut-keluar";
 import KeteranganKeluarComponent from "./keterangan-keluar/keterangan-keluar";
@@ -22,45 +23,34 @@ import dataIsNullImage from "../../assets/images/no-data-found.svg";
 
 const MutasiKeluarHeader = ({ ...props }) => {
   const classes = useStyles();
-  const dataPengusul = useSelector(
-    (state) => state.pengikut_keluar.pengikut_keluar.t
-  );
-  const isLoading = useSelector((state) => state.pengikut_keluar.isLoading);
-  const keteranganPengusul = useSelector(
-    (state) => state.pengikut_keluar.keterangan_keluar.data
-  );
 
-  const { getPengikutKeluar, paramsId, getKeteranganKeluar } = props;
+  const {
+    getPengikutKeluar,
+    paramsId,
+    getKeteranganKeluar,
+    getPengusulKeluar,
+    pengikutKeluar,
+    pengusulKeluar,
+    isLoading,
+    keteranganKeluar,
+  } = props;
 
   useEffect(() => {
     const fetchData = async () => {
       await getPengikutKeluar(paramsId);
       await getKeteranganKeluar(paramsId);
+      await getPengusulKeluar(paramsId);
     };
     fetchData();
-  }, [getPengikutKeluar, paramsId, getKeteranganKeluar]);
-
-  const params = (data) => {
-    return data ? data : "";
-  };
-
-  const fixedData = params(dataPengusul);
-
-  const fixedDataKeterangan = params(keteranganPengusul);
-
-  const pengikutKeluar =
-    fixedData.pengikut_keluar === undefined ? [{}] : fixedData.pengikut_keluar;
-
-  const mappedDataPengusul =
-    fixedDataKeterangan === "" ? [{}] : fixedDataKeterangan;
-
-  const path = isLoading
-    ? "//"
-    : keteranganPengusul
-    ? keteranganPengusul[0].foto_pengusul
-    : "//";
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paramsId, getPengikutKeluar, getKeteranganKeluar, getPengusulKeluar]);
 
   const isNull = pengikutKeluar.length === 0;
+
+  const path =
+    keteranganKeluar === undefined || keteranganKeluar.length === 0
+      ? "//"
+      : keteranganKeluar[0].foto_pengusul;
 
   return (
     <React.Fragment>
@@ -100,7 +90,7 @@ const MutasiKeluarHeader = ({ ...props }) => {
                       variant="subtitle2"
                       className={classes.textPengusul}
                     >
-                      Nama Pengusul : {fixedData.nama_lengkap}
+                      Nama Pengusul : {pengusulKeluar.nama_lengkap}
                     </Typography>
                   )}
                 </Box>
@@ -112,7 +102,7 @@ const MutasiKeluarHeader = ({ ...props }) => {
                       variant="subtitle2"
                       className={classes.textPengusul}
                     >
-                      NIK : {fixedData.nik}
+                      NIK : {pengusulKeluar.nik}
                     </Typography>
                   )}
                 </Box>
@@ -124,7 +114,7 @@ const MutasiKeluarHeader = ({ ...props }) => {
                       variant="subtitle2"
                       className={classes.textPengusul}
                     >
-                      Umur : {fixedData.umur}
+                      Umur : {pengusulKeluar.umur}
                     </Typography>
                   )}
                 </Box>
@@ -136,7 +126,7 @@ const MutasiKeluarHeader = ({ ...props }) => {
                       variant="subtitle2"
                       className={classes.textPengusul}
                     >
-                      Tempat Tgl. Lahir : {fixedData.tempat_tanggal_lahir}
+                      Tempat Tgl. Lahir : {pengusulKeluar.tempat_tanggal_lahir}
                     </Typography>
                   )}
                 </Box>
@@ -148,7 +138,7 @@ const MutasiKeluarHeader = ({ ...props }) => {
                       variant="subtitle2"
                       className={classes.textPengusul}
                     >
-                      Agama : {fixedData.agama}
+                      Agama : {pengusulKeluar.agama}
                     </Typography>
                   )}
                 </Box>
@@ -160,7 +150,7 @@ const MutasiKeluarHeader = ({ ...props }) => {
                       variant="subtitle2"
                       className={classes.textPengusul}
                     >
-                      Alamat Asal : {fixedData.alamat_asal}
+                      Alamat Asal : {pengusulKeluar.alamat_asal}
                     </Typography>
                   )}
                 </Box>
@@ -172,7 +162,7 @@ const MutasiKeluarHeader = ({ ...props }) => {
                       variant="subtitle2"
                       className={classes.textPengusul}
                     >
-                      Pekerjaan : {fixedData.pekerjaan}
+                      Pekerjaan : {pengusulKeluar.pekerjaan}
                     </Typography>
                   )}
                 </Box>
@@ -184,7 +174,8 @@ const MutasiKeluarHeader = ({ ...props }) => {
                       variant="subtitle2"
                       className={classes.textPengusul}
                     >
-                      Posisi Dalam Keluarga : {fixedData.posisi_dalam_keluarga}
+                      Posisi Dalam Keluarga :{" "}
+                      {pengusulKeluar.posisi_dalam_keluarga}
                     </Typography>
                   )}
                 </Box>
@@ -195,16 +186,15 @@ const MutasiKeluarHeader = ({ ...props }) => {
             <Divider />
           </Box>
           <Box marginTop={2} marginLeft={3}>
-            <Typography variant="h6">Keterangan Keluar</Typography>
+            <Typography variant="h6" style={{ textDecoration: "underline" }}>
+              Keterangan Keluar
+            </Typography>
           </Box>
-          {mappedDataPengusul.map((d, idx) => (
-            <KeteranganKeluarComponent
-              key={idx}
-              dataPengikutKeluar={pengikutKeluar}
-              data={fixedData}
-              mappedDataPengusul={d}
-            />
-          ))}
+          <KeteranganKeluarComponent
+            dataPengikutKeluar={pengikutKeluar}
+            data={keteranganKeluar}
+            id={paramsId}
+          />
         </Paper>
       </Container>
       <Box marginTop={2} marginBottom={2}>
@@ -248,7 +238,11 @@ const MutasiKeluarHeader = ({ ...props }) => {
           <Grid container item spacing={3} justify="center" sm={12}>
             {pengikutKeluar.map((d, idx) => (
               <Grid item key={idx}>
-                <PaperPengikutKeluar fixedData={fixedData} d={d} key={idx} />
+                <PaperPengikutKeluar
+                  fixedData={pengusulKeluar}
+                  d={d}
+                  key={idx}
+                />
               </Grid>
             ))}
           </Grid>
@@ -278,11 +272,21 @@ const MutasiKeluarHeader = ({ ...props }) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    pengikutKeluar: state.pengikut_keluar.pengikut_keluar,
+    pengusulKeluar: state.pengikut_keluar.pengusul_keluar,
+    isLoading: state.pengikut_keluar.isLoading,
+    keteranganKeluar: state.pengikut_keluar.keterangan_keluar,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     getPengikutKeluar: (id) => dispatch(getPengikutKeluar(id)),
     getKeteranganKeluar: (id) => dispatch(getKeteranganKeluar(id)),
+    getPengusulKeluar: (id) => dispatch(getPengusulKeluar(id)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(MutasiKeluarHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(MutasiKeluarHeader);
