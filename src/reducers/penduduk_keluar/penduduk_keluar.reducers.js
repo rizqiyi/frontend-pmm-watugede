@@ -7,7 +7,7 @@ const initialState = {
   penduduk_keluar_detail: [],
   penduduk_keluar_obj: {},
   keterangan_keluar: [],
-  keterangan_keluar_obj: {},
+  keterangan_keluar_obj: [],
 };
 
 export const pendudukKeluarReducer = (state = initialState, action) => {
@@ -43,7 +43,7 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        keterangan_keluar: action.payload,
+        keterangan_keluar_obj: action.payload,
       };
 
     case Types.PUT_KETERANGAN_KELUAR_SUCCESS:

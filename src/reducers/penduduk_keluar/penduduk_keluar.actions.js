@@ -66,11 +66,12 @@ export const getKeteranganKeluarByID = (id) => (dispatch, getState) => {
     .then((result) => {
       dispatch({
         type: Types.FETCH_KETERANGAN_KELUAR_DETAIL_SUCCESS,
-        payload: result.data.data,
+        payload: result.data.yourId,
       });
     })
     .catch((err) => {
-      dispatch(returnInfos(err.response.message, err.response.status));
+      console.log(err);
+      // dispatch(returnInfos(err.response.message, err.response.status));
     });
 };
 

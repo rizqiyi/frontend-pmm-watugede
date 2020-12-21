@@ -32,6 +32,21 @@ export const useStyles = makeStyles((theme) => ({
       background: "#e1f5fe",
     },
   },
+  textIsNull: {
+    color: "black",
+    fontSize: "18px",
+    fontWeight: 500,
+  },
+  dataIsNull: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "0 auto",
+    marginTop: theme.spacing(7),
+  },
+  textCons: {
+    fontWeight: 350,
+  },
   deleteButton: {
     background: theme.palette.error.main,
     color: "#fff",

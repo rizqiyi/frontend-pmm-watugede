@@ -25,6 +25,8 @@ import { Skeleton } from "@material-ui/lab";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import DialogUpdateComponent from "../../../components/penduduk-keluar-components/dialog-update/dialog-update";
 import DialogDeleteComponent from "../../../components/penduduk-keluar-components/dialog-delete/dialog-delete";
+import dataIsNullImage from "../../../assets/images/no-data-found.svg";
+import { GreyText } from "../../../components/typography/typography";
 
 const PendudukKeluarDetailsPage = ({ ...props }) => {
   const classes = useStyles();
@@ -132,6 +134,37 @@ const PendudukKeluarDetailsPage = ({ ...props }) => {
           </Typography>
         </Box>
         <Grid container spacing={3}>
+          {isLoading ? null : pengikutKeluar.length === 0 ? (
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              margin="0 auto"
+              marginTop={4}
+              marginBottom={4}
+            >
+              <Box display="flex" flexDirection="column">
+                <Box>
+                  <img
+                    src={dataIsNullImage}
+                    className={classes.dataIsNull}
+                    alt="Data Not Found"
+                  />
+                </Box>
+                <Box display="flex" marginTop={4} justifyContent="center">
+                  <Typography className={classes.textIsNull}>
+                    DATA PENGIKUT KELUAR KOSONG
+                  </Typography>
+                </Box>
+                <Box display="flex" marginTop={2} justifyContent="center">
+                  <GreyText
+                    text="Silakan tambah data pengikut keluar terlebih dahulu pada halaman mutasi keluar."
+                    className={classes.textCons}
+                  />
+                </Box>
+              </Box>
+            </Box>
+          ) : null}
           {isLoading ? (
             <Grid container item spacing={3} justify="center" sm={12}>
               <Skeleton width={300} height={300} />
@@ -257,7 +290,7 @@ const PendudukKeluarDetailsPage = ({ ...props }) => {
 const mapStateToProps = (state) => {
   return {
     pengusulKeluar: state.penduduk_keluar.penduduk_keluar_detail,
-    keteranganKeluar: state.penduduk_keluar.keterangan_keluar,
+    keteranganKeluar: state.penduduk_keluar.keterangan_keluar_obj,
     pengikutKeluar: state.penduduk_keluar.pengikut_keluar,
     isLoading: state.penduduk_keluar.isLoading,
   };
