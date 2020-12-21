@@ -39,7 +39,7 @@ const KeteranganKeluarComponent = ({
           <Box>
             <Skeleton animation="wave" width="100%" height={50} />
           </Box>
-        ) : dataPengikutKeluar.length === 0 ? (
+        ) : dataPengikutKeluar.length === 0 && data === undefined ? (
           <Box p={3} display="flex" justifyContent="center">
             <Typography style={{ fontWeight: 350 }}>
               Harap menambahkan Pengikut keluar terlebih dahulu

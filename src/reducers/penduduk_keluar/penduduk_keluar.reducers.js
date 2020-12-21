@@ -69,11 +69,11 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         penduduk_keluar_obj: action.payload,
       };
 
-    case Types.DELETE_PENDUDUK_KELUAR_SUCCESS:
+    case Types.DELETE_PENGIKUT_KELUAR_SUCCESS:
       return {
         ...state,
         penduduk_keluar: state.penduduk_keluar.filter(
-          (d) => d._id !== action.payload.penduduk_keluar_id
+          (d) => d._id !== action.payload
         ),
         isLoading: false,
       };

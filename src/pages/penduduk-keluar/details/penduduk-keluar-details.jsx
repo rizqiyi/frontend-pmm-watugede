@@ -24,6 +24,7 @@ import { DialogDetails } from "./dialog-details/dialog-details";
 import { Skeleton } from "@material-ui/lab";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import DialogUpdateComponent from "../../../components/penduduk-keluar-components/dialog-update/dialog-update";
+import DialogDeleteComponent from "../../../components/penduduk-keluar-components/dialog-delete/dialog-delete";
 
 const PendudukKeluarDetailsPage = ({ ...props }) => {
   const classes = useStyles();
@@ -43,7 +44,10 @@ const PendudukKeluarDetailsPage = ({ ...props }) => {
   const [openDialogUpdatePengikut, setOpenDialogUpdatePengikut] = useState(
     false
   );
-  const [dataUpdatePengikut, setDataUpdatePengikut] = useState(false);
+  const [openDialogDeletePengikut, setOpenDialogDeletePengikut] = useState(
+    false
+  );
+  const [dataToComponents, setDataToComponents] = useState(false);
   const [data, setData] = useState([]);
 
   const handleClick = () => {
@@ -128,7 +132,7 @@ const PendudukKeluarDetailsPage = ({ ...props }) => {
           </Typography>
         </Box>
         <Grid container spacing={3}>
-          {isLoading || pengikutKeluar.length === 0 ? (
+          {isLoading ? (
             <Grid container item spacing={3} justify="center" sm={12}>
               <Skeleton width={300} height={300} />
             </Grid>
@@ -148,7 +152,7 @@ const PendudukKeluarDetailsPage = ({ ...props }) => {
                           onClick={(e) => {
                             e.preventDefault();
                             setOpenDialogUpdatePengikut(true);
-                            setDataUpdatePengikut(d);
+                            setDataToComponents(d);
                           }}
                           className={classes.editIconButton}
                         >
@@ -156,7 +160,14 @@ const PendudukKeluarDetailsPage = ({ ...props }) => {
                         </IconButton>
                       </Box>
                       <Box>
-                        <IconButton className={classes.deleteIconButton}>
+                        <IconButton
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setOpenDialogDeletePengikut(true);
+                            setDataToComponents(d);
+                          }}
+                          className={classes.deleteIconButton}
+                        >
                           <DeleteIcon />
                         </IconButton>
                       </Box>
@@ -228,10 +239,16 @@ const PendudukKeluarDetailsPage = ({ ...props }) => {
         handleClose={handleClose}
       />
       <DialogUpdateComponent
-        data={dataUpdatePengikut}
+        data={dataToComponents}
         handleClose={setOpenDialogUpdatePengikut}
         open={openDialogUpdatePengikut}
         idPengusul={paramsId}
+      />
+      <DialogDeleteComponent
+        idPengusul={paramsId}
+        idPengikut={dataToComponents}
+        open={openDialogDeletePengikut}
+        handleClose={setOpenDialogDeletePengikut}
       />
     </React.Fragment>
   );

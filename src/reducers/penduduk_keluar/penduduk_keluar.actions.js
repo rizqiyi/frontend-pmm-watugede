@@ -1,6 +1,7 @@
 import Types from "./penduduk_keluar.types";
 import axios from "axios";
 import {
+  deletePengikutKeluarURI,
   getKeteranganKeluarURI,
   getPengikutKeluarURI,
   initialURL,
@@ -94,6 +95,31 @@ export const updatePengikutKeluar = (
       dispatch({
         type: Types.PUT_PENGIKUT_KELUAR_SUCCESS,
         payload: result.data.data,
+      });
+    })
+    .then(() => {
+      dispatch(getPendudukKeluarByID(idPenduduk));
+    })
+    .catch((err) => {
+      dispatch(returnInfos(err.response.message, err.response.status));
+    });
+};
+
+export const deletePengikutKeluar = (idPenduduk, idPengikut) => (
+  dispatch,
+  getState
+) => {
+  dispatch({ type: Types.START_REQUEST_KELUAR });
+
+  axios
+    .delete(
+      deletePengikutKeluarURI(idPenduduk, idPengikut),
+      tokenConfig(getState)
+    )
+    .then((result) => {
+      dispatch({
+        type: Types.DELETE_PENGIKUT_KELUAR_SUCCESS,
+        payload: idPengikut,
       });
     })
     .then(() => {

@@ -20,6 +20,8 @@ const postKeteranganKeluarURI = (id) => `${initialURL.keteranganURI}/${id}`;
 const getKeteranganKeluarURI = (id) => `${initialURL.keteranganURI}/p/${id}`;
 const updatePengikutKeluarURI = (idPenduduk, idPengikut) =>
   `${initialURL.pendudukKeluarURI}/${idPenduduk}/u/${idPengikut}`;
+const deletePengikutKeluarURI = (idPenduduk, idPengikut) =>
+  `${initialURL.pendudukKeluarURI}/${idPenduduk}/d/${idPengikut}`;
 
 export {
   baseURL,
@@ -31,4 +33,5 @@ export {
   postKeteranganKeluarURI,
   getKeteranganKeluarURI,
   updatePengikutKeluarURI,
+  deletePengikutKeluarURI,
 };
