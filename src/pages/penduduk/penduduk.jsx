@@ -76,6 +76,18 @@ export const PendudukPage = () => {
                   className={classes.textCons}
                 />
               </Box>
+              <Box display="flex" marginTop={2} justifyContent="center">
+                <Button
+                  color="primary"
+                  component={Link}
+                  to="/penduduk/insert"
+                  className={classes.textButton}
+                  startIcon={<AddIcon />}
+                  variant="contained"
+                >
+                  Tambah Penduduk
+                </Button>
+              </Box>
             </Box>
           )
         ) : null}

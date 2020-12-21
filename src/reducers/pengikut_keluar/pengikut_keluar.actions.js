@@ -49,12 +49,12 @@ export const getKeteranganKeluar = (id) => (dispatch, getState) => {
     .then((result) => {
       dispatch({
         type: Types.FETCH_KETERANGAN_KELUAR_MUTASI_SUCCESS,
-        payload: result.data.data,
+        payload: result.data.yourId,
       });
     })
     .catch((err) => {
       console.log(err);
-      dispatch(returnInfos(err.response.message, err.response.status));
+      // dispatch(returnInfos(err.response.message, err.response.status));
     });
 };
 

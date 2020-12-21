@@ -31,6 +31,8 @@ const KeteranganKeluarComponent = ({
   };
 
   const isLoading = useSelector((state) => state.pengikut_keluar.isLoading);
+  const isEmpty =
+    Object.keys(data).length === 0 || data === undefined || data.length === 0;
 
   return (
     <React.Fragment>
@@ -72,7 +74,7 @@ const KeteranganKeluarComponent = ({
         ) : null}
         {isLoading ? (
           <Skeleton animation="wave" width="100%" height={50} />
-        ) : data !== undefined ? (
+        ) : !isEmpty ? (
           <Box display="flex" flexDirection="column">
             <Box display="flex" p={3} flexDirection="row">
               <Box marginLeft={1} display="flex" flexDirection="column">
@@ -81,7 +83,7 @@ const KeteranganKeluarComponent = ({
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Tanggal KTP : {data.length === 0 ? "" : data[0].tanggal_ktp}
+                    Tanggal KTP : {data[0].tanggal_ktp}
                   </Typography>
                 </Box>
                 <Box marginTop={1}>
@@ -89,8 +91,7 @@ const KeteranganKeluarComponent = ({
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Alamat Pindah :{" "}
-                    {data.length === 0 ? "" : data[0].alamat_pindah}
+                    Alamat Pindah : {data[0].alamat_pindah}
                   </Typography>
                 </Box>
                 <Box marginTop={1}>
@@ -98,7 +99,7 @@ const KeteranganKeluarComponent = ({
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Pengikut : {data.length === 0 ? "" : data[0].pengikut}
+                    Pengikut : {data[0].pengikut}
                   </Typography>
                 </Box>
                 <Box marginTop={1}>
@@ -106,8 +107,7 @@ const KeteranganKeluarComponent = ({
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Alasan Pindah :{" "}
-                    {data.length === 0 ? "" : data[0].alasan_pindah}
+                    Alasan Pindah : {data[0].alasan_pindah}
                   </Typography>
                 </Box>
                 <Box marginTop={1}>
@@ -115,7 +115,7 @@ const KeteranganKeluarComponent = ({
                     variant="subtitle2"
                     className={classes.textPengusul}
                   >
-                    Catatan : {data.length === 0 ? "" : data[0].catatan}
+                    Catatan : {data[0].catatan}
                   </Typography>
                 </Box>
               </Box>

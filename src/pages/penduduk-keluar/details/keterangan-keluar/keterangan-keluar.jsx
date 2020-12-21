@@ -59,7 +59,7 @@ export const KeteranganKeluarComponent = ({ isLoading, data }) => {
                 <Skeleton width={250} height={30} />
               ) : (
                 <Typography variant="subtitle1">
-                  Tanggal KTP : {data.tanggal_ktp}
+                  Tanggal KTP : {data[0].tanggal_ktp}
                 </Typography>
               )}
             </Box>

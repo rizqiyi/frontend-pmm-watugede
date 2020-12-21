@@ -35,7 +35,7 @@ export const pengikutKeluarReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        keterangan_keluar: action.payload,
+        keterangan_keluar_obj: action.payload,
       };
 
     case Types.POST_KETERANGAN_KELUAR_SUCCESS:

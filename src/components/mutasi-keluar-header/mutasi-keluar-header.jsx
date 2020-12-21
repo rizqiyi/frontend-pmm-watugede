@@ -36,22 +36,21 @@ const MutasiKeluarHeader = ({ ...props }) => {
   } = props;
 
   useEffect(() => {
-    const fetchData = async () => {
-      await getPengikutKeluar(paramsId);
-      await getKeteranganKeluar(paramsId);
-      await getPengusulKeluar(paramsId);
-    };
-    fetchData();
+    getPengikutKeluar(paramsId);
+    getKeteranganKeluar(paramsId);
+    getPengusulKeluar(paramsId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paramsId, getPengikutKeluar, getKeteranganKeluar, getPengusulKeluar]);
 
   const isNull = pengikutKeluar.length === 0;
-
   const path =
-    keteranganKeluar === undefined || keteranganKeluar.length === 0
+    Object.keys(keteranganKeluar).length === 0 ||
+    keteranganKeluar === undefined ||
+    keteranganKeluar.length === 0
       ? "//"
       : keteranganKeluar[0].foto_pengusul;
 
+  // console.log(keteranganKeluar);
   return (
     <React.Fragment>
       <Box marginTop={2} marginBottom={2}>
@@ -277,7 +276,7 @@ const mapStateToProps = (state) => {
     pengikutKeluar: state.pengikut_keluar.pengikut_keluar,
     pengusulKeluar: state.pengikut_keluar.pengusul_keluar,
     isLoading: state.pengikut_keluar.isLoading,
-    keteranganKeluar: state.pengikut_keluar.keterangan_keluar,
+    keteranganKeluar: state.pengikut_keluar.keterangan_keluar_obj,
   };
 };
 
