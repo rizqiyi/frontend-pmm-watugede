@@ -3,6 +3,8 @@ import Types from "./penduduk_keluar.types";
 const initialState = {
   isLoading: false,
   penduduk_keluar: [],
+  pengikut_keluar: [],
+  penduduk_keluar_detail: [],
   penduduk_keluar_obj: {},
   keterangan_keluar: [],
   keterangan_keluar_obj: {},
@@ -27,14 +29,21 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        penduduk_keluar_obj: action.payload.penduduk_keluar_obj,
+        penduduk_keluar_detail: action.payload,
       };
 
-    case Types.FETCH_KETERANGAN_KELUAR_SUCCESS:
+    case Types.FETCH_PENGIKUT_KELUAR_DETAILS:
       return {
         ...state,
         isLoading: false,
-        keterangan_keluar: action.payload.keterangan_keluar,
+        pengikut_keluar: action.payload,
+      };
+
+    case Types.FETCH_KETERANGAN_KELUAR_DETAIL_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        keterangan_keluar: action.payload,
       };
 
     case Types.PUT_KETERANGAN_KELUAR_SUCCESS:

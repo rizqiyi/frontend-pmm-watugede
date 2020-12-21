@@ -36,6 +36,8 @@ const PendudukKeluarPage = ({ ...props }) => {
   const [orderBy, setOrderBy] = useState("");
   const matches = useMediaQuery("(max-width:600px)");
 
+  console.log(pendudukKeluar);
+
   const rows = pendudukKeluar.map((d) => d);
 
   const handleChangePage = (event, newPage) => {

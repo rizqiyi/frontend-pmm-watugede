@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   Divider,
@@ -7,11 +6,42 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import React from "react";
+import React, { useEffect } from "react";
 import { useStyles } from "./penduduk-keluar-details.style";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { PengusulKeluarComponent } from "./pengusul-keluar/pengusul-keluar";
+import { KeteranganKeluarComponent } from "./keterangan-keluar/keterangan-keluar";
+import { connect } from "react-redux";
+import {
+  getKeteranganKeluarByID,
+  getPendudukKeluarByID,
+  getPengusulKeluarByID,
+} from "../../../reducers/penduduk_keluar/penduduk_keluar.actions";
 
-export const PendudukKeluarDetailsPage = () => {
+const PendudukKeluarDetailsPage = ({ ...props }) => {
   const classes = useStyles();
+  const {
+    fetchKeterangan,
+    fetchPengusulKeluar,
+    fetchPendudukKeluar,
+    match,
+    pengusulKeluar,
+    keteranganKeluar,
+    pengikutKeluar,
+    isLoading,
+  } = props;
+  const paramsId = match.params.id;
+
+  useEffect(() => {
+    fetchPengusulKeluar(paramsId);
+    fetchKeterangan(paramsId);
+    fetchPendudukKeluar(paramsId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paramsId]);
+
+  console.log(pengikutKeluar);
+
   return (
     <React.Fragment>
       <Box>
@@ -29,13 +59,18 @@ export const PendudukKeluarDetailsPage = () => {
                     variant="contained"
                     className={classes.updateButton}
                     color="primary"
+                    endIcon={<EditIcon />}
                   >
-                    Update Data
+                    Perbarui Data
                   </Button>
                 </Box>
                 <Box>
-                  <Button variant="contained" className={classes.deleteButton}>
-                    Delete Data
+                  <Button
+                    variant="contained"
+                    className={classes.deleteButton}
+                    endIcon={<DeleteIcon />}
+                  >
+                    Hapus Data
                   </Button>
                 </Box>
               </Box>
@@ -51,123 +86,18 @@ export const PendudukKeluarDetailsPage = () => {
                 Data Pengusul Keluar
               </Typography>
             </Box>
-            <Box display="flex" justifyContent="center" alignItems="center">
-              <Box>
-                <Avatar style={{ height: "140px", width: "140px" }}></Avatar>
-              </Box>
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="space-evenly"
-              alignItems="baseline"
-            >
-              <Box>
-                <Box marginTop={2}>
-                  <Typography variant="subtitle1">
-                    NIK : 1231239129391239
-                  </Typography>
-                </Box>
-                <Box marginTop={2}>
-                  <Typography variant="subtitle1">
-                    Nama Pengusul : Aditya Rachman
-                  </Typography>
-                </Box>
-                <Box marginTop={2}>
-                  <Typography variant="subtitle1">
-                    Tempat Tanggal Lahir : 17 Agustus 1945
-                  </Typography>
-                </Box>
-                <Box marginTop={2}>
-                  <Typography variant="subtitle1">Umur : 100</Typography>
-                </Box>
-              </Box>
-              <Box>
-                <Box>
-                  <Box marginTop={2}>
-                    <Typography variant="subtitle1">
-                      Jenis Kelamin : Laki laki
-                    </Typography>
-                  </Box>
-                  <Box marginTop={2}>
-                    <Typography variant="subtitle1">
-                      Status Perkawinan : Belum Kawin
-                    </Typography>
-                  </Box>
-                  <Box marginTop={2}>
-                    <Typography variant="subtitle1">
-                      Pendidikan Terakhir : SMA
-                    </Typography>
-                  </Box>
-                  <Box marginTop={2}>
-                    <Typography variant="subtitle1">Agama : Islam</Typography>
-                  </Box>
-                </Box>
-              </Box>
-              <Box>
-                <Box marginTop={2}>
-                  <Typography variant="subtitle1">
-                    Posisi Dalam Keluarga : Ayah
-                  </Typography>
-                </Box>
-                <Box
-                  marginTop={2}
-                  style={{
-                    maxWidth: "340px",
-                  }}
-                >
-                  <Typography variant="subtitle1">
-                    Alamat Asal : Watugede Malang
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
+            <PengusulKeluarComponent
+              data={pengusulKeluar}
+              isLoading={isLoading}
+              path={keteranganKeluar}
+            />
             <Box marginTop={4} marginBottom={2}>
               <Divider />
             </Box>
-            <Box marginLeft={4}>
-              <Typography
-                variant="subtitle1"
-                style={{ textDecoration: "underline" }}
-              >
-                Data Keterangan Keluar
-              </Typography>
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="space-evenly"
-              alignItems="center"
-            >
-              <Box marginLeft={4}>
-                <Box marginTop={2}>
-                  <Typography variant="subtitle1">
-                    Tanggal KTP : 12 Desember 2020
-                  </Typography>
-                </Box>
-                <Box marginTop={2}>
-                  <Typography variant="subtitle1">
-                    Alamat Pindah : Menteng, Jakarta
-                  </Typography>
-                </Box>
-                <Box marginTop={2}>
-                  <Typography variant="subtitle1">
-                    Alasan Pindah : Dinas
-                  </Typography>
-                </Box>
-              </Box>
-              <Box>
-                <Box marginTop={2}>
-                  <Typography variant="subtitle1">Pengikut : 1</Typography>
-                </Box>
-                <Box marginTop={2}>
-                  <Typography variant="subtitle1">
-                    Meninggalkan Desa Pada : 20 Desember 2020
-                  </Typography>
-                </Box>
-                <Box marginTop={2}>
-                  <Typography variant="subtitle1">Catatan : -</Typography>
-                </Box>
-              </Box>
-            </Box>
+            <KeteranganKeluarComponent
+              data={keteranganKeluar}
+              isLoading={isLoading}
+            />
           </Box>
         </Paper>
         <Box marginLeft={4} marginTop={4} paddingLeft={3}>
@@ -180,38 +110,68 @@ export const PendudukKeluarDetailsPage = () => {
         </Box>
         <Grid container spacing={3}>
           <Grid container item spacing={3} justify="center" sm={12}>
-            <Grid item>
-              <Paper>
-                <Box p={3}>
-                  <Box>
-                    <Typography>Nama Lengkap : Rizqiyanto Imanullah</Typography>
+            {pengikutKeluar.map((d, idx) => (
+              <Grid item key={idx}>
+                <Paper>
+                  <Box p={3}>
+                    <Box>
+                      <Typography>
+                        Nama Lengkap : {d.nama_lengkap_keluarga}
+                      </Typography>
+                    </Box>
+                    <Box marginTop={3}>
+                      <Typography>
+                        Jenis Kelamin : {d.jenis_kelamin_keluarga}
+                      </Typography>
+                    </Box>
+                    <Box marginTop={3}>
+                      <Typography>Umur : {d.umur_keluarga}</Typography>
+                    </Box>
+                    <Box marginTop={3}>
+                      <Typography>
+                        Posisi dalam Keluarga : {d.keterangan_dalam_keluarga}
+                      </Typography>
+                    </Box>
+                    <Box marginTop={2} marginBottom={1}>
+                      <Divider />
+                    </Box>
+                    <Box display="flex" justifyContent="flex-end">
+                      <Typography
+                        variant="subtitle2"
+                        className={classes.textLink}
+                      >
+                        Lihat Detail
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Box marginTop={3}>
-                    <Typography>Jenis Kelamin : Laki laki</Typography>
-                  </Box>
-                  <Box marginTop={3}>
-                    <Typography>Umur : 20</Typography>
-                  </Box>
-                  <Box marginTop={3}>
-                    <Typography>Posisi dalam Keluarga : Anak</Typography>
-                  </Box>
-                  <Box marginTop={2} marginBottom={1}>
-                    <Divider />
-                  </Box>
-                  <Box display="flex" justifyContent="flex-end">
-                    <Typography
-                      variant="subtitle2"
-                      className={classes.textLink}
-                    >
-                      Lihat Detail
-                    </Typography>
-                  </Box>
-                </Box>
-              </Paper>
-            </Grid>
+                </Paper>
+              </Grid>
+            ))}
           </Grid>
         </Grid>
       </Box>
     </React.Fragment>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+    pengusulKeluar: state.penduduk_keluar.penduduk_keluar_detail,
+    keteranganKeluar: state.penduduk_keluar.keterangan_keluar,
+    pengikutKeluar: state.penduduk_keluar.pengikut_keluar,
+    isLoading: state.penduduk_keluar.isLoading,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchKeterangan: (id) => dispatch(getKeteranganKeluarByID(id)),
+    fetchPengusulKeluar: (id) => dispatch(getPengusulKeluarByID(id)),
+    fetchPendudukKeluar: (id) => dispatch(getPendudukKeluarByID(id)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PendudukKeluarDetailsPage);

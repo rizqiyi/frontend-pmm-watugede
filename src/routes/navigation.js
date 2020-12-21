@@ -15,7 +15,7 @@ import { KelahiranPage } from "../pages/kelahiran/kelahiran";
 import { KematianPage } from "../pages/kematian/kematian";
 import { ActivityPage } from "../pages/activity/activity";
 import { PageNotFound } from "../pages/404-page/page-not-found";
-import { PendudukKeluarDetailsPage } from "../pages/penduduk-keluar/details/penduduk-keluar-details";
+import PendudukKeluarDetailsPage from "../pages/penduduk-keluar/details/penduduk-keluar-details";
 
 const Navigations = () => {
   return (

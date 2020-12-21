@@ -9,7 +9,6 @@ import { pendudukInsertValidation } from "../../../validations/penduduk";
 import { TextFormField } from "../../../components/styled-textfield/styled-textfield";
 import Alert from "@material-ui/lab/Alert";
 import { clearInfos } from "../../../reducers/infos/info.actions";
-
 import AddIcon from "@material-ui/icons/Add";
 
 const PendudukInsertPage = ({ clearInfos, infos }) => {
@@ -56,15 +55,13 @@ const PendudukInsertPage = ({ clearInfos, infos }) => {
               <Form>
                 {infos.status === 200 ? (
                   <Box marginLeft={1.4} width="95%" marginBottom={2}>
-                    <Alert>{infos.message}</Alert>
+                    <Alert icon={false}>{infos.message}</Alert>
                   </Box>
                 ) : null}
                 <Box
                   display="flex"
                   flexDirection="row"
                   alignItems="baseline"
-                  // position="relative"
-                  // left={-80}
                   justifyContent="flex-start"
                 >
                   <Box

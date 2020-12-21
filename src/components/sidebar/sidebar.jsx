@@ -20,7 +20,11 @@ export const ListItemComponent = ({ handleDrawerClose, open }) => {
       }}
     >
       <div className={classes.drawerHeader}>
-        <IconButton className={classes.bgIcons} onClick={handleDrawerClose}>
+        <IconButton
+          size="small"
+          className={classes.bgIcons}
+          onClick={handleDrawerClose}
+        >
           {theme.direction === "ltr" ? (
             <ChevronLeftIcon />
           ) : (
