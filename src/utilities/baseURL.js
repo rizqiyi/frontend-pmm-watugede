@@ -18,6 +18,8 @@ const postPengikutKeluarURI = (id) => `${initialURL.pendudukKeluarURI}/${id}`;
 const getPengikutKeluarURI = (id) => `${initialURL.pendudukKeluarURI}/${id}`;
 const postKeteranganKeluarURI = (id) => `${initialURL.keteranganURI}/${id}`;
 const getKeteranganKeluarURI = (id) => `${initialURL.keteranganURI}/p/${id}`;
+const updatePengikutKeluarURI = (idPenduduk, idPengikut) =>
+  `${initialURL.pendudukKeluarURI}/${idPenduduk}/u/${idPengikut}`;
 
 export {
   baseURL,
@@ -28,4 +30,5 @@ export {
   getPengikutKeluarURI,
   postKeteranganKeluarURI,
   getKeteranganKeluarURI,
+  updatePengikutKeluarURI,
 };

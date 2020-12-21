@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 import { PendudukTableBodyComponent } from "../../components/penduduk-keluar-components/table-body/table-body";
 import { PendudukEnhancedTableHead } from "../../components/penduduk-keluar-components/table-head/table-head";
-import GetAppIcon from "@material-ui/icons/GetApp";
 import { CSVLink } from "react-csv";
 import dataIsNull from "../../assets/images/no-data-found.svg";
 import { Skeleton } from "@material-ui/lab";
@@ -36,8 +35,6 @@ const PendudukKeluarPage = ({ ...props }) => {
   const [orderBy, setOrderBy] = useState("");
   const matches = useMediaQuery("(max-width:600px)");
 
-  console.log(pendudukKeluar);
-
   const rows = pendudukKeluar.map((d) => d);
 
   const handleChangePage = (event, newPage) => {
@@ -54,25 +51,6 @@ const PendudukKeluarPage = ({ ...props }) => {
 
   return (
     <React.Fragment>
-      <Box display="flex" justifyContent="flex-end">
-        {isLoading ? (
-          <Skeleton animation="wave" width={150} height={30} />
-        ) : (
-          <Button
-            color="primary"
-            size="small"
-            component={CSVLink}
-            startIcon={<GetAppIcon />}
-            variant="contained"
-            data={rows}
-            className={classes.controlButton}
-            disabled={rows.length === 0}
-            filename="penduduk_keluar.csv"
-          >
-            Download CSV
-          </Button>
-        )}
-      </Box>
       <div className={classes.root}>
         {rows.length === 0 ? (
           isLoading ? null : (
@@ -114,8 +92,29 @@ const PendudukKeluarPage = ({ ...props }) => {
           <Box marginTop={3} marginBottom={matches ? 10 : 2}>
             <Paper className={classes.paper}>
               <Box p={3}>
-                <Box p={2}>
-                  <Typography variant="h6">Daftar Penduduk Keluar</Typography>
+                <Box
+                  p={2}
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Box>
+                    <Typography variant="h6">Daftar Penduduk Keluar</Typography>
+                  </Box>
+                  <Box>
+                    <Button
+                      color="primary"
+                      size="small"
+                      component={CSVLink}
+                      data={rows}
+                      className={classes.downloadButton}
+                      disabled={rows.length === 0}
+                      filename="penduduk_keluar.csv"
+                    >
+                      Unduh CSV
+                    </Button>
+                  </Box>
                 </Box>
                 <TableContainer>
                   <Divider />

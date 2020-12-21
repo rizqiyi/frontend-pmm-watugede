@@ -23,10 +23,15 @@ export const useStyles = makeStyles((theme) => ({
     width: 1,
   },
   textButton: {
-    textTransform: "inherit",
     color: "#fff",
+    width: theme.spacing(26),
+    padding: "10px",
+    borderRadius: 50,
+    fontWeight: 400,
+    textTransform: "inherit",
+    marginBottom: 4,
     "&:hover": {
-      backgroundColor: theme.palette.primary.dark,
+      backgroundColor: "#1E94F8",
     },
   },
   textIsNull: {
@@ -41,9 +46,16 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(13),
   },
   controlButton: {
-    color: "#fff",
+    color: theme.palette.primary.main,
+    width: theme.spacing(20),
+    padding: "12px",
+    borderRadius: 50,
+    fontWeight: 400,
+    marginRight: 20,
+    backgroundColor: "#e1f5fe",
+    textTransform: "inherit",
     "&:hover": {
-      backgroundColor: theme.palette.primary.dark,
+      backgroundColor: "#e3f2fd",
     },
   },
   controlEdit: {

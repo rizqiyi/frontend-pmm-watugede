@@ -98,4 +98,17 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     margin: "0 auto",
   },
+  downloadButton: {
+    color: theme.palette.primary.main,
+    width: theme.spacing(20),
+    padding: "12px",
+    borderRadius: 50,
+    fontWeight: 400,
+    marginRight: 20,
+    backgroundColor: "#e1f5fe",
+    textTransform: "inherit",
+    "&:hover": {
+      backgroundColor: "#e3f2fd",
+    },
+  },
 }));

@@ -15,6 +15,22 @@ export const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: "#1E94F8",
     },
+    [theme.breakpoints.down("md")]: {
+      width: theme.spacing(20),
+    },
+  },
+  deleteIconButton: {
+    color: theme.palette.error.main,
+    "&:hover": {
+      background: "#ffebee",
+    },
+  },
+  editIconButton: {
+    color: theme.palette.primary.main,
+    marginRight: "10px",
+    "&:hover": {
+      background: "#e1f5fe",
+    },
   },
   deleteButton: {
     background: theme.palette.error.main,
@@ -26,6 +42,9 @@ export const useStyles = makeStyles((theme) => ({
     textTransform: "inherit",
     "&:hover": {
       background: theme.palette.error.main,
+    },
+    [theme.breakpoints.down("md")]: {
+      width: theme.spacing(20),
     },
   },
 }));

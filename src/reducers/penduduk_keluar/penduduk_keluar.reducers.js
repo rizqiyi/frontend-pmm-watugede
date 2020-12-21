@@ -62,11 +62,11 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         isLoading: false,
       };
 
-    case Types.PUT_PENDUDUK_KELUAR_SUCCESS:
+    case Types.PUT_PENGIKUT_KELUAR_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        penduduk_keluar_obj: action.payload.penduduk_keluar_obj,
+        penduduk_keluar_obj: action.payload,
       };
 
     case Types.DELETE_PENDUDUK_KELUAR_SUCCESS:

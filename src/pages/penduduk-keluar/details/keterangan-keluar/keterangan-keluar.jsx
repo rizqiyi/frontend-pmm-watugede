@@ -12,7 +12,12 @@ export const KeteranganKeluarComponent = ({ isLoading, data }) => {
           Data Keterangan Keluar
         </Typography>
       </Box>
-      <Box display="flex" justifyContent="space-evenly" alignItems="center">
+      <Box
+        display="flex"
+        justifyContent="space-evenly"
+        alignItems="center"
+        p={2}
+      >
         <Box marginLeft={4}>
           <Box marginTop={2}>
             {isLoading ? (

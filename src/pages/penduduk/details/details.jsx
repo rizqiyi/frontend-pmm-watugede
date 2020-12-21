@@ -54,7 +54,7 @@ const PendudukDetailsPage = ({ ...props }) => {
 
   return (
     <React.Fragment>
-      <Box display="flex" flexDirection="row" marginTop={2} marginBottom={3}>
+      <Box display="flex" flexDirection="row" marginBottom={3}>
         <Box marginRight={1}>
           <Typography>/</Typography>
         </Box>

@@ -4,6 +4,7 @@ import {
   getKeteranganKeluarURI,
   getPengikutKeluarURI,
   initialURL,
+  updatePengikutKeluarURI,
 } from "../../utilities/baseURL";
 import { tokenConfig } from "../users/users.actions";
 import { returnInfos } from "../infos/info.actions";
@@ -51,6 +52,7 @@ export const getPendudukKeluarByID = (id) => (dispatch, getState) => {
       });
     })
     .catch((err) => {
+      console.log(err);
       dispatch(returnInfos(err.response.message, err.response.status));
     });
 };
@@ -67,7 +69,37 @@ export const getKeteranganKeluarByID = (id) => (dispatch, getState) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      dispatch(returnInfos(err.response.message, err.response.status));
+    });
+};
+
+export const updatePengikutKeluar = (
+  { ...request },
+  idPenduduk,
+  idPengikut
+) => (dispatch, getState) => {
+  dispatch({
+    type: Types.START_REQUEST_KELUAR,
+  });
+
+  const body = JSON.stringify({ ...request });
+
+  axios
+    .put(
+      updatePengikutKeluarURI(idPenduduk, idPengikut),
+      body,
+      tokenConfig(getState)
+    )
+    .then((result) => {
+      dispatch({
+        type: Types.PUT_PENGIKUT_KELUAR_SUCCESS,
+        payload: result.data.data,
+      });
+    })
+    .then(() => {
+      dispatch(getPendudukKeluarByID(idPenduduk));
+    })
+    .catch((err) => {
       dispatch(returnInfos(err.response.message, err.response.status));
     });
 };

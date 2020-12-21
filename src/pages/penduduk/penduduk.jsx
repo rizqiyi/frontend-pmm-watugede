@@ -7,7 +7,6 @@ import {
   TableContainer,
   TablePagination,
   Typography,
-  useMediaQuery,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import React, { useEffect, useState } from "react";
@@ -17,7 +16,6 @@ import { PendudukTableBodyComponent } from "../../components/penduduk-components
 import { PendudukEnhancedTableHead } from "../../components/penduduk-components/table-head/table-head";
 import { fetchPenduduk } from "../../reducers/penduduk/penduduk.actions";
 import { useStyles } from "./penduduk.style";
-import GetAppIcon from "@material-ui/icons/GetApp";
 import { clearInfos } from "../../reducers/infos/info.actions";
 import { CSVLink } from "react-csv";
 import dataIsNull from "../../assets/images/no-data-found.svg";
@@ -30,7 +28,6 @@ export const PendudukPage = () => {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("");
   const classes = useStyles();
-  const matches = useMediaQuery("(max-width:600px)");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,40 +54,6 @@ export const PendudukPage = () => {
 
   return (
     <React.Fragment>
-      <Box marginBottom={2}>
-        <Button
-          color="primary"
-          component={Link}
-          to="/penduduk/insert"
-          className={classes.textButton}
-          startIcon={<AddIcon />}
-          variant="contained"
-        >
-          Tambah Penduduk
-        </Button>
-      </Box>
-      <Box marginTop={2} marginBottom={2}>
-        <Divider />
-      </Box>
-      <Box display="flex" justifyContent="flex-end">
-        {isLoading ? (
-          <Skeleton animation="wave" width={150} height={30} />
-        ) : (
-          <Button
-            color="primary"
-            size="small"
-            component={CSVLink}
-            startIcon={<GetAppIcon />}
-            variant="contained"
-            data={rows}
-            className={classes.controlButton}
-            disabled={rows.length === 0}
-            filename="penduduk.csv"
-          >
-            Download CSV
-          </Button>
-        )}
-      </Box>
       <div className={classes.root}>
         {rows.length === 0 ? (
           isLoading ? null : (
@@ -117,7 +80,7 @@ export const PendudukPage = () => {
           )
         ) : null}
         {isLoading ? (
-          <Box marginTop={20}>
+          <Box marginTop={15}>
             <Box className={classes.isLoading}>
               <Skeleton height={50} width={1000} />
             </Box>
@@ -129,11 +92,50 @@ export const PendudukPage = () => {
             </Box>
           </Box>
         ) : rows.length !== 0 ? (
-          <Box marginTop={3} marginBottom={matches ? 10 : 2}>
+          <Box marginTop={3}>
             <Paper className={classes.paper}>
               <Box p={3}>
-                <Box p={2}>
-                  <Typography variant="h6">Daftar Penduduk</Typography>
+                <Box
+                  p={2}
+                  display="flex"
+                  flexDirection="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Box>
+                    <Typography variant="h6">Daftar Penduduk</Typography>
+                  </Box>
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <Box>
+                      <Button
+                        color="primary"
+                        size="small"
+                        component={CSVLink}
+                        data={rows}
+                        className={classes.controlButton}
+                        disabled={rows.length === 0}
+                        filename="penduduk.csv"
+                      >
+                        Unduh CSV
+                      </Button>
+                    </Box>
+                    <Box>
+                      <Button
+                        color="primary"
+                        component={Link}
+                        to="/penduduk/insert"
+                        className={classes.textButton}
+                        startIcon={<AddIcon />}
+                        variant="contained"
+                      >
+                        Tambah Penduduk
+                      </Button>
+                    </Box>
+                  </Box>
                 </Box>
                 <TableContainer>
                   <Divider />

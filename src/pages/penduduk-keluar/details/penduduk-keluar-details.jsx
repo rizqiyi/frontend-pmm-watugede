@@ -3,10 +3,11 @@ import {
   Button,
   Divider,
   Grid,
+  IconButton,
   Paper,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useStyles } from "./penduduk-keluar-details.style";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -18,6 +19,11 @@ import {
   getPendudukKeluarByID,
   getPengusulKeluarByID,
 } from "../../../reducers/penduduk_keluar/penduduk_keluar.actions";
+import { Link } from "react-router-dom";
+import { DialogDetails } from "./dialog-details/dialog-details";
+import { Skeleton } from "@material-ui/lab";
+import GetAppIcon from "@material-ui/icons/GetApp";
+import DialogUpdateComponent from "../../../components/penduduk-keluar-components/dialog-update/dialog-update";
 
 const PendudukKeluarDetailsPage = ({ ...props }) => {
   const classes = useStyles();
@@ -33,14 +39,27 @@ const PendudukKeluarDetailsPage = ({ ...props }) => {
   } = props;
   const paramsId = match.params.id;
 
+  const [open, setOpen] = useState(false);
+  const [openDialogUpdatePengikut, setOpenDialogUpdatePengikut] = useState(
+    false
+  );
+  const [dataUpdatePengikut, setDataUpdatePengikut] = useState(false);
+  const [data, setData] = useState([]);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     fetchPengusulKeluar(paramsId);
     fetchKeterangan(paramsId);
     fetchPendudukKeluar(paramsId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paramsId]);
-
-  console.log(pengikutKeluar);
 
   return (
     <React.Fragment>
@@ -109,47 +128,111 @@ const PendudukKeluarDetailsPage = ({ ...props }) => {
           </Typography>
         </Box>
         <Grid container spacing={3}>
-          <Grid container item spacing={3} justify="center" sm={12}>
-            {pengikutKeluar.map((d, idx) => (
-              <Grid item key={idx}>
-                <Paper>
-                  <Box p={3}>
-                    <Box>
-                      <Typography>
-                        Nama Lengkap : {d.nama_lengkap_keluarga}
-                      </Typography>
+          {isLoading || pengikutKeluar.length === 0 ? (
+            <Grid container item spacing={3} justify="center" sm={12}>
+              <Skeleton width={300} height={300} />
+            </Grid>
+          ) : (
+            <Grid container item spacing={3} justify="center" sm={12}>
+              {pengikutKeluar.map((d, idx) => (
+                <Grid item key={idx}>
+                  <Paper>
+                    <Box
+                      display="flex"
+                      marginTop={3}
+                      p={1}
+                      justifyContent="flex-end"
+                    >
+                      <Box>
+                        <IconButton
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setOpenDialogUpdatePengikut(true);
+                            setDataUpdatePengikut(d);
+                          }}
+                          className={classes.editIconButton}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                      </Box>
+                      <Box>
+                        <IconButton className={classes.deleteIconButton}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </Box>
                     </Box>
-                    <Box marginTop={3}>
-                      <Typography>
-                        Jenis Kelamin : {d.jenis_kelamin_keluarga}
-                      </Typography>
+                    <Box p={3} paddingTop={0}>
+                      <Box>
+                        <Typography>
+                          Nama Lengkap : {d.nama_lengkap_keluarga}
+                        </Typography>
+                      </Box>
+                      <Box marginTop={3}>
+                        <Typography>
+                          Jenis Kelamin : {d.jenis_kelamin_keluarga}
+                        </Typography>
+                      </Box>
+                      <Box marginTop={3}>
+                        <Typography>Umur : {d.umur_keluarga}</Typography>
+                      </Box>
+                      <Box marginTop={3}>
+                        <Typography>
+                          Posisi dalam Keluarga : {d.keterangan_dalam_keluarga}
+                        </Typography>
+                      </Box>
+                      <Box marginTop={2} marginBottom={1}>
+                        <Divider />
+                      </Box>
+                      <Box display="flex" justifyContent="flex-end">
+                        <Typography
+                          variant="subtitle2"
+                          component={Link}
+                          to="#!"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setData(d);
+                            handleClick();
+                          }}
+                          className={classes.textLink}
+                        >
+                          Lihat Detail
+                        </Typography>
+                      </Box>
                     </Box>
-                    <Box marginTop={3}>
-                      <Typography>Umur : {d.umur_keluarga}</Typography>
-                    </Box>
-                    <Box marginTop={3}>
-                      <Typography>
-                        Posisi dalam Keluarga : {d.keterangan_dalam_keluarga}
-                      </Typography>
-                    </Box>
-                    <Box marginTop={2} marginBottom={1}>
-                      <Divider />
-                    </Box>
-                    <Box display="flex" justifyContent="flex-end">
-                      <Typography
-                        variant="subtitle2"
-                        className={classes.textLink}
-                      >
-                        Lihat Detail
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
+                  </Paper>
+                </Grid>
+              ))}
+            </Grid>
+          )}
         </Grid>
+        <Box marginTop={2} marginBottom={2}>
+          <Divider />
+        </Box>
+        <Box display="flex" justifyContent="flex-end">
+          <Box>
+            <Button
+              variant="contained"
+              className={classes.updateButton}
+              color="primary"
+              endIcon={<GetAppIcon />}
+            >
+              Unduh PDF
+            </Button>
+          </Box>
+        </Box>
       </Box>
+      <DialogDetails
+        dataPengusul={pengusulKeluar}
+        data={data}
+        open={open}
+        handleClose={handleClose}
+      />
+      <DialogUpdateComponent
+        data={dataUpdatePengikut}
+        handleClose={setOpenDialogUpdatePengikut}
+        open={openDialogUpdatePengikut}
+        idPengusul={paramsId}
+      />
     </React.Fragment>
   );
 };
