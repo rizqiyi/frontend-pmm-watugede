@@ -16,6 +16,8 @@ import { KematianPage } from "../pages/kematian/kematian";
 import { ActivityPage } from "../pages/activity/activity";
 import { PageNotFound } from "../pages/404-page/page-not-found";
 import PendudukKeluarDetailsPage from "../pages/penduduk-keluar/details/penduduk-keluar-details";
+import KartuKeluargaPage from "../pages/kartu-keluarga/kartu-keluarga";
+import DetailKartuKeluargaPage from "../pages/kartu-keluarga/details/details";
 
 const Navigations = () => {
   return (
@@ -25,7 +27,16 @@ const Navigations = () => {
         <MiniDrawer>
           <Switch>
             <PrivateRoute component={DashboardPage} exact path="/" />
-            <PrivateRoute component={PendudukPage} exact path="/penduduk" />
+            <PrivateRoute
+              component={KartuKeluargaPage}
+              exact
+              path="/kartu_keluarga"
+            />
+            <PrivateRoute
+              component={DetailKartuKeluargaPage}
+              path="/kartu_keluarga/:id/d"
+            />
+            <PrivateRoute component={PendudukPage} path="/penduduk" />
             <PrivateRoute
               component={PendudukDetailsPage}
               path="/penduduk/:id/d"

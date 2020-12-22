@@ -7,6 +7,7 @@ const initialURL = {
   kelahiranURI: `${baseURL}api/kelahiran`,
   kematianURI: `${baseURL}api/kematian`,
   pendudukURI: `${baseURL}api/penduduk`,
+  kartuKeluargaURI: `${baseURL}api/penduduk/k`,
   pendudukKeluarURI: `${baseURL}api/penduduk_keluar`,
   pendudukMasukURI: `${baseURL}api/penduduk_masuk`,
   keteranganURI: `${baseURL}api/keterangan`,

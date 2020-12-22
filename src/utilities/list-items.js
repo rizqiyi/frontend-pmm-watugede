@@ -36,8 +36,8 @@ const listMenu = [
 
   {
     id: 4,
-    name: "Penduduk",
-    link: "/penduduk",
+    name: "Kartu Keluarga",
+    link: "/kartu_keluarga",
     icons: {
       outlinedIcon: <AccountBalanceWalletOutlinedIcon />,
       containedIcon: <AccountBalanceWalletIcon />,
@@ -74,7 +74,7 @@ const listMenu = [
 
 const controlTextMenu = (params) => {
   switch (params.name) {
-    case "Penduduk":
+    case "Kartu Keluarga":
       return "Kependudukan";
 
     case "Activity Logs":
@@ -87,11 +87,11 @@ const controlTextMenu = (params) => {
 
 const controlSpace = (params) => {
   switch (params.name) {
-    case "Penduduk":
-      return 2;
+    case "Kartu Keluarga":
+      return 2.5;
 
     case "Activity Logs":
-      return 2;
+      return 2.5;
 
     default:
       break;

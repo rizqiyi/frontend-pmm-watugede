@@ -64,8 +64,14 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
 
       <Paper className={classes.root}>
         <Box display="flex" flexDirection="row">
-          <Box>
-            <img src={coverLogin} width="auto" height="400px" />
+          <Box display="flex" justifyContent="center" alignItems="flex-end">
+            <img
+              src={coverLogin}
+              style={{ marginBottom: "0px" }}
+              alt="Login Cover"
+              width="auto"
+              height="400px"
+            />
           </Box>
           <Box
             display="flex"
@@ -83,11 +89,11 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
               justifyContent="flex-start"
             >
               <Typography variant="h5" className={classes.font}>
-                Login Admin
+                SELAMAT DATANG
               </Typography>
               <Typography variant="h6" className={classes.fontCons}>
                 Silahkan login terlebih dahulu untuk masuk kedalam sistem
-                kependudukan Kabupaten Malang
+                kependudukan Desa Watugede
               </Typography>
             </Box>
             <Box

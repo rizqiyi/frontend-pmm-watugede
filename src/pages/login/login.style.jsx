@@ -14,6 +14,9 @@ export const useStyles = makeStyles((theme) => ({
   linear: {
     width: "100%",
   },
+  font: {
+    fontWeight: 550,
+  },
   fontCons: {
     fontSize: 14,
     fontWeight: 300,
