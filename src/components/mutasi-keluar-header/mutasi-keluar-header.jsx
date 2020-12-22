@@ -44,13 +44,10 @@ const MutasiKeluarHeader = ({ ...props }) => {
 
   const isNull = pengikutKeluar.length === 0;
   const path =
-    Object.keys(keteranganKeluar).length === 0 ||
-    keteranganKeluar === undefined ||
-    keteranganKeluar.length === 0
+    keteranganKeluar === undefined || keteranganKeluar.length === 0
       ? "//"
       : keteranganKeluar[0].foto_pengusul;
 
-  // console.log(keteranganKeluar);
   return (
     <React.Fragment>
       <Box marginTop={2} marginBottom={2}>
@@ -276,7 +273,7 @@ const mapStateToProps = (state) => {
     pengikutKeluar: state.pengikut_keluar.pengikut_keluar,
     pengusulKeluar: state.pengikut_keluar.pengusul_keluar,
     isLoading: state.pengikut_keluar.isLoading,
-    keteranganKeluar: state.pengikut_keluar.keterangan_keluar_obj,
+    keteranganKeluar: state.pengikut_keluar.keterangan_keluar_fix,
   };
 };
 

@@ -12,6 +12,7 @@ import { connect, useSelector } from "react-redux";
 import { clearInfos } from "../../reducers/infos/info.actions";
 import LinearProgComponent from "../../components/linear-progress/linear-progress";
 import Alert from "@material-ui/lab/Alert";
+import coverLogin from "../../assets/images/cover-login.svg";
 
 const LoginPage = ({ loginAdmin, clearInfos }) => {
   const classes = useStyles();
@@ -60,55 +61,69 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
   return (
     <React.Fragment>
       {isLoading ? <LinearProgComponent /> : null}
+
       <Paper className={classes.root}>
-        <Box
-          display="flex"
-          justifyContent="center"
-          flexDirection="column"
-          p={3}
-          paddingBottom={6}
-        >
-          <Box
-            marginLeft={5}
-            marginTop={3}
-            display="flex"
-            flexDirection="column"
-            justifyContent="start"
-          >
-            <Typography variant="h5" className={classes.font}>
-              Login Admin
-            </Typography>
+        <Box display="flex" flexDirection="row">
+          <Box>
+            <img src={coverLogin} width="auto" height="400px" />
           </Box>
           <Box
-            marginTop={2}
             display="flex"
             flexDirection="column"
-            alignItems="center"
-            className={classes.controlWidth}
+            alignItems="flex-start"
+            justifyContent="flex-start"
+            margin="0 auto"
+            p={3}
           >
-            <StyledTextField
-              label="Username"
-              name="username"
-              onChange={change.bind(null, "username")}
-              className={classes.margin}
-              variant="filled"
-            />
-            <PasswordField
-              label="Password"
-              name="password"
-              onChange={change.bind(null, "password")}
-              className={classes.margin}
-              variant="filled"
-            />
-            <Button
-              variant="contained"
-              className={classes.controlButton}
-              color="primary"
-              type="submit"
-              onClick={formik.handleSubmit}
+            <Box
+              marginTop={3}
+              display="flex"
+              flexDirection="column"
+              alignItems="flex-start"
+              justifyContent="flex-start"
             >
-              Login
-            </Button>
+              <Typography variant="h5" className={classes.font}>
+                Login Admin
+              </Typography>
+              <Typography variant="h6" className={classes.fontCons}>
+                Silahkan login terlebih dahulu untuk masuk kedalam sistem
+                kependudukan Kabupaten Malang
+              </Typography>
+            </Box>
+            <Box
+              marginTop={2}
+              display="flex"
+              flexDirection="column"
+              alignItems="flex-start"
+              justifyContent="flex-start"
+              className={classes.controlWidth}
+            >
+              <StyledTextField
+                label="Username"
+                name="username"
+                size="small"
+                onChange={change.bind(null, "username")}
+                className={classes.margin}
+                variant="filled"
+              />
+              <PasswordField
+                label="Password"
+                name="password"
+                size="small"
+                onChange={change.bind(null, "password")}
+                className={classes.margin}
+                variant="filled"
+              />
+              <Button
+                variant="contained"
+                className={classes.controlButton}
+                color="primary"
+                type="submit"
+                onClick={formik.handleSubmit}
+              >
+                Login
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Paper>

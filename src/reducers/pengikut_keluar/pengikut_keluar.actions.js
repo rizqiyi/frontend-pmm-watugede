@@ -100,11 +100,12 @@ export const postKeteranganKeluar = (request, id) => (dispatch, getState) => {
       });
       dispatch(returnInfos(result.data.message, 200, "POST_KETERANGAN_KELUAR"));
     })
-    .then(async () => {
-      await dispatch(getPengikutKeluar(id));
-      await dispatch(getKeteranganKeluar(id));
+    .then(() => {
+      dispatch(getPengikutKeluar(id));
+      dispatch(getKeteranganKeluar(id));
     })
     .catch((err) => {
+      console.log(err);
       dispatch(returnInfos(err.response.message, err.response.status));
     });
 };

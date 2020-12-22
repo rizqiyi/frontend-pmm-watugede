@@ -6,7 +6,8 @@ const initialState = {
   pengusul_keluar: [],
   pengikut_keluar_obj: {},
   keterangan_keluar: [],
-  keterangan_keluar_obj: {},
+  keterangan_keluar_obj: [],
+  keterangan_keluar_fix: [],
 };
 
 export const pengikutKeluarReducer = (state = initialState, action) => {
@@ -35,7 +36,7 @@ export const pengikutKeluarReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        keterangan_keluar_obj: action.payload,
+        keterangan_keluar_fix: action.payload,
       };
 
     case Types.POST_KETERANGAN_KELUAR_SUCCESS:

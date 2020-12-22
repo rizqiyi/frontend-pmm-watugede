@@ -7,12 +7,7 @@ import { Skeleton } from "@material-ui/lab";
 import { connect, useSelector } from "react-redux";
 import { getKeteranganKeluar } from "../../../reducers/pengikut_keluar/pengikut_keluar.actions";
 
-const KeteranganKeluarComponent = ({
-  data,
-  id,
-  dataPengikutKeluar,
-  mappedDataPengusul,
-}) => {
+const KeteranganKeluarComponent = ({ data, id, dataPengikutKeluar }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -31,8 +26,7 @@ const KeteranganKeluarComponent = ({
   };
 
   const isLoading = useSelector((state) => state.pengikut_keluar.isLoading);
-  const isEmpty =
-    Object.keys(data).length === 0 || data === undefined || data.length === 0;
+  const isEmpty = data === undefined || data.length === 0;
 
   return (
     <React.Fragment>
