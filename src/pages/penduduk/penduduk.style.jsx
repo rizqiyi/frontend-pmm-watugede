@@ -89,12 +89,6 @@ export const useStyles = makeStyles((theme) => ({
       background: theme.palette.primary.main,
     },
   },
-  controlDeleteSnackbar: {
-    color: theme.palette.error.main,
-    [theme.breakpoints.down("xs")]: {
-      background: theme.palette.error.main,
-    },
-  },
   dataIsNull: {
     display: "flex",
     justifyContent: "center",
