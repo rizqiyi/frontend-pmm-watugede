@@ -108,6 +108,7 @@ export const SearchFormField = ({ field, ...props }) => {
         <CloseIcon />
       </div>
       <InputBase
+        autoComplete="false"
         {...field}
         label={label}
         name={name}
@@ -119,7 +120,7 @@ export const SearchFormField = ({ field, ...props }) => {
           input: classes.inputInput,
         }}
         placeholder="Search"
-        inputProps={{ "aria-label": "search" }}
+        inputProps={{ "aria-autocomplete": "none", "aria-label": "search" }}
       />
     </div>
   );

@@ -10,7 +10,7 @@ import {
   TableContainer,
   IconButton,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { useStyles } from "./kartu-keluarga.style";
 import dataIsNull from "../../assets/images/no-data-found.svg";
@@ -18,9 +18,14 @@ import { GreyText } from "../../components/typography/typography";
 import AddIcon from "@material-ui/icons/Add";
 import { Skeleton } from "@material-ui/lab";
 import { CSVLink } from "react-csv";
-import { getAllKartuKeluarga } from "../../reducers/kartu_keluarga/kartu_keluarga.actions";
-import { PendudukTableBodyComponent } from "../../components/kartu-keluarga-components/table-body/table-body";
-import { PendudukEnhancedTableHead } from "../../components/kartu-keluarga-components/table-head/table-head";
+import {
+  clearResultSearch,
+  getAllKartuKeluarga,
+  searchKKbyName,
+  searchKKbyNomorNIK,
+} from "../../reducers/kartu_keluarga/kartu_keluarga.actions";
+import KartuKeluargaTableBodyComponent from "../../components/kartu-keluarga-components/table-body/table-body";
+import { KartuKeluargaTableHeadComponent } from "../../components/kartu-keluarga-components/table-head/table-head";
 import { SearchFormField } from "../../components/styled-textfield/styled-textfield";
 import { FastField, Form, Formik } from "formik";
 import FilterListIcon from "@material-ui/icons/FilterList";
@@ -28,11 +33,24 @@ import { DialogSearchComponent } from "../../components/kartu-keluarga-component
 
 const KartuKeluargaPage = ({ ...props }) => {
   const classes = useStyles();
-  const { getAllKartuKeluarga, kartuKeluarga, isLoading } = props;
+  const {
+    getAllKartuKeluarga,
+    kartuKeluarga,
+    isLoading,
+    searchKKByName,
+    searchKKbyNomorNIK,
+    clearResultSearch,
+  } = props;
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      clearResultSearch();
+    }
     getAllKartuKeluarga();
-  }, [getAllKartuKeluarga]);
+    return () => clearResultSearch();
+  }, [getAllKartuKeluarga, clearResultSearch]);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -117,7 +135,7 @@ const KartuKeluargaPage = ({ ...props }) => {
               </Box>
             </Box>
           ) : rows.length !== 0 ? (
-            <Box marginTop={3} marginBottom={matches ? 10 : 2}>
+            <Box marginTop={1} marginBottom={matches ? 10 : 2}>
               <Box
                 p={2}
                 display="flex"
@@ -158,8 +176,12 @@ const KartuKeluargaPage = ({ ...props }) => {
                 <Formik
                   initialValues={{ search: "", params: search }}
                   enableReinitialize={true}
-                  onSubmit={async (values) => {
-                    await console.log(values);
+                  onSubmit={(values, { resetForm }) => {
+                    if (values.params === "nama_lengkap") {
+                      searchKKByName(values.search, values.params);
+                    } else {
+                      searchKKbyNomorNIK(values.search, values.params);
+                    }
                   }}
                 >
                   {({ handleSubmit, resetForm, values }) => (
@@ -211,7 +233,7 @@ const KartuKeluargaPage = ({ ...props }) => {
                   aria-labelledby="tableTitle"
                   aria-label="enhanced table"
                 >
-                  <PendudukEnhancedTableHead
+                  <KartuKeluargaTableHeadComponent
                     classes={classes}
                     order={order}
                     orderBy={orderBy}
@@ -219,7 +241,7 @@ const KartuKeluargaPage = ({ ...props }) => {
                     setOrderBy={setOrderBy}
                     rowCount={rows.length}
                   />
-                  <PendudukTableBodyComponent
+                  <KartuKeluargaTableBodyComponent
                     rows={rows}
                     jumlahAnggotaKeluarga={touchChild.length}
                     order={order}
@@ -257,6 +279,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getAllKartuKeluarga: () => dispatch(getAllKartuKeluarga()),
+    searchKKByName: (params, condition) =>
+      dispatch(searchKKbyName(params, condition)),
+    searchKKbyNomorNIK: (params, condition) =>
+      dispatch(searchKKbyNomorNIK(params, condition)),
+    clearResultSearch: () => dispatch(clearResultSearch()),
   };
 };
 

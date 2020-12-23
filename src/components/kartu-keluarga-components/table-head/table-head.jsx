@@ -7,7 +7,7 @@ import {
 import React from "react";
 import { headCellsKartuKeluarga } from "../../../helpers/headCells";
 
-const PendudukEnhancedTableHead = ({ ...props }) => {
+const KartuKeluargaTableHeadComponent = ({ ...props }) => {
   const { order, orderBy, classes, setOrder, setOrderBy } = props;
 
   const createSortHandler = (property) => (event) => {
@@ -50,4 +50,4 @@ const PendudukEnhancedTableHead = ({ ...props }) => {
   );
 };
 
-export { PendudukEnhancedTableHead };
+export { KartuKeluargaTableHeadComponent };

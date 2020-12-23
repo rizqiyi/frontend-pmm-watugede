@@ -4,6 +4,9 @@ const initialState = {
   isLoading: false,
   kartu_keluarga: [],
   kartu_keluarga_obj: {},
+  search_result_by_name: [],
+  search_result_by_nik: [],
+  search_condition: "",
 };
 
 export const kartuKeluargaReducer = (state = initialState, action) => {
@@ -12,6 +15,24 @@ export const kartuKeluargaReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
+      };
+
+    case Types.SEARCH_KK_BY_NAME:
+      return {
+        ...state,
+        isLoading: false,
+        search_result_by_name: action.payload.res,
+        search_condition: action.payload.cond,
+        search_result_by_nik: [],
+      };
+
+    case Types.SEARCH_KK_NO_NIK:
+      return {
+        ...state,
+        isLoading: false,
+        search_result_by_nik: action.payload.res,
+        search_condition: action.payload.cond,
+        search_result_by_name: [],
       };
 
     case Types.FETCH_KARTU_KELUARGA_SUCCESS:
@@ -43,6 +64,15 @@ export const kartuKeluargaReducer = (state = initialState, action) => {
           (data) => data._id !== action.payload
         ),
         isLoading: false,
+      };
+
+    case Types.CLEAR_SEARCH_RESULT:
+      return {
+        ...state,
+        isLoading: false,
+        search_result_by_name: [],
+        search_result_by_nik: [],
+        search_condition: "",
       };
 
     default:

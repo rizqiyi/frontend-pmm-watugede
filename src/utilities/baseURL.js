@@ -23,6 +23,9 @@ const updatePengikutKeluarURI = (idPenduduk, idPengikut) =>
   `${initialURL.pendudukKeluarURI}/${idPenduduk}/u/${idPengikut}`;
 const deletePengikutKeluarURI = (idPenduduk, idPengikut) =>
   `${initialURL.pendudukKeluarURI}/${idPenduduk}/d/${idPengikut}`;
+const searchKKByName = (params) => `${initialURL.pendudukURI}/s?name=${params}`;
+const searchKKByNomorKK = (params) =>
+  `${initialURL.pendudukURI}/s/kk?no_kk=${params}`;
 
 export {
   baseURL,
@@ -35,4 +38,6 @@ export {
   getKeteranganKeluarURI,
   updatePengikutKeluarURI,
   deletePengikutKeluarURI,
+  searchKKByName,
+  searchKKByNomorKK,
 };
