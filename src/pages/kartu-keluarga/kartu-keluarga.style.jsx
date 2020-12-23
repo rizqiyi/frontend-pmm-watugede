@@ -29,6 +29,15 @@ export const useStyles = makeStyles((theme) => ({
     maxWidth: 350,
     textAlign: "center",
   },
+  filterButton: {
+    backgroundColor: theme.palette.secondary.main,
+    width: "50px",
+    height: "50px",
+    marginLeft: 5,
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.main,
+    },
+  },
   textButton: {
     color: "#fff",
     width: theme.spacing(30),

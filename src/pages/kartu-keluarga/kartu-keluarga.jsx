@@ -8,6 +8,7 @@ import {
   TablePagination,
   Divider,
   TableContainer,
+  IconButton,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -20,6 +21,10 @@ import { CSVLink } from "react-csv";
 import { getAllKartuKeluarga } from "../../reducers/kartu_keluarga/kartu_keluarga.actions";
 import { PendudukTableBodyComponent } from "../../components/kartu-keluarga-components/table-body/table-body";
 import { PendudukEnhancedTableHead } from "../../components/kartu-keluarga-components/table-head/table-head";
+import { SearchFormField } from "../../components/styled-textfield/styled-textfield";
+import { FastField, Form, Formik } from "formik";
+import FilterListIcon from "@material-ui/icons/FilterList";
+import { DialogSearchComponent } from "../../components/kartu-keluarga-components/dialog-search/dialog-search";
 
 const KartuKeluargaPage = ({ ...props }) => {
   const classes = useStyles();
@@ -34,6 +39,13 @@ const KartuKeluargaPage = ({ ...props }) => {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("");
   const matches = useMediaQuery("(max-width:600px)");
+  const [open, setOpen] = useState(false);
+  const [openSelectMenu, setOpenSelectMenu] = useState(false);
+  const [search, setSearch] = useState("nama_lengkap");
+
+  const handleChange = (event) => {
+    setSearch(event.target.value);
+  };
 
   const rows = kartuKeluarga.map((d) => d);
 
@@ -138,6 +150,59 @@ const KartuKeluargaPage = ({ ...props }) => {
                     Tambah Kartu Keluarga
                   </Button>
                 </Box>
+              </Box>
+              <Box marginTop={0}>
+                <Divider />
+              </Box>
+              <Box p={3}>
+                <Formik
+                  initialValues={{ search: "", params: search }}
+                  enableReinitialize={true}
+                  onSubmit={async (values) => {
+                    await console.log(values);
+                  }}
+                >
+                  {({ handleSubmit, resetForm, values }) => (
+                    <Form
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          handleSubmit();
+                        }
+                      }}
+                    >
+                      <Box>
+                        <Box display="flex">
+                          <FastField
+                            component={SearchFormField}
+                            label="Search"
+                            name="search"
+                            resetform={resetForm}
+                            innertext={values.search}
+                            id="search"
+                            variant="filled"
+                          />
+                          <IconButton
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setOpen(true);
+                            }}
+                            className={classes.filterButton}
+                          >
+                            <FilterListIcon />
+                          </IconButton>
+                        </Box>
+                      </Box>
+                      <DialogSearchComponent
+                        handleChange={handleChange}
+                        setOpenSelectMenu={setOpenSelectMenu}
+                        openSelectMenu={openSelectMenu}
+                        open={open}
+                        setOpen={setOpen}
+                        search={search}
+                      />
+                    </Form>
+                  )}
+                </Formik>
               </Box>
               <TableContainer>
                 <Divider />

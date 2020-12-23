@@ -1,10 +1,12 @@
-import { InputAdornment, TextField } from "@material-ui/core";
+import { InputAdornment, InputBase, TextField } from "@material-ui/core";
 import React from "react";
-import { useStyles } from "./styled.textfield.style";
+import { useStyles, useStylesSearchField } from "./styled.textfield.style";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
 import { getIn } from "formik";
+import SearchIcon from "@material-ui/icons/Search";
+import CloseIcon from "@material-ui/icons/Close";
 
 export const StyledTextField = (props) => {
   const classes = useStyles();
@@ -86,5 +88,39 @@ export const PasswordField = (props) => {
       }}
       {...props}
     />
+  );
+};
+
+export const SearchFormField = ({ field, ...props }) => {
+  const classes = useStylesSearchField();
+  const { resetform, label, name, id, size, variant, innertext } = props;
+
+  return (
+    <div className={classes.search}>
+      <div className={classes.searchIcon}>
+        <SearchIcon />
+      </div>
+      <div
+        className={classes.closeIcon}
+        style={innertext ? {} : { display: "none" }}
+        onClick={() => resetform({})}
+      >
+        <CloseIcon />
+      </div>
+      <InputBase
+        {...field}
+        label={label}
+        name={name}
+        id={id}
+        size={size}
+        variant={variant}
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+        placeholder="Search"
+        inputProps={{ "aria-label": "search" }}
+      />
+    </div>
   );
 };
