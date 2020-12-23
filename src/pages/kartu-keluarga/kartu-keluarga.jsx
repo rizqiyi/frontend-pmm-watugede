@@ -30,6 +30,8 @@ import { SearchFormField } from "../../components/styled-textfield/styled-textfi
 import { FastField, Form, Formik } from "formik";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { DialogSearchComponent } from "../../components/kartu-keluarga-components/dialog-search/dialog-search";
+import { clearInfos } from "../../reducers/infos/info.actions";
+import searchNotFoundImage from "../../assets/images/search-not-found.svg";
 
 const KartuKeluargaPage = ({ ...props }) => {
   const classes = useStyles();
@@ -40,18 +42,10 @@ const KartuKeluargaPage = ({ ...props }) => {
     searchKKByName,
     searchKKbyNomorNIK,
     clearResultSearch,
+    clearInfos,
+    isNotFound,
   } = props;
   const isFirstRender = useRef(true);
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      clearResultSearch();
-    }
-    getAllKartuKeluarga();
-    return () => clearResultSearch();
-  }, [getAllKartuKeluarga, clearResultSearch]);
-
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState("asc");
@@ -60,6 +54,15 @@ const KartuKeluargaPage = ({ ...props }) => {
   const [open, setOpen] = useState(false);
   const [openSelectMenu, setOpenSelectMenu] = useState(false);
   const [search, setSearch] = useState("nama_lengkap");
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      clearResultSearch();
+      clearInfos();
+      getAllKartuKeluarga();
+    }
+  }, [getAllKartuKeluarga, clearResultSearch, clearInfos]);
 
   const handleChange = (event) => {
     setSearch(event.target.value);
@@ -135,9 +138,10 @@ const KartuKeluargaPage = ({ ...props }) => {
               </Box>
             </Box>
           ) : rows.length !== 0 ? (
-            <Box marginTop={1} marginBottom={matches ? 10 : 2}>
+            <Box marginBottom={matches ? 10 : 2}>
               <Box
                 p={2}
+                paddingTop={0}
                 display="flex"
                 flexDirection="row"
                 justifyContent="flex-end"
@@ -226,41 +230,77 @@ const KartuKeluargaPage = ({ ...props }) => {
                   )}
                 </Formik>
               </Box>
-              <TableContainer>
-                <Divider />
-                <Table
-                  className={classes.table}
-                  aria-labelledby="tableTitle"
-                  aria-label="enhanced table"
-                >
-                  <KartuKeluargaTableHeadComponent
-                    classes={classes}
-                    order={order}
-                    orderBy={orderBy}
-                    setOrder={setOrder}
-                    setOrderBy={setOrderBy}
-                    rowCount={rows.length}
-                  />
-                  <KartuKeluargaTableBodyComponent
-                    rows={rows}
-                    jumlahAnggotaKeluarga={touchChild.length}
-                    order={order}
-                    orderBy={orderBy}
-                    page={page}
+              {isNotFound !== null ? (
+                <React.Fragment>
+                  <Box p={1} paddingTop={0}>
+                    <Divider />
+                  </Box>
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    margin="0 auto"
+                  >
+                    <Box marginTop={5}>
+                      <img
+                        src={searchNotFoundImage}
+                        alt="Search Result Not Found"
+                      />
+                    </Box>
+                    <Box marginTop={2}>
+                      <Typography variant="h6">
+                        KARTU KELUARGA TIDAK DITEMUKAN
+                      </Typography>
+                    </Box>
+                    <Box marginTop={1}>
+                      <GreyText
+                        className={classes.textLighten}
+                        text="Silakan cari berdasarkan NIK atau Nama dengan benar"
+                      />
+                    </Box>
+                  </Box>
+                </React.Fragment>
+              ) : null}
+              {isNotFound === null ? (
+                <React.Fragment>
+                  <TableContainer>
+                    <Divider />
+                    <Table
+                      className={classes.table}
+                      aria-labelledby="tableTitle"
+                      aria-label="enhanced table"
+                    >
+                      <KartuKeluargaTableHeadComponent
+                        classes={classes}
+                        order={order}
+                        orderBy={orderBy}
+                        setOrder={setOrder}
+                        setOrderBy={setOrderBy}
+                        rowCount={rows.length}
+                      />
+                      <KartuKeluargaTableBodyComponent
+                        rows={rows}
+                        jumlahAnggotaKeluarga={touchChild.length}
+                        order={order}
+                        orderBy={orderBy}
+                        page={page}
+                        rowsPerPage={rowsPerPage}
+                        emptyRows={emptyRows}
+                      />
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={rows.length}
                     rowsPerPage={rowsPerPage}
-                    emptyRows={emptyRows}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
                   />
-                </Table>
-              </TableContainer>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-              />
+                </React.Fragment>
+              ) : null}
             </Box>
           ) : null}
         </Box>
@@ -273,6 +313,7 @@ const mapStateToProps = (state) => {
     kartuKeluarga: state.kartu_keluarga.kartu_keluarga,
     kartuKeluargaWithChild: state.kartu_keluarga.anggota_keluarga,
     isLoading: state.kartu_keluarga.isLoading,
+    isNotFound: state.infos.id,
   };
 };
 
@@ -284,6 +325,7 @@ const mapDispatchToProps = (dispatch) => {
     searchKKbyNomorNIK: (params, condition) =>
       dispatch(searchKKbyNomorNIK(params, condition)),
     clearResultSearch: () => dispatch(clearResultSearch()),
+    clearInfos: () => dispatch(clearInfos()),
   };
 };
 

@@ -10,6 +10,7 @@ import Types from "./kartu_keluarga.types";
 
 export const getAllKartuKeluarga = () => (dispatch, getState) => {
   dispatch({ type: Types.START_REQUEST_KK });
+  console.log("start");
 
   axios
     .get(initialURL.kartuKeluargaURI, tokenConfig(getState))
@@ -18,6 +19,7 @@ export const getAllKartuKeluarga = () => (dispatch, getState) => {
         type: Types.FETCH_KARTU_KELUARGA_SUCCESS,
         payload: result.data.data,
       });
+      console.log("end");
     })
     .catch((err) => {
       dispatch(returnInfos(err.response.message, err.response.status));
@@ -26,10 +28,12 @@ export const getAllKartuKeluarga = () => (dispatch, getState) => {
 
 export const searchKKbyName = (params, cond) => (dispatch, getState) => {
   dispatch({ type: Types.START_REQUEST_KK });
+  console.log("start");
 
   axios
     .get(searchKKByName(params), tokenConfig(getState))
     .then((result) => {
+      dispatch(returnInfos("", 200, null));
       dispatch({
         type: Types.SEARCH_KK_BY_NAME,
         payload: {
@@ -37,18 +41,28 @@ export const searchKKbyName = (params, cond) => (dispatch, getState) => {
           cond,
         },
       });
+      console.log("end");
     })
     .catch((err) => {
-      dispatch(returnInfos(err.response.message, err.response.status));
+      dispatch(
+        returnInfos(
+          err.response.message,
+          err.response.status,
+          "SEARCH_BY_NAME_NOT_FOUND"
+        )
+      );
+      dispatch(clearResultSearch());
     });
 };
 
 export const searchKKbyNomorNIK = (params, cond) => (dispatch, getState) => {
   dispatch({ type: Types.START_REQUEST_KK });
+  console.log("start");
 
   axios
     .get(searchKKByNomorKK(params), tokenConfig(getState))
     .then((result) => {
+      dispatch(returnInfos("", 200, null));
       dispatch({
         type: Types.SEARCH_KK_NO_NIK,
         payload: {
@@ -56,9 +70,18 @@ export const searchKKbyNomorNIK = (params, cond) => (dispatch, getState) => {
           cond,
         },
       });
+      console.log("end");
     })
     .catch((err) => {
-      dispatch(returnInfos(err.response.message, err.response.status));
+      dispatch(
+        returnInfos(
+          err.response.message,
+          err.response.status,
+          "SEARCH_BY_NIK_NOT_FOUND"
+        )
+      );
+
+      dispatch(clearResultSearch());
     });
 };
 

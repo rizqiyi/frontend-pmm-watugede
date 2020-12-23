@@ -181,6 +181,7 @@ const mapStateToProps = (state) => {
     searchCondition: state.kartu_keluarga.search_condition,
     resultSearchByName: state.kartu_keluarga.search_result_by_name,
     resultSearchByNIK: state.kartu_keluarga.search_result_by_nik,
+    dataNotFound: !!state.infos.id,
   };
 };
 

@@ -24,6 +24,9 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: "18px",
     fontWeight: 500,
   },
+  textLighten: {
+    fontWeight: 300,
+  },
   textCons: {
     fontWeight: 350,
     maxWidth: 350,
