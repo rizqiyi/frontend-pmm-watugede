@@ -78,8 +78,6 @@ const KartuKeluargaPage = ({ ...props }) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const accessingParent = kartuKeluarga.map((d) => d.keluarga_dari);
-  const touchChild = accessingParent.map((d) => d.anggota_keluarga);
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -281,7 +279,6 @@ const KartuKeluargaPage = ({ ...props }) => {
                       />
                       <KartuKeluargaTableBodyComponent
                         rows={rows}
-                        jumlahAnggotaKeluarga={touchChild.length}
                         order={order}
                         orderBy={orderBy}
                         page={page}

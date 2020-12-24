@@ -44,7 +44,11 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                       {isLoading ? <Skeleton /> : row.jenis_kelamin}
                     </TableCell>
                     <TableCell align="left">
-                      {isLoading ? <Skeleton /> : props.jumlahAnggotaKeluarga}
+                      {isLoading ? (
+                        <Skeleton />
+                      ) : (
+                        row.keluarga_dari.anggota_keluarga.length
+                      )}
                     </TableCell>
                     <TableCell align="left">
                       {isLoading ? (
@@ -96,7 +100,11 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                       {isLoading ? <Skeleton /> : row.jenis_kelamin}
                     </TableCell>
                     <TableCell align="left">
-                      {isLoading ? <Skeleton /> : props.jumlahAnggotaKeluarga}
+                      {isLoading ? (
+                        <Skeleton />
+                      ) : (
+                        row.keluarga_dari.anggota_keluarga.length
+                      )}
                     </TableCell>
                     <TableCell align="left">
                       {isLoading ? (
@@ -146,7 +154,11 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                       {isLoading ? <Skeleton /> : row.jenis_kelamin}
                     </TableCell>
                     <TableCell align="left">
-                      {isLoading ? <Skeleton /> : props.jumlahAnggotaKeluarga}
+                      {isLoading ? (
+                        <Skeleton />
+                      ) : (
+                        row.keluarga_dari.anggota_keluarga.length
+                      )}
                     </TableCell>
                     <TableCell align="left">
                       {isLoading ? (

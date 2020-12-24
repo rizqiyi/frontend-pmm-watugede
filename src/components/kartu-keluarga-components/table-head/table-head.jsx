@@ -23,8 +23,7 @@ const KartuKeluargaTableHeadComponent = ({ ...props }) => {
   return (
     <TableHead>
       <TableRow>
-        {/* <TableCell padding="checkbox"></TableCell> */}
-        {headCellsKartuKeluarga.map((headCell) => (
+        {headCellsKartuKeluarga.map((headCell, idx) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? "left" : "left"}
