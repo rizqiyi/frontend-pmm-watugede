@@ -63,7 +63,7 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                         <Typography variant="body2">
                           <Link
                             className={classes.controlLink}
-                            to={`/kartu_keluarga/${row._id}/d`}
+                            to={`/kartu_keluarga/${row.keluarga_dari._id}/d/${row._id}`}
                             color="primary"
                           >
                             Lihat Detail
@@ -119,7 +119,7 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                         <Typography variant="body2">
                           <Link
                             className={classes.controlLink}
-                            to={`/kartu_keluarga/${row._id}/d`}
+                            to={`/kartu_keluarga/${row.keluarga_dari._id}/d/${row._id}`}
                             color="primary"
                           >
                             Lihat Detail
@@ -139,6 +139,7 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                 props.page * props.rowsPerPage + props.rowsPerPage
               )
               .map((row, index) => {
+                console.log();
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                     <TableCell align="left">
@@ -174,7 +175,7 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                           <Typography variant="body2">
                             <Link
                               className={classes.controlLink}
-                              to={`/kartu_keluarga/${row._id}/d`}
+                              to={`/kartu_keluarga/${row.keluarga_dari._id}/d/${row._id}`}
                               color="primary"
                             >
                               Lihat Detail

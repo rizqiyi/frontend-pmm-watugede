@@ -18,6 +18,8 @@ import { PageNotFound } from "../pages/404-page/page-not-found";
 import PendudukKeluarDetailsPage from "../pages/penduduk-keluar/details/penduduk-keluar-details";
 import KartuKeluargaPage from "../pages/kartu-keluarga/kartu-keluarga";
 import DetailKartuKeluargaPage from "../pages/kartu-keluarga/details/details";
+import DetailKartuKeluargaInsertPage from "../pages/kartu-keluarga/details/insert/insert";
+import DetailKartuKeluargaUpdatePage from "../pages/kartu-keluarga/details/update-keluarga/update-keluarga";
 import KartuKeluargaInsertPage from "../pages/kartu-keluarga/insert/insert";
 
 const Navigations = () => {
@@ -38,8 +40,16 @@ const Navigations = () => {
               path="/kartu_keluarga/insert"
             />
             <PrivateRoute
+              component={DetailKartuKeluargaInsertPage}
+              path="/kartu_keluarga/:id_kk/d/:id_kepala/i"
+            />
+            <PrivateRoute
+              component={DetailKartuKeluargaUpdatePage}
+              path="/kartu_keluarga/:id/d/update"
+            />
+            <PrivateRoute
               component={DetailKartuKeluargaPage}
-              path="/kartu_keluarga/:id/d"
+              path="/kartu_keluarga/:id_kk/d/:id_kepala"
             />
             <PrivateRoute component={PendudukPage} path="/penduduk" />
             <PrivateRoute

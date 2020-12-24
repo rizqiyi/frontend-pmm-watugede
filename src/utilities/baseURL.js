@@ -16,6 +16,7 @@ const initialURL = {
 
 const getPendudukById = (id) => `${initialURL.pendudukURI}/${id}`;
 const updatePendudukURI = (id) => `${initialURL.pendudukURI}/${id}`;
+const postPendudukToKKURI = (id) => `${initialURL.pendudukURI}/${id}`;
 const postPengikutKeluarURI = (id) => `${initialURL.pendudukKeluarURI}/${id}`;
 const getPengikutKeluarURI = (id) => `${initialURL.pendudukKeluarURI}/${id}`;
 const postKeteranganKeluarURI = (id) => `${initialURL.keteranganURI}/${id}`;
@@ -43,4 +44,5 @@ export {
   searchKKByName,
   searchKKByNomorKK,
   getKartuKeluargaById,
+  postPendudukToKKURI,
 };

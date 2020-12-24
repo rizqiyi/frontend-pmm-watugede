@@ -32,7 +32,8 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("");
 
-  const paramsId = match.params.id;
+  const paramsId = match.params.id_kepala;
+  const paramsIdKK = match.params.id_kk;
 
   useEffect(() => {
     getKartuKeluargaByID(paramsId);
@@ -131,12 +132,12 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
                       <Button
                         color="primary"
                         component={Link}
-                        to="/kartu_keluarga/insert"
+                        to={`/kartu_keluarga/${paramsIdKK}/d/${paramsId}/i`}
                         className={classes.textButton}
                         startIcon={<AddIcon />}
                         variant="contained"
                       >
-                        Tambah Kartu Keluarga
+                        Tambah Anggota Keluarga
                       </Button>
                     </Box>
                   </Box>
@@ -166,15 +167,32 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
                     />
                   </Table>
                 </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25]}
-                  component="div"
-                  count={rows.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onChangePage={handleChangePage}
-                  onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Box>
+                    <Button
+                      variant="contained"
+                      className={classes.mutasiButton}
+                    >
+                      Mutasi
+                    </Button>
+                  </Box>
+                  <Box>
+                    <TablePagination
+                      rowsPerPageOptions={[5, 10, 25]}
+                      component="div"
+                      count={rows.length}
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      onChangePage={handleChangePage}
+                      onChangeRowsPerPage={handleChangeRowsPerPage}
+                    />
+                  </Box>
+                </Box>
               </Box>
             </Paper>
           </Box>

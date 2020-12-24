@@ -68,8 +68,8 @@ export const kartuKeluargaReducer = (state = initialState, action) => {
 
     case Types.CLEAR_SEARCH_RESULT:
       return {
-        isLoading: false,
         ...state,
+        isLoading: false,
         search_result_by_name: [],
         search_result_by_nik: [],
         search_condition: "",

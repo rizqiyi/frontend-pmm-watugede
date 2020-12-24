@@ -1,4 +1,4 @@
-import { TableBody, TableCell, TableRow, Typography } from "@material-ui/core";
+import { Box, Button, TableBody, TableCell, TableRow } from "@material-ui/core";
 import React from "react";
 import { useStyles } from "./table-body.style";
 import { getComparator, stableSort } from "../../../helpers/table";
@@ -39,18 +39,34 @@ const AnggotaKeluargaTableBodyComponent = ({ ...props }) => {
                   {isLoading ? <Skeleton /> : row.jenis_kelamin}
                 </TableCell>
                 <TableCell align="left">
+                  {isLoading ? <Skeleton /> : row.posisi_dalam_keluarga}
+                </TableCell>
+                <TableCell align="left">
                   {isLoading ? (
                     <Skeleton />
                   ) : (
-                    <Typography variant="body2">
-                      <Link
-                        className={classes.controlLink}
-                        to={`/penduduk/${row._id}/d`}
-                        color="primary"
-                      >
-                        Lihat Detail
-                      </Link>
-                    </Typography>
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      justifyContent="space-evenly"
+                    >
+                      <Box>
+                        <Button
+                          size="small"
+                          color="primary"
+                          className={classes.controlEdit}
+                          component={Link}
+                          to={`/kartu_keluarga/${row._id}/d/update`}
+                        >
+                          Edit
+                        </Button>
+                      </Box>
+                      <Box>
+                        <Button size="small" className={classes.controlDelete}>
+                          Hapus
+                        </Button>
+                      </Box>
+                    </Box>
                   )}
                 </TableCell>
               </TableRow>

@@ -31,6 +31,12 @@ const headCellsPenduduk = [
     label: "Jenis Kelamin",
   },
   {
+    id: "posisi_dalam_keluarga",
+    numeric: false,
+    disablePadding: false,
+    label: "Kedudukan",
+  },
+  {
     id: "action",
     numeric: true,
     disablePadding: false,

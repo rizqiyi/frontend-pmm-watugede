@@ -24,7 +24,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   textButton: {
     color: "#fff",
-    width: theme.spacing(30),
+    width: theme.spacing(34),
     padding: "10px ",
     borderRadius: 50,
     fontWeight: 400,
@@ -32,6 +32,20 @@ export const useStyles = makeStyles((theme) => ({
     marginBottom: 4,
     "&:hover": {
       backgroundColor: "#1E94F8",
+    },
+  },
+  mutasiButton: {
+    color: "#fff",
+    width: theme.spacing(15),
+    marginTop: 20,
+    padding: "10px ",
+    borderRadius: 50,
+    fontWeight: 400,
+    textTransform: "inherit",
+    marginBottom: 4,
+    backgroundColor: theme.palette.warning.main,
+    "&:hover": {
+      backgroundColor: theme.palette.warning.main,
     },
   },
   downloadButton: {

@@ -11,9 +11,10 @@ export const theme = createMuiTheme({
     },
     error: {
       main: "#F73232",
+      light: "#ffebee",
     },
     warning: {
-      main: "#ffab00",
+      main: "#F7C032",
     },
     info: {
       main: "#2340F5",
