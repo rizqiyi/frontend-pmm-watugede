@@ -18,6 +18,7 @@ import { PageNotFound } from "../pages/404-page/page-not-found";
 import PendudukKeluarDetailsPage from "../pages/penduduk-keluar/details/penduduk-keluar-details";
 import KartuKeluargaPage from "../pages/kartu-keluarga/kartu-keluarga";
 import DetailKartuKeluargaPage from "../pages/kartu-keluarga/details/details";
+import KartuKeluargaInsertPage from "../pages/kartu-keluarga/insert/insert";
 
 const Navigations = () => {
   return (
@@ -31,6 +32,10 @@ const Navigations = () => {
               component={KartuKeluargaPage}
               exact
               path="/kartu_keluarga"
+            />
+            <PrivateRoute
+              component={KartuKeluargaInsertPage}
+              path="/kartu_keluarga/insert"
             />
             <PrivateRoute
               component={DetailKartuKeluargaPage}

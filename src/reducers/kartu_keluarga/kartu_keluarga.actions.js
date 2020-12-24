@@ -8,6 +8,25 @@ import { returnInfos } from "../infos/info.actions";
 import { tokenConfig } from "../users/users.actions";
 import Types from "./kartu_keluarga.types";
 
+export const postKartuKeluarga = ({ ...request }) => (dispatch, getState) => {
+  dispatch({ type: Types.START_REQUEST_KK });
+
+  const body = JSON.stringify({ ...request });
+
+  axios
+    .post(initialURL.getAndPostKartuKeluargaURI, body, tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.POST_KARTU_KELUARGA_SUCCESS,
+        payload: result.data.data,
+      });
+      dispatch(returnInfos(result.data.message, 200));
+    })
+    .catch((err) => {
+      dispatch(returnInfos(err.response.data.message, err.response.status));
+    });
+};
+
 export const getAllKartuKeluarga = () => (dispatch, getState) => {
   dispatch({ type: Types.START_REQUEST_KK });
 

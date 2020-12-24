@@ -3,7 +3,6 @@ import {
   Button,
   Paper,
   Typography,
-  useMediaQuery,
   Table,
   TablePagination,
   Divider,
@@ -32,6 +31,7 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import { DialogSearchComponent } from "../../components/kartu-keluarga-components/dialog-search/dialog-search";
 import { clearInfos } from "../../reducers/infos/info.actions";
 import searchNotFoundImage from "../../assets/images/search-not-found.svg";
+import { Link } from "react-router-dom";
 
 const KartuKeluargaPage = ({ ...props }) => {
   const classes = useStyles();
@@ -50,7 +50,6 @@ const KartuKeluargaPage = ({ ...props }) => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("");
-  const matches = useMediaQuery("(max-width:600px)");
   const [open, setOpen] = useState(false);
   const [openSelectMenu, setOpenSelectMenu] = useState(false);
   const [search, setSearch] = useState("nama_lengkap");
@@ -79,7 +78,10 @@ const KartuKeluargaPage = ({ ...props }) => {
       alamat_asal,
       jenis_kelamin,
       nama_lengkap,
+      agama,
       tempat_tanggal_lahir,
+      posisi_dalam_keluarga,
+      status_perkawinan,
     } = a;
 
     let sendToOuter = {
@@ -88,11 +90,14 @@ const KartuKeluargaPage = ({ ...props }) => {
       "Tempat Tanggal Lahir": tempat_tanggal_lahir,
       Umur: umur,
       Alamat: alamat_asal,
+      Agama: agama,
+      "Posisi Dalam Keluarga": posisi_dalam_keluarga,
+      "Status Perkawinan": status_perkawinan,
       "Jenis Kelamin": jenis_kelamin,
       "Anggota Keluarga": a.keluarga_dari.anggota_keluarga.length,
     };
 
-    dataToExcel.push(sendToOuter);
+    return dataToExcel.push(sendToOuter);
   });
 
   const handleChangePage = (event, newPage) => {
@@ -137,8 +142,8 @@ const KartuKeluargaPage = ({ ...props }) => {
               <Box display="flex" marginTop={2} justifyContent="center">
                 <Button
                   color="primary"
-                  // component={Link}
-                  // to="/penduduk/insert"
+                  component={Link}
+                  to="/penduduk/insert"
                   className={classes.textButton}
                   startIcon={<AddIcon />}
                   variant="contained"
@@ -161,14 +166,17 @@ const KartuKeluargaPage = ({ ...props }) => {
               </Box>
             </Box>
           ) : rows.length !== 0 ? (
-            <Box marginBottom={matches ? 10 : 2}>
+            <Box>
               <Box
                 p={2}
                 paddingTop={0}
+                paddingBottom={0}
                 display="flex"
                 flexDirection="row"
                 justifyContent="flex-end"
                 alignItems="center"
+                position="relative"
+                bottom={-76}
               >
                 <Box>
                   <Button
@@ -186,8 +194,8 @@ const KartuKeluargaPage = ({ ...props }) => {
                 <Box>
                   <Button
                     color="primary"
-                    // component={Link}
-                    // to="/penduduk/insert"
+                    component={Link}
+                    to="/kartu_keluarga/insert"
                     className={classes.textButton}
                     startIcon={<AddIcon />}
                     variant="contained"
@@ -203,7 +211,7 @@ const KartuKeluargaPage = ({ ...props }) => {
                 <Formik
                   initialValues={{ search: "", params: search }}
                   enableReinitialize={true}
-                  onSubmit={(values, { resetForm }) => {
+                  onSubmit={(values) => {
                     if (values.params === "nama_lengkap") {
                       searchKKByName(values.search, values.params);
                     } else {
