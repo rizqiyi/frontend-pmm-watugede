@@ -27,6 +27,7 @@ const deletePengikutKeluarURI = (idPenduduk, idPengikut) =>
 const searchKKByName = (params) => `${initialURL.pendudukURI}/s?name=${params}`;
 const searchKKByNomorKK = (params) =>
   `${initialURL.pendudukURI}/s/kk?no_kk=${params}`;
+const getKartuKeluargaById = (id) => `${initialURL.kartuKeluargaURI}/${id}`;
 
 export {
   baseURL,
@@ -41,4 +42,5 @@ export {
   deletePengikutKeluarURI,
   searchKKByName,
   searchKKByNomorKK,
+  getKartuKeluargaById,
 };

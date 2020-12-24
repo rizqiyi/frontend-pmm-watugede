@@ -3,7 +3,7 @@ import Types from "./kartu_keluarga.types";
 const initialState = {
   isLoading: false,
   kartu_keluarga: [],
-  kartu_keluarga_obj: {},
+  kartu_keluarga_obj: [],
   search_result_by_name: [],
   search_result_by_nik: [],
   search_condition: "",
@@ -46,8 +46,8 @@ export const kartuKeluargaReducer = (state = initialState, action) => {
     case Types.PUT_KARTU_KELUARGA_SUCCESS:
       return {
         ...state,
-        kartu_keluarga_obj: action.payload,
         isLoading: false,
+        kartu_keluarga_obj: action.payload,
       };
 
     case Types.POST_KARTU_KELUARGA_SUCCESS:

@@ -3,6 +3,7 @@ import {
   initialURL,
   searchKKByName,
   searchKKByNomorKK,
+  getKartuKeluargaById,
 } from "../../utilities/baseURL";
 import { returnInfos } from "../infos/info.actions";
 import { tokenConfig } from "../users/users.actions";
@@ -25,6 +26,24 @@ export const postKartuKeluarga = ({ ...request }) => (dispatch, getState) => {
     .catch((err) => {
       dispatch(setLoadingToFalse());
       dispatch(returnInfos(err.response.data.message, err.response.status));
+    });
+};
+
+export const getKartuKeluargaByID = (id) => (dispatch, getState) => {
+  dispatch({ type: Types.START_REQUEST_KK });
+
+  axios
+    .get(getKartuKeluargaById(id), tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.FETCH_KARTU_KELUARGA_SUCCESS_BY_ID,
+        payload: result.data.data
+          ? result.data.data.keluarga_dari.anggota_keluarga
+          : {},
+      });
+    })
+    .catch((err) => {
+      dispatch(returnInfos(err.response.message, err.response.status));
     });
 };
 
