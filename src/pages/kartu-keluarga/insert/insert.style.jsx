@@ -1,6 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "90%",
+  },
   largeTextField: {
     width: "150%",
     // margin: "10px",

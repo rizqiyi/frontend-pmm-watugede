@@ -1,4 +1,10 @@
-import { TableBody, TableCell, TableRow, Typography } from "@material-ui/core";
+import {
+  Box,
+  TableBody,
+  TableCell,
+  TableRow,
+  Typography,
+} from "@material-ui/core";
 import React from "react";
 import { useStyles } from "./table-body.style";
 import { getComparator, stableSort } from "../../../helpers/table";
@@ -164,15 +170,17 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                       {isLoading ? (
                         <Skeleton />
                       ) : (
-                        <Typography variant="body2">
-                          <Link
-                            className={classes.controlLink}
-                            to={`/kartu_keluarga/${row._id}/d`}
-                            color="primary"
-                          >
-                            Lihat Detail
-                          </Link>
-                        </Typography>
+                        <Box className={classes.controlTextLink}>
+                          <Typography variant="body2">
+                            <Link
+                              className={classes.controlLink}
+                              to={`/kartu_keluarga/${row._id}/d`}
+                              color="primary"
+                            >
+                              Lihat Detail
+                            </Link>
+                          </Typography>
+                        </Box>
                       )}
                     </TableCell>
                   </TableRow>

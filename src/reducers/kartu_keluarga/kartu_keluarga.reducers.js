@@ -53,8 +53,8 @@ export const kartuKeluargaReducer = (state = initialState, action) => {
     case Types.POST_KARTU_KELUARGA_SUCCESS:
       return {
         ...state,
-        kartu_keluarga_obj: action.payload,
         isLoading: false,
+        kartu_keluarga_obj: action.payload,
       };
 
     case Types.DELETE_KARTU_KELUARGA_SUCCESS:
@@ -68,11 +68,16 @@ export const kartuKeluargaReducer = (state = initialState, action) => {
 
     case Types.CLEAR_SEARCH_RESULT:
       return {
-        ...state,
         isLoading: false,
+        ...state,
         search_result_by_name: [],
         search_result_by_nik: [],
         search_condition: "",
+      };
+
+    case Types.SET_LOADING_TO_FALSE:
+      return {
+        isLoading: false,
       };
 
     default:

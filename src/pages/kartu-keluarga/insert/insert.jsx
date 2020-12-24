@@ -1,17 +1,52 @@
-import { Box, Button, Divider, Paper, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Divider,
+  LinearProgress,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { FastField, Form, Formik } from "formik";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { TextFormField } from "../../../components/styled-textfield/styled-textfield";
 import AddIcon from "@material-ui/icons/Add";
 import { useStyles } from "./insert.style";
 import { Link } from "react-router-dom";
 import { postKartuKeluarga } from "../../../reducers/kartu_keluarga/kartu_keluarga.actions";
+import { kartuKeluargaInsertValidation } from "../../../validations/kartu-keluarga";
 
 const KartuKeluargaInsertPage = ({ ...props }) => {
-  const { postKartuKeluarga } = props;
+  const { postKartuKeluarga, infos, infoStatus, isLoading } = props;
   const classes = useStyles();
+  const [progress, setProgress] = useState(0);
+  const [buffer, setBuffer] = useState(10);
+
+  const progressRef = useRef(() => {});
+  useEffect(() => {
+    progressRef.current = () => {
+      if (progress > 100) {
+        setProgress(0);
+        setBuffer(10);
+      } else {
+        const diff = Math.random() * 10;
+        const diff2 = Math.random() * 10;
+        setProgress(progress + diff);
+        setBuffer(progress + diff + diff2);
+      }
+    };
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      progressRef.current();
+    }, 500);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   return (
     <React.Fragment>
@@ -22,7 +57,7 @@ const KartuKeluargaInsertPage = ({ ...props }) => {
             <Divider />
           </Box>
           <Formik
-            // validationSchema={pendudukInsertValidation}
+            validationSchema={kartuKeluargaInsertValidation}
             initialValues={{
               no_kk: "",
               nik: "",
@@ -40,17 +75,31 @@ const KartuKeluargaInsertPage = ({ ...props }) => {
             enableReinitialize={true}
             onSubmit={(values, { resetForm }) => {
               postKartuKeluarga(values);
-
-              resetForm({});
             }}
           >
-            {({ resetForm }) => (
+            {({ resetForm, isSubmitting }) => (
               <Form>
-                {/* {infos.status === 200 ? (
-                  <Box marginLeft={1.4} width="95%" marginBottom={2}>
-                    <Alert icon={false}>{infos.message}</Alert>
+                {infoStatus === 200 ? (
+                  <Box width="90%">
+                    <Alert icon={false}>{infos}</Alert>
                   </Box>
-                ) : null} */}
+                ) : null}
+                {infoStatus === 400 ? (
+                  <Box width="90%">
+                    <Alert icon={false} severity="error">
+                      {infos}
+                    </Alert>
+                  </Box>
+                ) : null}
+                {isLoading ? (
+                  <Box className={classes.root}>
+                    <LinearProgress
+                      variant="buffer"
+                      value={progress}
+                      valueBuffer={buffer}
+                    />
+                  </Box>
+                ) : null}
                 <Box
                   display="flex"
                   flexDirection="row"
@@ -85,7 +134,6 @@ const KartuKeluargaInsertPage = ({ ...props }) => {
                         variant="filled"
                       />
                     </Box>
-
                     <Box>
                       <FastField
                         component={TextFormField}
@@ -249,7 +297,11 @@ const KartuKeluargaInsertPage = ({ ...props }) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    infos: state.infos.message,
+    infoStatus: state.infos.status,
+    isLoading: state.kartu_keluarga.isLoading,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

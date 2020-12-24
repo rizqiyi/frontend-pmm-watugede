@@ -23,6 +23,7 @@ export const postKartuKeluarga = ({ ...request }) => (dispatch, getState) => {
       dispatch(returnInfos(result.data.message, 200));
     })
     .catch((err) => {
+      dispatch(setLoadingToFalse());
       dispatch(returnInfos(err.response.data.message, err.response.status));
     });
 };
@@ -101,5 +102,11 @@ export const searchKKbyNomorNIK = (params, cond) => (dispatch, getState) => {
 export const clearResultSearch = () => {
   return {
     type: Types.CLEAR_SEARCH_RESULT,
+  };
+};
+
+export const setLoadingToFalse = () => {
+  return {
+    type: Types.SET_LOADING_TO_FALSE,
   };
 };

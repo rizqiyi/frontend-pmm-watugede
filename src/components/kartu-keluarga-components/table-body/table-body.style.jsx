@@ -14,6 +14,9 @@ export const useStyles = makeStyles((theme) => ({
     wordWrap: "break-word",
     maxWidth: "300px",
   },
+  controlTextLink: {
+    maxWidth: "fit-content",
+  },
   controlLink: {
     textDecoration: "none",
     color: theme.palette.primary.main,
