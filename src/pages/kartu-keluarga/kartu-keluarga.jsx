@@ -70,6 +70,31 @@ const KartuKeluargaPage = ({ ...props }) => {
 
   const rows = kartuKeluarga.map((d) => d);
 
+  let dataToExcel = [];
+
+  kartuKeluarga.map((a) => {
+    const {
+      nik,
+      umur,
+      alamat_asal,
+      jenis_kelamin,
+      nama_lengkap,
+      tempat_tanggal_lahir,
+    } = a;
+
+    let sendToOuter = {
+      "Nomor Induk Keluarga": `=""${nik}""`,
+      "Nama Lengkap": nama_lengkap,
+      "Tempat Tanggal Lahir": tempat_tanggal_lahir,
+      Umur: umur,
+      Alamat: alamat_asal,
+      "Jenis Kelamin": jenis_kelamin,
+      "Anggota Keluarga": a.keluarga_dari.anggota_keluarga.length,
+    };
+
+    dataToExcel.push(sendToOuter);
+  });
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -150,10 +175,10 @@ const KartuKeluargaPage = ({ ...props }) => {
                     color="primary"
                     size="small"
                     component={CSVLink}
-                    data={rows}
+                    data={dataToExcel}
                     className={classes.downloadButton}
                     disabled={rows.length === 0}
-                    filename="penduduk_keluar.csv"
+                    filename="kepala_keluarga.csv"
                   >
                     Unduh CSV
                   </Button>
