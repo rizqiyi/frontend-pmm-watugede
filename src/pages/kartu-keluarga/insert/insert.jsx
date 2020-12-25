@@ -16,12 +16,21 @@ import { useStyles } from "./insert.style";
 import { Link } from "react-router-dom";
 import { postKartuKeluarga } from "../../../reducers/kartu_keluarga/kartu_keluarga.actions";
 import { kartuKeluargaInsertValidation } from "../../../validations/kartu-keluarga";
+import { clearInfos } from "../../../reducers/infos/info.actions";
 
 const KartuKeluargaInsertPage = ({ ...props }) => {
-  const { postKartuKeluarga, infos, infoStatus, isLoading } = props;
+  const { postKartuKeluarga, infos, infoStatus, isLoading, clearInfos } = props;
   const classes = useStyles();
   const [progress, setProgress] = useState(0);
   const [buffer, setBuffer] = useState(10);
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      clearInfos();
+    }
+  }, [clearInfos]);
 
   const progressRef = useRef(() => {});
   useEffect(() => {
@@ -307,6 +316,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     postKartuKeluarga: (request) => dispatch(postKartuKeluarga(request)),
+    clearInfos: () => dispatch(clearInfos()),
   };
 };
 

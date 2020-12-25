@@ -31,6 +31,7 @@ export const anggotaKeluargaReducer = (state = initialState, action) => {
 
     case Types.SET_LOADING_TO_FALSE_INSERT_KELUARGA:
       return {
+        ...state,
         isLoading: false,
       };
 

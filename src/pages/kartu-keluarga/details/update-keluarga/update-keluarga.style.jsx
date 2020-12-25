@@ -6,12 +6,10 @@ export const useStyles = makeStyles((theme) => ({
   },
   largeTextField: {
     width: "150%",
-    // margin: "10px",
     margin: "28px 0px 0px 0px",
   },
   lastField: {
     width: "130%",
-    // margin: "10px",
     margin: "28px 0px 0px 0px",
   },
   paper: {
@@ -19,7 +17,6 @@ export const useStyles = makeStyles((theme) => ({
   },
   alamatTextField: {
     width: "280%",
-    // height: "100%",
     margin: "28px 0px 0px 0px",
   },
   resetText: {
@@ -37,9 +34,18 @@ export const useStyles = makeStyles((theme) => ({
     padding: "10px",
     borderRadius: 50,
     textTransform: "inherit",
-    // "&:hover": {
-    //   backgroundColor: "white",
-    // },
+  },
+  mutasiButton: {
+    color: "#fff",
+    width: theme.spacing(15),
+    padding: "10px ",
+    borderRadius: 50,
+    fontWeight: 400,
+    textTransform: "inherit",
+    backgroundColor: theme.palette.warning.main,
+    "&:hover": {
+      backgroundColor: theme.palette.warning.main,
+    },
   },
   constText: {
     color: theme.palette.grey.main,

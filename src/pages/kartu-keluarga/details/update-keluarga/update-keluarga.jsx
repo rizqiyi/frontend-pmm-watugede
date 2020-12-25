@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Paper, Typography } from "@material-ui/core";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import {
   fetchAnggotaKeluargaByID,
@@ -13,6 +13,7 @@ import { useStyles } from "./update-keluarga.style";
 import EditIcon from "@material-ui/icons/Edit";
 import { clearInfos } from "../../../../reducers/infos/info.actions";
 import { pendudukInsertValidation } from "../../../../validations/penduduk";
+import MutasiDialogPerson from "../../../../components/anggota-keluarga-components/mutasi-dialogs-person/mutasi-dialogs-person";
 
 const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
   const {
@@ -30,6 +31,8 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
   const classes = useStyles();
   const isFirstRender = useRef(true);
   const history = useHistory();
+  const [dialogMutasiPerson, setDialogMutasiPerson] = useState(false);
+  const [dataMutasiPerson, setDataMutasiPerson] = useState([]);
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -289,35 +292,64 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
                 <Box marginTop={1} marginBottom={2}>
                   <Divider />
                 </Box>
-                <Box display="flex" justifyContent="flex-end">
-                  <Box marginRight={3}>
-                    <Button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        history.goBack();
-                      }}
-                      className={classes.backButton}
-                    >
-                      Kembali
-                    </Button>
+                {isLoading ? (
+                  <Skeleton animation="wave" width="90%" height={70} />
+                ) : (
+                  <Box
+                    display="flex"
+                    flexDirection="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <Box>
+                      <Button
+                        variant="contained"
+                        className={classes.mutasiButton}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setDialogMutasiPerson(true);
+                          setDataMutasiPerson(dataAnggotaKeluarga);
+                        }}
+                      >
+                        Mutasi
+                      </Button>
+                    </Box>
+                    <Box display="flex" justifyContent="flex-end">
+                      <Box marginRight={3}>
+                        <Button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            history.goBack();
+                          }}
+                          className={classes.backButton}
+                        >
+                          Kembali
+                        </Button>
+                      </Box>
+                      <Box>
+                        <Button
+                          variant="contained"
+                          className={classes.controlButton}
+                          color="primary"
+                          type="submit"
+                          endIcon={<EditIcon />}
+                        >
+                          Perbarui Data
+                        </Button>
+                      </Box>
+                    </Box>
                   </Box>
-                  <Box>
-                    <Button
-                      variant="contained"
-                      className={classes.controlButton}
-                      color="primary"
-                      type="submit"
-                      endIcon={<EditIcon />}
-                    >
-                      Perbarui Data
-                    </Button>
-                  </Box>
-                </Box>
+                )}
               </Form>
             )}
           </Formik>
         </Box>
       </Paper>
+      <MutasiDialogPerson
+        data={dataMutasiPerson}
+        open={dialogMutasiPerson}
+        handleClose={setDialogMutasiPerson}
+      />
     </React.Fragment>
   );
 };

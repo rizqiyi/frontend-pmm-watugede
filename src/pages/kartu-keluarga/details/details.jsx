@@ -21,6 +21,7 @@ import { Link } from "react-router-dom";
 import DialogDeleteComponents from "../../../components/anggota-keluarga-components/dialog-delete-details/dialog-delete";
 import dataIsNull from "../../../assets/images/no-data-found.svg";
 import { GreyText } from "../../../components/typography/typography";
+import MutasiDialogAll from "../../../components/anggota-keluarga-components/mutasi-dialogs-all/mutasi-dialogs-all";
 
 const DetailKartuKeluargaPage = ({ ...props }) => {
   const {
@@ -36,10 +37,10 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
   const [orderBy, setOrderBy] = useState("");
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
   const [idToDelete, setIdToDelete] = useState([]);
-
+  const [dialogMutasiAll, setDialogMutasiAll] = useState(false);
+  const [dataMutasiAll, setDataMutasiAll] = useState([]);
   const paramsId = match.params.id_kepala;
   const paramsIdKK = match.params.id_kk;
-  console.log(paramsId);
 
   useEffect(() => {
     getKartuKeluargaByID(paramsId);
@@ -47,43 +48,35 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
 
   const rows = detailAnggotaKeluarga;
 
-  console.log(
-    "length = undefined = " + detailAnggotaKeluarga.length === undefined
-  );
-  console.log("length = 1 = " + detailAnggotaKeluarga.length === 1);
-  console.log("length = kurang 2 = " + detailAnggotaKeluarga.length < 2);
-  console.log("detail = undefined = " + detailAnggotaKeluarga === undefined);
-  console.log(detailAnggotaKeluarga);
-
   let dataToExcel = [];
 
-  // rows.map((a) => {
-  //   const {
-  //     nik,
-  //     umur,
-  //     alamat_asal,
-  //     jenis_kelamin,
-  //     nama_lengkap,
-  //     agama,
-  //     tempat_tanggal_lahir,
-  //     posisi_dalam_keluarga,
-  //     status_perkawinan,
-  //   } = a;
+  rows.map((a) => {
+    const {
+      nik,
+      umur,
+      alamat_asal,
+      jenis_kelamin,
+      nama_lengkap,
+      agama,
+      tempat_tanggal_lahir,
+      posisi_dalam_keluarga,
+      status_perkawinan,
+    } = a;
 
-  //   let sendToOuter = {
-  //     "Nomor Induk Keluarga": `=""${nik}""`,
-  //     "Nama Lengkap": nama_lengkap,
-  //     "Tempat Tanggal Lahir": tempat_tanggal_lahir,
-  //     Umur: umur,
-  //     Alamat: alamat_asal,
-  //     Agama: agama,
-  //     "Posisi Dalam Keluarga": posisi_dalam_keluarga,
-  //     "Status Perkawinan": status_perkawinan,
-  //     "Jenis Kelamin": jenis_kelamin,
-  //   };
+    let sendToOuter = {
+      "Nomor Induk Keluarga": `=""${nik}""`,
+      "Nama Lengkap": nama_lengkap,
+      "Tempat Tanggal Lahir": tempat_tanggal_lahir,
+      Umur: umur,
+      Alamat: alamat_asal,
+      Agama: agama,
+      "Posisi Dalam Keluarga": posisi_dalam_keluarga,
+      "Status Perkawinan": status_perkawinan,
+      "Jenis Kelamin": jenis_kelamin,
+    };
 
-  //   return dataToExcel.push(sendToOuter);
-  // });
+    return dataToExcel.push(sendToOuter);
+  });
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -229,6 +222,11 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
                     <Button
                       variant="contained"
                       className={classes.mutasiButton}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setDialogMutasiAll(true);
+                        setDataMutasiAll(rows);
+                      }}
                     >
                       Mutasi
                     </Button>
@@ -256,6 +254,11 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
         idToDelete={idToDelete}
         paramsIdKK={paramsIdKK}
         idKepala={paramsId}
+      />
+      <MutasiDialogAll
+        open={dialogMutasiAll}
+        handleClose={setDialogMutasiAll}
+        data={dataMutasiAll}
       />
     </React.Fragment>
   );
