@@ -18,6 +18,7 @@ import { Skeleton } from "@material-ui/lab";
 import { CSVLink } from "react-csv";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
+import DialogDeleteComponents from "../../../components/anggota-keluarga-components/dialog-delete-details/dialog-delete";
 
 const DetailKartuKeluargaPage = ({ ...props }) => {
   const {
@@ -31,6 +32,8 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("");
+  const [openDialogDelete, setOpenDialogDelete] = useState(false);
+  const [idToDelete, setIdToDelete] = useState([]);
 
   const paramsId = match.params.id_kepala;
   const paramsIdKK = match.params.id_kk;
@@ -39,7 +42,7 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
     getKartuKeluargaByID(paramsId);
   }, [paramsId, getKartuKeluargaByID]);
 
-  const rows = detailAnggotaKeluarga.map((d) => d);
+  const rows = detailAnggotaKeluarga;
 
   let dataToExcel = [];
 
@@ -162,6 +165,8 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
                       order={order}
                       orderBy={orderBy}
                       page={page}
+                      setOpenDialogDelete={setOpenDialogDelete}
+                      setIdToDelete={setIdToDelete}
                       rowsPerPage={rowsPerPage}
                       emptyRows={emptyRows}
                     />
@@ -198,6 +203,12 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
           </Box>
         ) : null}
       </div>
+      <DialogDeleteComponents
+        open={openDialogDelete}
+        handleClose={setOpenDialogDelete}
+        idToDelete={idToDelete}
+        paramsIdKK={paramsId}
+      />
     </React.Fragment>
   );
 };

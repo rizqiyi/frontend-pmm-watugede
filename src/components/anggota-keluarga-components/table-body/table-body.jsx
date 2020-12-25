@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 
 const AnggotaKeluargaTableBodyComponent = ({ ...props }) => {
   const classes = useStyles();
-  const { isLoading } = props;
+  const { isLoading, setOpenDialogDelete, setIdToDelete } = props;
   return (
     <React.Fragment>
       <TableBody>
@@ -62,7 +62,15 @@ const AnggotaKeluargaTableBodyComponent = ({ ...props }) => {
                         </Button>
                       </Box>
                       <Box>
-                        <Button size="small" className={classes.controlDelete}>
+                        <Button
+                          size="small"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setOpenDialogDelete(true);
+                            setIdToDelete(row);
+                          }}
+                          className={classes.controlDelete}
+                        >
                           Hapus
                         </Button>
                       </Box>

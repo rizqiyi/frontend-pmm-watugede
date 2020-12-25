@@ -16,6 +16,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
 import { postAnggotaKeluarga } from "../../../../reducers/anggota_keluarga/anggota_keluarga.actions";
 import { clearInfos } from "../../../../reducers/infos/info.actions";
+import { pendudukInsertValidation } from "../../../../validations/penduduk";
 
 const DetailKartuKeluargaInsertPage = ({ ...props }) => {
   const classes = useStyles();
@@ -74,7 +75,7 @@ const DetailKartuKeluargaInsertPage = ({ ...props }) => {
             <Divider />
           </Box>
           <Formik
-            // validationSchema={kartuKeluargaInsertValidation}
+            validationSchema={pendudukInsertValidation}
             initialValues={{
               id: paramsIdKK,
               nik: "",
