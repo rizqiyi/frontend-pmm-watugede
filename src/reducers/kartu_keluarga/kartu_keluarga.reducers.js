@@ -4,6 +4,7 @@ const initialState = {
   isLoading: false,
   kartu_keluarga: [],
   kartu_keluarga_obj: [],
+  post_kartu_keluaga: {},
   search_result_by_name: [],
   search_result_by_nik: [],
   search_condition: "",
@@ -43,6 +44,7 @@ export const kartuKeluargaReducer = (state = initialState, action) => {
       };
 
     case Types.FETCH_KARTU_KELUARGA_SUCCESS_BY_ID:
+      console.log(action.payload);
       return {
         ...state,
         kartu_keluarga_obj: action.payload,
@@ -59,8 +61,8 @@ export const kartuKeluargaReducer = (state = initialState, action) => {
     case Types.POST_KARTU_KELUARGA_SUCCESS:
       return {
         ...state,
-        kartu_keluarga_obj: action.payload,
         isLoading: false,
+        post_kartu_keluaga: action.payload,
       };
 
     case Types.DELETE_KARTU_KELUARGA_SUCCESS:
@@ -83,6 +85,7 @@ export const kartuKeluargaReducer = (state = initialState, action) => {
 
     case Types.SET_LOADING_TO_FALSE:
       return {
+        ...state,
         isLoading: false,
       };
 

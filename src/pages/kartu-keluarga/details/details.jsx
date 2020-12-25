@@ -39,6 +39,7 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
 
   const paramsId = match.params.id_kepala;
   const paramsIdKK = match.params.id_kk;
+  console.log(paramsId);
 
   useEffect(() => {
     getKartuKeluargaByID(paramsId);
@@ -46,35 +47,43 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
 
   const rows = detailAnggotaKeluarga;
 
+  console.log(
+    "length = undefined = " + detailAnggotaKeluarga.length === undefined
+  );
+  console.log("length = 1 = " + detailAnggotaKeluarga.length === 1);
+  console.log("length = kurang 2 = " + detailAnggotaKeluarga.length < 2);
+  console.log("detail = undefined = " + detailAnggotaKeluarga === undefined);
+  console.log(detailAnggotaKeluarga);
+
   let dataToExcel = [];
 
-  rows.map((a) => {
-    const {
-      nik,
-      umur,
-      alamat_asal,
-      jenis_kelamin,
-      nama_lengkap,
-      agama,
-      tempat_tanggal_lahir,
-      posisi_dalam_keluarga,
-      status_perkawinan,
-    } = a;
+  // rows.map((a) => {
+  //   const {
+  //     nik,
+  //     umur,
+  //     alamat_asal,
+  //     jenis_kelamin,
+  //     nama_lengkap,
+  //     agama,
+  //     tempat_tanggal_lahir,
+  //     posisi_dalam_keluarga,
+  //     status_perkawinan,
+  //   } = a;
 
-    let sendToOuter = {
-      "Nomor Induk Keluarga": `=""${nik}""`,
-      "Nama Lengkap": nama_lengkap,
-      "Tempat Tanggal Lahir": tempat_tanggal_lahir,
-      Umur: umur,
-      Alamat: alamat_asal,
-      Agama: agama,
-      "Posisi Dalam Keluarga": posisi_dalam_keluarga,
-      "Status Perkawinan": status_perkawinan,
-      "Jenis Kelamin": jenis_kelamin,
-    };
+  //   let sendToOuter = {
+  //     "Nomor Induk Keluarga": `=""${nik}""`,
+  //     "Nama Lengkap": nama_lengkap,
+  //     "Tempat Tanggal Lahir": tempat_tanggal_lahir,
+  //     Umur: umur,
+  //     Alamat: alamat_asal,
+  //     Agama: agama,
+  //     "Posisi Dalam Keluarga": posisi_dalam_keluarga,
+  //     "Status Perkawinan": status_perkawinan,
+  //     "Jenis Kelamin": jenis_kelamin,
+  //   };
 
-    return dataToExcel.push(sendToOuter);
-  });
+  //   return dataToExcel.push(sendToOuter);
+  // });
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

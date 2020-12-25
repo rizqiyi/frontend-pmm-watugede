@@ -59,8 +59,8 @@ const KartuKeluargaPage = ({ ...props }) => {
       isFirstRender.current = false;
       clearResultSearch();
       clearInfos();
-      getAllKartuKeluarga();
     }
+    getAllKartuKeluarga();
   }, [getAllKartuKeluarga, clearResultSearch, clearInfos]);
 
   const handleChange = (event) => {
