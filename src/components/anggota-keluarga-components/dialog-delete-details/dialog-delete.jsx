@@ -22,8 +22,11 @@ const DialogDeleteComponents = ({ ...props }) => {
     idToDelete,
     deleteAnggotaKeluarga,
     paramsIdKK,
+    idKepala,
   } = props;
   const classes = useStyles();
+
+  console.log(idKepala);
 
   return (
     <React.Fragment>
@@ -40,10 +43,15 @@ const DialogDeleteComponents = ({ ...props }) => {
           initialValues={{
             id: idToDelete._id,
             idKK: paramsIdKK,
+            idKepalaKeluarga: idKepala,
           }}
           enableReinitialize={true}
           onSubmit={(values) => {
-            deleteAnggotaKeluarga(values.id, values.idKK);
+            deleteAnggotaKeluarga(
+              values.id,
+              values.idKK,
+              values.idKepalaKeluarga
+            );
             handleClose(false);
           }}
         >
@@ -116,8 +124,8 @@ const DialogDeleteComponents = ({ ...props }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteAnggotaKeluarga: (idPenduduk, idKK) =>
-      dispatch(deleteAnggotaKeluarga(idPenduduk, idKK)),
+    deleteAnggotaKeluarga: (idPenduduk, idKK, idKepalaKeluarga) =>
+      dispatch(deleteAnggotaKeluarga(idPenduduk, idKK, idKepalaKeluarga)),
   };
 };
 

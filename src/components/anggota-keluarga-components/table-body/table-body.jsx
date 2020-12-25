@@ -49,6 +49,7 @@ const AnggotaKeluargaTableBodyComponent = ({ ...props }) => {
                       display="flex"
                       flexDirection="row"
                       justifyContent="space-evenly"
+                      alignItems="center"
                     >
                       <Box>
                         <Button

@@ -33,12 +33,14 @@ export const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   filterButton: {
-    backgroundColor: theme.palette.secondary.main,
     width: "50px",
     height: "50px",
+    color: theme.palette.primary.main,
     marginLeft: 5,
+    backgroundColor: "#e1f5fe",
+    textTransform: "inherit",
     "&:hover": {
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: "#e3f2fd",
     },
   },
   textButton: {

@@ -18,15 +18,15 @@ export const anggotaKeluargaReducer = (state = initialState, action) => {
     case Types.PUT_ANGGOTA_KELUARGA_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         anggota_keluarga_obj: action.payload,
+        isLoading: false,
       };
 
     case Types.POST_ANGGOTA_KELUARGA_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         anggota_keluarga_obj: action.payload,
+        isLoading: false,
       };
 
     case Types.SET_LOADING_TO_FALSE_INSERT_KELUARGA:

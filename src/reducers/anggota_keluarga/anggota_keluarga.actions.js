@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   postPendudukToKKURI,
   getPendudukById,
+  deletePendudukPadaKK,
   updatePendudukURI,
 } from "../../utilities/baseURL";
 import { returnInfos } from "../infos/info.actions";
@@ -75,7 +76,7 @@ export const updateAnggotaKeluarga = ({ ...request }, id) => (
     });
 };
 
-export const deleteAnggotaKeluarga = (idPenduduk, idKK) => (
+export const deleteAnggotaKeluarga = (idPenduduk, idKK, idKepalaKeluarga) => (
   dispatch,
   getState
 ) => {
@@ -84,7 +85,7 @@ export const deleteAnggotaKeluarga = (idPenduduk, idKK) => (
   });
 
   axios
-    .delete(updatePendudukURI(idPenduduk), tokenConfig(getState))
+    .delete(deletePendudukPadaKK(idPenduduk, idKK), tokenConfig(getState))
     .then((result) => {
       dispatch({
         type: Types.DELETE_ANGGOTA_KELUARGA_SUCCESS,
@@ -92,7 +93,7 @@ export const deleteAnggotaKeluarga = (idPenduduk, idKK) => (
       });
       dispatch(returnInfos(result.data.message, 200));
     })
-    .then(() => dispatch(getKartuKeluargaByID(idKK)))
+    .then(() => dispatch(getKartuKeluargaByID(idKepalaKeluarga)))
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
     });

@@ -19,6 +19,8 @@ import { CSVLink } from "react-csv";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
 import DialogDeleteComponents from "../../../components/anggota-keluarga-components/dialog-delete-details/dialog-delete";
+import dataIsNull from "../../../assets/images/no-data-found.svg";
+import { GreyText } from "../../../components/typography/typography";
 
 const DetailKartuKeluargaPage = ({ ...props }) => {
   const {
@@ -46,7 +48,7 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
 
   let dataToExcel = [];
 
-  detailAnggotaKeluarga.map((a) => {
+  rows.map((a) => {
     const {
       nik,
       umur,
@@ -89,6 +91,42 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
   return (
     <React.Fragment>
       <div className={classes.root}>
+        {rows.length === 0 ? (
+          isLoading ? null : (
+            <Box display="flex" flexDirection="column">
+              <Box>
+                <img
+                  src={dataIsNull}
+                  className={classes.dataIsNull}
+                  alt="Data Not Found"
+                />
+              </Box>
+              <Box display="flex" marginTop={4} justifyContent="center">
+                <Typography className={classes.textIsNull}>
+                  DATA ANGGOTA KELUARGA KOSONG
+                </Typography>
+              </Box>
+              <Box display="flex" marginTop={2} justifyContent="center">
+                <GreyText
+                  text="Harap Menambahkan Kartu Keluarga Baru"
+                  className={classes.textCons}
+                />
+              </Box>
+              <Box display="flex" marginTop={2} justifyContent="center">
+                <Button
+                  color="primary"
+                  component={Link}
+                  to="/kartu_keluarga/insert"
+                  className={classes.textButton}
+                  startIcon={<AddIcon />}
+                  variant="contained"
+                >
+                  Tambah Kartu Keluarga
+                </Button>
+              </Box>
+            </Box>
+          )
+        ) : null}
         {isLoading ? (
           <Box marginTop={20}>
             <Box className={classes.isLoading}>
@@ -207,7 +245,8 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
         open={openDialogDelete}
         handleClose={setOpenDialogDelete}
         idToDelete={idToDelete}
-        paramsIdKK={paramsId}
+        paramsIdKK={paramsIdKK}
+        idKepala={paramsId}
       />
     </React.Fragment>
   );

@@ -32,7 +32,7 @@ export const useStylesSearchField = makeStyles((theme) => ({
       backgroundColor: fade(theme.palette.grey.main, 0.25),
     },
     marginLeft: 0,
-    width: "25%",
+    width: "30%",
     borderRadius: 50,
   },
   searchIcon: {

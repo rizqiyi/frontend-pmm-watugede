@@ -39,7 +39,7 @@ export const getKartuKeluargaByID = (id) => (dispatch, getState) => {
         type: Types.FETCH_KARTU_KELUARGA_SUCCESS_BY_ID,
         payload: result.data.data
           ? result.data.data.keluarga_dari.anggota_keluarga
-          : [{}],
+          : [],
       });
     })
     .catch((err) => {
