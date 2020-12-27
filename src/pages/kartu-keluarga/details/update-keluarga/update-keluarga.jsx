@@ -25,6 +25,7 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
     infos,
     updateAnggotaKeluarga,
     clearInfos,
+    isLoadingPostPendudukKeluar,
   } = props;
 
   const paramsId = match.params.id;
@@ -86,14 +87,15 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
           >
             {() => (
               <Form>
-                {isLoading ? (
+                {isLoading || isLoadingPostPendudukKeluar ? (
                   <Skeleton animation="wave" width="90%" height={70} />
-                ) : infoStatus === 200 ? (
+                ) : infoStatus === 200 || infoStatus === 201 ? (
                   <Box width="90%">
                     <Alert icon={false}>{infos}</Alert>
                   </Box>
                 ) : null}
-                {isLoading ? null : infoStatus === 400 ? (
+                {isLoading ||
+                isLoadingPostPendudukKeluar ? null : infoStatus === 400 ? (
                   <Box width="90%">
                     <Alert icon={false} severity="error">
                       {infos}
@@ -365,6 +367,7 @@ const mapStateToProps = (state) => {
     isLoading: state.anggota_keluarga.isLoading,
     infoStatus: state.infos.status,
     infos: state.infos.message,
+    isLoadingPostPendudukKeluar: state.penduduk_keluar.isLoading,
   };
 };
 

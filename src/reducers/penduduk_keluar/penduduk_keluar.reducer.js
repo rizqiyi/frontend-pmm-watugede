@@ -28,6 +28,12 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         isLoading: false,
       };
 
+    case Types.SET_LOADING_TO_FALSE_PENDUDUK_KELUAR:
+      return {
+        ...state,
+        isLoading: false,
+      };
+
     default:
       return state;
   }

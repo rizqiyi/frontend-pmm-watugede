@@ -41,6 +41,13 @@ export const postPendudukKeluarData = (value, id) => (dispatch, getState) => {
       );
     })
     .catch((err) => {
+      dispatch(isLoadingToFalse());
       dispatch(returnInfos(err.response.data.message, err.response.status));
     });
+};
+
+const isLoadingToFalse = () => {
+  return {
+    type: Types.SET_LOADING_TO_FALSE_PENDUDUK_KELUAR,
+  };
 };
