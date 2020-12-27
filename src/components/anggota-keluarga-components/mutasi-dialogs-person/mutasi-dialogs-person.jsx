@@ -9,12 +9,21 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { connect } from "react-redux";
 import mutasiDataImage from "../../../assets/images/delete-data.svg";
+import { postPendudukKeluarData } from "../../../reducers/penduduk_keluar/penduduk_keluar.actions";
 import { useStyles } from "./mutasi-dialogs-person.style";
 
 const MutasiDialogPerson = ({ ...props }) => {
-  const { handleClose, open, data, nomorKartuKeluarga } = props;
+  const {
+    handleClose,
+    open,
+    data,
+    nomorKartuKeluarga,
+    postPendudukKeluarData,
+  } = props;
 
   const classes = useStyles();
+
+  console.log(nomorKartuKeluarga);
 
   return (
     <React.Fragment>
@@ -28,9 +37,16 @@ const MutasiDialogPerson = ({ ...props }) => {
         aria-describedby="alert-dialog-description"
       >
         <Formik
-          initialValues={{ no_kk: nomorKartuKeluarga, idPenduduk: data._id }}
+          initialValues={{
+            nomor_kartu_keluarga: nomorKartuKeluarga,
+            idPenduduk: data._id,
+          }}
           enableReinitialize={true}
           onSubmit={(values) => {
+            postPendudukKeluarData(
+              values.nomor_kartu_keluarga,
+              values.idPenduduk
+            );
             handleClose(false);
           }}
         >
@@ -98,7 +114,10 @@ const MutasiDialogPerson = ({ ...props }) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    postPendudukKeluarData: (val, id) =>
+      dispatch(postPendudukKeluarData(val, id)),
+  };
 };
 
 export default connect(null, mapDispatchToProps)(MutasiDialogPerson);

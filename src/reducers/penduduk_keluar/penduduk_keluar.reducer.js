@@ -21,6 +21,13 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         isLoading: false,
       };
 
+    case Types.POST_PENDUDUK_KELUAR_SUCCESS:
+      return {
+        ...state,
+        penduduk_keluar_obj: action.payload,
+        isLoading: false,
+      };
+
     default:
       return state;
   }
