@@ -36,6 +36,25 @@ const PendudukKeluarPage = ({ ...props }) => {
 
   const rows = pendudukKeluar;
 
+  let dataToExcel = [];
+
+  rows.map((a) => {
+    let sendToOuter = {
+      "Nomor Kartu Keluarga": `=""${a.penduduk_keluar_desa[0].keluarga_dari.no_kk}""`,
+      "Nama Lengkap": a.penduduk_keluar_desa[0].nama_lengkap,
+      "Tempat Tanggal Lahir": a.penduduk_keluar_desa[0].tempat_tanggal_lahir,
+      Umur: a.penduduk_keluar_desa[0].umur,
+      Alamat: a.penduduk_keluar_desa[0].alamat_asal,
+      Agama: a.penduduk_keluar_desa[0].agama,
+      "Posisi Dalam Keluarga": a.penduduk_keluar_desa[0].posisi_dalam_keluarga,
+      "Status Perkawinan": a.penduduk_keluar_desa[0].status_perkawinan,
+      "Jenis Kelamin": a.penduduk_keluar_desa[0].jenis_kelamin,
+      "Anggota Keluarga": a.penduduk_keluar_desa.length,
+    };
+
+    return dataToExcel.push(sendToOuter);
+  });
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -106,7 +125,7 @@ const PendudukKeluarPage = ({ ...props }) => {
                       color="primary"
                       size="small"
                       component={CSVLink}
-                      data={rows}
+                      data={dataToExcel}
                       className={classes.downloadButton}
                       disabled={rows.length === 0}
                       filename="penduduk_keluar.csv"
