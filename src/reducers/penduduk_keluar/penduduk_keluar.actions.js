@@ -27,7 +27,7 @@ export const postPendudukKeluarData = (value, id) => (dispatch, getState) => {
     type: Types.START_REQUEST_PENDUDUK_KELUAR,
   });
 
-  const body = JSON.stringify({ value });
+  const body = JSON.stringify({ no_kk: value });
 
   axios
     .post(postPendudukKeluarURI(id), body, tokenConfig(getState))

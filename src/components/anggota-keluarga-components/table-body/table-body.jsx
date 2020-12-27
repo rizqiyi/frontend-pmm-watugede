@@ -19,7 +19,16 @@ const AnggotaKeluargaTableBodyComponent = ({ ...props }) => {
           )
           .map((row, index) => {
             return (
-              <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+              <TableRow
+                role="checkbox"
+                className={
+                  row.status_penduduk === "penduduk_keluar"
+                    ? classes.tableBodyStyle
+                    : null
+                }
+                tabIndex={-1}
+                key={index}
+              >
                 <TableCell align="left">
                   {isLoading ? <Skeleton /> : row.nik}
                 </TableCell>

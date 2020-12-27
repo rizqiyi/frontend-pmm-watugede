@@ -23,8 +23,6 @@ const MutasiDialogPerson = ({ ...props }) => {
 
   const classes = useStyles();
 
-  console.log(nomorKartuKeluarga);
-
   return (
     <React.Fragment>
       <Dialog

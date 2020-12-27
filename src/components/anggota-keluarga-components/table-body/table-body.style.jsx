@@ -24,4 +24,7 @@ export const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: theme.palette.primary.main,
   },
+  tableBodyStyle: {
+    backgroundColor: "#fff3e0",
+  },
 }));
