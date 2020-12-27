@@ -143,7 +143,7 @@ const KartuKeluargaPage = ({ ...props }) => {
                 <Button
                   color="primary"
                   component={Link}
-                  to="/penduduk/insert"
+                  to="/kartu_keluarga/insert"
                   className={classes.textButton}
                   startIcon={<AddIcon />}
                   variant="contained"

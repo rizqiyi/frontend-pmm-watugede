@@ -45,12 +45,17 @@ const headCellsPenduduk = [
 ];
 
 const headCellsPengikutKeluar = [
-  { id: "nik", numeric: false, disablePadding: false, label: "NIK" },
+  {
+    id: "nomor_kk",
+    numeric: false,
+    disablePadding: false,
+    label: "No. Kartu Keluarga",
+  },
   {
     id: "nama_pengusul",
     numeric: false,
     disablePadding: false,
-    label: "Nama Pengusul",
+    label: "Nama Lengkap",
   },
   {
     id: "jenis_kelamin",
@@ -71,8 +76,14 @@ const headCellsPengikutKeluar = [
     label: "Alamat Asal",
   },
   {
+    id: "umur",
+    numeric: false,
+    disablePadding: false,
+    label: "Umur",
+  },
+  {
     id: "jumlah_pengikut",
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: "Jumlah Pengikut",
   },

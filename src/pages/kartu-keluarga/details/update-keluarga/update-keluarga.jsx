@@ -33,6 +33,7 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
   const history = useHistory();
   const [dialogMutasiPerson, setDialogMutasiPerson] = useState(false);
   const [dataMutasiPerson, setDataMutasiPerson] = useState([]);
+  const [nomorKartuKeluarga, setNomorKartuKeluarga] = useState([]);
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -309,6 +310,9 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
                           e.preventDefault();
                           setDialogMutasiPerson(true);
                           setDataMutasiPerson(dataAnggotaKeluarga);
+                          setNomorKartuKeluarga(
+                            dataAnggotaKeluarga.keluarga_dari.no_kk
+                          );
                         }}
                       >
                         Mutasi
@@ -349,6 +353,7 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
         data={dataMutasiPerson}
         open={dialogMutasiPerson}
         handleClose={setDialogMutasiPerson}
+        nomorKartuKeluarga={nomorKartuKeluarga}
       />
     </React.Fragment>
   );

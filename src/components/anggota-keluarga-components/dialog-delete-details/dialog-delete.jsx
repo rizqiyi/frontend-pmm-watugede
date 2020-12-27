@@ -24,8 +24,6 @@ const DialogDeleteComponents = ({ ...props }) => {
   } = props;
   const classes = useStyles();
 
-  console.log(idKepala);
-
   return (
     <React.Fragment>
       <Dialog
@@ -81,7 +79,7 @@ const DialogDeleteComponents = ({ ...props }) => {
                   <Typography className={classes.questionText}>
                     APAKAH ANDA YAKIN INGIN MENGHAPUS ANGGOTA KELUARGA ATAS NAMA{" "}
                     <span style={{ textDecoration: "underline" }}>
-                      {`${idToDelete.nama_lengkap.toUpperCase()}`}
+                      {`${idToDelete.nama_lengkap}`.toUpperCase()}
                     </span>{" "}
                     ?
                   </Typography>
@@ -89,7 +87,7 @@ const DialogDeleteComponents = ({ ...props }) => {
                 <DialogContent>
                   <Typography className={classes.consText}>
                     Data akan dihapus permanen setelah anda menekan tombol
-                    delete.
+                    hapus.
                   </Typography>
                 </DialogContent>
                 <DialogActions>

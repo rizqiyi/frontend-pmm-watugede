@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { fetchPendudukKeluar } from "../../reducers/penduduk_keluar/penduduk_keluar.actions";
 import {
   Box,
   Button,
@@ -12,30 +11,30 @@ import {
   Typography,
   useMediaQuery,
 } from "@material-ui/core";
-import { PendudukTableBodyComponent } from "../../components/penduduk-keluar-components/table-body/table-body";
-import { PendudukEnhancedTableHead } from "../../components/penduduk-keluar-components/table-head/table-head";
 import { CSVLink } from "react-csv";
 import dataIsNull from "../../assets/images/no-data-found.svg";
 import { Skeleton } from "@material-ui/lab";
 import { useStyles } from "./penduduk-keluar.style";
 import { GreyText } from "../../components/typography/typography";
+import { getAllDataPendudukKeluar } from "../../reducers/penduduk_keluar/penduduk_keluar.actions";
+import { PendudukKeluarTableBodyComponent } from "../../components/penduduk-keluar-components/table-body/table-body";
+import { PendudukKeluarEnhancedTableHead } from "../../components/penduduk-keluar-components/table-head/table-head";
 
 const PendudukKeluarPage = ({ ...props }) => {
-  const { pendudukKeluar, isLoading, fetchPendudukKeluar } = props;
-  const classes = useStyles();
+  const { pendudukKeluar, getAllDataPendudukKeluar, isLoading } = props;
 
   useEffect(() => {
-    fetchPendudukKeluar();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    getAllDataPendudukKeluar();
+  }, [getAllDataPendudukKeluar]);
 
+  const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("");
   const matches = useMediaQuery("(max-width:600px)");
 
-  const rows = pendudukKeluar.map((d) => d);
+  const rows = pendudukKeluar;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -123,7 +122,7 @@ const PendudukKeluarPage = ({ ...props }) => {
                     aria-labelledby="tableTitle"
                     aria-label="enhanced table"
                   >
-                    <PendudukEnhancedTableHead
+                    <PendudukKeluarEnhancedTableHead
                       classes={classes}
                       order={order}
                       orderBy={orderBy}
@@ -131,7 +130,7 @@ const PendudukKeluarPage = ({ ...props }) => {
                       setOrderBy={setOrderBy}
                       rowCount={rows.length}
                     />
-                    <PendudukTableBodyComponent
+                    <PendudukKeluarTableBodyComponent
                       rows={rows}
                       order={order}
                       orderBy={orderBy}
@@ -168,7 +167,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchPendudukKeluar: () => dispatch(fetchPendudukKeluar()),
+    getAllDataPendudukKeluar: () => dispatch(getAllDataPendudukKeluar()),
   };
 };
 

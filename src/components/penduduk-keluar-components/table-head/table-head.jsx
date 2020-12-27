@@ -7,7 +7,7 @@ import {
 import React from "react";
 import { headCellsPengikutKeluar } from "../../../helpers/headCells";
 
-const PendudukEnhancedTableHead = ({ ...props }) => {
+export const PendudukKeluarEnhancedTableHead = ({ ...props }) => {
   const { order, orderBy, classes, setOrder, setOrderBy } = props;
 
   const createSortHandler = (property) => (event) => {
@@ -23,7 +23,6 @@ const PendudukEnhancedTableHead = ({ ...props }) => {
   return (
     <TableHead>
       <TableRow>
-        {/* <TableCell padding="checkbox"></TableCell> */}
         {headCellsPengikutKeluar.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -49,5 +48,3 @@ const PendudukEnhancedTableHead = ({ ...props }) => {
     </TableHead>
   );
 };
-
-export { PendudukEnhancedTableHead };

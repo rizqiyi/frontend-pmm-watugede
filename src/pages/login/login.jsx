@@ -97,12 +97,14 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
               </Typography>
             </Box>
             <Box
-              marginTop={2}
+              // marginTop={2}
               display="flex"
               flexDirection="column"
               alignItems="flex-start"
               justifyContent="flex-start"
               className={classes.controlWidth}
+              p={3}
+              paddingLeft={0}
             >
               <StyledTextField
                 label="Username"
