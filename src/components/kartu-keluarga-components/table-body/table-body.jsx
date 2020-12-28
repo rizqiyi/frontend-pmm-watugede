@@ -139,7 +139,6 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                 props.page * props.rowsPerPage + props.rowsPerPage
               )
               .map((row, index) => {
-                console.log();
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                     <TableCell align="left">

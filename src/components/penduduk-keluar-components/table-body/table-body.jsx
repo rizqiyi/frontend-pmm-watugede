@@ -19,7 +19,6 @@ export const PendudukKeluarTableBodyComponent = ({ ...props }) => {
             props.page * props.rowsPerPage + props.rowsPerPage
           )
           .map((row, index) => {
-            console.log(row);
             return (
               <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                 <TableCell align="left">
@@ -70,7 +69,7 @@ export const PendudukKeluarTableBodyComponent = ({ ...props }) => {
                     <Typography variant="body2">
                       <Link
                         className={classes.controlLink}
-                        to={`/penduduk/${row._id}/d`}
+                        to={`/penduduk_keluar/${row._id}/d`}
                         color="primary"
                       >
                         Lihat Detail

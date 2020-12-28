@@ -10,6 +10,7 @@ import { PendudukPage } from "../pages/penduduk/penduduk";
 import PendudukInsertPage from "../pages/penduduk/insert/insert";
 import { PendudukMasukPage } from "../pages/penduduk-masuk/penduduk-masuk";
 import PendudukKeluarPage from "../pages/penduduk-keluar/penduduk-keluar";
+import PendudukKeluarDetailPage from "../pages/penduduk-keluar/details/details";
 import { KelahiranPage } from "../pages/kelahiran/kelahiran";
 import { KematianPage } from "../pages/kematian/kematian";
 import { ActivityPage } from "../pages/activity/activity";
@@ -49,6 +50,10 @@ const Navigations = () => {
               component={DetailKartuKeluargaPage}
               path="/kartu_keluarga/:id_kk/d/:id_kepala"
             />
+            <PrivateRoute
+              component={PendudukKeluarDetailPage}
+              path="/penduduk_keluar/:id/d"
+            />
             <PrivateRoute component={PendudukPage} path="/penduduk" />
             <PrivateRoute
               component={PendudukDetailsPage}
@@ -66,7 +71,6 @@ const Navigations = () => {
               component={PendudukKeluarPage}
               path="/penduduk_keluar"
             />
-
             <PrivateRoute component={KelahiranPage} path="/kelahiran" />
             <PrivateRoute component={KematianPage} path="/kematian" />
             <PrivateRoute component={ActivityPage} path="/activity" />

@@ -43,7 +43,6 @@ export const getKartuKeluargaByID = (id) => (dispatch, getState) => {
       });
     })
     .catch((err) => {
-      console.log(err);
       dispatch(returnInfos(err.response.message, err.response.status));
     });
 };

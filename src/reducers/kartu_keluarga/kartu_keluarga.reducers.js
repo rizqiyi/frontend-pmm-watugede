@@ -44,7 +44,6 @@ export const kartuKeluargaReducer = (state = initialState, action) => {
       };
 
     case Types.FETCH_KARTU_KELUARGA_SUCCESS_BY_ID:
-      console.log(action.payload);
       return {
         ...state,
         kartu_keluarga_obj: action.payload,
