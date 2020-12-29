@@ -1,172 +1,185 @@
-import DateFnsUtils from "@date-io/date-fns";
 import {
   Box,
-  Button,
   Divider,
+  Grid,
   IconButton,
+  Menu,
+  MenuItem,
   Paper,
   Typography,
 } from "@material-ui/core";
-import { PhotoCamera } from "@material-ui/icons";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { StyledTextField } from "../../../components/styled-textfield/styled-textfield";
+import { InsertComponents } from "../../../components/penduduk-keluar-components/insert-keterangan-keluar/insert";
+import dataIsNull from "../../../assets/images/no-data-found.svg";
+import { GreyText } from "../../../components/typography/typography";
 import { useStyles } from "./details.style";
+import KeteranganKeluarComponent from "../../../components/penduduk-keluar-components/keterangan-keluar/keterangan-keluar";
+import { PengusulKeluarComponent } from "../../../components/penduduk-keluar-components/pengusul-keluar/pengusul-keluar";
+import { Link } from "react-router-dom";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import DialogDeleteComponent from "../../../components/penduduk-keluar-components/dialog-delete/dialog-delete";
+import DialogEditComponent from "../../../components/penduduk-keluar-components/dialog-edit/dialog-edit";
+import DialogDetailsComponent from "../../../components/penduduk-keluar-components/dialog-details/dialog-details";
 
 const PendudukKeluarDetailPage = (props) => {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedDateLeave, setSelectedDateLeave] = useState(new Date());
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
-
-  const handleDateChangeLeave = (date) => {
-    setSelectedDateLeave(date);
-  };
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [openDialogDelete, setOpenDialogDelete] = useState(false);
+  const [openDialogEdit, setOpenDialogEdit] = useState(false);
+  const [openDialogDetails, setOpenDialogDetails] = useState(false);
 
   return (
     <React.Fragment>
-      <Paper>
-        <Box p={3}>
-          <Typography variant="h6">
-            Tambahkan Keterangan Penduduk Keluar
-          </Typography>
-          <Box marginTop={2} marginBottom={2}>
-            <Divider />
-          </Box>
-          <Box
-            display="flex"
-            flexDirection="row"
-            justifyContent="center"
-            alignItems="space-evenly"
-          >
-            <Box display="flex" flexDirection="column">
-              <Box>
-                <StyledTextField
-                  size="medium"
-                  variant="filled"
-                  label="Nomor Surat"
-                  className={classes.controlInput}
-                />
-              </Box>
-              <Box>
-                <StyledTextField
-                  size="medium"
-                  variant="filled"
-                  label="Alamat Pindah"
-                  className={classes.controlInput}
-                />
-              </Box>
-              <Box>
-                <StyledTextField
-                  size="medium"
-                  variant="filled"
-                  label="Alasan Pindah"
-                  className={classes.controlInput}
-                />
-              </Box>
+      <InsertComponents />
+      <Box marginTop={3}>
+        <Paper>
+          <Box p={3}>
+            <Typography variant="h6">
+              Detail Informasi Penduduk Keluar
+            </Typography>
+            <Box marginTop={2} marginBottom={2}>
+              <Divider />
             </Box>
-            <Box display="flex" flexDirection="column" marginLeft={2}>
+            {/* <Box display="flex" flexDirection="column">
               <Box>
-                <MuiPickersUtilsProvider
-                  name="tanggal_ktp"
-                  utils={DateFnsUtils}
-                >
-                  <KeyboardDatePicker
-                    margin="normal"
-                    id="date-picker-dialog"
-                    label="Tanggal KTP"
-                    name="tanggal_ktp"
-                    format="dd/MM/yyyy"
-                    size="medium"
-                    value={selectedDate}
-                    className={classes.controlInputDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change date",
-                    }}
-                  />
-                </MuiPickersUtilsProvider>
-              </Box>
-              <Box>
-                <MuiPickersUtilsProvider
-                  name="meninggalkan_desa_pada"
-                  utils={DateFnsUtils}
-                >
-                  <KeyboardDatePicker
-                    margin="normal"
-                    id="date-picker-dialog"
-                    label="Tanggal Meninggalkan Desa"
-                    name="meninggalkan_desa_pada"
-                    format="dd/MM/yyyy"
-                    size="medium"
-                    value={selectedDateLeave}
-                    className={classes.controlInputDate}
-                    onChange={handleDateChangeLeave}
-                    KeyboardButtonProps={{
-                      "aria-label": "change date",
-                    }}
-                  />
-                </MuiPickersUtilsProvider>
-              </Box>
-            </Box>
-            <Box display="flex" flexDirection="column" marginLeft={3}>
-              <Box>
-                <StyledTextField
-                  size="medium"
-                  variant="filled"
-                  label="Catatan"
-                  multiline
-                  rows={5}
-                  rowsMax={5}
-                  className={classes.controlInputCatatan}
+                <img
+                  src={dataIsNull}
+                  className={classes.dataIsNull}
+                  alt="Data Keterangan Keluar Not Found"
                 />
               </Box>
-              <Box marginTop={0.8}>
-                <Typography variant="body2" className={classes.fontCons}>
-                  Upload Foto Pengusul
+              <Box display="flex" marginTop={4} justifyContent="center">
+                <Typography className={classes.textIsNull}>
+                  DATA KETERANGAN KELUAR KOSONG
                 </Typography>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="icon-button-file"
-                  type="file"
-                />
-                <label htmlFor="icon-button-file">
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="span"
-                  >
-                    <PhotoCamera />
-                  </IconButton>
-                </label>
               </Box>
+              <Box
+                display="flex"
+                marginTop={2}
+                marginBottom={1}
+                justifyContent="center"
+              >
+                <GreyText
+                  text="Silakan tambah data keterangan keluar penduduk terlebih dahulu"
+                  className={classes.textCons}
+                />
+              </Box>
+            </Box> */}
+            <KeteranganKeluarComponent />
+            <Box marginTop={3}>
+              <Typography variant="h6">Pengusul Penduduk Keluar</Typography>
             </Box>
+            <Box marginTop={2} marginBottom={2}>
+              <Divider />
+            </Box>
+            <PengusulKeluarComponent />
           </Box>
-          <Box
-            display="flex"
-            flexDirection="row"
-            justifyContent="flex-end"
-            marginRight={2.3}
-          >
-            <Box marginRight={2}>
-              <Button className={classes.cancelButton}>Kembali</Button>
-            </Box>
-            <Box>
-              <Button color="primary" className={classes.insertButton}>
-                Tambahkan
-              </Button>
-            </Box>
-          </Box>
+        </Paper>
+        <Box marginTop={3} marginLeft={3}>
+          <Typography variant="h6">Pengikut Keluar Desa</Typography>
         </Box>
-      </Paper>
+        <Box marginTop={2} marginBottom={2}>
+          <Divider />
+        </Box>
+        <Grid container spacing={1}>
+          <Grid container justify="center" item xs={12} spacing={2}>
+            <Grid item>
+              <Paper>
+                <Box display="flex" justifyContent="flex-end">
+                  <IconButton
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setAnchorEl(e.currentTarget);
+                    }}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                  <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={(e) => {
+                      e.preventDefault();
+                      setAnchorEl(null);
+                    }}
+                  >
+                    <MenuItem
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setAnchorEl(null);
+                        setOpenDialogEdit(true);
+                      }}
+                    >
+                      Edit
+                    </MenuItem>
+                    <MenuItem
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setAnchorEl(null);
+                        setOpenDialogDelete(true);
+                      }}
+                    >
+                      Hapus
+                    </MenuItem>
+                  </Menu>
+                </Box>
+                <Box p={3} paddingTop={0}>
+                  <Box>
+                    <Typography style={{ lineHeight: 2 }}>
+                      Nama Lengkap : Rizqiyanto Imanullah
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography style={{ lineHeight: 2 }}>Umur : 20</Typography>
+                  </Box>
+                  <Box>
+                    <Typography style={{ lineHeight: 2 }}>
+                      Pendidikan Terakhir : S3
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography style={{ lineHeight: 2 }}>
+                      Kedudukan dalam Keluarga : Anak
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography style={{ lineHeight: 2 }}>
+                      Pekerjaan : Freelancer
+                    </Typography>
+                  </Box>
+                  <Box marginTop={2}>
+                    <Typography
+                      component={Link}
+                      to="#!"
+                      className={classes.textLink}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setOpenDialogDetails(true);
+                      }}
+                    >
+                      Lihat Detail
+                    </Typography>
+                  </Box>
+                </Box>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Box>
+      <DialogDeleteComponent
+        open={openDialogDelete}
+        handleClose={setOpenDialogDelete}
+      />
+      <DialogEditComponent
+        open={openDialogEdit}
+        handleClose={setOpenDialogEdit}
+      />
+      <DialogDetailsComponent
+        open={openDialogDetails}
+        handleClose={setOpenDialogDetails}
+      />
     </React.Fragment>
   );
 };
