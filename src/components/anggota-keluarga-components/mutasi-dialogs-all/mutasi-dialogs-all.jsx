@@ -11,7 +11,7 @@ import mutasiDataImage from "../../../assets/images/delete-data.svg";
 import { useStyles } from "./mutasi-dialogs-all.style";
 
 const MutasiDialogAll = ({ ...props }) => {
-  const { handleClose, open, data } = props;
+  const { handleClose, open } = props;
   const classes = useStyles();
 
   return (

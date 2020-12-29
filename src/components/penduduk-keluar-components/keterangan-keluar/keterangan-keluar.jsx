@@ -1,19 +1,24 @@
 import { Avatar, Box, Container, Typography } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 import React from "react";
-import PersonIcon from "@material-ui/icons/Person";
-import { connect } from "react-redux";
+import { photoPath } from "../../../helpers/getAvatars";
 
-const KeteranganKeluarComponent = (props) => {
+const KeteranganKeluarComponent = ({ ...props }) => {
+  const { data, isLoading } = props;
+  const path = photoPath(data.foto_pengusul ? data.foto_pengusul : "//");
   return (
     <React.Fragment>
       <Box display="flex" justifyContent="center">
         <Box>
-          <Avatar
-            style={{ width: "120px", height: "120px" }}
-            alt="Foto Pengusul"
-          >
-            <PersonIcon style={{ width: "70px", height: "70px" }} />
-          </Avatar>
+          {isLoading ? (
+            <Skeleton variant="circle" width="120px" height="120px" />
+          ) : (
+            <Avatar
+              style={{ width: "120px", height: "120px" }}
+              alt="Foto Pengusul"
+              src={path}
+            ></Avatar>
+          )}
         </Box>
       </Box>
       <Container>
@@ -26,45 +31,77 @@ const KeteranganKeluarComponent = (props) => {
         >
           <Box>
             <Box>
-              <Typography
-                style={{ lineHeight: 2, textDecoration: "underline" }}
-              >
-                Nomor Surat : 12/ASIDAS/2020132
-              </Typography>
+              {isLoading ? (
+                <Skeleton width="250px" height="40px" />
+              ) : (
+                <Typography
+                  style={{ lineHeight: 2, textDecoration: "underline" }}
+                >
+                  Nomor Surat : {data.nomor_surat}
+                </Typography>
+              )}
             </Box>
             <Box>
-              <Typography style={{ lineHeight: 2 }}>
-                Tanggal KTP Pengusul : 21 Desember 2020
-              </Typography>
+              {isLoading ? (
+                <Skeleton width="250px" height="40px" />
+              ) : (
+                <Typography style={{ lineHeight: 2 }}>
+                  Tanggal KTP Pengusul : {data.tanggal_ktp}
+                </Typography>
+              )}
             </Box>
             <Box>
-              <Typography style={{ lineHeight: 2 }}>
-                Alamat Pindah : Menteng, Jakarta
-              </Typography>
+              {isLoading ? (
+                <Skeleton width="250px" height="40px" />
+              ) : (
+                <Typography style={{ lineHeight: 2 }}>
+                  Alamat Pindah : {data.alamat_pindah}
+                </Typography>
+              )}
             </Box>
             <Box>
-              <Typography style={{ lineHeight: 2 }}>
-                Alasan Pindah : Pekerjaan
-              </Typography>
+              {isLoading ? (
+                <Skeleton width="250px" height="40px" />
+              ) : (
+                <Typography style={{ lineHeight: 2 }}>
+                  Alasan Pindah : {data.alasan_pindah}
+                </Typography>
+              )}
             </Box>
           </Box>
           <Box marginRight={1}>
             <Box>
-              <Typography style={{ lineHeight: 2 }}>Pengikut : 2</Typography>
+              {isLoading ? (
+                <Skeleton width="250px" height="40px" />
+              ) : (
+                <Typography style={{ lineHeight: 2 }}>
+                  Pengikut : {data.pengikut}
+                </Typography>
+              )}
             </Box>
             <Box>
-              <Typography style={{ lineHeight: 2 }}>
-                Meninggalkan Desa Pada : 21 Desember 2020
-              </Typography>
+              {isLoading ? (
+                <Skeleton width="250px" height="40px" />
+              ) : (
+                <Typography style={{ lineHeight: 2 }}>
+                  Meninggalkan Desa Pada : {data.meninggalkan_desa_pada}
+                </Typography>
+              )}
             </Box>
             <Box>
-              <Typography
-                style={{ lineHeight: 1.8, textAlign: "justify", maxWidth: 370 }}
-              >
-                Catatan : lorem ipsum dolor sit amet, lorem ipsum dolor sit
-                amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet,
-                lorem ipsum dolor sit amet, lorem ipsum dolor sit amet,
-              </Typography>
+              {isLoading ? (
+                <Skeleton width="250px" height="40px" />
+              ) : (
+                <Typography
+                  style={{
+                    lineHeight: 1.8,
+                    textAlign: "justify",
+                    maxWidth: 370,
+                  }}
+                >
+                  Catatan : {data.catatan}
+                </Typography>
+              )}
             </Box>
           </Box>
         </Box>
@@ -73,15 +110,4 @@ const KeteranganKeluarComponent = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(KeteranganKeluarComponent);
+export default KeteranganKeluarComponent;

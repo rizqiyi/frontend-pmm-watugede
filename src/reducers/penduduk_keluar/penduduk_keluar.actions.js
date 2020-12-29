@@ -1,6 +1,11 @@
 import Types from "./penduduk_keluar.types";
 import axios from "axios";
-import { initialURL, postPendudukKeluarURI } from "../../utilities/baseURL";
+import {
+  initialURL,
+  postPendudukKeluarURI,
+  getPendudukKeluarByIdURI,
+  postKeteranganKeluarURI,
+} from "../../utilities/baseURL";
 import { tokenConfig } from "../users/users.actions";
 import { returnInfos } from "../infos/info.actions";
 
@@ -17,6 +22,57 @@ export const getAllDataPendudukKeluar = () => (dispatch, getState) => {
         payload: result.data.data,
       });
     })
+    .catch((err) => {
+      dispatch(returnInfos(err.response.data.message, err.response.status));
+    });
+};
+
+export const getPendudukKeluarById = (id) => (dispatch, getState) => {
+  dispatch({
+    type: Types.START_REQUEST_PENDUDUK_KELUAR,
+  });
+
+  axios
+    .get(getPendudukKeluarByIdURI(id), tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.FETCH_PENDUDUK_KELUAR_SUCCESS_BY_ID,
+        payload: {
+          someData: result.data.data.penduduk_keluar_desa
+            ? result.data.data.penduduk_keluar_desa
+            : {},
+          keterangan: result.data.data
+            ? result.data.data.keterangan_keluar_desa
+            : {},
+        },
+      });
+    })
+    .catch((err) => {
+      dispatch(returnInfos(err.response.data.message, err.response.status));
+    });
+};
+
+export const postKeteranganKeluar = (request, id) => (dispatch, getState) => {
+  dispatch({
+    type: Types.START_REQUEST_PENDUDUK_KELUAR,
+  });
+
+  axios
+    .post(postKeteranganKeluarURI(id), request, tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.POST_KETERANGAN_KELUAR_SUCCESS,
+        payload: result.data.data,
+      });
+      dispatch(
+        returnInfos(
+          "Sukses Menambahkan Keterangan Keluar",
+          201,
+          "POST_KETERANGAN_SUCCESS"
+        )
+      );
+    })
+    .then(() => dispatch(getPendudukKeluarById(id)))
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
     });

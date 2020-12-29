@@ -8,9 +8,9 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { InsertComponents } from "../../../components/penduduk-keluar-components/insert-keterangan-keluar/insert";
+import InsertComponents from "../../../components/penduduk-keluar-components/insert-keterangan-keluar/insert";
 import dataIsNull from "../../../assets/images/no-data-found.svg";
 import { GreyText } from "../../../components/typography/typography";
 import { useStyles } from "./details.style";
@@ -21,17 +21,36 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DialogDeleteComponent from "../../../components/penduduk-keluar-components/dialog-delete/dialog-delete";
 import DialogEditComponent from "../../../components/penduduk-keluar-components/dialog-edit/dialog-edit";
 import DialogDetailsComponent from "../../../components/penduduk-keluar-components/dialog-details/dialog-details";
+import { getPendudukKeluarById } from "../../../reducers/penduduk_keluar/penduduk_keluar.actions";
 
-const PendudukKeluarDetailPage = (props) => {
+const PendudukKeluarDetailPage = ({ ...props }) => {
   const classes = useStyles();
+  const {
+    getPendudukKeluarById,
+    pendudukKeluarByID,
+    match,
+    isLoading,
+    keteranganKeluar,
+  } = props;
+  const paramsId = match.params.id;
   const [anchorEl, setAnchorEl] = useState(null);
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
   const [openDialogDetails, setOpenDialogDetails] = useState(false);
+  const [dataToDetails, setDataToDetails] = useState([]);
+  useEffect(() => {
+    getPendudukKeluarById(paramsId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paramsId]);
+  console.log(keteranganKeluar);
+
+  const firstData = pendudukKeluarByID.length === 0 ? [{}] : pendudukKeluarByID;
 
   return (
     <React.Fragment>
-      <InsertComponents />
+      {keteranganKeluar === undefined ? (
+        <InsertComponents dataId={paramsId} />
+      ) : null}
       <Box marginTop={3}>
         <Paper>
           <Box p={3}>
@@ -41,39 +60,46 @@ const PendudukKeluarDetailPage = (props) => {
             <Box marginTop={2} marginBottom={2}>
               <Divider />
             </Box>
-            {/* <Box display="flex" flexDirection="column">
-              <Box>
-                <img
-                  src={dataIsNull}
-                  className={classes.dataIsNull}
-                  alt="Data Keterangan Keluar Not Found"
-                />
+            {keteranganKeluar === undefined ? (
+              <Box display="flex" flexDirection="column">
+                <Box>
+                  <img
+                    src={dataIsNull}
+                    className={classes.dataIsNull}
+                    alt="Data Keterangan Keluar Not Found"
+                  />
+                </Box>
+                <Box display="flex" marginTop={4} justifyContent="center">
+                  <Typography className={classes.textIsNull}>
+                    DATA KETERANGAN KELUAR KOSONG
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  marginTop={2}
+                  marginBottom={1}
+                  justifyContent="center"
+                >
+                  <GreyText
+                    text="Silakan tambah data keterangan keluar penduduk terlebih dahulu"
+                    className={classes.textCons}
+                  />
+                </Box>
               </Box>
-              <Box display="flex" marginTop={4} justifyContent="center">
-                <Typography className={classes.textIsNull}>
-                  DATA KETERANGAN KELUAR KOSONG
-                </Typography>
-              </Box>
-              <Box
-                display="flex"
-                marginTop={2}
-                marginBottom={1}
-                justifyContent="center"
-              >
-                <GreyText
-                  text="Silakan tambah data keterangan keluar penduduk terlebih dahulu"
-                  className={classes.textCons}
-                />
-              </Box>
-            </Box> */}
-            <KeteranganKeluarComponent />
+            ) : null}
+            {keteranganKeluar !== undefined ? (
+              <KeteranganKeluarComponent
+                data={keteranganKeluar}
+                isLoading={isLoading}
+              />
+            ) : null}
             <Box marginTop={3}>
               <Typography variant="h6">Pengusul Penduduk Keluar</Typography>
             </Box>
             <Box marginTop={2} marginBottom={2}>
               <Divider />
             </Box>
-            <PengusulKeluarComponent />
+            <PengusulKeluarComponent data={firstData} isLoading={isLoading} />
           </Box>
         </Paper>
         <Box marginTop={3} marginLeft={3}>
@@ -84,87 +110,96 @@ const PendudukKeluarDetailPage = (props) => {
         </Box>
         <Grid container spacing={1}>
           <Grid container justify="center" item xs={12} spacing={2}>
-            <Grid item>
-              <Paper>
-                <Box display="flex" justifyContent="flex-end">
-                  <IconButton
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setAnchorEl(e.currentTarget);
-                    }}
-                  >
-                    <MoreVertIcon />
-                  </IconButton>
-                  <Menu
-                    id="simple-menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={(e) => {
-                      e.preventDefault();
-                      setAnchorEl(null);
-                    }}
-                  >
-                    <MenuItem
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setAnchorEl(null);
-                        setOpenDialogEdit(true);
-                      }}
-                    >
-                      Edit
-                    </MenuItem>
-                    <MenuItem
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setAnchorEl(null);
-                        setOpenDialogDelete(true);
-                      }}
-                    >
-                      Hapus
-                    </MenuItem>
-                  </Menu>
-                </Box>
-                <Box p={3} paddingTop={0}>
-                  <Box>
-                    <Typography style={{ lineHeight: 2 }}>
-                      Nama Lengkap : Rizqiyanto Imanullah
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography style={{ lineHeight: 2 }}>Umur : 20</Typography>
-                  </Box>
-                  <Box>
-                    <Typography style={{ lineHeight: 2 }}>
-                      Pendidikan Terakhir : S3
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography style={{ lineHeight: 2 }}>
-                      Kedudukan dalam Keluarga : Anak
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography style={{ lineHeight: 2 }}>
-                      Pekerjaan : Freelancer
-                    </Typography>
-                  </Box>
-                  <Box marginTop={2}>
-                    <Typography
-                      component={Link}
-                      to="#!"
-                      className={classes.textLink}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setOpenDialogDetails(true);
-                      }}
-                    >
-                      Lihat Detail
-                    </Typography>
-                  </Box>
-                </Box>
-              </Paper>
-            </Grid>
+            {pendudukKeluarByID.map((d, idx) => {
+              return idx > 0 ? (
+                <Grid item key={idx}>
+                  <Paper>
+                    <Box display="flex" justifyContent="flex-end">
+                      <IconButton
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setAnchorEl(e.currentTarget);
+                        }}
+                      >
+                        <MoreVertIcon />
+                      </IconButton>
+                      <Menu
+                        id="simple-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={(e) => {
+                          e.preventDefault();
+                          setAnchorEl(null);
+                        }}
+                      >
+                        <MenuItem
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setAnchorEl(null);
+                            setOpenDialogEdit(true);
+                          }}
+                        >
+                          Edit
+                        </MenuItem>
+                        <MenuItem
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setAnchorEl(null);
+                            setOpenDialogDelete(true);
+                          }}
+                        >
+                          Hapus
+                        </MenuItem>
+                      </Menu>
+                    </Box>
+                    <Box p={3} paddingTop={0}>
+                      <Box>
+                        <Typography style={{ lineHeight: 2 }}>
+                          Nama Lengkap : {d.nama_lengkap}
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <Typography style={{ lineHeight: 2 }}>
+                          Umur : {d.umur}
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <Typography style={{ lineHeight: 2 }}>
+                          Pendidikan Terakhir : {d.pendidikan_terakhir}
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <Typography style={{ lineHeight: 2 }}>
+                          Kedudukan dalam Keluarga : {d.posisi_dalam_keluarga}
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <Typography style={{ lineHeight: 2 }}>
+                          Pekerjaan : {d.pekerjaan}
+                        </Typography>
+                      </Box>
+                      <Box marginTop={2}>
+                        <Typography
+                          component={Link}
+                          to="#!"
+                          className={classes.textLink}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setOpenDialogDetails(true);
+                            setDataToDetails(d);
+                          }}
+                        >
+                          Lihat Detail
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Paper>
+                </Grid>
+              ) : (
+                []
+              );
+            })}
           </Grid>
         </Grid>
       </Box>
@@ -179,17 +214,24 @@ const PendudukKeluarDetailPage = (props) => {
       <DialogDetailsComponent
         open={openDialogDetails}
         handleClose={setOpenDialogDetails}
+        data={dataToDetails}
       />
     </React.Fragment>
   );
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    pendudukKeluarByID: state.penduduk_keluar.penduduk_keluar_by_id,
+    keteranganKeluar: state.penduduk_keluar.keterangan_keluar_by_id,
+    isLoading: state.penduduk_keluar.isLoading,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    getPendudukKeluarById: (id) => dispatch(getPendudukKeluarById(id)),
+  };
 };
 
 export default connect(

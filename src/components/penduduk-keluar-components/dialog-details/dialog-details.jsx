@@ -8,10 +8,9 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { connect } from "react-redux";
 
 const DialogDetailsComponent = ({ ...props }) => {
-  const { open, handleClose } = props;
+  const { open, handleClose, data } = props;
 
   return (
     <React.Fragment>
@@ -32,56 +31,59 @@ const DialogDetailsComponent = ({ ...props }) => {
             <Box marginBottom={1.2}>
               <Typography variant="body2">
                 Nama Lengkap :{" "}
-                <span style={{ marginLeft: 10 }}>Rizqiyanto Imanullah</span>
-              </Typography>
-            </Box>
-            <Box marginBottom={1.2}>
-              <Typography variant="body2">
-                Nomor Induk Keluarga :{" "}
-                <span style={{ marginLeft: 10 }}>3213213213213213</span>
+                <span style={{ marginLeft: 10 }}>{data.nama_lengkap}</span>
               </Typography>
             </Box>
             <Box marginBottom={1.2}>
               <Typography variant="body2">
                 Nomor Kartu Keluarga :{" "}
-                <span style={{ marginLeft: 10 }}>3213213213213213</span>
+                <span style={{ marginLeft: 10 }}>{data.nik}</span>
               </Typography>
             </Box>
             <Box marginBottom={1.2}>
               <Typography variant="body2">
-                Umur : <span style={{ marginLeft: 10 }}>20</span>
+                Umur : <span style={{ marginLeft: 10 }}>{data.umur}</span>
               </Typography>
             </Box>
             <Box marginBottom={1.2}>
               <Typography variant="body2">
-                Pendidikan Terakhir : <span style={{ marginLeft: 10 }}>S3</span>
+                Pendidikan Terakhir :{" "}
+                <span style={{ marginLeft: 10 }}>
+                  {data.pendidikan_terakhir}
+                </span>
               </Typography>
             </Box>
             <Box marginBottom={1.2}>
               <Typography variant="body2">
-                Kedudukan : <span style={{ marginLeft: 10 }}>Anak</span>
+                Kedudukan :{" "}
+                <span style={{ marginLeft: 10 }}>
+                  {data.posisi_dalam_keluarga}
+                </span>
               </Typography>
             </Box>
             <Box marginBottom={1.2}>
               <Typography variant="body2">
-                Pekerjaan : <span style={{ marginLeft: 10 }}>Freelancer</span>
+                Pekerjaan :{" "}
+                <span style={{ marginLeft: 10 }}>{data.pekerjaan}</span>
               </Typography>
             </Box>
             <Box marginBottom={1.2}>
               <Typography variant="body2">
-                Agama : <span style={{ marginLeft: 10 }}>Islam</span>
+                Agama : <span style={{ marginLeft: 10 }}>{data.agama}</span>
               </Typography>
             </Box>
             <Box marginBottom={1.2}>
               <Typography variant="body2">
                 Status Perkawinan :{" "}
-                <span style={{ marginLeft: 10 }}>Belum Kawin</span>
+                <span style={{ marginLeft: 10 }}>{data.status_perkawinan}</span>
               </Typography>
             </Box>
             <Box marginBottom={1.2}>
               <Typography variant="body2">
                 Tempat Tanggal Lahir :{" "}
-                <span style={{ marginLeft: 10 }}>Surabaya, 21 Maret 2000</span>
+                <span style={{ marginLeft: 10 }}>
+                  {data.tempat_tanggal_lahir}
+                </span>
               </Typography>
             </Box>
           </Box>
@@ -102,15 +104,4 @@ const DialogDetailsComponent = ({ ...props }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DialogDetailsComponent);
+export default DialogDetailsComponent;
