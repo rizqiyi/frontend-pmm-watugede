@@ -6,6 +6,7 @@ import { photoPath } from "../../../helpers/getAvatars";
 const KeteranganKeluarComponent = ({ ...props }) => {
   const { data, isLoading } = props;
   const path = photoPath(data.foto_pengusul ? data.foto_pengusul : "//");
+
   return (
     <React.Fragment>
       <Box display="flex" justifyContent="center">

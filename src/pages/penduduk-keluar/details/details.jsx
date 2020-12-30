@@ -22,6 +22,7 @@ import DialogDeleteComponent from "../../../components/penduduk-keluar-component
 import DialogEditComponent from "../../../components/penduduk-keluar-components/dialog-edit/dialog-edit";
 import DialogDetailsComponent from "../../../components/penduduk-keluar-components/dialog-details/dialog-details";
 import { getPendudukKeluarById } from "../../../reducers/penduduk_keluar/penduduk_keluar.actions";
+import { Skeleton } from "@material-ui/lab";
 
 const PendudukKeluarDetailPage = ({ ...props }) => {
   const classes = useStyles();
@@ -42,14 +43,19 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
     getPendudukKeluarById(paramsId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paramsId]);
-  console.log(keteranganKeluar);
 
   const firstData = pendudukKeluarByID.length === 0 ? [{}] : pendudukKeluarByID;
 
   return (
     <React.Fragment>
       {keteranganKeluar === undefined ? (
-        <InsertComponents dataId={paramsId} />
+        isLoading ? (
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Skeleton animation="wave" width="1000px" height="300px" />
+          </Box>
+        ) : (
+          <InsertComponents dataId={paramsId} />
+        )
       ) : null}
       <Box marginTop={3}>
         <Paper>
@@ -108,94 +114,130 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
         <Box marginTop={2} marginBottom={2}>
           <Divider />
         </Box>
+        {pendudukKeluarByID.length - 1 === 0 ? (
+          isLoading ? null : (
+            <Box display="flex" flexDirection="column" marginBottom={2}>
+              <Box>
+                <img
+                  src={dataIsNull}
+                  className={classes.dataIsNull}
+                  alt="Data Keterangan Keluar Not Found"
+                />
+              </Box>
+              <Box display="flex" marginTop={4} justifyContent="center">
+                <Typography className={classes.textIsNull}>
+                  TIDAK ADA PENGIKUT KELUAR
+                </Typography>
+              </Box>
+              <Box
+                display="flex"
+                marginTop={2}
+                marginBottom={1}
+                justifyContent="center"
+              >
+                <GreyText
+                  text="Anda dapat menambahkan pengikut keluar melalui halaman edit anggota keluarga"
+                  className={classes.textCons}
+                />
+              </Box>
+            </Box>
+          )
+        ) : null}
+        {isLoading ? (
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Skeleton animation="wave" width="350px" height="400px" />
+          </Box>
+        ) : null}
         <Grid container spacing={1}>
           <Grid container justify="center" item xs={12} spacing={2}>
             {pendudukKeluarByID.map((d, idx) => {
               return idx > 0 ? (
-                <Grid item key={idx}>
-                  <Paper>
-                    <Box display="flex" justifyContent="flex-end">
-                      <IconButton
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setAnchorEl(e.currentTarget);
-                        }}
-                      >
-                        <MoreVertIcon />
-                      </IconButton>
-                      <Menu
-                        id="simple-menu"
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={(e) => {
-                          e.preventDefault();
-                          setAnchorEl(null);
-                        }}
-                      >
-                        <MenuItem
+                isLoading ? null : (
+                  <Grid item key={idx}>
+                    <Paper>
+                      <Box display="flex" justifyContent="flex-end">
+                        <IconButton
                           onClick={(e) => {
+                            e.preventDefault();
+                            setAnchorEl(e.currentTarget);
+                          }}
+                        >
+                          <MoreVertIcon />
+                        </IconButton>
+                        <Menu
+                          id="simple-menu"
+                          anchorEl={anchorEl}
+                          keepMounted
+                          open={Boolean(anchorEl)}
+                          onClose={(e) => {
                             e.preventDefault();
                             setAnchorEl(null);
-                            setOpenDialogEdit(true);
                           }}
                         >
-                          Edit
-                        </MenuItem>
-                        <MenuItem
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setAnchorEl(null);
-                            setOpenDialogDelete(true);
-                          }}
-                        >
-                          Hapus
-                        </MenuItem>
-                      </Menu>
-                    </Box>
-                    <Box p={3} paddingTop={0}>
-                      <Box>
-                        <Typography style={{ lineHeight: 2 }}>
-                          Nama Lengkap : {d.nama_lengkap}
-                        </Typography>
+                          <MenuItem
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setAnchorEl(null);
+                              setOpenDialogEdit(true);
+                            }}
+                          >
+                            Edit
+                          </MenuItem>
+                          <MenuItem
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setAnchorEl(null);
+                              setOpenDialogDelete(true);
+                            }}
+                          >
+                            Hapus
+                          </MenuItem>
+                        </Menu>
                       </Box>
-                      <Box>
-                        <Typography style={{ lineHeight: 2 }}>
-                          Umur : {d.umur}
-                        </Typography>
+                      <Box p={3} paddingTop={0}>
+                        <Box>
+                          <Typography style={{ lineHeight: 2 }}>
+                            Nama Lengkap : {d.nama_lengkap}
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <Typography style={{ lineHeight: 2 }}>
+                            Umur : {d.umur}
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <Typography style={{ lineHeight: 2 }}>
+                            Pendidikan Terakhir : {d.pendidikan_terakhir}
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <Typography style={{ lineHeight: 2 }}>
+                            Kedudukan dalam Keluarga : {d.posisi_dalam_keluarga}
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <Typography style={{ lineHeight: 2 }}>
+                            Pekerjaan : {d.pekerjaan}
+                          </Typography>
+                        </Box>
+                        <Box marginTop={2}>
+                          <Typography
+                            component={Link}
+                            to="#!"
+                            className={classes.textLink}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setOpenDialogDetails(true);
+                              setDataToDetails(d);
+                            }}
+                          >
+                            Lihat Detail
+                          </Typography>
+                        </Box>
                       </Box>
-                      <Box>
-                        <Typography style={{ lineHeight: 2 }}>
-                          Pendidikan Terakhir : {d.pendidikan_terakhir}
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Typography style={{ lineHeight: 2 }}>
-                          Kedudukan dalam Keluarga : {d.posisi_dalam_keluarga}
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Typography style={{ lineHeight: 2 }}>
-                          Pekerjaan : {d.pekerjaan}
-                        </Typography>
-                      </Box>
-                      <Box marginTop={2}>
-                        <Typography
-                          component={Link}
-                          to="#!"
-                          className={classes.textLink}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setOpenDialogDetails(true);
-                            setDataToDetails(d);
-                          }}
-                        >
-                          Lihat Detail
-                        </Typography>
-                      </Box>
-                    </Box>
-                  </Paper>
-                </Grid>
+                    </Paper>
+                  </Grid>
+                )
               ) : (
                 []
               );

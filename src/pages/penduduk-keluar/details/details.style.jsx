@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     margin: "0 auto",
-    width: "290px",
+    width: "250px",
     height: "auto",
     marginTop: theme.spacing(4),
   },
@@ -17,6 +17,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   textCons: {
     fontWeight: 350,
+    maxWidth: 500,
+    textAlign: "center",
   },
   textLink: {
     color: theme.palette.primary.main,
