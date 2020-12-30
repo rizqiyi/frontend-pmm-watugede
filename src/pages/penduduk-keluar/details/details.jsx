@@ -19,7 +19,6 @@ import { PengusulKeluarComponent } from "../../../components/penduduk-keluar-com
 import { Link } from "react-router-dom";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DialogDeleteComponent from "../../../components/penduduk-keluar-components/dialog-delete/dialog-delete";
-import DialogEditComponent from "../../../components/penduduk-keluar-components/dialog-edit/dialog-edit";
 import DialogDetailsComponent from "../../../components/penduduk-keluar-components/dialog-details/dialog-details";
 import { getPendudukKeluarById } from "../../../reducers/penduduk_keluar/penduduk_keluar.actions";
 import { Skeleton } from "@material-ui/lab";
@@ -36,7 +35,6 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
   const paramsId = match.params.id;
   const [anchorEl, setAnchorEl] = useState(null);
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
-  const [openDialogEdit, setOpenDialogEdit] = useState(false);
   const [openDialogDetails, setOpenDialogDetails] = useState(false);
   const [dataToDetails, setDataToDetails] = useState([]);
   useEffect(() => {
@@ -178,16 +176,8 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
                             onClick={(e) => {
                               e.preventDefault();
                               setAnchorEl(null);
-                              setOpenDialogEdit(true);
-                            }}
-                          >
-                            Edit
-                          </MenuItem>
-                          <MenuItem
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setAnchorEl(null);
                               setOpenDialogDelete(true);
+                              setDataToDetails(d);
                             }}
                           >
                             Hapus
@@ -248,10 +238,8 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
       <DialogDeleteComponent
         open={openDialogDelete}
         handleClose={setOpenDialogDelete}
-      />
-      <DialogEditComponent
-        open={openDialogEdit}
-        handleClose={setOpenDialogEdit}
+        id={paramsId}
+        dataPendudukKeluar={dataToDetails}
       />
       <DialogDetailsComponent
         open={openDialogDetails}

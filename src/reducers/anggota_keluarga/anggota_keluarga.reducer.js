@@ -29,6 +29,15 @@ export const anggotaKeluargaReducer = (state = initialState, action) => {
         isLoading: false,
       };
 
+    case Types.DELETE_ANGGOTA_KELUARGA_SUCCESS:
+      return {
+        ...state,
+        anggota_keluarga: state.anggota_keluarga.filter(
+          (data) => data._id !== action.payload
+        ),
+        isLoading: false,
+      };
+
     case Types.SET_LOADING_TO_FALSE_INSERT_KELUARGA:
       return {
         ...state,

@@ -5,6 +5,7 @@ import {
   postPendudukKeluarURI,
   getPendudukKeluarByIdURI,
   postKeteranganKeluarURI,
+  deletePendudukKeluarURI,
 } from "../../utilities/baseURL";
 import { tokenConfig } from "../users/users.actions";
 import { returnInfos } from "../infos/info.actions";
@@ -98,6 +99,31 @@ export const postPendudukKeluarData = (value, id) => (dispatch, getState) => {
     })
     .catch((err) => {
       dispatch(isLoadingToFalse());
+      dispatch(returnInfos(err.response.data.message, err.response.status));
+    });
+};
+
+export const deletePendudukKeluar = (idPenduduk, idDataKeluar) => (
+  dispatch,
+  getState
+) => {
+  dispatch({
+    type: Types.START_REQUEST_PENDUDUK_KELUAR,
+  });
+
+  axios
+    .delete(
+      deletePendudukKeluarURI(idPenduduk, idDataKeluar),
+      tokenConfig(getState)
+    )
+    .then((result) => {
+      dispatch({
+        type: Types.DELETE_PENDUDUK_KELUAR_SUCCESS,
+        payload: idPenduduk,
+      });
+    })
+    .then(() => dispatch(getPendudukKeluarById(idDataKeluar)))
+    .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
     });
 };

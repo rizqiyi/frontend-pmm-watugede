@@ -89,7 +89,7 @@ export const deleteAnggotaKeluarga = (idPenduduk, idKK, idKepalaKeluarga) => (
     .then((result) => {
       dispatch({
         type: Types.DELETE_ANGGOTA_KELUARGA_SUCCESS,
-        payload: result.data.message,
+        payload: idPenduduk,
       });
       dispatch(returnInfos(result.data.message, 200));
     })
