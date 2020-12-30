@@ -1,14 +1,68 @@
-import { Avatar, Box, Container, Typography } from "@material-ui/core";
+import {
+  Avatar,
+  Box,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
-import React from "react";
+import React, { useState } from "react";
 import { photoPath } from "../../../helpers/getAvatars";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const KeteranganKeluarComponent = ({ ...props }) => {
-  const { data, isLoading } = props;
+  const { data, isLoading, setOpenDialogEdit } = props;
+  const [anchorEl, setAnchorEl] = useState(null);
   const path = photoPath(data.foto_pengusul ? data.foto_pengusul : "//");
 
   return (
     <React.Fragment>
+      <Box display="flex" justifyContent="flex-end">
+        <Box>
+          {isLoading ? (
+            <Skeleton variant="circle" width="50px" height="50px" />
+          ) : (
+            <IconButton
+              onClick={(e) => {
+                e.preventDefault();
+                setAnchorEl(e.currentTarget);
+              }}
+            >
+              <MoreVertIcon />
+            </IconButton>
+          )}
+        </Box>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={(e) => {
+            e.preventDefault();
+            setAnchorEl(null);
+          }}
+        >
+          <MenuItem
+            onClick={(e) => {
+              e.preventDefault();
+              setAnchorEl(null);
+              setOpenDialogEdit(true);
+            }}
+          >
+            Edit
+          </MenuItem>
+          <MenuItem
+            onClick={(e) => {
+              e.preventDefault();
+              setAnchorEl(null);
+            }}
+          >
+            Hapus
+          </MenuItem>
+        </Menu>
+      </Box>
       <Box display="flex" justifyContent="center">
         <Box>
           {isLoading ? (

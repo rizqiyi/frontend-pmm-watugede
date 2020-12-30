@@ -21,6 +21,8 @@ import { postKeteranganKeluar } from "../../../reducers/penduduk_keluar/penduduk
 import moment from "moment";
 import MomentUtils from "@date-io/moment";
 import localization from "moment/locale/id";
+import { useHistory } from "react-router-dom";
+import { keteranganKeluarInsertValidation } from "../../../validations/mutasi-keluar";
 
 const InsertComponents = ({ ...props }) => {
   const classes = useStyles();
@@ -33,6 +35,7 @@ const InsertComponents = ({ ...props }) => {
   const [inputValueDateLeave, setInputValueDateLeave] = useState(
     moment().locale("id", localization).format("LL")
   );
+  const history = useHistory();
 
   const handleDateChange = (date, value) => {
     setSelectedDate(date);
@@ -63,13 +66,14 @@ const InsertComponents = ({ ...props }) => {
             catatan: "",
             foto_pengusul: "",
           }}
+          validationSchema={keteranganKeluarInsertValidation}
           enableReinitialize={true}
           onSubmit={(values) => {
             const { data } = DataSet(values);
             postKeterangan(data, values.id);
           }}
         >
-          {({ setFieldValue, values }) => (
+          {({ setFieldValue, values, touched, errors }) => (
             <Form>
               <Box p={3}>
                 <Typography variant="h6">
@@ -222,9 +226,16 @@ const InsertComponents = ({ ...props }) => {
                           <PhotoCamera />
                         </IconButton>
                       </label>
-                      <FormHelperText className={classes.controlFileName}>
-                        {values.foto_pengusul.name}
-                      </FormHelperText>
+                      {Boolean(errors.foto_pengusul) &&
+                      touched.foto_pengusul ? (
+                        <FormHelperText className={classes.controlFileError}>
+                          {errors.foto_pengusul}
+                        </FormHelperText>
+                      ) : (
+                        <FormHelperText className={classes.controlFileName}>
+                          {values.foto_pengusul.name}
+                        </FormHelperText>
+                      )}
                     </Box>
                   </Box>
                 </Box>
@@ -233,9 +244,22 @@ const InsertComponents = ({ ...props }) => {
                   flexDirection="row"
                   justifyContent="flex-end"
                   marginRight={2.3}
+                  marginTop={
+                    Boolean(errors.foto_pengusul) && touched.foto_pengusul
+                      ? 3
+                      : 0
+                  }
                 >
                   <Box marginRight={2}>
-                    <Button className={classes.cancelButton}>Kembali</Button>
+                    <Button
+                      className={classes.cancelButton}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        history.push("/penduduk_keluar");
+                      }}
+                    >
+                      Kembali
+                    </Button>
                   </Box>
                   <Box>
                     <Button

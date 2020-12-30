@@ -63,6 +63,13 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         isLoading: false,
       };
 
+    case Types.UPDATE_KETERANGAN_KELUAR_SUCCESS:
+      return {
+        ...state,
+        keterangan_keluar_by_id: action.payload,
+        isLoading: false,
+      };
+
     case Types.SET_LOADING_TO_FALSE_PENDUDUK_KELUAR:
       return {
         ...state,

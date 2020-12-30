@@ -24,6 +24,7 @@ import DialogDeleteAllComponent from "../../../components/penduduk-keluar-compon
 import DialogDetailsComponent from "../../../components/penduduk-keluar-components/dialog-details/dialog-details";
 import { getPendudukKeluarById } from "../../../reducers/penduduk_keluar/penduduk_keluar.actions";
 import { Skeleton } from "@material-ui/lab";
+import DialogEditComponent from "../../../components/penduduk-keluar-components/dialog-edit-keterangan/dialog-edit";
 
 const PendudukKeluarDetailPage = ({ ...props }) => {
   const classes = useStyles();
@@ -40,11 +41,15 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
   const [openDialogDetails, setOpenDialogDetails] = useState(false);
   const [openDialogDeleteAll, setOpenDialogDeleteAll] = useState(false);
   const [dataToDetails, setDataToDetails] = useState([]);
+  const [openDialogEdit, setOpenDialogEdit] = useState(false);
+
   const history = useHistory();
   useEffect(() => {
     getPendudukKeluarById(paramsId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paramsId]);
+
+  console.log(keteranganKeluar);
 
   const firstData = pendudukKeluarByID.length === 0 ? [{}] : pendudukKeluarByID;
 
@@ -99,6 +104,7 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
               <KeteranganKeluarComponent
                 data={keteranganKeluar}
                 isLoading={isLoading}
+                setOpenDialogEdit={setOpenDialogEdit}
               />
             ) : null}
             <Box marginTop={3}>
@@ -287,6 +293,12 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
         open={openDialogDeleteAll}
         handleClose={setOpenDialogDeleteAll}
         id={paramsId}
+      />
+      <DialogEditComponent
+        open={openDialogEdit}
+        handleClose={setOpenDialogEdit}
+        data={keteranganKeluar}
+        paramsId={paramsId}
       />
     </React.Fragment>
   );
