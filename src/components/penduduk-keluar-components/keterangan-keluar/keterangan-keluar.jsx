@@ -13,7 +13,12 @@ import { photoPath } from "../../../helpers/getAvatars";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const KeteranganKeluarComponent = ({ ...props }) => {
-  const { data, isLoading, setOpenDialogEdit } = props;
+  const {
+    data,
+    isLoading,
+    setOpenDialogEdit,
+    setOpenDialogDeleteKeterangan,
+  } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const path = photoPath(data.foto_pengusul ? data.foto_pengusul : "//");
 
@@ -57,6 +62,7 @@ const KeteranganKeluarComponent = ({ ...props }) => {
             onClick={(e) => {
               e.preventDefault();
               setAnchorEl(null);
+              setOpenDialogDeleteKeterangan(true);
             }}
           >
             Hapus

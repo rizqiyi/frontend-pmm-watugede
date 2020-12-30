@@ -19,7 +19,7 @@ import MomentUtils from "@date-io/moment";
 import localization from "moment/locale/id";
 import { TextFormField } from "../../styled-textfield/styled-textfield";
 import { PhotoCamera } from "@material-ui/icons";
-import { keteranganKeluarInsertValidation } from "../../../validations/mutasi-keluar";
+import { keteranganKeluarUpdateValidation } from "../../../validations/mutasi-keluar";
 import { useStyles } from "./dialog-edit.style";
 import { updateKeteranganKeluar } from "../../../reducers/penduduk_keluar/penduduk_keluar.actions";
 
@@ -63,6 +63,7 @@ const DialogEditComponent = ({ ...props }) => {
       >
         <Box p={3}>
           <Formik
+            validationSchema={keteranganKeluarUpdateValidation}
             initialValues={{
               idPendudukKeluar: paramsId,
               id: data._id,

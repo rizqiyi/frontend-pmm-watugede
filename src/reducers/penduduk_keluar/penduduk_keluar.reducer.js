@@ -4,7 +4,7 @@ const initialState = {
   penduduk_keluar: [],
   penduduk_keluar_obj: {},
   penduduk_keluar_by_id: [],
-  keterangan_keluar_by_id: {},
+  keterangan_keluar_by_id: [],
   isLoading: false,
 };
 
@@ -60,6 +60,13 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         penduduk_keluar_by_id: state.penduduk_keluar_by_id.filter(
           (data) => data._id !== action.payload
         ),
+        isLoading: false,
+      };
+
+    case Types.DELETE_KETERANGAN_KELUAR_SUCCESS:
+      return {
+        ...state,
+        keterangan_keluar_by_id: action.payload,
         isLoading: false,
       };
 

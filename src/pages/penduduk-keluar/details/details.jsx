@@ -23,8 +23,9 @@ import DialogDeleteComponent from "../../../components/penduduk-keluar-component
 import DialogDeleteAllComponent from "../../../components/penduduk-keluar-components/dialog-delete-all/delete-all";
 import DialogDetailsComponent from "../../../components/penduduk-keluar-components/dialog-details/dialog-details";
 import { getPendudukKeluarById } from "../../../reducers/penduduk_keluar/penduduk_keluar.actions";
-import { Skeleton } from "@material-ui/lab";
+import { Alert, Skeleton } from "@material-ui/lab";
 import DialogEditComponent from "../../../components/penduduk-keluar-components/dialog-edit-keterangan/dialog-edit";
+import DialogDeleteKeteranganComponent from "../../../components/penduduk-keluar-components/dialog-delete-keterangan/dialog-delete";
 
 const PendudukKeluarDetailPage = ({ ...props }) => {
   const classes = useStyles();
@@ -34,10 +35,16 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
     match,
     isLoading,
     keteranganKeluar,
+    infosStatus,
+    infosMessage,
+    infosID,
   } = props;
   const paramsId = match.params.id;
   const [anchorEl, setAnchorEl] = useState(null);
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
+  const [openDialogDeleteKeterangan, setOpenDialogDeleteKeterangan] = useState(
+    false
+  );
   const [openDialogDetails, setOpenDialogDetails] = useState(false);
   const [openDialogDeleteAll, setOpenDialogDeleteAll] = useState(false);
   const [dataToDetails, setDataToDetails] = useState([]);
@@ -49,18 +56,19 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paramsId]);
 
-  console.log(keteranganKeluar);
-
   const firstData = pendudukKeluarByID.length === 0 ? [{}] : pendudukKeluarByID;
 
   return (
     <React.Fragment>
-      {keteranganKeluar === undefined ? (
-        isLoading ? (
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <Skeleton animation="wave" width="1000px" height="300px" />
-          </Box>
-        ) : (
+      {infosID === "DELETE_KETERANGAN_SUCCESS" && infosStatus === 200 ? (
+        <Box marginBottom={2} width="50%">
+          <Alert icon={false} severity="success">
+            {infosMessage}
+          </Alert>
+        </Box>
+      ) : null}
+      {keteranganKeluar.length === 0 || keteranganKeluar === undefined ? (
+        isLoading ? null : (
           <InsertComponents dataId={paramsId} />
         )
       ) : null}
@@ -73,38 +81,46 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
             <Box marginTop={2} marginBottom={2}>
               <Divider />
             </Box>
-            {keteranganKeluar === undefined ? (
-              <Box display="flex" flexDirection="column">
-                <Box>
-                  <img
-                    src={dataIsNull}
-                    className={classes.dataIsNull}
-                    alt="Data Keterangan Keluar Not Found"
-                  />
+            {keteranganKeluar.length === 0 || keteranganKeluar === undefined ? (
+              isLoading ? null : (
+                <Box display="flex" flexDirection="column">
+                  <Box>
+                    <img
+                      src={dataIsNull}
+                      className={classes.dataIsNull}
+                      alt="Data Keterangan Keluar Not Found"
+                    />
+                  </Box>
+                  <Box display="flex" marginTop={4} justifyContent="center">
+                    <Typography className={classes.textIsNull}>
+                      DATA KETERANGAN KELUAR KOSONG
+                    </Typography>
+                  </Box>
+                  <Box
+                    display="flex"
+                    marginTop={2}
+                    marginBottom={1}
+                    justifyContent="center"
+                  >
+                    <GreyText
+                      text="Silakan tambah data keterangan keluar penduduk terlebih dahulu"
+                      className={classes.textCons}
+                    />
+                  </Box>
                 </Box>
-                <Box display="flex" marginTop={4} justifyContent="center">
-                  <Typography className={classes.textIsNull}>
-                    DATA KETERANGAN KELUAR KOSONG
-                  </Typography>
-                </Box>
-                <Box
-                  display="flex"
-                  marginTop={2}
-                  marginBottom={1}
-                  justifyContent="center"
-                >
-                  <GreyText
-                    text="Silakan tambah data keterangan keluar penduduk terlebih dahulu"
-                    className={classes.textCons}
-                  />
-                </Box>
+              )
+            ) : null}
+            {keteranganKeluar.length !== 0 ? null : isLoading ? (
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <Skeleton animation="wave" width="900px" height="300px" />
               </Box>
             ) : null}
-            {keteranganKeluar !== undefined ? (
+            {keteranganKeluar.length !== 0 ? (
               <KeteranganKeluarComponent
                 data={keteranganKeluar}
                 isLoading={isLoading}
                 setOpenDialogEdit={setOpenDialogEdit}
+                setOpenDialogDeleteKeterangan={setOpenDialogDeleteKeterangan}
               />
             ) : null}
             <Box marginTop={3}>
@@ -300,6 +316,12 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
         data={keteranganKeluar}
         paramsId={paramsId}
       />
+      <DialogDeleteKeteranganComponent
+        open={openDialogDeleteKeterangan}
+        handleClose={setOpenDialogDeleteKeterangan}
+        data={keteranganKeluar}
+        idDataKeluar={paramsId}
+      />
     </React.Fragment>
   );
 };
@@ -309,6 +331,9 @@ const mapStateToProps = (state) => {
     pendudukKeluarByID: state.penduduk_keluar.penduduk_keluar_by_id,
     keteranganKeluar: state.penduduk_keluar.keterangan_keluar_by_id,
     isLoading: state.penduduk_keluar.isLoading,
+    infosStatus: state.infos.status,
+    infosMessage: state.infos.message,
+    infosID: state.infos.id,
   };
 };
 

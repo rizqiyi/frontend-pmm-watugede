@@ -44,4 +44,23 @@ const keteranganKeluarInsertValidation = yup.object({
   alasan_pindah: yup.string().required("Alasan pindah tidak boleh kosong"),
 });
 
-export { mutasiKeluarInsertValidation, keteranganKeluarInsertValidation };
+const keteranganKeluarUpdateValidation = yup.object({
+  nomor_surat: yup.string().required("Nomor Surat tidak boleh kosong"),
+  pengikut: yup
+    .number()
+    .typeError("Input harus berupa angka")
+    .required("Pengikut tidak boleh kosong"),
+  alamat_pindah: yup.string().required("Alamat Pindah tidak boleh kosong"),
+  tanggal_ktp: yup.string().required("Tanggal ktp tidak boleh kosong"),
+  meninggalkan_desa_pada: yup
+    .string()
+    .required("Tanggal meninggalkan desa tidak boleh kosong"),
+  foto_pengusul: yup.mixed(),
+  alasan_pindah: yup.string().required("Alasan pindah tidak boleh kosong"),
+});
+
+export {
+  mutasiKeluarInsertValidation,
+  keteranganKeluarInsertValidation,
+  keteranganKeluarUpdateValidation,
+};
