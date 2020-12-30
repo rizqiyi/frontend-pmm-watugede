@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Divider,
   Grid,
   IconButton,
@@ -16,9 +17,10 @@ import { GreyText } from "../../../components/typography/typography";
 import { useStyles } from "./details.style";
 import KeteranganKeluarComponent from "../../../components/penduduk-keluar-components/keterangan-keluar/keterangan-keluar";
 import { PengusulKeluarComponent } from "../../../components/penduduk-keluar-components/pengusul-keluar/pengusul-keluar";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DialogDeleteComponent from "../../../components/penduduk-keluar-components/dialog-delete/dialog-delete";
+import DialogDeleteAllComponent from "../../../components/penduduk-keluar-components/dialog-delete-all/delete-all";
 import DialogDetailsComponent from "../../../components/penduduk-keluar-components/dialog-details/dialog-details";
 import { getPendudukKeluarById } from "../../../reducers/penduduk_keluar/penduduk_keluar.actions";
 import { Skeleton } from "@material-ui/lab";
@@ -36,7 +38,9 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
   const [openDialogDetails, setOpenDialogDetails] = useState(false);
+  const [openDialogDeleteAll, setOpenDialogDeleteAll] = useState(false);
   const [dataToDetails, setDataToDetails] = useState([]);
+  const history = useHistory();
   useEffect(() => {
     getPendudukKeluarById(paramsId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -104,6 +108,39 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
               <Divider />
             </Box>
             <PengusulKeluarComponent data={firstData} isLoading={isLoading} />
+            <Box marginTop={2} marginBottom={2}>
+              <Divider />
+            </Box>
+            <Box
+              display="flex"
+              flexDirection="row"
+              justifyContent="flex-end"
+              marginRight={2.3}
+            >
+              <Box marginRight={2}>
+                <Button
+                  className={classes.backButton}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    history.push("/penduduk_keluar");
+                  }}
+                >
+                  Kembali
+                </Button>
+              </Box>
+              <Box>
+                <Button
+                  type="submit"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenDialogDeleteAll(true);
+                  }}
+                  className={classes.deleteButton}
+                >
+                  Hapus Semua Data
+                </Button>
+              </Box>
+            </Box>
           </Box>
         </Paper>
         <Box marginTop={3} marginLeft={3}>
@@ -245,6 +282,11 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
         open={openDialogDetails}
         handleClose={setOpenDialogDetails}
         data={dataToDetails}
+      />
+      <DialogDeleteAllComponent
+        open={openDialogDeleteAll}
+        handleClose={setOpenDialogDeleteAll}
+        id={paramsId}
       />
     </React.Fragment>
   );

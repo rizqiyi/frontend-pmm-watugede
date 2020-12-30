@@ -54,6 +54,15 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         isLoading: false,
       };
 
+    case Types.DELETE_ALL_DATA_PENDUDUK_KELUAR_SUCCESS:
+      return {
+        ...state,
+        penduduk_keluar_by_id: state.penduduk_keluar_by_id.filter(
+          (data) => data._id !== action.payload
+        ),
+        isLoading: false,
+      };
+
     case Types.SET_LOADING_TO_FALSE_PENDUDUK_KELUAR:
       return {
         ...state,

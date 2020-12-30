@@ -28,6 +28,8 @@ const updatePengikutKeluarURI = (idPenduduk, idPengikut) =>
   `${initialURL.pendudukKeluarURI}/${idPenduduk}/u/${idPengikut}`;
 const deletePendudukKeluarURI = (idPenduduk, idPengikut) =>
   `${initialURL.pendudukKeluarURI}/${idPenduduk}/d/${idPengikut}`;
+const deleteAllDataPendudukKeluarURI = (idData) =>
+  `${initialURL.pendudukKeluarURI}/${idData}/d`;
 const searchKKByName = (params) => `${initialURL.pendudukURI}/s?name=${params}`;
 const searchKKByNomorKK = (params) =>
   `${initialURL.pendudukURI}/s/kk?no_kk=${params}`;
@@ -49,4 +51,5 @@ export {
   getKartuKeluargaById,
   postPendudukToKKURI,
   deletePendudukPadaKK,
+  deleteAllDataPendudukKeluarURI,
 };
