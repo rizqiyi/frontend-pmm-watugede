@@ -3,13 +3,14 @@ import {
   Button,
   Divider,
   Grid,
+  Hidden,
   IconButton,
   Menu,
   MenuItem,
   Paper,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import InsertComponents from "../../../components/penduduk-keluar-components/insert-keterangan-keluar/insert";
 import dataIsNull from "../../../assets/images/no-data-found.svg";
@@ -26,6 +27,7 @@ import { getPendudukKeluarById } from "../../../reducers/penduduk_keluar/pendudu
 import { Alert, Skeleton } from "@material-ui/lab";
 import DialogEditComponent from "../../../components/penduduk-keluar-components/dialog-edit-keterangan/dialog-edit";
 import DialogDeleteKeteranganComponent from "../../../components/penduduk-keluar-components/dialog-delete-keterangan/dialog-delete";
+import { clearInfos } from "../../../reducers/infos/info.actions";
 
 const PendudukKeluarDetailPage = ({ ...props }) => {
   const classes = useStyles();
@@ -38,6 +40,7 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
     infosStatus,
     infosMessage,
     infosID,
+    clearInfos,
   } = props;
   const paramsId = match.params.id;
   const [anchorEl, setAnchorEl] = useState(null);
@@ -49,12 +52,15 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
   const [openDialogDeleteAll, setOpenDialogDeleteAll] = useState(false);
   const [dataToDetails, setDataToDetails] = useState([]);
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
-
+  const isFirstRender = useRef(true);
   const history = useHistory();
   useEffect(() => {
-    getPendudukKeluarById(paramsId);
+    if (isFirstRender.current) {
+      clearInfos();
+      getPendudukKeluarById(paramsId);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [paramsId]);
+  }, [paramsId, clearInfos]);
 
   const firstData = pendudukKeluarByID.length === 0 ? [{}] : pendudukKeluarByID;
 
@@ -75,9 +81,34 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
       <Box marginTop={3}>
         <Paper>
           <Box p={3}>
-            <Typography variant="h6">
-              Detail Informasi Penduduk Keluar
-            </Typography>
+            <Box
+              display="flex"
+              flexDirection="row"
+              justifyContent="space-between"
+              alignItems="baseline"
+            >
+              <Box>
+                <Typography variant="h6">
+                  Detail Informasi Penduduk Keluar
+                </Typography>
+              </Box>
+              <Box>
+                <Hidden
+                  xlDown={
+                    keteranganKeluar.length === 0 ||
+                    keteranganKeluar === undefined
+                  }
+                >
+                  <Button
+                    color="primary"
+                    type="submit"
+                    className={classes.insertButton}
+                  >
+                    Download PDF
+                  </Button>
+                </Hidden>
+              </Box>
+            </Box>
             <Box marginTop={2} marginBottom={2}>
               <Divider />
             </Box>
@@ -340,6 +371,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getPendudukKeluarById: (id) => dispatch(getPendudukKeluarById(id)),
+    clearInfos: () => dispatch(clearInfos()),
   };
 };
 

@@ -8,13 +8,13 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { AnggotaKeluargaTableHeadComponent } from "../../../components/anggota-keluarga-components/table-head/table-head";
 import AnggotaKeluargaTableBodyComponent from "../../../components/anggota-keluarga-components/table-body/table-body";
 import { getKartuKeluargaByID } from "../../../reducers/kartu_keluarga/kartu_keluarga.actions";
 import { useStyles } from "./details.style";
-import { Skeleton } from "@material-ui/lab";
+import { Alert, Skeleton } from "@material-ui/lab";
 import { CSVLink } from "react-csv";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
@@ -22,6 +22,7 @@ import DialogDeleteComponents from "../../../components/anggota-keluarga-compone
 import dataIsNull from "../../../assets/images/no-data-found.svg";
 import { GreyText } from "../../../components/typography/typography";
 import MutasiDialogAll from "../../../components/anggota-keluarga-components/mutasi-dialogs-all/mutasi-dialogs-all";
+import { clearInfos } from "../../../reducers/infos/info.actions";
 
 const DetailKartuKeluargaPage = ({ ...props }) => {
   const {
@@ -29,6 +30,10 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
     getKartuKeluargaByID,
     detailAnggotaKeluarga,
     isLoading,
+    infosStatus,
+    infosMessage,
+    infosID,
+    clearInfos,
   } = props;
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -38,13 +43,17 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
   const [idToDelete, setIdToDelete] = useState([]);
   const [dialogMutasiAll, setDialogMutasiAll] = useState(false);
-  const [dataMutasiAll, setDataMutasiAll] = useState([]);
   const paramsId = match.params.id_kepala;
   const paramsIdKK = match.params.id_kk;
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
-    getKartuKeluargaByID(paramsId);
-  }, [paramsId, getKartuKeluargaByID]);
+    if (isFirstRender.current) {
+      clearInfos();
+      getKartuKeluargaByID(paramsId);
+      isFirstRender.current = false;
+    }
+  }, [paramsId, getKartuKeluargaByID, clearInfos]);
 
   const rows = detailAnggotaKeluarga;
 
@@ -92,6 +101,17 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
 
   return (
     <React.Fragment>
+      {infosID === "POST_MANY_PENDUDUK_KELUAR_SUCCESS" &&
+      infosStatus === 201 ? (
+        <Alert severity="success" icon={false}>
+          {infosMessage}
+        </Alert>
+      ) : null}
+      {infosID === "FAIL_POST_MANY_PENDUDUK_KELUAR" && infosStatus === 400 ? (
+        <Alert severity="error" icon={false}>
+          {infosMessage}
+        </Alert>
+      ) : null}
       <div className={classes.root}>
         {rows.length === 0 ? (
           isLoading ? null : (
@@ -225,7 +245,6 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
                       onClick={(e) => {
                         e.preventDefault();
                         setDialogMutasiAll(true);
-                        setDataMutasiAll(rows);
                       }}
                     >
                       Mutasi
@@ -258,7 +277,8 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
       <MutasiDialogAll
         open={dialogMutasiAll}
         handleClose={setDialogMutasiAll}
-        data={dataMutasiAll}
+        idKK={paramsIdKK}
+        idKepala={paramsId}
       />
     </React.Fragment>
   );
@@ -268,12 +288,16 @@ const mapStateToProps = (state) => {
   return {
     detailAnggotaKeluarga: state.kartu_keluarga.kartu_keluarga_obj,
     isLoading: state.kartu_keluarga.isLoading,
+    infosStatus: state.infos.status,
+    infosMessage: state.infos.message,
+    infosID: state.infos.id,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getKartuKeluargaByID: (id) => dispatch(getKartuKeluargaByID(id)),
+    clearInfos: () => dispatch(clearInfos()),
   };
 };
 

@@ -20,6 +20,8 @@ const deletePendudukPadaKK = (idPenduduk, idKK) =>
   `${initialURL.pendudukURI}/${idPenduduk}/d/${idKK}`;
 const postPendudukToKKURI = (id) => `${initialURL.pendudukURI}/${id}`;
 const postPendudukKeluarURI = (id) => `${initialURL.pendudukKeluarURI}/${id}`;
+const postManyPendudukKeluarURI = (id) =>
+  `${initialURL.pendudukKeluarURI}/${id}/m`;
 const getPendudukKeluarByIdURI = (id) =>
   `${initialURL.pendudukKeluarURI}/${id}`;
 const postKeteranganKeluarURI = (id) => `${initialURL.keteranganURI}/${id}`;
@@ -57,4 +59,5 @@ export {
   deleteAllDataPendudukKeluarURI,
   updateKeteranganKeluarURI,
   deleteKeteranganKeluarURI,
+  postManyPendudukKeluarURI,
 };

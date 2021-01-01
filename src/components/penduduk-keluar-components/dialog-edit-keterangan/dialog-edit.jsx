@@ -71,8 +71,8 @@ const DialogEditComponent = ({ ...props }) => {
               alamat_pindah: data.alamat_pindah,
               alasan_pindah: data.alasan_pindah,
               pengikut: data.pengikut,
-              tanggal_ktp: data.tanggal_ktp,
-              meninggalkan_desa_pada: data.meninggalkan_desa_pada,
+              tanggal_ktp: inputValueDate,
+              meninggalkan_desa_pada: inputValueDateLeave,
               catatan: data.catatan,
               foto_pengusul: data.foto_pengusul,
             }}
@@ -90,6 +90,19 @@ const DialogEditComponent = ({ ...props }) => {
                 </Typography>
                 <Box marginTop={2} marginBottom={2}>
                   <Divider />
+                </Box>
+                <Box marginBottom={1}>
+                  <Typography
+                    style={{
+                      fontSize: 12,
+                      textDecoration: "underline",
+                      fontStyle: "italic",
+                      fontWeight: 600,
+                    }}
+                  >
+                    *Harap Memperhatikan Tanggal KTP dan Tanggal Meninggalkan
+                    Desa
+                  </Typography>
                 </Box>
                 <MuiPickersUtilsProvider
                   libInstance={moment}

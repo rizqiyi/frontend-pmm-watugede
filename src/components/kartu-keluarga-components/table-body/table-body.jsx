@@ -141,35 +141,23 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
               .map((row, index) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                    <TableCell align="left">
-                      {isLoading ? <Skeleton /> : row.nik}
+                    <TableCell align="left">{row.nik}</TableCell>
+                    <TableCell align="left" className={classes.controlText}>
+                      {row.nama_lengkap}
                     </TableCell>
                     <TableCell align="left" className={classes.controlText}>
-                      {isLoading ? <Skeleton /> : row.nama_lengkap}
+                      {row.tempat_tanggal_lahir}
                     </TableCell>
+                    <TableCell align="left">{row.umur}</TableCell>
                     <TableCell align="left" className={classes.controlText}>
-                      {isLoading ? <Skeleton /> : row.tempat_tanggal_lahir}
+                      {row.alamat_asal}
+                    </TableCell>
+                    <TableCell align="left">{row.jenis_kelamin}</TableCell>
+                    <TableCell align="left">
+                      {row.keluarga_dari.anggota_keluarga.length}
                     </TableCell>
                     <TableCell align="left">
-                      {isLoading ? <Skeleton /> : row.umur}
-                    </TableCell>
-                    <TableCell align="left" className={classes.controlText}>
-                      {isLoading ? <Skeleton /> : row.alamat_asal}
-                    </TableCell>
-                    <TableCell align="left">
-                      {isLoading ? <Skeleton /> : row.jenis_kelamin}
-                    </TableCell>
-                    <TableCell align="left">
-                      {isLoading ? (
-                        <Skeleton />
-                      ) : (
-                        row.keluarga_dari.anggota_keluarga.length
-                      )}
-                    </TableCell>
-                    <TableCell align="left">
-                      {isLoading ? (
-                        <Skeleton />
-                      ) : (
+                      {
                         <Box className={classes.controlTextLink}>
                           <Typography variant="body2">
                             <Link
@@ -181,7 +169,7 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                             </Link>
                           </Typography>
                         </Box>
-                      )}
+                      }
                     </TableCell>
                   </TableRow>
                 );

@@ -9,9 +9,11 @@ import {
   deleteAllDataPendudukKeluarURI,
   updateKeteranganKeluarURI,
   deleteKeteranganKeluarURI,
+  postManyPendudukKeluarURI,
 } from "../../utilities/baseURL";
 import { tokenConfig } from "../users/users.actions";
 import { returnInfos } from "../infos/info.actions";
+import { getKartuKeluargaByID } from "../kartu_keluarga/kartu_keluarga.actions";
 
 export const getAllDataPendudukKeluar = () => (dispatch, getState) => {
   dispatch({
@@ -103,6 +105,44 @@ export const postPendudukKeluarData = (value, id) => (dispatch, getState) => {
     .catch((err) => {
       dispatch(isLoadingToFalse());
       dispatch(returnInfos(err.response.data.message, err.response.status));
+    });
+};
+
+export const postManyPendudukKeluar = (idKK, idKepala) => (
+  dispatch,
+  getState
+) => {
+  dispatch({
+    type: Types.START_REQUEST_PENDUDUK_KELUAR,
+  });
+
+  const body = JSON.stringify({ idKK });
+
+  axios
+    .post(postManyPendudukKeluarURI(idKK), body, tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.POST_MANY_PENDUDUK_KELUAR_SUCCESS,
+        payload: result.data.message,
+      });
+
+      dispatch(
+        returnInfos(
+          result.data.message,
+          201,
+          "POST_MANY_PENDUDUK_KELUAR_SUCCESS"
+        )
+      );
+    })
+    .then(() => dispatch(getKartuKeluargaByID(idKepala)))
+    .catch((err) => {
+      dispatch(
+        returnInfos(
+          err.response.data.message,
+          err.response.status,
+          "FAIL_POST_MANY_PENDUDUK_KELUAR"
+        )
+      );
     });
 };
 

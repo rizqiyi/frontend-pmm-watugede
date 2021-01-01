@@ -33,6 +33,18 @@ export const useStyles = makeStyles((theme) => ({
     border: "2px solid rgba(143, 143, 143, 0.5)",
     textTransform: "inherit",
   },
+  insertButton: {
+    background: theme.palette.primary.main,
+    color: "#fff",
+    width: theme.spacing(25),
+    padding: "12px",
+    fontWeight: 500,
+    borderRadius: 50,
+    textTransform: "inherit",
+    "&:hover": {
+      background: theme.palette.primary.main,
+    },
+  },
   deleteButton: {
     background: theme.palette.error.main,
     color: "#fff",
