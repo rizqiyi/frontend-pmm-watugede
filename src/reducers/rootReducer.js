@@ -7,6 +7,7 @@ import { pendudukReducer } from "./penduduk/penduduk.reducer";
 import { kartuKeluargaReducer } from "./kartu_keluarga/kartu_keluarga.reducers";
 import { anggotaKeluargaReducer } from "./anggota_keluarga/anggota_keluarga.reducer";
 import { pendudukKeluarReducer } from "./penduduk_keluar/penduduk_keluar.reducer";
+import { pendudukMasukReducer } from "./penduduk_masuk/penduduk_masuk.reducer";
 
 const rootReducer = combineReducers({
   users: usersReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   kartu_keluarga: kartuKeluargaReducer,
   anggota_keluarga: anggotaKeluargaReducer,
   penduduk_keluar: pendudukKeluarReducer,
+  penduduk_masuk: pendudukMasukReducer,
 });
 
 const persistedReducer = persistReducer(

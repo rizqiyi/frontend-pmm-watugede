@@ -16,8 +16,6 @@ const MutasiDialogAll = ({ ...props }) => {
   const { handleClose, open, postManyPendudukKeluar, idKK, idKepala } = props;
   const classes = useStyles();
 
-  console.log(idKK);
-
   return (
     <React.Fragment>
       <Dialog

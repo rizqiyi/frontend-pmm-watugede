@@ -60,7 +60,11 @@ export const PendudukKeluarTableBodyComponent = ({ ...props }) => {
                   {isLoading ? <Skeleton /> : row.penduduk_keluar_desa[0].umur}
                 </TableCell>
                 <TableCell align="left">
-                  {isLoading ? <Skeleton /> : row.penduduk_keluar_desa.length}
+                  {isLoading ? (
+                    <Skeleton />
+                  ) : (
+                    row.penduduk_keluar_desa.length - 1
+                  )}
                 </TableCell>
                 <TableCell align="left">
                   {isLoading ? (

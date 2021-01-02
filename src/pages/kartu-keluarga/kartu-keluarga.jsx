@@ -341,7 +341,6 @@ const KartuKeluargaPage = ({ ...props }) => {
 const mapStateToProps = (state) => {
   return {
     kartuKeluarga: state.kartu_keluarga.kartu_keluarga,
-    kartuKeluargaWithChild: state.kartu_keluarga.anggota_keluarga,
     isLoading: state.kartu_keluarga.isLoading,
     isNotFound: state.infos.id,
   };
