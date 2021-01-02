@@ -20,6 +20,7 @@ export const DialogSearchComponent = ({ ...props }) => {
     open,
     setOpen,
     search,
+    setSearch,
   } = props;
 
   return (
@@ -79,6 +80,7 @@ export const DialogSearchComponent = ({ ...props }) => {
                   onClick={(e) => {
                     e.preventDefault();
                     setOpen(false);
+                    setSearch("nama_lengkap");
                   }}
                   className={classes.cancelButton}
                 >

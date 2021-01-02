@@ -255,6 +255,7 @@ const KartuKeluargaPage = ({ ...props }) => {
                         openSelectMenu={openSelectMenu}
                         open={open}
                         setOpen={setOpen}
+                        setSearch={setSearch}
                         search={search}
                       />
                     </Form>

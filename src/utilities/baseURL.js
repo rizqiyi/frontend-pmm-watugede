@@ -10,6 +10,7 @@ const initialURL = {
   kartuKeluargaURI: `${baseURL}api/penduduk/k`,
   pendudukKeluarURI: `${baseURL}api/penduduk_keluar`,
   pendudukMasukURI: `${baseURL}api/penduduk_masuk/k`,
+  getPendudukMasuk: `${baseURL}api/penduduk_masuk`,
   getAndPostKartuKeluargaURI: `${baseURL}api/kartu_keluarga`,
   keteranganURI: `${baseURL}api/keterangan`,
 };
@@ -41,6 +42,7 @@ const deleteKeteranganKeluarURI = (idDataKeluar, idKeterangan) =>
 const getKartuKeluargaById = (id) => `${initialURL.kartuKeluargaURI}/${id}`;
 const postKartuKeluargaPendudukMasuk = () =>
   `${initialURL.getAndPostKartuKeluargaURI}/in`;
+const fetchPendudukMasukByID = (id) => `${initialURL.getPendudukMasuk}/${id}`;
 
 export {
   baseURL,
@@ -63,4 +65,5 @@ export {
   deleteKeteranganKeluarURI,
   postManyPendudukKeluarURI,
   postKartuKeluargaPendudukMasuk,
+  fetchPendudukMasukByID,
 };

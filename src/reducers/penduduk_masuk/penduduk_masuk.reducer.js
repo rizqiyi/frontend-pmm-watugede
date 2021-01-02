@@ -2,6 +2,7 @@ import Types from "./penduduk_masuk.types";
 
 const initialState = {
   penduduk_masuk: [],
+  penduduk_masuk_details: [],
   penduduk_masuk_obj: {},
   isLoading: false,
 };
@@ -24,7 +25,7 @@ export const pendudukMasukReducer = (state = initialState, action) => {
     case Types.FETCH_PENDUDUK_MASUK_SUCCESS_BY_ID:
       return {
         ...state,
-        penduduk_masuk: action.payload,
+        penduduk_masuk_details: action.payload,
         isLoading: false,
       };
 
@@ -45,7 +46,7 @@ export const pendudukMasukReducer = (state = initialState, action) => {
     case Types.DELETE_PENDUDUK_MASUK_SUCCESS:
       return {
         ...state,
-        penduduk_masuk: state.penduduk_masuk.filter(
+        penduduk_masuk_details: state.penduduk_masuk_details.filter(
           (data) => data._id !== action.payload
         ),
         isLoading: false,

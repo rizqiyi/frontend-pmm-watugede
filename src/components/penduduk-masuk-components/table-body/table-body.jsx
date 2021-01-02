@@ -61,7 +61,7 @@ const PendudukMasukTableBodyComponent = ({ ...props }) => {
                       <Typography variant="body2">
                         <Link
                           className={classes.controlLink}
-                          to={`/kartu_keluarga/${row.keluarga_dari._id}/d/${row._id}`}
+                          to={`/penduduk_masuk/${row.keluarga_dari._id}/d/${row._id}`}
                           color="primary"
                         >
                           Lihat Detail
