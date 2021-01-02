@@ -97,4 +97,9 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     margin: "0 auto",
   },
+  linkModal: {
+    color: "#212121",
+    fontWeight: 600,
+    textDecoration: "none",
+  },
 }));

@@ -27,6 +27,6 @@ export const useStyles = makeStyles((theme) => ({
   },
   succesChip: {
     color: "#fff",
-    background: "#a7ffeb",
+    background: "#66bb6a",
   },
 }));

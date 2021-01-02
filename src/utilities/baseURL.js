@@ -43,6 +43,8 @@ const getKartuKeluargaById = (id) => `${initialURL.kartuKeluargaURI}/${id}`;
 const postKartuKeluargaPendudukMasuk = () =>
   `${initialURL.getAndPostKartuKeluargaURI}/in`;
 const fetchPendudukMasukByID = (id) => `${initialURL.getPendudukMasuk}/${id}`;
+const updateKeteranganMasukURI = (id) => `${initialURL.getPendudukMasuk}/${id}`;
+const postKeteranganMasukURI = (id) => `${initialURL.getPendudukMasuk}/${id}/p`;
 
 export {
   baseURL,
@@ -66,4 +68,6 @@ export {
   postManyPendudukKeluarURI,
   postKartuKeluargaPendudukMasuk,
   fetchPendudukMasukByID,
+  postKeteranganMasukURI,
+  updateKeteranganMasukURI,
 };

@@ -41,17 +41,17 @@ const PendudukMasukTableBodyComponent = ({ ...props }) => {
                   {row.keluarga_dari.anggota_keluarga.length}
                 </TableCell>
                 <TableCell align="left">
-                  {row.keluarga_dari.data_penduduk_masuk.length === 0 ? (
-                    <Chip
-                      size="small"
-                      label="Data Tidak Lengkap"
-                      className={classes.warningChip}
-                    />
-                  ) : (
+                  {row.keluarga_dari.data_penduduk_masuk ? (
                     <Chip
                       size="small"
                       label="Data Lengkap"
                       className={classes.succesChip}
+                    />
+                  ) : (
+                    <Chip
+                      size="small"
+                      label="Data Tidak Lengkap"
+                      className={classes.warningChip}
                     />
                   )}
                 </TableCell>

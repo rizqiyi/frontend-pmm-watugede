@@ -3,6 +3,8 @@ import {
   initialURL,
   postKartuKeluargaPendudukMasuk,
   fetchPendudukMasukByID,
+  postKeteranganMasukURI,
+  updateKeteranganMasukURI,
 } from "../../utilities/baseURL";
 import { returnInfos } from "../infos/info.actions";
 import { tokenConfig } from "../users/users.actions";
@@ -39,9 +41,14 @@ export const fetchKartuKeluargaPendudukMasukByID = (id) => (
     .then((result) => {
       dispatch({
         type: Types.FETCH_PENDUDUK_MASUK_SUCCESS_BY_ID,
-        payload: result.data.data
-          ? result.data.data.keluarga_dari.anggota_keluarga
-          : [],
+        payload: {
+          data: result.data.data
+            ? result.data.data.keluarga_dari.anggota_keluarga
+            : [],
+          keterangan_masuk: result.data.data
+            ? result.data.data.keluarga_dari.data_penduduk_masuk
+            : [],
+        },
       });
     })
     .catch((err) => {
@@ -73,6 +80,66 @@ export const postKKPendudukMasuk = ({ ...request }) => (dispatch, getState) => {
           err.response.data.message,
           err.response.status,
           "POST_KK_PENDUDUK_MASUK_FAILED"
+        )
+      );
+    });
+};
+
+export const postKeteranganMasuk = (requests, idKK) => (dispatch, getState) => {
+  dispatch({
+    type: Types.START_REQUEST_PENDUDUK_MASUK,
+  });
+
+  axios
+    .post(postKeteranganMasukURI(idKK), requests, tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.POST_KET_PENDUDUK_MASUK_SUCCESS,
+        payload: result.data.message,
+      });
+
+      dispatch(
+        returnInfos(result.data.message, 201, "POST_KET_PENDUDUK_MASUK_OK")
+      );
+    })
+    .catch((err) => {
+      dispatch(
+        returnInfos(
+          err.response.data.message,
+          err.response.status,
+          "POST_KET_PENDUDUK_MASUK_FAIL"
+        )
+      );
+    });
+};
+
+export const updateKeteranganMasuk = (requests, id, idKepala) => (
+  dispatch,
+  getState
+) => {
+  dispatch({
+    type: Types.START_REQUEST_PENDUDUK_MASUK,
+  });
+
+  axios
+    .put(updateKeteranganMasukURI(id), requests, tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.PUT_KETERANGAN_MASUK_SUCCESS,
+        payload: result.data.data,
+      });
+
+      dispatch(
+        returnInfos(result.data.message, 200, "UPDATE_KETERANGAN_MASUK_OK")
+      );
+    })
+    .then(fetchKartuKeluargaPendudukMasukByID(idKepala))
+    .catch((err) => {
+      dispatch(
+        returnInfos(
+          err.response.data.message,
+          400,
+          "UPDATE_KETERANGAN_MASUK_FAIL"
         )
       );
     });
