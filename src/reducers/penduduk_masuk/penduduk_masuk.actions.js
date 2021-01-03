@@ -5,6 +5,7 @@ import {
   fetchPendudukMasukByID,
   postKeteranganMasukURI,
   updateKeteranganMasukURI,
+  deleteKeteranganMasukURI,
 } from "../../utilities/baseURL";
 import { returnInfos } from "../infos/info.actions";
 import { tokenConfig } from "../users/users.actions";
@@ -42,12 +43,12 @@ export const fetchKartuKeluargaPendudukMasukByID = (id) => (
       dispatch({
         type: Types.FETCH_PENDUDUK_MASUK_SUCCESS_BY_ID,
         payload: {
-          data: result.data.data
+          data: result.data.data.keluarga_dari.anggota_keluarga
             ? result.data.data.keluarga_dari.anggota_keluarga
             : [],
-          keterangan_masuk: result.data.data
+          keterangan_masuk: result.data.data.keluarga_dari.anggota_keluarga
             ? result.data.data.keluarga_dari.data_penduduk_masuk
-            : [],
+            : {},
         },
       });
     })
@@ -85,7 +86,10 @@ export const postKKPendudukMasuk = ({ ...request }) => (dispatch, getState) => {
     });
 };
 
-export const postKeteranganMasuk = (requests, idKK) => (dispatch, getState) => {
+export const postKeteranganMasuk = (requests, idKK, idKepala) => (
+  dispatch,
+  getState
+) => {
   dispatch({
     type: Types.START_REQUEST_PENDUDUK_MASUK,
   });
@@ -102,6 +106,7 @@ export const postKeteranganMasuk = (requests, idKK) => (dispatch, getState) => {
         returnInfos(result.data.message, 201, "POST_KET_PENDUDUK_MASUK_OK")
       );
     })
+    .then(() => dispatch(fetchKartuKeluargaPendudukMasukByID(idKepala)))
     .catch((err) => {
       dispatch(
         returnInfos(
@@ -142,5 +147,32 @@ export const updateKeteranganMasuk = (requests, id, idKepala) => (
           "UPDATE_KETERANGAN_MASUK_FAIL"
         )
       );
+    });
+};
+
+export const deleteKeteranganMasuk = (idKK, idKeteranganMasuk, idKepala) => (
+  dispatch,
+  getState
+) => {
+  dispatch({
+    type: Types.START_REQUEST_PENDUDUK_MASUK,
+  });
+
+  axios
+    .delete(
+      deleteKeteranganMasukURI(idKK, idKeteranganMasuk),
+      tokenConfig(getState)
+    )
+    .then((result) => {
+      dispatch({
+        type: Types.DELETE_KETERANGAN_MASUK_SUCCESS,
+      });
+      dispatch(
+        returnInfos(result.data.message, 200, "DELETE_KETERANGAN_MASUK_OK")
+      );
+    })
+    .then(() => dispatch(fetchKartuKeluargaPendudukMasukByID(idKepala)))
+    .catch((err) => {
+      dispatch(returnInfos(err.response.data.message, err.response.status));
     });
 };

@@ -15,6 +15,8 @@ import { useStyles } from "./dialog-details.style";
 const DialogDetailsComponent = ({ ...props }) => {
   const { open, handleClose, data } = props;
   const classes = useStyles();
+  const fotoKK = photoPath(data ? data.foto_kk : "//");
+  const fotoSuratMasuk = photoPath(data ? data.foto_surat_masuk : "//");
 
   return (
     <React.Fragment>
@@ -39,7 +41,7 @@ const DialogDetailsComponent = ({ ...props }) => {
                 </Box>
                 <Box marginTop={1}>
                   <img
-                    src={photoPath(data.foto_kk ? data.foto_kk : "//")}
+                    src={fotoKK}
                     alt="Foto KK"
                     className={classes.controlImage}
                   />
@@ -54,10 +56,8 @@ const DialogDetailsComponent = ({ ...props }) => {
                 </Box>
                 <Box marginTop={1}>
                   <img
-                    src={photoPath(
-                      data.foto_surat_masuk ? data.foto_surat_masuk : "//"
-                    )}
-                    alt="Foto KK"
+                    src={fotoSuratMasuk}
+                    alt="Foto Surat Masuk"
                     className={classes.controlImage}
                   />
                 </Box>

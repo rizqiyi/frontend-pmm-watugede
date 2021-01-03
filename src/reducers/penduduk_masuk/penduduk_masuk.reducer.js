@@ -68,6 +68,12 @@ export const pendudukMasukReducer = (state = initialState, action) => {
         isLoading: false,
       };
 
+    case Types.DELETE_KETERANGAN_MASUK_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
+
     default:
       return state;
   }

@@ -23,6 +23,7 @@ import PendudukMasukDetailsTableBodyComponent from "../../../components/penduduk
 import DialogInsertComponent from "../../../components/penduduk-masuk-components/detail/dialog-insert/dialog-insert";
 import DialogDetailsComponent from "../../../components/penduduk-masuk-components/detail/dialog-details/dialog-details";
 import DialogUpdateComponent from "../../../components/penduduk-masuk-components/detail/dialog-update/dialog-update";
+import DialogDeleteComponent from "../../../components/penduduk-masuk-components/detail/dialog-delete/dialog-delete";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const DetailPendudukMasukPage = ({ ...props }) => {
@@ -39,6 +40,7 @@ const DetailPendudukMasukPage = ({ ...props }) => {
   const [orderBy, setOrderBy] = useState("");
   const classes = useStyles();
   const [openInsertModal, setOpenInsertModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -213,6 +215,7 @@ const DetailPendudukMasukPage = ({ ...props }) => {
                             onClick={(e) => {
                               e.preventDefault();
                               setAnchorEl(null);
+                              setOpenDeleteModal(true);
                             }}
                           >
                             Hapus
@@ -255,6 +258,7 @@ const DetailPendudukMasukPage = ({ ...props }) => {
       <DialogInsertComponent
         open={openInsertModal}
         handleClose={setOpenInsertModal}
+        paramsIdKepala={paramsIdKepala}
         paramsIdKK={paramsIdKK}
       />
       <DialogDetailsComponent
@@ -267,6 +271,13 @@ const DetailPendudukMasukPage = ({ ...props }) => {
         handleClose={setOpenUpdateModal}
         data={keteranganMasuk}
         idKepala={paramsIdKepala}
+      />
+      <DialogDeleteComponent
+        open={openDeleteModal}
+        handleClose={setOpenDeleteModal}
+        paramsIdKK={paramsIdKK}
+        paramsIdKepala={paramsIdKepala}
+        idKeteranganMasuk={keteranganMasuk}
       />
     </React.Fragment>
   );

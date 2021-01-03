@@ -10,7 +10,13 @@ import { PhotoCamera } from "@material-ui/icons";
 import { postKeteranganMasuk } from "../../../../reducers/penduduk_masuk/penduduk_masuk.actions";
 
 const DialogInsertComponent = ({ ...props }) => {
-  const { open, handleClose, paramsIdKK, postKeteranganMasukPenduduk } = props;
+  const {
+    open,
+    handleClose,
+    paramsIdKK,
+    postKeteranganMasukPenduduk,
+    paramsIdKepala,
+  } = props;
   const classes = useStyles();
 
   return (
@@ -30,6 +36,7 @@ const DialogInsertComponent = ({ ...props }) => {
         <Box p={3}>
           <Formik
             initialValues={{
+              idKepala: paramsIdKepala,
               idKK: paramsIdKK,
               foto_kk: "",
               foto_surat_masuk: "",
@@ -37,7 +44,7 @@ const DialogInsertComponent = ({ ...props }) => {
             enableReinitialize={true}
             onSubmit={(values, { resetForm }) => {
               const { data } = DataSet(values);
-              postKeteranganMasukPenduduk(data, values.idKK);
+              postKeteranganMasukPenduduk(data, values.idKK, values.idKepala);
               handleClose(false);
               resetForm({});
             }}
@@ -203,8 +210,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    postKeteranganMasukPenduduk: (requests, idKK) =>
-      dispatch(postKeteranganMasuk(requests, idKK)),
+    postKeteranganMasukPenduduk: (requests, idKK, idKepala) =>
+      dispatch(postKeteranganMasuk(requests, idKK, idKepala)),
   };
 };
 

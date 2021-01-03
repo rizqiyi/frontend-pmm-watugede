@@ -31,7 +31,7 @@ const DialogUpdateComponent = ({ ...props }) => {
           <Formik
             initialValues={{
               idKepala,
-              idKeteranganMasuk: data._id,
+              idKeteranganMasuk: data ? data._id : "",
               foto_kk: "",
               foto_surat_masuk: "",
             }}

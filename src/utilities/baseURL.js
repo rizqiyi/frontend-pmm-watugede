@@ -44,6 +44,8 @@ const postKartuKeluargaPendudukMasuk = () =>
   `${initialURL.getAndPostKartuKeluargaURI}/in`;
 const fetchPendudukMasukByID = (id) => `${initialURL.getPendudukMasuk}/${id}`;
 const updateKeteranganMasukURI = (id) => `${initialURL.getPendudukMasuk}/${id}`;
+const deleteKeteranganMasukURI = (idKK, idKeteranganMasuk) =>
+  `${initialURL.getPendudukMasuk}/${idKK}/d/${idKeteranganMasuk}`;
 const postKeteranganMasukURI = (id) => `${initialURL.getPendudukMasuk}/${id}/p`;
 
 export {
@@ -70,4 +72,5 @@ export {
   fetchPendudukMasukByID,
   postKeteranganMasukURI,
   updateKeteranganMasukURI,
+  deleteKeteranganMasukURI,
 };
