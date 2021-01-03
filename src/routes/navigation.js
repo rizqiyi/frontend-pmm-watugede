@@ -17,7 +17,7 @@ import PendudukKeluarPage from "../pages/penduduk-keluar/penduduk-keluar";
 import PendudukKeluarDetailPage from "../pages/penduduk-keluar/details/details";
 import { KelahiranPage } from "../pages/kelahiran/kelahiran";
 import { KematianPage } from "../pages/kematian/kematian";
-import { ActivityPage } from "../pages/activity/activity";
+import AdminActivityPage from "../pages/activity/activity";
 import { PageNotFound } from "../pages/404-page/page-not-found";
 import KartuKeluargaPage from "../pages/kartu-keluarga/kartu-keluarga";
 import DetailKartuKeluargaPage from "../pages/kartu-keluarga/details/details";
@@ -93,7 +93,7 @@ const Navigations = () => {
             />
             <PrivateRoute component={KelahiranPage} path="/kelahiran" />
             <PrivateRoute component={KematianPage} path="/kematian" />
-            <PrivateRoute component={ActivityPage} path="/activity" />
+            <PrivateRoute component={AdminActivityPage} path="/activity" />
             <PrivateRoute component={PageNotFound} path="/404" />
             <Redirect to="/404" />
           </Switch>

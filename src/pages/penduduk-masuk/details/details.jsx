@@ -59,8 +59,6 @@ const DetailPendudukMasukPage = ({ ...props }) => {
 
   const rows = anggotaPendudukMasuk;
 
-  console.log(rows.length === 0);
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
