@@ -4,6 +4,7 @@ const initialState = {
   penduduk_masuk: [],
   penduduk_masuk_details: [],
   penduduk_masuk_obj: {},
+  anggota_keluarga: [],
   keterangan_masuk_obj: {},
   isLoading: false,
 };
@@ -29,6 +30,14 @@ export const pendudukMasukReducer = (state = initialState, action) => {
         penduduk_masuk_details: action.payload.data,
         keterangan_masuk_obj: action.payload.keterangan_masuk,
         isLoading: false,
+      };
+
+    case Types.PUT_ANGGOTA_PENDUDUK_MASUK_SUCCESS_BY_ID:
+    case Types.FETCH_ANGGOTA_PENDUDUK_MASUK_SUCCESS_BY_ID:
+      return {
+        ...state,
+        isLoading: false,
+        anggota_keluarga: action.payload,
       };
 
     case Types.POST_PENDUDUK_MASUK_SUCCESS:

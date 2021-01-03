@@ -7,6 +7,8 @@ import {
   updateKeteranganMasukURI,
   deleteKeteranganMasukURI,
   postPendudukToKKURI,
+  getPendudukById,
+  updatePendudukURI,
 } from "../../utilities/baseURL";
 import { returnInfos } from "../infos/info.actions";
 import { tokenConfig } from "../users/users.actions";
@@ -51,6 +53,27 @@ export const fetchKartuKeluargaPendudukMasukByID = (id) => (
             ? result.data.data.keluarga_dari.data_penduduk_masuk
             : {},
         },
+      });
+    })
+    .catch((err) => {
+      dispatch(returnInfos(err.response.data.message, err.response.status));
+    });
+};
+
+export const fetchAnggotaKeluargaPendudukMasukByID = (id) => (
+  dispatch,
+  getState
+) => {
+  dispatch({
+    type: Types.START_REQUEST_PENDUDUK_MASUK,
+  });
+
+  axios
+    .get(getPendudukById(id), tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.FETCH_ANGGOTA_PENDUDUK_MASUK_SUCCESS_BY_ID,
+        payload: result.data.data,
       });
     })
     .catch((err) => {
@@ -142,6 +165,31 @@ export const postKeteranganMasuk = (requests, idKK, idKepala) => (
         )
       );
     });
+};
+
+export const updateAnggotaKeluargaPendudukMasuk = ({ ...requests }, id) => (
+  dispatch,
+  getState
+) => {
+  dispatch({
+    type: Types.START_REQUEST_PENDUDUK_MASUK,
+  });
+
+  const body = JSON.stringify({ ...requests });
+
+  axios
+    .put(updatePendudukURI(id), body, tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.PUT_ANGGOTA_PENDUDUK_MASUK_SUCCESS_BY_ID,
+        payload: result.data.data,
+      });
+      dispatch(returnInfos(result.data.message, 200));
+    })
+    .then(() => dispatch(fetchAnggotaKeluargaPendudukMasukByID(id)))
+    .catch((err) =>
+      dispatch(returnInfos(err.response.data.message, err.response.status))
+    );
 };
 
 export const updateKeteranganMasuk = (requests, id, idKepala) => (

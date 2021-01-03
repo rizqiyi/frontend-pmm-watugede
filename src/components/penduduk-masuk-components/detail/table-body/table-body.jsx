@@ -57,7 +57,7 @@ const PendudukMasukDetailsTableBodyComponent = ({ ...props }) => {
                           color="primary"
                           className={classes.controlEdit}
                           component={Link}
-                          to={`/kartu_keluarga/${row._id}/d/update`}
+                          to={`/penduduk_masuk/a/${row._id}/update`}
                         >
                           Edit
                         </Button>
