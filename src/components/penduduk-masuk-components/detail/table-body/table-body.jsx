@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 
 const PendudukMasukDetailsTableBodyComponent = ({ ...props }) => {
   const classes = useStyles();
-  const { isLoading, setOpenDialogDelete, setIdToDelete } = props;
+  const { isLoading, setOpenDialogDeleteAnggota, setIdToDelete } = props;
   return (
     <React.Fragment>
       <TableBody>
@@ -67,7 +67,7 @@ const PendudukMasukDetailsTableBodyComponent = ({ ...props }) => {
                           size="small"
                           onClick={(e) => {
                             e.preventDefault();
-                            setOpenDialogDelete(true);
+                            setOpenDialogDeleteAnggota(true);
                             setIdToDelete(row);
                           }}
                           className={classes.controlDelete}

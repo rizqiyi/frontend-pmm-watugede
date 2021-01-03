@@ -20,16 +20,16 @@ export const pendudukMasukReducer = (state = initialState, action) => {
     case Types.FETCH_KK_PENDUDUK_MASUK:
       return {
         ...state,
-        penduduk_masuk: action.payload,
         isLoading: false,
+        penduduk_masuk: action.payload,
       };
 
     case Types.FETCH_PENDUDUK_MASUK_SUCCESS_BY_ID:
       return {
         ...state,
+        isLoading: false,
         penduduk_masuk_details: action.payload.data,
         keterangan_masuk_obj: action.payload.keterangan_masuk,
-        isLoading: false,
       };
 
     case Types.PUT_ANGGOTA_PENDUDUK_MASUK_SUCCESS_BY_ID:
@@ -78,13 +78,19 @@ export const pendudukMasukReducer = (state = initialState, action) => {
     case Types.DELETE_PENDUDUK_MASUK_SUCCESS:
       return {
         ...state,
+        isLoading: false,
         penduduk_masuk_details: state.penduduk_masuk_details.filter(
           (data) => data._id !== action.payload
         ),
-        isLoading: false,
       };
 
     case Types.DELETE_KETERANGAN_MASUK_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
+
+    case Types.SET_LOADING_PENDUDUK_MASUK_TO_FALSE:
       return {
         ...state,
         isLoading: false,

@@ -93,7 +93,6 @@ const PendudukMasukInsertPage = ({ ...props }) => {
             enableReinitialize={true}
             onSubmit={(values, { resetForm }) => {
               postKKPendudukMasuk(values);
-              resetForm({});
             }}
           >
             {({ resetForm, isSubmitting }) => (

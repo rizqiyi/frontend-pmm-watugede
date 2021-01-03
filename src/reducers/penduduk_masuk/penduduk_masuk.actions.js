@@ -9,6 +9,7 @@ import {
   postPendudukToKKURI,
   getPendudukById,
   updatePendudukURI,
+  deletePendudukPadaKK,
 } from "../../utilities/baseURL";
 import { returnInfos } from "../infos/info.actions";
 import { tokenConfig } from "../users/users.actions";
@@ -29,6 +30,7 @@ export const fetchKartuKeluargaPendudukMasuk = () => (dispatch, getState) => {
     })
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
+      dispatch(setLoadingPendudukMasukToFalse());
     });
 };
 
@@ -57,6 +59,7 @@ export const fetchKartuKeluargaPendudukMasukByID = (id) => (
     })
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
+      dispatch(setLoadingPendudukMasukToFalse());
     });
 };
 
@@ -78,6 +81,7 @@ export const fetchAnggotaKeluargaPendudukMasukByID = (id) => (
     })
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
+      dispatch(setLoadingPendudukMasukToFalse());
     });
 };
 
@@ -107,6 +111,7 @@ export const postKKPendudukMasuk = ({ ...request }) => (dispatch, getState) => {
           "POST_KK_PENDUDUK_MASUK_FAILED"
         )
       );
+      dispatch(setLoadingPendudukMasukToFalse());
     });
 };
 
@@ -132,6 +137,7 @@ export const postPendudukMasukToKK = ({ ...requests }, id) => (
     })
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
+      dispatch(setLoadingPendudukMasukToFalse());
     });
 };
 
@@ -164,6 +170,7 @@ export const postKeteranganMasuk = (requests, idKK, idKepala) => (
           "POST_KET_PENDUDUK_MASUK_FAIL"
         )
       );
+      dispatch(setLoadingPendudukMasukToFalse());
     });
 };
 
@@ -187,9 +194,10 @@ export const updateAnggotaKeluargaPendudukMasuk = ({ ...requests }, id) => (
       dispatch(returnInfos(result.data.message, 200));
     })
     .then(() => dispatch(fetchAnggotaKeluargaPendudukMasukByID(id)))
-    .catch((err) =>
-      dispatch(returnInfos(err.response.data.message, err.response.status))
-    );
+    .catch((err) => {
+      dispatch(returnInfos(err.response.data.message, err.response.status));
+      dispatch(setLoadingPendudukMasukToFalse());
+    });
 };
 
 export const updateKeteranganMasuk = (requests, id, idKepala) => (
@@ -221,6 +229,7 @@ export const updateKeteranganMasuk = (requests, id, idKepala) => (
           "UPDATE_KETERANGAN_MASUK_FAIL"
         )
       );
+      dispatch(setLoadingPendudukMasukToFalse());
     });
 };
 
@@ -248,5 +257,35 @@ export const deleteKeteranganMasuk = (idKK, idKeteranganMasuk, idKepala) => (
     .then(() => dispatch(fetchKartuKeluargaPendudukMasukByID(idKepala)))
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
+      dispatch(setLoadingPendudukMasukToFalse());
     });
+};
+
+export const deletePendudukMasukPadaKK = (idKK, idPendudukMasuk, idKepala) => (
+  dispatch,
+  getState
+) => {
+  dispatch({
+    type: Types.START_REQUEST_PENDUDUK_MASUK,
+  });
+
+  axios
+    .delete(deletePendudukPadaKK(idPendudukMasuk, idKK), tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.DELETE_PENDUDUK_MASUK_SUCCESS,
+        payload: idPendudukMasuk,
+      });
+    })
+    .then(() => dispatch(fetchKartuKeluargaPendudukMasukByID(idKepala)))
+    .catch((err) => {
+      dispatch(returnInfos(err.response.data.message, err.response.status));
+      dispatch(setLoadingPendudukMasukToFalse());
+    });
+};
+
+export const setLoadingPendudukMasukToFalse = () => {
+  return {
+    type: Types.SET_LOADING_PENDUDUK_MASUK_TO_FALSE,
+  };
 };

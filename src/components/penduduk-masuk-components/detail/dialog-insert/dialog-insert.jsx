@@ -171,7 +171,6 @@ const DialogInsertComponent = ({ ...props }) => {
                       e.preventDefault();
                       handleClose(false);
                     }}
-                    color="primary"
                     className={classes.backButton}
                   >
                     Batal

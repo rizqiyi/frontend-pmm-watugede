@@ -24,7 +24,10 @@ import DialogInsertComponent from "../../../components/penduduk-masuk-components
 import DialogDetailsComponent from "../../../components/penduduk-masuk-components/detail/dialog-details/dialog-details";
 import DialogUpdateComponent from "../../../components/penduduk-masuk-components/detail/dialog-update/dialog-update";
 import DialogDeleteComponent from "../../../components/penduduk-masuk-components/detail/dialog-delete/dialog-delete";
+import DialogDeleteAnggotaComponent from "../../../components/penduduk-masuk-components/detail/dialog-delete-anggota/dialog-delete";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import dataIsNull from "../../../assets/images/no-data-found.svg";
+import { GreyText } from "../../../components/typography/typography";
 
 const DetailPendudukMasukPage = ({ ...props }) => {
   const {
@@ -41,6 +44,8 @@ const DetailPendudukMasukPage = ({ ...props }) => {
   const classes = useStyles();
   const [openInsertModal, setOpenInsertModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openDialogDeleteAnggota, setOpenDialogDeleteAnggota] = useState(false);
+  const [idToDelete, setIdToDelete] = useState(null);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -53,6 +58,8 @@ const DetailPendudukMasukPage = ({ ...props }) => {
   }, [fetchKartuKeluargaPendudukMasukByID, paramsIdKepala]);
 
   const rows = anggotaPendudukMasuk;
+
+  console.log(rows.length === 0);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -68,6 +75,42 @@ const DetailPendudukMasukPage = ({ ...props }) => {
 
   return (
     <React.Fragment>
+      {rows.length === 0 ? (
+        isLoading ? null : (
+          <Box display="flex" flexDirection="column">
+            <Box>
+              <img
+                src={dataIsNull}
+                className={classes.dataIsNull}
+                alt="Data Not Found"
+              />
+            </Box>
+            <Box display="flex" marginTop={4} justifyContent="center">
+              <Typography className={classes.textIsNull}>
+                DATA ANGGOTA PENDUDUK MASUK KOSONG
+              </Typography>
+            </Box>
+            <Box display="flex" marginTop={2} justifyContent="center">
+              <GreyText
+                text="Silakan Tambah Kartu Keluarga Penduduk Masuk Terlebih Dahulu"
+                className={classes.textCons}
+              />
+            </Box>
+            <Box display="flex" marginTop={2} justifyContent="center">
+              <Button
+                color="primary"
+                component={Link}
+                to="/penduduk_masuk/insert/kk"
+                className={classes.textButton}
+                startIcon={<AddIcon />}
+                variant="contained"
+              >
+                Tambahkan KK
+              </Button>
+            </Box>
+          </Box>
+        )
+      ) : null}
       {isLoading ? (
         <Box marginTop={15}>
           <Box className={classes.isLoading}>
@@ -145,6 +188,8 @@ const DetailPendudukMasukPage = ({ ...props }) => {
                     page={page}
                     rowsPerPage={rowsPerPage}
                     emptyRows={emptyRows}
+                    setOpenDialogDeleteAnggota={setOpenDialogDeleteAnggota}
+                    setIdToDelete={setIdToDelete}
                   />
                 </Table>
               </TableContainer>
@@ -278,6 +323,13 @@ const DetailPendudukMasukPage = ({ ...props }) => {
         paramsIdKK={paramsIdKK}
         paramsIdKepala={paramsIdKepala}
         idKeteranganMasuk={keteranganMasuk}
+      />
+      <DialogDeleteAnggotaComponent
+        open={openDialogDeleteAnggota}
+        handleClose={setOpenDialogDeleteAnggota}
+        idToDelete={idToDelete}
+        paramsIdKepala={paramsIdKepala}
+        paramsIdKK={paramsIdKK}
       />
     </React.Fragment>
   );

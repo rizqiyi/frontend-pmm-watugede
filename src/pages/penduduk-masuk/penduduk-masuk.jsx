@@ -17,6 +17,8 @@ import { Skeleton } from "@material-ui/lab";
 import { useStyles } from "./penduduk-masuk.style";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
+import dataIsNull from "../../assets/images/no-data-found.svg";
+import { GreyText } from "../../components/typography/typography";
 
 const PendudukMasukPage = ({ ...props }) => {
   const { fetchKartuKeluargaPendudukMasuk, pendudukMasuk, isLoading } = props;
@@ -47,7 +49,7 @@ const PendudukMasukPage = ({ ...props }) => {
   return (
     <React.Fragment>
       <div className={classes.root}>
-        {/* {rows.length === 0 ? (
+        {rows.length === 0 ? (
           isLoading ? null : (
             <Box display="flex" flexDirection="column">
               <Box>
@@ -59,12 +61,12 @@ const PendudukMasukPage = ({ ...props }) => {
               </Box>
               <Box display="flex" marginTop={4} justifyContent="center">
                 <Typography className={classes.textIsNull}>
-                  DATA PENDUDUK KOSONG
+                  DATA PENDUDUK MASUK KOSONG
                 </Typography>
               </Box>
               <Box display="flex" marginTop={2} justifyContent="center">
                 <GreyText
-                  text="Silakan tambah data penduduk terlebih dahulu"
+                  text="Silakan tambah data penduduk masuk terlebih dahulu"
                   className={classes.textCons}
                 />
               </Box>
@@ -72,17 +74,17 @@ const PendudukMasukPage = ({ ...props }) => {
                 <Button
                   color="primary"
                   component={Link}
-                  to="/penduduk/insert"
+                  to="/penduduk_masuk/insert/kk"
                   className={classes.textButton}
                   startIcon={<AddIcon />}
                   variant="contained"
                 >
-                  Tambah Penduduk
+                  Tambah Kartu Keluarga
                 </Button>
               </Box>
             </Box>
           )
-        ) : null} */}
+        ) : null}
         {isLoading ? (
           <Box marginTop={15}>
             <Box className={classes.isLoading}>
