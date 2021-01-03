@@ -6,6 +6,7 @@ import {
   postKeteranganMasukURI,
   updateKeteranganMasukURI,
   deleteKeteranganMasukURI,
+  postPendudukToKKURI,
 } from "../../utilities/baseURL";
 import { returnInfos } from "../infos/info.actions";
 import { tokenConfig } from "../users/users.actions";
@@ -83,6 +84,31 @@ export const postKKPendudukMasuk = ({ ...request }) => (dispatch, getState) => {
           "POST_KK_PENDUDUK_MASUK_FAILED"
         )
       );
+    });
+};
+
+export const postPendudukMasukToKK = ({ ...requests }, id) => (
+  dispatch,
+  getState
+) => {
+  dispatch({
+    type: Types.START_REQUEST_PENDUDUK_MASUK,
+  });
+
+  const body = JSON.stringify({ ...requests });
+
+  axios
+    .post(postPendudukToKKURI(id), body, tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.POST_ANGGOTA_PENDUDUK_MASUK_SUCCESS,
+        payload: result.data.data,
+      });
+
+      dispatch(returnInfos(result.data.message, 201));
+    })
+    .catch((err) => {
+      dispatch(returnInfos(err.response.data.message, err.response.status));
     });
 };
 

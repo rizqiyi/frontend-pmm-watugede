@@ -23,6 +23,7 @@ const PendudukMasukTableBodyComponent = ({ ...props }) => {
             props.page * props.rowsPerPage + props.rowsPerPage
           )
           .map((row, index) => {
+            console.log(row);
             return (
               <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                 <TableCell align="left">{row.nik}</TableCell>

@@ -11,6 +11,7 @@ import PendudukInsertPage from "../pages/penduduk/insert/insert";
 import PendudukMasukPage from "../pages/penduduk-masuk/penduduk-masuk";
 import PendudukMasukInsertPage from "../pages/penduduk-masuk/insert/insert";
 import DetailPendudukMasukPage from "../pages/penduduk-masuk/details/details";
+import InsertPendudukMasukAnggotaPage from "../pages/penduduk-masuk/details/insert/insert";
 import PendudukKeluarPage from "../pages/penduduk-keluar/penduduk-keluar";
 import PendudukKeluarDetailPage from "../pages/penduduk-keluar/details/details";
 import { KelahiranPage } from "../pages/kelahiran/kelahiran";
@@ -66,12 +67,16 @@ const Navigations = () => {
               path="/penduduk/insert"
             />
             <PrivateRoute
+              component={InsertPendudukMasukAnggotaPage}
+              path="/penduduk_masuk/:id_kk/d/:id_kepala/insert"
+            />
+            <PrivateRoute
               component={DetailPendudukMasukPage}
               path="/penduduk_masuk/:id_kk/d/:id_kepala"
             />
             <PrivateRoute
               component={PendudukMasukInsertPage}
-              path="/penduduk_masuk/insert"
+              path="/penduduk_masuk/insert/kk"
             />
             <PrivateRoute
               component={PendudukMasukPage}

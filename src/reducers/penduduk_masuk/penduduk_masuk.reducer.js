@@ -38,6 +38,13 @@ export const pendudukMasukReducer = (state = initialState, action) => {
         penduduk_masuk_obj: action.payload,
       };
 
+    case Types.POST_ANGGOTA_PENDUDUK_MASUK_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        penduduk_masuk_obj: action.payload,
+      };
+
     case Types.POST_KET_PENDUDUK_MASUK_SUCCESS:
       return {
         ...state,

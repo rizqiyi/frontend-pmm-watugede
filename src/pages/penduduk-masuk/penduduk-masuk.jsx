@@ -130,7 +130,7 @@ const PendudukMasukPage = ({ ...props }) => {
                       <Button
                         color="primary"
                         component={Link}
-                        to="/penduduk_masuk/insert"
+                        to="/penduduk_masuk/insert/kk"
                         className={classes.textButton}
                         startIcon={<AddIcon />}
                         variant="contained"

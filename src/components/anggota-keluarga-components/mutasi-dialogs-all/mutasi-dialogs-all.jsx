@@ -85,7 +85,7 @@ const MutasiDialogAll = ({ ...props }) => {
                     type="submit"
                     className={classes.deleteButton}
                   >
-                    Hapus
+                    Mutasi
                   </Button>
                 </DialogActions>
               </Box>
