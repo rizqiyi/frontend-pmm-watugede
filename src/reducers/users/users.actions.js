@@ -13,7 +13,7 @@ export const loadAdmin = () => (dispatch, getState) => {
     .then((res) => {
       dispatch({
         type: userTypes.USER_LOADED,
-        payload: res.data,
+        payload: res.data.data,
       });
     })
     .catch((err) => {

@@ -4,6 +4,7 @@ const initialState = {
   activity: [],
   activity_obj: {},
   isLoading: false,
+  isLogout: false,
 };
 
 export const adminActivityReducer = (state = initialState, action) => {
@@ -11,7 +12,13 @@ export const adminActivityReducer = (state = initialState, action) => {
     case Types.START_REQUEST_ADMIN_ACTIVITY:
       return {
         ...state,
-        isLoading: false,
+        isLoading: true,
+      };
+
+    case Types.START_REQUEST_ADMIN_ACTIVITY_LOGOUT:
+      return {
+        ...state,
+        isLogout: true,
       };
 
     case Types.GET_ADMIN_ACTIVITY:
@@ -24,7 +31,7 @@ export const adminActivityReducer = (state = initialState, action) => {
     case Types.POST_ADMIN_LOGOUT_ACTIVITY:
       return {
         ...state,
-        isLoading: false,
+        isLogout: false,
         activity_obj: action.payload,
       };
 

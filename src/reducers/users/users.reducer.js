@@ -15,14 +15,6 @@ const usersReducer = (state = initialState, action) => {
         isLoading: true,
       };
 
-    // case Types.USER_LOADED:
-    //   return {
-    //     ...state,
-    //     isAuthenticated: true,
-    //     isLoading: false,
-    //     user: action.payload,
-    //   };
-
     case Types.LOGIN_SUCCESS:
     case Types.REGISTER_SUCCESS:
       localStorage.setItem("token", action.payload.token);
@@ -47,6 +39,7 @@ const usersReducer = (state = initialState, action) => {
         isAuthenticated: false,
         isLoading: false,
         isComplete: false,
+        id: null,
       };
 
     default:

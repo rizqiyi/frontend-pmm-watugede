@@ -29,7 +29,6 @@ export const AdminActivityPage = ({ ...props }) => {
     getDataAdminActivity();
   }, [getDataAdminActivity]);
   const rows = activity;
-  console.log(rows);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
