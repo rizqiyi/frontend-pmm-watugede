@@ -32,6 +32,7 @@ export const adminActivityReducer = (state = initialState, action) => {
       return {
         ...state,
         isLogout: false,
+        activity: [],
         activity_obj: action.payload,
       };
 

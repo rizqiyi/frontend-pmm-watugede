@@ -13,7 +13,7 @@ import { photoPath } from "../../../../helpers/getAvatars";
 import { useStyles } from "./dialog-details.style";
 
 const DialogDetailsComponent = ({ ...props }) => {
-  const { open, handleClose, data } = props;
+  const { open, handleClose, data, setOpenImageDetail } = props;
   const classes = useStyles();
   const fotoKK = photoPath(data ? data.foto_kk : "//");
   const fotoSuratMasuk = photoPath(data ? data.foto_surat_masuk : "//");
@@ -42,6 +42,10 @@ const DialogDetailsComponent = ({ ...props }) => {
                 <Box marginTop={1}>
                   <img
                     src={fotoKK}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpenImageDetail(fotoKK);
+                    }}
                     alt="Foto KK"
                     className={classes.controlImage}
                   />
@@ -57,6 +61,10 @@ const DialogDetailsComponent = ({ ...props }) => {
                 <Box marginTop={1}>
                   <img
                     src={fotoSuratMasuk}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpenImageDetail(fotoSuratMasuk);
+                    }}
                     alt="Foto Surat Masuk"
                     className={classes.controlImage}
                   />

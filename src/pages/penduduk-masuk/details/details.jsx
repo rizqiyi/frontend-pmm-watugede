@@ -28,6 +28,7 @@ import DialogDeleteAnggotaComponent from "../../../components/penduduk-masuk-com
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import dataIsNull from "../../../assets/images/no-data-found.svg";
 import { GreyText } from "../../../components/typography/typography";
+import { DetailImagesDialog } from "../../../components/penduduk-masuk-components/detail/detail-images/detail-images";
 
 const DetailPendudukMasukPage = ({ ...props }) => {
   const {
@@ -48,6 +49,7 @@ const DetailPendudukMasukPage = ({ ...props }) => {
   const [idToDelete, setIdToDelete] = useState(null);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
+  const [openImageDetail, setOpenImageDetail] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const paramsIdKepala = match.params.id_kepala;
@@ -298,6 +300,12 @@ const DetailPendudukMasukPage = ({ ...props }) => {
           </Paper>
         </Box>
       ) : null}
+      {openImageDetail && (
+        <DetailImagesDialog
+          setOpenImageDetail={setOpenImageDetail}
+          openImageDetail={openImageDetail}
+        />
+      )}
       <DialogInsertComponent
         open={openInsertModal}
         handleClose={setOpenInsertModal}
@@ -308,6 +316,7 @@ const DetailPendudukMasukPage = ({ ...props }) => {
         open={openDetailsModal}
         handleClose={setOpenDetailsModal}
         data={keteranganMasuk}
+        setOpenImageDetail={setOpenImageDetail}
       />
       <DialogUpdateComponent
         open={openUpdateModal}
