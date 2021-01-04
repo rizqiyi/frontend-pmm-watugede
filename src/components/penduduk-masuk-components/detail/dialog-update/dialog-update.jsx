@@ -38,7 +38,11 @@ const DialogUpdateComponent = ({ ...props }) => {
             enableReinitialize={true}
             onSubmit={(values, { resetForm }) => {
               const { data } = DataSet(values);
-              updateKeteranganMasuk(data, values.idKeteranganMasuk);
+              updateKeteranganMasuk(
+                data,
+                values.idKeteranganMasuk,
+                values.idKepala
+              );
               handleClose(false);
               resetForm({});
             }}

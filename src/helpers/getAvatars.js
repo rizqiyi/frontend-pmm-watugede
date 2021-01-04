@@ -1,7 +1,7 @@
 import { baseURL } from "../utilities/baseURL";
 
 export const photoPath = (imagePath) => {
-  if (imagePath === "//" || imagePath === undefined) {
+  if (imagePath === "//" || imagePath === undefined || imagePath === null) {
     return imagePath;
   }
   const splitPath = imagePath.split("\\");

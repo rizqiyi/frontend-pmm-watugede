@@ -220,15 +220,9 @@ export const updateKeteranganMasuk = (requests, id, idKepala) => (
         returnInfos(result.data.message, 200, "UPDATE_KETERANGAN_MASUK_OK")
       );
     })
-    .then(fetchKartuKeluargaPendudukMasukByID(idKepala))
+    .then(() => dispatch(fetchKartuKeluargaPendudukMasukByID(idKepala)))
     .catch((err) => {
-      dispatch(
-        returnInfos(
-          err.response.data.message,
-          400,
-          "UPDATE_KETERANGAN_MASUK_FAIL"
-        )
-      );
+      dispatch(returnInfos(err.response.data.message, err.response.status));
       dispatch(setLoadingPendudukMasukToFalse());
     });
 };
