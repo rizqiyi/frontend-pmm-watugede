@@ -57,9 +57,7 @@ export const ListItemsComponent = () => {
                     onClick={(event) => updateSelected(event, idx)}
                   >
                     <ListItemIcon className={classes.controlIcons}>
-                      {selected === idx
-                        ? list.icons.containedIcon
-                        : list.icons.outlinedIcon}
+                      {list.icons.outlinedIcon}
                     </ListItemIcon>
                     <ListItemText
                       primary={

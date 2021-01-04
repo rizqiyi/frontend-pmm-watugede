@@ -1,9 +1,10 @@
-import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
-import AccountBalanceWalletOutlinedIcon from "@material-ui/icons/AccountBalanceWalletOutlined";
-import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
-import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
-import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
-import AssignmentIndOutlinedIcon from "@material-ui/icons/AssignmentIndOutlined";
+import dashboardIcon from "../assets/icons/dashboard-icon.svg";
+import kelahiranIcon from "../assets/icons/kelahiran-icon.svg";
+import kematianIcon from "../assets/icons/kematian-icon.svg";
+import kartukeluargaIcon from "../assets/icons/kartukeluarga-icon.svg";
+import pendudukmasukIcon from "../assets/icons/pendudukmasuk-icon.svg";
+import pendudukkeluarIcon from "../assets/icons/pendudukkeluar-icon.svg";
+import activityIcon from "../assets/icons/activity-icon.svg";
 
 const listMenu = [
   {
@@ -11,8 +12,7 @@ const listMenu = [
     name: "Dashboard",
     link: "/",
     icons: {
-      outlinedIcon: <AccountBalanceWalletOutlinedIcon />,
-      containedIcon: <AccountBalanceWalletIcon />,
+      outlinedIcon: <img src={dashboardIcon} alt="dashboard-icon" />,
     },
   },
   {
@@ -20,8 +20,7 @@ const listMenu = [
     name: "Kelahiran",
     link: "/kelahiran",
     icons: {
-      outlinedIcon: <LibraryBooksOutlinedIcon />,
-      containedIcon: <LibraryBooksIcon />,
+      outlinedIcon: <img src={kelahiranIcon} alt="kelahiran-icon" />,
     },
   },
   {
@@ -29,8 +28,7 @@ const listMenu = [
     name: "Kematian",
     link: "/kematian",
     icons: {
-      outlinedIcon: <AssignmentIndOutlinedIcon />,
-      containedIcon: <AssignmentIndIcon />,
+      outlinedIcon: <img src={kematianIcon} alt="kematian-icon" />,
     },
   },
 
@@ -39,8 +37,7 @@ const listMenu = [
     name: "Kartu Keluarga",
     link: "/kartu_keluarga",
     icons: {
-      outlinedIcon: <AccountBalanceWalletOutlinedIcon />,
-      containedIcon: <AccountBalanceWalletIcon />,
+      outlinedIcon: <img src={kartukeluargaIcon} alt="kartukeluarga-icon" />,
     },
   },
   {
@@ -48,8 +45,7 @@ const listMenu = [
     name: "Penduduk Masuk",
     link: "/penduduk_masuk",
     icons: {
-      outlinedIcon: <AccountBalanceWalletOutlinedIcon />,
-      containedIcon: <AccountBalanceWalletIcon />,
+      outlinedIcon: <img src={pendudukmasukIcon} alt="pendudukmasuk-icon" />,
     },
   },
   {
@@ -57,8 +53,7 @@ const listMenu = [
     name: "Penduduk Keluar",
     link: "/penduduk_keluar",
     icons: {
-      outlinedIcon: <LibraryBooksOutlinedIcon />,
-      containedIcon: <LibraryBooksIcon />,
+      outlinedIcon: <img src={pendudukkeluarIcon} alt="pendudukkeluar-icon" />,
     },
   },
   {
@@ -66,8 +61,7 @@ const listMenu = [
     name: "Activity Logs",
     link: "/activity",
     icons: {
-      outlinedIcon: <AssignmentIndOutlinedIcon />,
-      containedIcon: <AssignmentIndIcon />,
+      outlinedIcon: <img src={activityIcon} alt="activity-icon" />,
     },
   },
 ];
