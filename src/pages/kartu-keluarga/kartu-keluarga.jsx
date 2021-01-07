@@ -114,58 +114,58 @@ const KartuKeluargaPage = ({ ...props }) => {
 
   return (
     <React.Fragment>
-      <Paper>
-        <Box p={3}>
+      {isLoading ? null : rows.length === 0 ? (
+        <Box display="flex" flexDirection="column" paddingBottom={5}>
           <Box>
-            <Typography variant="h6">Daftar Kartu Keluarga</Typography>
+            <img
+              src={dataIsNull}
+              className={classes.dataIsNull}
+              alt="Data Not Found"
+            />
           </Box>
-          {isLoading ? null : rows.length === 0 ? (
-            <Box display="flex" flexDirection="column" paddingBottom={5}>
-              <Box>
-                <img
-                  src={dataIsNull}
-                  className={classes.dataIsNull}
-                  alt="Data Not Found"
-                />
-              </Box>
-              <Box display="flex" marginTop={4} justifyContent="center">
-                <Typography className={classes.textIsNull}>
-                  DATA KARTU KELUARGA KOSONG
-                </Typography>
-              </Box>
-              <Box display="flex" marginTop={2} justifyContent="center">
-                <GreyText
-                  text="Silakan tambah data kartu keluarga melalui button dibawah ini"
-                  className={classes.textCons}
-                />
-              </Box>
-              <Box display="flex" marginTop={2} justifyContent="center">
-                <Button
-                  color="primary"
-                  component={Link}
-                  to="/kartu_keluarga/insert"
-                  className={classes.textButton}
-                  startIcon={<AddIcon />}
-                  variant="contained"
-                >
-                  Tambah Kartu Keluarga
-                </Button>
-              </Box>
-            </Box>
-          ) : null}
-          {isLoading ? (
-            <Box
-              p={3}
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              flexDirection="column"
+          <Box display="flex" marginTop={4} justifyContent="center">
+            <Typography className={classes.textIsNull}>
+              DATA KARTU KELUARGA KOSONG
+            </Typography>
+          </Box>
+          <Box display="flex" marginTop={2} justifyContent="center">
+            <GreyText
+              text="Silakan tambah data kartu keluarga melalui tombol dibawah ini"
+              className={classes.textCons}
+            />
+          </Box>
+          <Box display="flex" marginTop={2} justifyContent="center">
+            <Button
+              color="primary"
+              component={Link}
+              to="/kartu_keluarga/insert"
+              className={classes.textButton}
+              startIcon={<AddIcon />}
+              variant="contained"
             >
-              <Box className={classes.isLoading}>
-                <Skeleton height={300} width={1000} />
-              </Box>
+              Tambah Kartu Keluarga
+            </Button>
+          </Box>
+        </Box>
+      ) : null}
+      {isLoading ? (
+        <Box
+          p={3}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          flexDirection="column"
+        >
+          <Box className={classes.isLoading}>
+            <Skeleton height={300} width={1000} />
+          </Box>
+        </Box>
+      ) : rows.length !== 0 ? (
+        <Paper>
+          <Box p={3}>
+            <Box>
+              <Typography variant="h6">Daftar Kartu Keluarga</Typography>
             </Box>
-          ) : rows.length !== 0 ? (
             <Box>
               <Box
                 p={2}
@@ -333,9 +333,9 @@ const KartuKeluargaPage = ({ ...props }) => {
                 </React.Fragment>
               ) : null}
             </Box>
-          ) : null}
-        </Box>
-      </Paper>
+          </Box>
+        </Paper>
+      ) : null}
     </React.Fragment>
   );
 };

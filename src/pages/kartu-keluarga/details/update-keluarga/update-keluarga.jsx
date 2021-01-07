@@ -14,6 +14,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import { clearInfos } from "../../../../reducers/infos/info.actions";
 import { pendudukInsertValidation } from "../../../../validations/penduduk";
 import MutasiDialogPerson from "../../../../components/anggota-keluarga-components/mutasi-dialogs-person/mutasi-dialogs-person";
+import DialogKematianComponent from "../../../../components/anggota-keluarga-components/dialog-kematian/dialog-kematian";
 
 const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
   const {
@@ -26,6 +27,7 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
     updateAnggotaKeluarga,
     clearInfos,
     isLoadingPostPendudukKeluar,
+    isLoadingKematian,
   } = props;
 
   const paramsId = match.params.id;
@@ -33,6 +35,8 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
   const isFirstRender = useRef(true);
   const history = useHistory();
   const [dialogMutasiPerson, setDialogMutasiPerson] = useState(false);
+  const [dialogKematian, setDialogKematian] = useState(false);
+  const [dataToKematian, setDataToKematian] = useState([]);
   const [dataMutasiPerson, setDataMutasiPerson] = useState([]);
   const [nomorKartuKeluarga, setNomorKartuKeluarga] = useState([]);
 
@@ -52,9 +56,38 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
     <React.Fragment>
       <Paper className={classes.paper}>
         <Box p={3} paddingBottom={10}>
-          <Typography variant="h6">
-            Halaman Edit Data Anggota Keluarga
-          </Typography>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Box>
+              <Typography variant="h6">
+                Halaman Edit Data Anggota Keluarga
+              </Typography>
+            </Box>
+            <Box>
+              {isLoading ? (
+                <Skeleton width={250} height={70} />
+              ) : (
+                <Button
+                  variant="contained"
+                  className={classes.kematianButton}
+                  disabled={
+                    dataAnggotaKeluarga.status_penduduk === "penduduk_keluar"
+                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setDialogKematian(true);
+                    setDataToKematian(dataAnggotaKeluarga);
+                  }}
+                >
+                  Tambahkan ke Data Kematian
+                </Button>
+              )}
+            </Box>
+          </Box>
           <Box marginTop={2} marginBottom={2}>
             <Divider />
           </Box>
@@ -87,7 +120,9 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
           >
             {() => (
               <Form>
-                {isLoading || isLoadingPostPendudukKeluar ? (
+                {isLoading ||
+                isLoadingPostPendudukKeluar ||
+                isLoadingKematian ? (
                   <Skeleton animation="wave" width="90%" height={70} />
                 ) : infoStatus === 200 || infoStatus === 201 ? (
                   <Box width="90%">
@@ -95,7 +130,8 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
                   </Box>
                 ) : null}
                 {isLoading ||
-                isLoadingPostPendudukKeluar ? null : infoStatus === 400 ? (
+                isLoadingPostPendudukKeluar ||
+                isLoadingKematian ? null : infoStatus === 400 ? (
                   <Box width="90%">
                     <Alert icon={false} severity="error">
                       {infos}
@@ -357,6 +393,11 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
         handleClose={setDialogMutasiPerson}
         nomorKartuKeluarga={nomorKartuKeluarga}
       />
+      <DialogKematianComponent
+        handleClose={setDialogKematian}
+        open={dialogKematian}
+        data={dataToKematian}
+      />
     </React.Fragment>
   );
 };
@@ -368,6 +409,7 @@ const mapStateToProps = (state) => {
     infoStatus: state.infos.status,
     infos: state.infos.message,
     isLoadingPostPendudukKeluar: state.penduduk_keluar.isLoading,
+    isLoadingKematian: state.kematian.isLoading,
   };
 };
 

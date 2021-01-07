@@ -47,6 +47,18 @@ export const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.warning.main,
     },
   },
+  kematianButton: {
+    color: "#fff",
+    width: theme.spacing(34),
+    padding: "10px ",
+    borderRadius: 50,
+    fontWeight: 400,
+    textTransform: "inherit",
+    backgroundColor: "#607d8b",
+    "&:hover": {
+      backgroundColor: "#607d8b",
+    },
+  },
   constText: {
     color: theme.palette.grey.main,
     fontSize: 12,

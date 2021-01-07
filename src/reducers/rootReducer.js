@@ -9,6 +9,7 @@ import { anggotaKeluargaReducer } from "./anggota_keluarga/anggota_keluarga.redu
 import { pendudukKeluarReducer } from "./penduduk_keluar/penduduk_keluar.reducer";
 import { pendudukMasukReducer } from "./penduduk_masuk/penduduk_masuk.reducer";
 import { adminActivityReducer } from "./aktifitas_admin/admin_activity.reducer";
+import { kematianReducer } from "./kematian/kematian.reducer";
 
 const rootReducer = combineReducers({
   users: usersReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   anggota_keluarga: anggotaKeluargaReducer,
   penduduk_keluar: pendudukKeluarReducer,
   penduduk_masuk: pendudukMasukReducer,
+  kematian: kematianReducer,
   admin_activity: adminActivityReducer,
 });
 
