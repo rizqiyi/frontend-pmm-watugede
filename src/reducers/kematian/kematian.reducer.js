@@ -12,7 +12,7 @@ export const kematianReducer = (state = initialState, action) => {
     case Types.START_REQUEST_KEMATIAN:
       return {
         ...state,
-        isLoading: false,
+        isLoading: true,
       };
 
     case Types.FETCH_KEMATIAN_SUCCESS:

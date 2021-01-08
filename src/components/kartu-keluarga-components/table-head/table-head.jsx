@@ -5,7 +5,7 @@ import {
   TableSortLabel,
 } from "@material-ui/core";
 import React from "react";
-import { headCellsKartuKeluarga } from "../../../helpers/headCells";
+import { headCellsKartuKeluarga } from "../../../helpers/head-cells/kartu-keluarga";
 
 const KartuKeluargaTableHeadComponent = ({ ...props }) => {
   const { order, orderBy, classes, setOrder, setOrderBy } = props;

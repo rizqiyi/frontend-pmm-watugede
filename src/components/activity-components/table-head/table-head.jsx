@@ -5,7 +5,7 @@ import {
   TableSortLabel,
 } from "@material-ui/core";
 import React from "react";
-import { headCellsAktifitas } from "../../../helpers/headCells";
+import { headCellsAktifitas } from "../../../helpers/head-cells/aktifitas";
 
 const AdminActivityTableHeadComponent = ({ ...props }) => {
   const { order, orderBy, classes, setOrder, setOrderBy } = props;

@@ -5,9 +5,9 @@ import {
   TableSortLabel,
 } from "@material-ui/core";
 import React from "react";
-import { headCellsPengikutKeluar } from "../../../helpers/head-cells/penduduk-keluar";
+import { headCellsKematian } from "../../../helpers/head-cells/kematian";
 
-export const PendudukKeluarEnhancedTableHead = ({ ...props }) => {
+const KematianTableHeadComponent = ({ ...props }) => {
   const { order, orderBy, classes, setOrder, setOrderBy } = props;
 
   const createSortHandler = (property) => (event) => {
@@ -23,7 +23,7 @@ export const PendudukKeluarEnhancedTableHead = ({ ...props }) => {
   return (
     <TableHead>
       <TableRow>
-        {headCellsPengikutKeluar.map((headCell) => (
+        {headCellsKematian.map((headCell, idx) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? "left" : "left"}
@@ -48,3 +48,5 @@ export const PendudukKeluarEnhancedTableHead = ({ ...props }) => {
     </TableHead>
   );
 };
+
+export { KematianTableHeadComponent };
