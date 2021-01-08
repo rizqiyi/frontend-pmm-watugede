@@ -50,6 +50,8 @@ const postKeteranganMasukURI = (id) => `${initialURL.getPendudukMasuk}/${id}/p`;
 const postAdminLogoutURI = (id) => `${initialURL.activityURI}/${id}`;
 const postKematianURI = (id) => `${initialURL.kematianURI}/${id}`;
 const getDataKematianByIdURI = (id) => `${initialURL.kematianURI}/${id}`;
+const updateDataKematianByIdURI = (id) => `${initialURL.kematianURI}/${id}`;
+const deleteDataKematianByIdURI = (id) => `${initialURL.kematianURI}/${id}`;
 
 export {
   baseURL,
@@ -79,4 +81,6 @@ export {
   postAdminLogoutURI,
   postKematianURI,
   getDataKematianByIdURI,
+  updateDataKematianByIdURI,
+  deleteDataKematianByIdURI,
 };

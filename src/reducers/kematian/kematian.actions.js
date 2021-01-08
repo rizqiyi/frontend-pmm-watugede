@@ -4,6 +4,7 @@ import {
   postKematianURI,
   initialURL,
   getDataKematianByIdURI,
+  updateDataKematianByIdURI,
 } from "../../utilities/baseURL";
 import { tokenConfig } from "../users/users.actions";
 import { returnInfos } from "../infos/info.actions";
@@ -62,6 +63,39 @@ export const postKematian = ({ ...requests }, id) => (dispatch, getState) => {
         payload: result.data.data,
       });
       dispatch(returnInfos(result.data.message, 201));
+    })
+    .catch((err) => {
+      dispatch(returnInfos(err.response.data.message, err.response.status));
+    });
+};
+
+export const updateDataKematian = ({ ...requests }, id) => (
+  dispatch,
+  getState
+) => {
+  dispatch({
+    type: Types.START_REQUEST_KEMATIAN,
+  });
+
+  const body = JSON.stringify({ ...requests });
+
+  axios
+    .put(updateDataKematianByIdURI(id), body, tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.PUT_KEMATIAN_SUCCESS,
+        payload: result.data.data,
+      });
+    })
+    .then(() => {
+      dispatch(getDataKematianById(id));
+      dispatch(
+        returnInfos(
+          "Sukses memperbarui data kematian penduduk.",
+          200,
+          "PUT_DATA_KEMATIAN"
+        )
+      );
     })
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));

@@ -8,7 +8,7 @@ import {
   Menu,
   MenuItem,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useStyles } from "./details.style";
@@ -18,12 +18,15 @@ import DialogEditComponent from "../../../components/kematian-components/dialog-
 import DialogDeleteComponent from "../../../components/kematian-components/dialog-delete/dialog-delete";
 import DialogInsertComponent from "../../../components/kematian-components/arsip/dialog-insert/dialog-insert";
 import { getDataKematianById } from "../../../reducers/kematian/kematian.actions";
+import { Alert } from "@material-ui/lab";
+import { clearInfos } from "../../../reducers/infos/info.actions";
 
 export const KematianDetailsPage = ({ ...props }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
   const [openDialogInsert, setOpenDialogInsert] = useState(false);
+  const [dataToAct, setDataToAct] = useState([]);
   //   const [openDialogEditArsip, setOpenDialogEditArsip] = useState(false);
   //   const [openDialogDeleteArsip, setOpenDialogDeleteArsip] = useState(false);
   const {
@@ -32,12 +35,21 @@ export const KematianDetailsPage = ({ ...props }) => {
     dataKematian,
     isLoading,
     childDataKematian,
+    infosStatus,
+    infosMessage,
+    clearInfos,
   } = props;
   const paramsId = match.params.id;
   const classes = useStyles();
   const history = useHistory();
+  const isFirstRender = useRef(true);
+
   useEffect(() => {
-    getDataKematianById(paramsId);
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      clearInfos();
+      getDataKematianById(paramsId);
+    }
   }, [paramsId, getDataKematianById]);
 
   const handleClose = () => {
@@ -45,6 +57,13 @@ export const KematianDetailsPage = ({ ...props }) => {
   };
   return (
     <React.Fragment>
+      {infosStatus === 200 ? (
+        <Box marginBottom={2}>
+          <Alert severity="success" icon={false}>
+            {infosMessage}
+          </Alert>
+        </Box>
+      ) : null}
       <Paper
         style={{
           width: 900,
@@ -79,6 +98,7 @@ export const KematianDetailsPage = ({ ...props }) => {
                   onClick={() => {
                     handleClose();
                     setOpenDialogEdit(true);
+                    setDataToAct(dataKematian);
                   }}
                 >
                   Edit
@@ -87,6 +107,7 @@ export const KematianDetailsPage = ({ ...props }) => {
                   onClick={() => {
                     handleClose();
                     setOpenDialogDelete(true);
+                    setDataToAct(dataKematian);
                   }}
                 >
                   Hapus
@@ -141,6 +162,7 @@ export const KematianDetailsPage = ({ ...props }) => {
       <DialogEditComponent
         open={openDialogEdit}
         handleClose={setOpenDialogEdit}
+        data={dataToAct}
       />
       <DialogDeleteComponent
         open={openDialogDelete}
@@ -159,12 +181,16 @@ const mapStateToProps = (state) => {
     dataKematian: state.kematian.kematian_details,
     childDataKematian: state.kematian.kematian_obj,
     isLoading: state.kematian.isLoading,
+    infosStatus: state.infos.status,
+    infosMessage: state.infos.message,
+    infosId: state.infos.id,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getDataKematianById: (id) => dispatch(getDataKematianById(id)),
+    clearInfos: () => dispatch(clearInfos()),
   };
 };
 

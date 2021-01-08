@@ -49,7 +49,7 @@ export const kematianReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        kematian: action.payload,
+        kematian_details: action.payload,
       };
 
     case Types.PUT_ARSIP_KEMATIAN_SUCCESS:

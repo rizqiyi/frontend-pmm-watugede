@@ -11,9 +11,10 @@ import localization from "moment/locale/id";
 import { TextFormField } from "../../styled-textfield/styled-textfield";
 import React, { useState } from "react";
 import { useStyles } from "./dialog-edit.style";
+import { updateDataKematian } from "../../../reducers/kematian/kematian.actions";
 
 const DialogEditComponent = ({ ...props }) => {
-  const { open, handleClose } = props;
+  const { open, handleClose, updateDataKematian, data } = props;
   const [selectedDate, setSelectedDate] = useState(moment());
   const [inputValueDate, setInputValueDate] = useState(
     moment().locale("id", localization).format("LL")
@@ -43,13 +44,14 @@ const DialogEditComponent = ({ ...props }) => {
         <Box p={3}>
           <Formik
             initialValues={{
+              idData: data._id,
               tanggal_meninggal: inputValueDate,
-              tempat_meninggal: "",
-              penyebab_meninggal: "",
+              tempat_meninggal: data.tempat_meninggal,
+              penyebab_meninggal: data.penyebab_meninggal,
             }}
             enableReinitialize={true}
             onSubmit={(values) => {
-              console.log(values);
+              updateDataKematian(values, values.idData);
               handleClose(false);
             }}
           >
@@ -62,15 +64,37 @@ const DialogEditComponent = ({ ...props }) => {
                   <Divider />
                 </Box>
                 <Box marginBottom={1}>
+                  <Typography>
+                    *{" "}
+                    <span
+                      style={{
+                        fontSize: 12,
+                        textDecoration: "underline",
+                        fontStyle: "italic",
+                        fontWeight: 600,
+                      }}
+                    >
+                      Harap Memperhatikan Tanggal Meninggal Penduduk
+                    </span>
+                  </Typography>
                   <Typography
                     style={{
-                      fontSize: 12,
-                      textDecoration: "underline",
-                      fontStyle: "italic",
-                      fontWeight: 600,
+                      maxWidth: 400,
                     }}
                   >
-                    *Harap Memperhatikan Tanggal Meninggal Penduduk
+                    *{" "}
+                    <span
+                      style={{
+                        fontSize: 12,
+                        textDecoration: "underline",
+                        fontStyle: "italic",
+                        fontWeight: 600,
+                        marginTop: 10,
+                      }}
+                    >
+                      Anda dapat memperbarui data penduduk pada halaman edit
+                      penduduk.
+                    </span>
                   </Typography>
                 </Box>
                 <Box
@@ -168,7 +192,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    updateDataKematian: (requests, id) =>
+      dispatch(updateDataKematian(requests, id)),
+  };
 };
 
 export default connect(
