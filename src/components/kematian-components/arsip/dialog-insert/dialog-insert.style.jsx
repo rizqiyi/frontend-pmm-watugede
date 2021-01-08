@@ -1,32 +1,25 @@
 import { makeStyles } from "@material-ui/styles";
 
 export const useStyles = makeStyles((theme) => ({
-  controlInput: {
-    margin: "10px 0px",
-    width: theme.spacing(40),
+  input: {
+    display: "none",
   },
-  controlInputDate: {
-    margin: "12px 0px 20px 2px",
-    width: theme.spacing(40),
-  },
-  fontCons: {
-    color: theme.palette.grey.main,
-    fontSize: 13,
-  },
-  cancelButton: {
+  backButton: {
     color: "#8F8F8F",
     fontWeight: 500,
     width: theme.spacing(14),
-    padding: "10px",
+    padding: "8px",
     borderRadius: 50,
+    fontSize: 12,
     border: "2px solid rgba(143, 143, 143, 0.5)",
     textTransform: "inherit",
   },
   insertButton: {
     background: theme.palette.primary.main,
     color: "#fff",
-    width: theme.spacing(16),
-    padding: "11px",
+    width: theme.spacing(15),
+    fontSize: 12,
+    padding: "10px",
     fontWeight: 500,
     borderRadius: 50,
     textTransform: "inherit",

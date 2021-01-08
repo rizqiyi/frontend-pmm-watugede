@@ -1,8 +1,9 @@
 import { Box, Typography } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 import React from "react";
 import { useStyles } from "./details-data.style";
 
-export const DetailsDataComponent = () => {
+export const DetailsDataComponent = ({ childData, data, isLoading }) => {
   const classes = useStyles();
 
   return (
@@ -20,7 +21,11 @@ export const DetailsDataComponent = () => {
               <Typography className={classes.header}>Nama Lengkap</Typography>
             </Box>
             <Box marginTop={1} marginBottom={3}>
-              <Typography>John Doe</Typography>
+              {isLoading ? (
+                <Skeleton animation="wave" height={20} />
+              ) : (
+                <Typography>{childData.nama_lengkap}</Typography>
+              )}
             </Box>
           </Box>
           <Box>
@@ -28,7 +33,11 @@ export const DetailsDataComponent = () => {
               <Typography className={classes.header}>Umur</Typography>
             </Box>
             <Box marginTop={1} marginBottom={3}>
-              <Typography>100</Typography>
+              {isLoading ? (
+                <Skeleton animation="wave" height={20} />
+              ) : (
+                <Typography>{childData.umur}</Typography>
+              )}
             </Box>
           </Box>
           <Box>
@@ -36,7 +45,11 @@ export const DetailsDataComponent = () => {
               <Typography className={classes.header}>Alamat</Typography>
             </Box>
             <Box marginTop={1} maxWidth={230}>
-              <Typography>Jalan Singosari No 148 RT 5 RW 6</Typography>
+              {isLoading ? (
+                <Skeleton animation="wave" height={20} />
+              ) : (
+                <Typography>{childData.alamat_asal}</Typography>
+              )}
             </Box>
           </Box>
         </Box>
@@ -46,7 +59,11 @@ export const DetailsDataComponent = () => {
               <Typography className={classes.header}>Pekerjaan</Typography>
             </Box>
             <Box marginTop={1} marginBottom={3}>
-              <Typography>Wiraswasta</Typography>
+              {isLoading ? (
+                <Skeleton animation="wave" height={20} />
+              ) : (
+                <Typography>{childData.pekerjaan}</Typography>
+              )}
             </Box>
           </Box>
           <Box>
@@ -56,7 +73,11 @@ export const DetailsDataComponent = () => {
               </Typography>
             </Box>
             <Box marginTop={1} marginBottom={3}>
-              <Typography>Malang, 19 Agustus 2000</Typography>
+              {isLoading ? (
+                <Skeleton animation="wave" height={20} />
+              ) : (
+                <Typography>{childData.tempat_tanggal_lahir}</Typography>
+              )}
             </Box>
           </Box>
           <Box>
@@ -66,7 +87,11 @@ export const DetailsDataComponent = () => {
               </Typography>
             </Box>
             <Box marginTop={1}>
-              <Typography>S3</Typography>
+              {isLoading ? (
+                <Skeleton animation="wave" height={20} />
+              ) : (
+                <Typography>{childData.pendidikan_terakhir}</Typography>
+              )}
             </Box>
           </Box>
         </Box>
@@ -78,7 +103,11 @@ export const DetailsDataComponent = () => {
               </Typography>
             </Box>
             <Box marginTop={1} marginBottom={3}>
-              <Typography>9 Desember 2020</Typography>
+              {isLoading ? (
+                <Skeleton animation="wave" height={20} />
+              ) : (
+                <Typography>{data.tanggal_meninggal}</Typography>
+              )}
             </Box>
           </Box>
           <Box>
@@ -88,7 +117,11 @@ export const DetailsDataComponent = () => {
               </Typography>
             </Box>
             <Box marginTop={1} marginBottom={3}>
-              <Typography>Kalimantan</Typography>
+              {isLoading ? (
+                <Skeleton animation="wave" height={20} />
+              ) : (
+                <Typography>{data.tempat_meninggal}</Typography>
+              )}
             </Box>
           </Box>
           <Box>
@@ -98,7 +131,11 @@ export const DetailsDataComponent = () => {
               </Typography>
             </Box>
             <Box marginTop={1}>
-              <Typography>Sakit</Typography>
+              {isLoading ? (
+                <Skeleton animation="wave" height={20} />
+              ) : (
+                <Typography>{data.penyebab_meninggal}</Typography>
+              )}
             </Box>
           </Box>
         </Box>

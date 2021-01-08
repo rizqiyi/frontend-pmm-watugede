@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Paper,
-  Snackbar,
-  Typography,
-  useMediaQuery,
-} from "@material-ui/core";
+import { Box, Button, Paper, Snackbar, Typography } from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import { useStyles } from "./login.style";
 import {
@@ -27,8 +20,6 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
   const isFirstRender = useRef(true);
   const isError = useSelector((state) => state.infos);
   const isLoading = useSelector((state) => state.users.isLoading);
-  const matches = useMediaQuery("(max-width:1084px)");
-  console.log(matches);
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -76,7 +67,7 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
             <Box display="flex" justifyContent="center" alignItems="flex-end">
               <img
                 src={coverLogin}
-                style={{ marginBottom: "0px" }}
+                className={classes.coverLogin}
                 alt="Login Cover"
                 width="auto"
                 height="400px"
@@ -89,6 +80,7 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
               justifyContent="flex-start"
               margin="0 auto"
               p={2}
+              className={classes.rightContent}
             >
               <Box
                 marginTop={3}

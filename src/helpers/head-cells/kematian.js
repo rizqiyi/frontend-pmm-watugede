@@ -1,5 +1,10 @@
 export const headCellsKematian = [
-  { id: "nik", numeric: false, disablePadding: false, label: "NIK" },
+  {
+    id: "nik",
+    numeric: false,
+    disablePadding: false,
+    label: "NIK",
+  },
   {
     id: "nama_lengkap",
     numeric: false,

@@ -1,6 +1,10 @@
 import Types from "./kematian.types";
 import axios from "axios";
-import { postKematianURI, initialURL } from "../../utilities/baseURL";
+import {
+  postKematianURI,
+  initialURL,
+  getDataKematianByIdURI,
+} from "../../utilities/baseURL";
 import { tokenConfig } from "../users/users.actions";
 import { returnInfos } from "../infos/info.actions";
 
@@ -15,6 +19,27 @@ export const fetchDataKematian = () => (dispatch, getState) => {
       dispatch({
         type: Types.FETCH_KEMATIAN_SUCCESS,
         payload: result.data.data,
+      });
+    })
+    .catch((err) => {
+      dispatch(returnInfos(err.response.data.message, err.response.status));
+    });
+};
+
+export const getDataKematianById = (id) => (dispatch, getState) => {
+  dispatch({
+    type: Types.START_REQUEST_KEMATIAN,
+  });
+
+  axios
+    .get(getDataKematianByIdURI(id), tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.FETCH_KEMATIAN_BY_ID_SUCCESS,
+        payload: {
+          kematian: result.data.data,
+          child: result.data.data ? result.data.data.pemilik_data : [],
+        },
       });
     })
     .catch((err) => {

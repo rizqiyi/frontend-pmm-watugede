@@ -49,6 +49,8 @@ const deleteKeteranganMasukURI = (idKK, idKeteranganMasuk) =>
 const postKeteranganMasukURI = (id) => `${initialURL.getPendudukMasuk}/${id}/p`;
 const postAdminLogoutURI = (id) => `${initialURL.activityURI}/${id}`;
 const postKematianURI = (id) => `${initialURL.kematianURI}/${id}`;
+const getDataKematianByIdURI = (id) => `${initialURL.kematianURI}/${id}`;
+
 export {
   baseURL,
   initialURL,
@@ -76,4 +78,5 @@ export {
   deleteKeteranganMasukURI,
   postAdminLogoutURI,
   postKematianURI,
+  getDataKematianByIdURI,
 };

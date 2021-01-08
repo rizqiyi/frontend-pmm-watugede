@@ -10,13 +10,20 @@ export const useStyles = makeStyles((theme) => ({
       margin: "2rem auto 1rem auto",
       width: "80%",
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.between(0, 600)]: {
       margin: "2rem auto 2rem auto",
-      width: "fit-content",
+      width: "100%",
     },
   },
   linear: {
     width: "100%",
+  },
+  coverLogin: {
+    marginBottom: "0px",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      objectFit: "cover",
+    },
   },
   font: {
     fontWeight: 550,
@@ -29,10 +36,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   controlContent: {
     display: "flex",
-    [theme.breakpoints.up("sm")]: {
-      flexDirection: "row",
-    },
-    [theme.breakpoints.down("sm")]: {
+    flexDirection: "row",
+    [theme.breakpoints.between(300, 600)]: {
       flexDirection: "column",
     },
   },
@@ -47,9 +52,16 @@ export const useStyles = makeStyles((theme) => ({
   padding: {
     padding: "10px",
     [theme.breakpoints.down("sm")]: {
-      width: "max-content",
       margin: "0 auto",
       padding: "20px",
+    },
+  },
+  rightContent: {
+    paddingLeft: "50px",
+    paddingRight: "50px",
+    [theme.breakpoints.down("sm")]: {
+      paddingLeft: "30px",
+      paddingRight: "30px",
     },
   },
   controlButton: {
