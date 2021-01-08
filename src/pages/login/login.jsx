@@ -1,4 +1,11 @@
-import { Box, Button, Paper, Snackbar, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Paper,
+  Snackbar,
+  Typography,
+  useMediaQuery,
+} from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import { useStyles } from "./login.style";
 import {
@@ -20,6 +27,8 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
   const isFirstRender = useRef(true);
   const isError = useSelector((state) => state.infos);
   const isLoading = useSelector((state) => state.users.isLoading);
+  const matches = useMediaQuery("(max-width:1084px)");
+  console.log(matches);
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -61,80 +70,79 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
   return (
     <React.Fragment>
       {isLoading ? <LinearProgComponent /> : null}
-
-      <Paper className={classes.root}>
-        <Box display="flex" flexDirection="row">
-          <Box display="flex" justifyContent="center" alignItems="flex-end">
-            <img
-              src={coverLogin}
-              style={{ marginBottom: "0px" }}
-              alt="Login Cover"
-              width="auto"
-              height="400px"
-            />
-          </Box>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="flex-start"
-            justifyContent="flex-start"
-            margin="0 auto"
-            p={3}
-          >
-            <Box
-              marginTop={3}
-              display="flex"
-              flexDirection="column"
-              alignItems="flex-start"
-              justifyContent="flex-start"
-            >
-              <Typography variant="h5" className={classes.font}>
-                SELAMAT DATANG
-              </Typography>
-              <Typography variant="h6" className={classes.fontCons}>
-                Silahkan login terlebih dahulu untuk masuk kedalam sistem
-                kependudukan Desa Watugede
-              </Typography>
+      <Box className={classes.padding}>
+        <Paper className={classes.root}>
+          <Box className={classes.controlContent}>
+            <Box display="flex" justifyContent="center" alignItems="flex-end">
+              <img
+                src={coverLogin}
+                style={{ marginBottom: "0px" }}
+                alt="Login Cover"
+                width="auto"
+                height="400px"
+              />
             </Box>
             <Box
-              // marginTop={2}
               display="flex"
               flexDirection="column"
               alignItems="flex-start"
               justifyContent="flex-start"
-              className={classes.controlWidth}
-              p={3}
-              paddingLeft={0}
+              margin="0 auto"
+              p={2}
             >
-              <StyledTextField
-                label="Username"
-                name="username"
-                size="small"
-                onChange={change.bind(null, "username")}
-                className={classes.margin}
-                variant="filled"
-              />
-              <PasswordField
-                label="Password"
-                name="password"
-                size="small"
-                onChange={change.bind(null, "password")}
-                className={classes.margin}
-                variant="filled"
-              />
-              <Button
-                variant="contained"
-                className={classes.controlButton}
-                color="primary"
-                type="submit"
-                onClick={formik.handleSubmit}
+              <Box
+                marginTop={3}
+                display="flex"
+                flexDirection="column"
+                alignItems="flex-start"
+                justifyContent="flex-start"
               >
-                Login
-              </Button>
+                <Typography variant="h5" className={classes.font}>
+                  SELAMAT DATANG
+                </Typography>
+                <Typography variant="h6" className={classes.fontCons}>
+                  Silahkan login terlebih dahulu untuk masuk kedalam sistem
+                  kependudukan Desa Watugede
+                </Typography>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="flex-start"
+                justifyContent="flex-start"
+                p={3}
+                paddingLeft={0}
+              >
+                <StyledTextField
+                  label="Username"
+                  name="username"
+                  size="small"
+                  onChange={change.bind(null, "username")}
+                  className={classes.margin}
+                  variant="filled"
+                />
+                <PasswordField
+                  label="Password"
+                  name="password"
+                  size="small"
+                  onChange={change.bind(null, "password")}
+                  className={classes.margin}
+                  variant="filled"
+                />
+                <Button
+                  variant="contained"
+                  className={classes.controlButton}
+                  color="primary"
+                  type="submit"
+                  onClick={formik.handleSubmit}
+                >
+                  Login
+                </Button>
+              </Box>
             </Box>
           </Box>
-        </Box>
-      </Paper>
+        </Paper>
+      </Box>
       {isError.id === "LOGIN_FAIL" ? (
         <Snackbar
           anchorOrigin={{ vertical, horizontal }}
