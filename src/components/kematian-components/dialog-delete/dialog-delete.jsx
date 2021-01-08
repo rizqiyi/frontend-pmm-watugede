@@ -11,10 +11,11 @@ import {
 import { useStyles } from "./dialog-delete.style";
 import deleteDataImage from "../../../assets/images/delete-data.svg";
 import { Form, Formik } from "formik";
+import { deleteDataKematian } from "../../../reducers/kematian/kematian.actions";
 
 const DialogDeleteComponent = ({ ...props }) => {
   const classes = useStyles();
-  const { open, handleClose } = props;
+  const { open, handleClose, data, childData, deleteDataKematian } = props;
 
   return (
     <React.Fragment>
@@ -29,11 +30,11 @@ const DialogDeleteComponent = ({ ...props }) => {
       >
         <Formik
           initialValues={{
-            test: "",
+            idData: data._id,
           }}
           enableReinitialize={true}
           onSubmit={(values) => {
-            console.log(values);
+            deleteDataKematian(values.idData);
             handleClose(false);
           }}
         >
@@ -65,7 +66,7 @@ const DialogDeleteComponent = ({ ...props }) => {
                   <Typography className={classes.questionText}>
                     APAKAH ANDA YAKIN INGIN MENGHAPUS DATA KEMATIAN ATAS NAMA{" "}
                     <span style={{ textDecoration: "underline" }}>
-                      {``.toUpperCase()}
+                      {`${childData.nama_lengkap}`.toUpperCase()}
                     </span>{" "}
                     ?
                   </Typography>
@@ -108,7 +109,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    deleteDataKematian: (id) => dispatch(deleteDataKematian(id)),
+  };
 };
 
 export default connect(

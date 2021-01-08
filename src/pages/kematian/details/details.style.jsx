@@ -16,4 +16,21 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: 50,
     textTransform: "inherit",
   },
+  dataIsNull: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "0 auto",
+    marginTop: theme.spacing(4),
+  },
+  textIsNull: {
+    color: "black",
+    fontSize: "18px",
+    fontWeight: 500,
+  },
+  textCons: {
+    fontWeight: 350,
+    maxWidth: 350,
+    textAlign: "center",
+  },
 }));

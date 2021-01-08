@@ -5,6 +5,7 @@ import {
   initialURL,
   getDataKematianByIdURI,
   updateDataKematianByIdURI,
+  deleteDataKematianByIdURI,
 } from "../../utilities/baseURL";
 import { tokenConfig } from "../users/users.actions";
 import { returnInfos } from "../infos/info.actions";
@@ -38,13 +39,14 @@ export const getDataKematianById = (id) => (dispatch, getState) => {
       dispatch({
         type: Types.FETCH_KEMATIAN_BY_ID_SUCCESS,
         payload: {
-          kematian: result.data.data,
+          kematian: result.data.data ? result.data.data : [],
           child: result.data.data ? result.data.data.pemilik_data : [],
         },
       });
     })
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
+      dispatch(setLoadingToFalse());
     });
 };
 
@@ -66,6 +68,7 @@ export const postKematian = ({ ...requests }, id) => (dispatch, getState) => {
     })
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
+      dispatch(setLoadingToFalse());
     });
 };
 
@@ -99,5 +102,32 @@ export const updateDataKematian = ({ ...requests }, id) => (
     })
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
+      dispatch(setLoadingToFalse());
     });
+};
+
+export const deleteDataKematian = (id) => (dispatch, getState) => {
+  dispatch({
+    type: Types.START_REQUEST_KEMATIAN,
+  });
+
+  axios
+    .delete(deleteDataKematianByIdURI(id), tokenConfig(getState))
+    .then(() => {
+      dispatch({
+        type: Types.DELETE_KEMATIAN_SUCCESS,
+        payload: id,
+      });
+    })
+    .then(() => dispatch(getDataKematianById(id)))
+    .catch((err) => {
+      console.log(err);
+      dispatch(returnInfos(err.response.data.message, err.response.status));
+    });
+};
+
+const setLoadingToFalse = () => {
+  return {
+    type: Types.SET_LOADING_TO_FALSE_KEMATIAN,
+  };
 };

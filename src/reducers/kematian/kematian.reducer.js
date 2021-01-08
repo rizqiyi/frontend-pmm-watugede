@@ -63,10 +63,16 @@ export const kematianReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        kematian: state.kematian.filter((data) => data._id !== action.payload),
+        kematian_details: [],
       };
 
     case Types.DELETE_ARSIP_KEMATIAN_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
+
+    case Types.SET_LOADING_TO_FALSE_KEMATIAN:
       return {
         ...state,
         isLoading: false,
