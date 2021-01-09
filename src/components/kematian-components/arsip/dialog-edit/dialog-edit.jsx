@@ -3,15 +3,15 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { useStyles } from "./dialog-insert.style";
+import { useStyles } from "./dialog-edit.style";
 import { Form, Formik } from "formik";
 import { Box, FormHelperText, IconButton, Typography } from "@material-ui/core";
 import { PhotoCamera } from "@material-ui/icons";
-import { postArsipKematian } from "../../../../reducers/kematian/kematian.actions";
+import { updateArsipKematian } from "../../../../reducers/kematian/kematian.actions";
 
-const DialogInsertComponent = ({ ...props }) => {
+const DialogEditImageComponent = ({ ...props }) => {
   const classes = useStyles();
-  const { open, handleClose, postArsipKematian, idData } = props;
+  const { open, handleClose, data, idData, updateArsipKematian } = props;
 
   return (
     <React.Fragment>
@@ -25,18 +25,19 @@ const DialogInsertComponent = ({ ...props }) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Tambah Data Arsip Kematian"}
+          {"Perbarui Data Arsip Kematian"}
         </DialogTitle>
         <Box p={3}>
           <Formik
             initialValues={{
-              id: idData,
+              idData,
+              id: data,
               arsip_kematian: "",
             }}
             enableReinitialize={true}
             onSubmit={(values, { resetForm }) => {
               const { data } = DataSet(values);
-              postArsipKematian(data, values.id);
+              updateArsipKematian(data, values.id, values.idData);
               handleClose(false);
               resetForm({});
             }}
@@ -120,7 +121,7 @@ const DialogInsertComponent = ({ ...props }) => {
                     type="submit"
                     className={classes.insertButton}
                   >
-                    Tambahkan
+                    Perbarui
                   </Button>
                 </Box>
               </Form>
@@ -146,12 +147,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    postArsipKematian: (request, id) =>
-      dispatch(postArsipKematian(request, id)),
+    updateArsipKematian: (request, id, idData) =>
+      dispatch(updateArsipKematian(request, id, idData)),
   };
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DialogInsertComponent);
+)(DialogEditImageComponent);

@@ -7,7 +7,7 @@ export const DetailImagesDialog = ({ ...props }) => {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Fade appear={500} enter={500} in exit>
+      <Fade in>
         <Box
           className={classes.backdrop}
           onClick={(e) => {
@@ -16,7 +16,7 @@ export const DetailImagesDialog = ({ ...props }) => {
           }}
         >
           <img
-            src={openImageDetail}
+            src={openImageDetail.toString()}
             className={classes.imageModal}
             alt="enlarged pict"
           />

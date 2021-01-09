@@ -7,6 +7,7 @@ import {
   Button,
   Menu,
   MenuItem,
+  CircularProgress,
 } from "@material-ui/core";
 import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
@@ -22,25 +23,35 @@ import { Alert } from "@material-ui/lab";
 import { clearInfos } from "../../../reducers/infos/info.actions";
 import { GreyText } from "../../../components/typography/typography";
 import dataIsNull from "../../../assets/images/no-data-found.svg";
+import { DialogDetailsComponent } from "../../../components/kematian-components/arsip/dialog-detail/dialog-details";
+import { DetailImagesDialog } from "../../../components/kematian-components/arsip/detail-images/detail-images";
+import DialogEditImageComponent from "../../../components/kematian-components/arsip/dialog-edit/dialog-edit";
+import DialogDeleteImageComponent from "../../../components/kematian-components/arsip/dialog-delete/dialog-delete";
 
 export const KematianDetailsPage = ({ ...props }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElImage, setAnchorElImage] = useState(null);
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
   const [openDialogInsert, setOpenDialogInsert] = useState(false);
   const [dataToAct, setDataToAct] = useState([]);
-  //   const [openDialogEditArsip, setOpenDialogEditArsip] = useState(false);
-  //   const [openDialogDeleteArsip, setOpenDialogDeleteArsip] = useState(false);
+  const [openDialogDetailArsip, setOpenDialogDetailArsip] = useState(false);
+  const [openImageDetail, setOpenImageDetail] = useState(false);
+  const [openDialogEditArsip, setOpenDialogEditArsip] = useState(false);
+  const [openDialogDeleteArsip, setOpenDialogDeleteArsip] = useState(false);
+
   const {
     getDataKematianById,
     match,
     dataKematian,
     isLoading,
     childDataKematian,
+    arsipKematian,
     infosStatus,
     infosMessage,
     clearInfos,
   } = props;
+
   const paramsId = match.params.id;
   const classes = useStyles();
   const history = useHistory();
@@ -57,10 +68,15 @@ export const KematianDetailsPage = ({ ...props }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleCloseImage = () => {
+    setAnchorElImage(null);
+  };
+
   return (
     <React.Fragment>
-      {infosStatus === 200 ? (
-        <Box marginBottom={2}>
+      {infosStatus === 200 || infosStatus === 201 ? (
+        <Box width="72.5%" margin="0 auto 10px auto">
           <Alert severity="success" icon={false}>
             {infosMessage}
           </Alert>
@@ -88,7 +104,19 @@ export const KematianDetailsPage = ({ ...props }) => {
           </Box>
         </Box>
       ) : null}
-      {dataKematian.length === 0 ? null : (
+      {dataKematian.length === 0 ? (
+        isLoading ? (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            margin="0 auto"
+            marginTop="8rem"
+          >
+            <CircularProgress color="primary" />
+          </Box>
+        ) : null
+      ) : (
         <Paper
           style={{
             width: 900,
@@ -106,6 +134,8 @@ export const KematianDetailsPage = ({ ...props }) => {
               </Box>
               <Box>
                 <IconButton
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
                   onClick={(e) => {
                     setAnchorEl(e.currentTarget);
                   }}
@@ -154,22 +184,83 @@ export const KematianDetailsPage = ({ ...props }) => {
             <Box
               display="flex"
               flexDirection="row"
-              justifyContent="space-between"
+              justifyContent={isLoading ? "flex-end" : "space-between"}
               alignItems="center"
             >
-              <Box>
-                <Typography
-                  component={Link}
-                  className={classes.controlLink}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenDialogInsert(true);
-                  }}
-                  to="#!"
-                >
-                  Tambahkan Arsip Kematian
-                </Typography>
-              </Box>
+              {isLoading ? null : (
+                <Box>
+                  {dataKematian.arsip_kematian !== undefined ? (
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      alignItems="center"
+                      justifyContent="flex-start"
+                    >
+                      <Box>
+                        <IconButton
+                          size="small"
+                          color="primary"
+                          aria-controls="simple-menu"
+                          aria-haspopup="true"
+                          onClick={(e) => setAnchorElImage(e.currentTarget)}
+                        >
+                          <MoreVertIcon />
+                        </IconButton>
+                        <Menu
+                          id="simple-menu"
+                          anchorEl={anchorElImage}
+                          keepMounted
+                          open={Boolean(anchorElImage)}
+                          onClose={handleCloseImage}
+                        >
+                          <MenuItem
+                            onClick={() => {
+                              handleCloseImage();
+                              setOpenDialogEditArsip(true);
+                            }}
+                          >
+                            Edit
+                          </MenuItem>
+                          <MenuItem
+                            onClick={() => {
+                              handleCloseImage();
+                              setOpenDialogDeleteArsip(true);
+                            }}
+                          >
+                            Hapus
+                          </MenuItem>
+                        </Menu>
+                      </Box>
+                      <Box>
+                        <Typography
+                          component={Link}
+                          className={classes.controlLink}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setOpenDialogDetailArsip(true);
+                          }}
+                          to="#!"
+                        >
+                          Lihat Arsip Kematian
+                        </Typography>
+                      </Box>
+                    </Box>
+                  ) : null}
+                  {dataKematian.arsip_kematian !== undefined ? null : (
+                    <Typography
+                      component={Link}
+                      className={classes.controlLink}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setOpenDialogInsert(true);
+                      }}
+                      to="#!"
+                    >
+                      Tambahkan Arsip Kematian
+                    </Typography>
+                  )}
+                </Box>
+              )}
               <Box>
                 <Button
                   onClick={(e) => {
@@ -199,7 +290,33 @@ export const KematianDetailsPage = ({ ...props }) => {
       <DialogInsertComponent
         open={openDialogInsert}
         handleClose={setOpenDialogInsert}
+        idData={paramsId}
       />
+      <DialogDetailsComponent
+        open={openDialogDetailArsip}
+        handleClose={setOpenDialogDetailArsip}
+        data={arsipKematian}
+        setOpenImageDetail={setOpenImageDetail}
+      />
+      <DialogEditImageComponent
+        open={openDialogEditArsip}
+        handleClose={setOpenDialogEditArsip}
+        data={arsipKematian ? arsipKematian._id : ""}
+        idData={dataKematian._id}
+      />
+      <DialogDeleteImageComponent
+        open={openDialogDeleteArsip}
+        handleClose={setOpenDialogDeleteArsip}
+        dataPenduduk={childDataKematian}
+        dataArsip={arsipKematian ? arsipKematian._id : ""}
+        dataKematian={dataKematian}
+      />
+      {openImageDetail && (
+        <DetailImagesDialog
+          openImageDetail={openImageDetail}
+          setOpenImageDetail={setOpenImageDetail}
+        />
+      )}
     </React.Fragment>
   );
 };
@@ -208,6 +325,7 @@ const mapStateToProps = (state) => {
   return {
     dataKematian: state.kematian.kematian_details,
     childDataKematian: state.kematian.kematian_obj,
+    arsipKematian: state.kematian.arsip_kematian,
     isLoading: state.kematian.isLoading,
     infosStatus: state.infos.status,
     infosMessage: state.infos.message,

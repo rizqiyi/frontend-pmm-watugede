@@ -6,6 +6,7 @@ const initialState = {
   kematian_details: [],
   kematian_obj: {},
   arsip_kematian_obj: {},
+  arsip_kematian: [],
 };
 
 export const kematianReducer = (state = initialState, action) => {
@@ -29,6 +30,7 @@ export const kematianReducer = (state = initialState, action) => {
         isLoading: false,
         kematian_details: action.payload.kematian,
         kematian_obj: action.payload.child,
+        arsip_kematian: action.payload.arsip,
       };
 
     case Types.POST_KEMATIAN_SUCCESS:

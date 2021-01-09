@@ -13,6 +13,7 @@ const initialURL = {
   getPendudukMasuk: `${baseURL}api/penduduk_masuk`,
   getAndPostKartuKeluargaURI: `${baseURL}api/kartu_keluarga`,
   keteranganURI: `${baseURL}api/keterangan`,
+  arsipURI: `${baseURL}api/kematian/arsip`,
 };
 
 const getPendudukById = (id) => `${initialURL.pendudukURI}/${id}`;
@@ -52,6 +53,7 @@ const postKematianURI = (id) => `${initialURL.kematianURI}/${id}`;
 const getDataKematianByIdURI = (id) => `${initialURL.kematianURI}/${id}`;
 const updateDataKematianByIdURI = (id) => `${initialURL.kematianURI}/${id}`;
 const deleteDataKematianByIdURI = (id) => `${initialURL.kematianURI}/${id}`;
+const postArsipKematianURI = (id) => `${initialURL.arsipURI}/${id}`;
 
 export {
   baseURL,
@@ -83,4 +85,5 @@ export {
   getDataKematianByIdURI,
   updateDataKematianByIdURI,
   deleteDataKematianByIdURI,
+  postArsipKematianURI,
 };
