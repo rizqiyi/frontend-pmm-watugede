@@ -21,3 +21,35 @@ export const fetchKelahiran = () => (dispatch, getState) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
     });
 };
+
+export const postKelahiran = ({ ...requests }, onSuccess) => (
+  dispatch,
+  getState
+) => {
+  dispatch({
+    type: Types.START_REQUEST_KELAHIRAN,
+  });
+
+  const body = JSON.stringify({ ...requests });
+
+  axios
+    .post(initialURL.kelahiranURI, body, tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.POST_KELAHIRAN_SUCCESS,
+        payload: result.data.data,
+      });
+      dispatch(returnInfos(result.data.message, 201));
+    })
+    .then(() => onSuccess())
+    .catch((err) => {
+      dispatch(returnInfos(err.response.data.message, err.response.status));
+      dispatch(setLoadingToFalse());
+    });
+};
+
+const setLoadingToFalse = () => {
+  return {
+    type: Types.SET_LOADING_TO_FALSE_KELAHIRAN,
+  };
+};

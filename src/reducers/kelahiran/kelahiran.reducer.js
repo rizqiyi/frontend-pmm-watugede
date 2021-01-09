@@ -52,6 +52,12 @@ export const kelahiranReducer = (state = initialState, action) => {
         isLoading: false,
       };
 
+    case Types.SET_LOADING_TO_FALSE_KELAHIRAN:
+      return {
+        ...state,
+        isLoading: false,
+      };
+
     default:
       return state;
   }

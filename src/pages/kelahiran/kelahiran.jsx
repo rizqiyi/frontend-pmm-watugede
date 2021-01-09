@@ -62,12 +62,12 @@ const KelahiranPage = ({ ...props }) => {
               </Box>
               <Box display="flex" marginTop={4} justifyContent="center">
                 <Typography className={classes.textIsNull}>
-                  DATA PENDUDUK KOSONG
+                  DATA KELAHIRAN KOSONG
                 </Typography>
               </Box>
               <Box display="flex" marginTop={2} justifyContent="center">
                 <GreyText
-                  text="Silakan tambah data penduduk terlebih dahulu"
+                  text="Silakan tambah data kelahiran terlebih dahulu"
                   className={classes.textCons}
                 />
               </Box>
@@ -75,12 +75,12 @@ const KelahiranPage = ({ ...props }) => {
                 <Button
                   color="primary"
                   component={Link}
-                  to="/penduduk/insert"
+                  to="/kelahiran/insert"
                   className={classes.textButton}
                   startIcon={<AddIcon />}
                   variant="contained"
                 >
-                  Tambah Penduduk
+                  Tambah Data Kelahiran
                 </Button>
               </Box>
             </Box>
@@ -133,7 +133,7 @@ const KelahiranPage = ({ ...props }) => {
                         <Button
                           color="primary"
                           component={Link}
-                          to="/penduduk/insert"
+                          to="/kelahiran/insert"
                           className={classes.textButton}
                           startIcon={<AddIcon />}
                           variant="contained"

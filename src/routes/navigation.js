@@ -4,10 +4,7 @@ import { MiniDrawer } from "../components/drawer/drawer";
 import LoginPage from "../pages/login/login";
 import PrivateRoute from "./private-route";
 import PublicRoute from "./public-route";
-import PendudukDetailsPage from "../pages/penduduk/details/details";
 import DashboardPage from "../pages/dashboard/dashboard";
-import { PendudukPage } from "../pages/penduduk/penduduk";
-import PendudukInsertPage from "../pages/penduduk/insert/insert";
 import PendudukMasukPage from "../pages/penduduk-masuk/penduduk-masuk";
 import PendudukMasukInsertPage from "../pages/penduduk-masuk/insert/insert";
 import DetailPendudukMasukPage from "../pages/penduduk-masuk/details/details";
@@ -16,6 +13,8 @@ import UpdateAnggotaPendudukMasukPage from "../pages/penduduk-masuk/details/upda
 import PendudukKeluarPage from "../pages/penduduk-keluar/penduduk-keluar";
 import PendudukKeluarDetailPage from "../pages/penduduk-keluar/details/details";
 import KelahiranPage from "../pages/kelahiran/kelahiran";
+import KelahiranDetailsPage from "../pages/kelahiran/details/details";
+import KelahiranInsertPage from "../pages/kelahiran/insert-page/insert-page";
 import KematianPage from "../pages/kematian/kematian";
 import KematianDetailsPage from "../pages/kematian/details/details";
 import AdminActivityPage from "../pages/activity/activity";
@@ -59,15 +58,6 @@ const Navigations = () => {
               component={PendudukKeluarDetailPage}
               path="/penduduk_keluar/:id/d"
             />
-            <PrivateRoute component={PendudukPage} path="/penduduk" />
-            <PrivateRoute
-              component={PendudukDetailsPage}
-              path="/penduduk/:id/d"
-            />
-            <PrivateRoute
-              component={PendudukInsertPage}
-              path="/penduduk/insert"
-            />
             <PrivateRoute
               component={UpdateAnggotaPendudukMasukPage}
               path="/penduduk_masuk/a/:id/update"
@@ -91,6 +81,14 @@ const Navigations = () => {
             <PrivateRoute
               component={PendudukKeluarPage}
               path="/penduduk_keluar"
+            />
+            <PrivateRoute
+              component={KelahiranInsertPage}
+              path="/kelahiran/insert"
+            />
+            <PrivateRoute
+              component={KelahiranDetailsPage}
+              path="/kelahiran/:id/d"
             />
             <PrivateRoute component={KelahiranPage} path="/kelahiran" />
             <PrivateRoute

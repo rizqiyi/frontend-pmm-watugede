@@ -24,7 +24,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   textButton: {
     color: "#fff",
-    width: theme.spacing(26),
+    width: theme.spacing(30),
     padding: "10px",
     borderRadius: 50,
     fontWeight: 400,
