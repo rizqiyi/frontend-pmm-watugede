@@ -15,7 +15,7 @@ import InsertPendudukMasukAnggotaPage from "../pages/penduduk-masuk/details/inse
 import UpdateAnggotaPendudukMasukPage from "../pages/penduduk-masuk/details/update-data/update";
 import PendudukKeluarPage from "../pages/penduduk-keluar/penduduk-keluar";
 import PendudukKeluarDetailPage from "../pages/penduduk-keluar/details/details";
-import { KelahiranPage } from "../pages/kelahiran/kelahiran";
+import KelahiranPage from "../pages/kelahiran/kelahiran";
 import KematianPage from "../pages/kematian/kematian";
 import KematianDetailsPage from "../pages/kematian/details/details";
 import AdminActivityPage from "../pages/activity/activity";

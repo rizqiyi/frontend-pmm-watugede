@@ -8,6 +8,7 @@ import {
   Divider,
   TableContainer,
   IconButton,
+  CircularProgress,
 } from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
@@ -15,7 +16,6 @@ import { useStyles } from "./kartu-keluarga.style";
 import dataIsNull from "../../assets/images/no-data-found.svg";
 import { GreyText } from "../../components/typography/typography";
 import AddIcon from "@material-ui/icons/Add";
-import { Skeleton } from "@material-ui/lab";
 import { CSVLink } from "react-csv";
 import {
   clearResultSearch,
@@ -139,15 +139,12 @@ const KartuKeluargaPage = ({ ...props }) => {
       ) : null}
       {isLoading ? (
         <Box
-          p={3}
           display="flex"
           justifyContent="center"
           alignItems="center"
-          flexDirection="column"
+          margin="10rem auto 0px auto"
         >
-          <Box className={classes.isLoading}>
-            <Skeleton height={300} width={1000} />
-          </Box>
+          <CircularProgress color="primary" />
         </Box>
       ) : rows.length !== 0 ? (
         <Paper>

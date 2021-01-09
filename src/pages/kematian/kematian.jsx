@@ -5,6 +5,7 @@ import { useStyles } from "./kematian.style";
 import {
   Box,
   Button,
+  CircularProgress,
   Divider,
   Paper,
   Table,
@@ -16,7 +17,6 @@ import { KematianTableHeadComponent } from "../../components/kematian-components
 import KematianTableBodyComponent from "../../components/kematian-components/table-body/table-body";
 import dataIsNull from "../../assets/images/no-data-found.svg";
 import { GreyText } from "../../components/typography/typography";
-import { Skeleton } from "@material-ui/lab";
 
 const KematianPage = ({ ...props }) => {
   const { fetchDataKematian, dataKematian, isLoading } = props;
@@ -72,10 +72,13 @@ const KematianPage = ({ ...props }) => {
           )
         ) : null}
         {isLoading ? (
-          <Box marginTop={10}>
-            <Box className={classes.isLoading}>
-              <Skeleton height={350} width={1000} />
-            </Box>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            margin="10rem auto 0px auto"
+          >
+            <CircularProgress color="primary" />
           </Box>
         ) : rows.length !== 0 ? (
           <Box marginTop={3}>

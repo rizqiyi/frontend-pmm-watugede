@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import {
   Box,
   Button,
+  CircularProgress,
   Divider,
   Paper,
   Table,
@@ -13,7 +14,6 @@ import {
 } from "@material-ui/core";
 import { CSVLink } from "react-csv";
 import dataIsNull from "../../assets/images/no-data-found.svg";
-import { Skeleton } from "@material-ui/lab";
 import { useStyles } from "./penduduk-keluar.style";
 import { GreyText } from "../../components/typography/typography";
 import { getAllDataPendudukKeluar } from "../../reducers/penduduk_keluar/penduduk_keluar.actions";
@@ -95,16 +95,13 @@ const PendudukKeluarPage = ({ ...props }) => {
           )
         ) : null}
         {isLoading ? (
-          <Box marginTop={20}>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            margin="10rem auto 0px auto"
+          >
+            <CircularProgress color="primary" />
           </Box>
         ) : rows.length !== 0 ? (
           <Box marginTop={3} marginBottom={matches ? 10 : 2}>

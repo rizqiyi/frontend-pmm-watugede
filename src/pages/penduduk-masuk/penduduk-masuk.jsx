@@ -12,8 +12,8 @@ import {
   Table,
   TablePagination,
   Divider,
+  CircularProgress,
 } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
 import { useStyles } from "./penduduk-masuk.style";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
@@ -86,16 +86,13 @@ const PendudukMasukPage = ({ ...props }) => {
           )
         ) : null}
         {isLoading ? (
-          <Box marginTop={15}>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            margin="10rem auto 0px auto"
+          >
+            <CircularProgress color="primary" />
           </Box>
         ) : rows.length !== 0 ? (
           <Box marginTop={3}>

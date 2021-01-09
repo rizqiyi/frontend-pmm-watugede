@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getDataAdminActivity } from "../../reducers/aktifitas_admin/admin_activity.actions";
 import {
   Box,
+  CircularProgress,
   Divider,
   Paper,
   Table,
@@ -13,7 +14,6 @@ import {
 import { AdminActivityTableHeadComponent } from "../../components/activity-components/table-head/table-head";
 import AdminActivityTableBodyComponent from "../../components/activity-components/table-body/table-body";
 import { useStyles } from "./activity.style";
-import { Skeleton } from "@material-ui/lab";
 import activityIsNull from "../../assets/images/no-activity.svg";
 import { GreyText } from "../../components/typography/typography";
 
@@ -70,16 +70,13 @@ export const AdminActivityPage = ({ ...props }) => {
           )
         ) : null}
         {isLoading ? (
-          <Box marginTop={15}>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            margin="10rem auto 0px auto"
+          >
+            <CircularProgress color="primary" />
           </Box>
         ) : rows.length !== 0 ? (
           <Box marginTop={3}>

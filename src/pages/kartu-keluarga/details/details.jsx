@@ -7,6 +7,7 @@ import {
   TablePagination,
   Paper,
   Typography,
+  CircularProgress,
 } from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
@@ -14,7 +15,7 @@ import { AnggotaKeluargaTableHeadComponent } from "../../../components/anggota-k
 import AnggotaKeluargaTableBodyComponent from "../../../components/anggota-keluarga-components/table-body/table-body";
 import { getKartuKeluargaByID } from "../../../reducers/kartu_keluarga/kartu_keluarga.actions";
 import { useStyles } from "./details.style";
-import { Alert, Skeleton } from "@material-ui/lab";
+import { Alert } from "@material-ui/lab";
 import { CSVLink } from "react-csv";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
@@ -149,16 +150,13 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
           )
         ) : null}
         {isLoading ? (
-          <Box marginTop={20}>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            margin="10rem auto 0px auto"
+          >
+            <CircularProgress color="primary" />
           </Box>
         ) : rows.length !== 0 ? (
           <Box marginTop={3}>

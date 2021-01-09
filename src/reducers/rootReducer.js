@@ -10,6 +10,7 @@ import { pendudukKeluarReducer } from "./penduduk_keluar/penduduk_keluar.reducer
 import { pendudukMasukReducer } from "./penduduk_masuk/penduduk_masuk.reducer";
 import { adminActivityReducer } from "./aktifitas_admin/admin_activity.reducer";
 import { kematianReducer } from "./kematian/kematian.reducer";
+import { kelahiranReducer } from "./kelahiran/kelahiran.reducer";
 
 const rootReducer = combineReducers({
   users: usersReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   penduduk_keluar: pendudukKeluarReducer,
   penduduk_masuk: pendudukMasukReducer,
   kematian: kematianReducer,
+  kelahiran: kelahiranReducer,
   admin_activity: adminActivityReducer,
 });
 
