@@ -20,7 +20,6 @@ const DialogDeleteComponents = ({ ...props }) => {
     idToDelete,
     deleteAnggotaKeluarga,
     paramsIdKK,
-    idKepala,
   } = props;
   const classes = useStyles();
 
@@ -39,15 +38,10 @@ const DialogDeleteComponents = ({ ...props }) => {
           initialValues={{
             id: idToDelete._id,
             idKK: paramsIdKK,
-            idKepalaKeluarga: idKepala,
           }}
           enableReinitialize={true}
           onSubmit={(values) => {
-            deleteAnggotaKeluarga(
-              values.id,
-              values.idKK,
-              values.idKepalaKeluarga
-            );
+            deleteAnggotaKeluarga(values.id, values.idKK);
             handleClose(false);
           }}
         >

@@ -37,9 +37,7 @@ export const getKartuKeluargaByID = (id) => (dispatch, getState) => {
     .then((result) => {
       dispatch({
         type: Types.FETCH_KARTU_KELUARGA_SUCCESS_BY_ID,
-        payload: result.data.data
-          ? result.data.data.keluarga_dari.anggota_keluarga
-          : [],
+        payload: result.data.data ? result.data.data.anggota_keluarga : [],
       });
     })
     .catch((err) => {
@@ -59,7 +57,8 @@ export const getAllKartuKeluarga = () => (dispatch, getState) => {
       });
     })
     .catch((err) => {
-      dispatch(returnInfos(err.response.message, err.response.status));
+      console.log(err);
+      dispatch(returnInfos(err.response.data.message, err.response.status));
     });
 };
 

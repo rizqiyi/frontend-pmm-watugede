@@ -45,7 +45,7 @@ const Navigations = () => {
             />
             <PrivateRoute
               component={DetailKartuKeluargaInsertPage}
-              path="/kartu_keluarga/:id_kk/d/:id_kepala/i"
+              path="/kartu_keluarga/:id_kk/i"
             />
             <PrivateRoute
               component={DetailKartuKeluargaUpdatePage}
@@ -53,7 +53,7 @@ const Navigations = () => {
             />
             <PrivateRoute
               component={DetailKartuKeluargaPage}
-              path="/kartu_keluarga/:id_kk/d/:id_kepala"
+              path="/kartu_keluarga/:id_kk/d"
             />
             <PrivateRoute
               component={PendudukKeluarDetailPage}

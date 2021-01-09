@@ -76,7 +76,7 @@ export const updateAnggotaKeluarga = ({ ...request }, id) => (
     });
 };
 
-export const deleteAnggotaKeluarga = (idPenduduk, idKK, idKepalaKeluarga) => (
+export const deleteAnggotaKeluarga = (idPenduduk, idKK) => (
   dispatch,
   getState
 ) => {
@@ -93,7 +93,7 @@ export const deleteAnggotaKeluarga = (idPenduduk, idKK, idKepalaKeluarga) => (
       });
       dispatch(returnInfos(result.data.message, 200));
     })
-    .then(() => dispatch(getKartuKeluargaByID(idKepalaKeluarga)))
+    .then(() => dispatch(getKartuKeluargaByID(idKK)))
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
     });

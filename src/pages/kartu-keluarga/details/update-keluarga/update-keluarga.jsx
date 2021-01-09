@@ -68,7 +68,7 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
               </Typography>
             </Box>
             <Box>
-              {isLoading ? (
+              {isLoading || isLoadingKematian || isLoadingPostPendudukKeluar ? (
                 <Skeleton width={250} height={70} />
               ) : (
                 <Button
@@ -343,6 +343,9 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
                     <Box>
                       <Button
                         variant="contained"
+                        disabled={
+                          dataAnggotaKeluarga.status_penduduk === "meninggal"
+                        }
                         className={classes.mutasiButton}
                         onClick={(e) => {
                           e.preventDefault();

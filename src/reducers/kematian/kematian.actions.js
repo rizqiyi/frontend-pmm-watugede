@@ -10,6 +10,7 @@ import {
 } from "../../utilities/baseURL";
 import { tokenConfig } from "../users/users.actions";
 import { returnInfos } from "../infos/info.actions";
+import { fetchAnggotaKeluargaByID } from "../anggota_keluarga/anggota_keluarga.actions";
 
 export const fetchDataKematian = () => (dispatch, getState) => {
   dispatch({
@@ -68,6 +69,7 @@ export const postKematian = ({ ...requests }, id) => (dispatch, getState) => {
       });
       dispatch(returnInfos(result.data.message, 201));
     })
+    .then(() => dispatch(fetchAnggotaKeluargaByID(id)))
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
       dispatch(setLoadingToFalse());

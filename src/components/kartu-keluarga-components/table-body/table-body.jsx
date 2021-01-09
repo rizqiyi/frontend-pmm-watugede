@@ -141,20 +141,26 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
               .map((row, index) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                    <TableCell align="left">{row.nik}</TableCell>
-                    <TableCell align="left" className={classes.controlText}>
-                      {row.nama_lengkap}
-                    </TableCell>
-                    <TableCell align="left" className={classes.controlText}>
-                      {row.tempat_tanggal_lahir}
-                    </TableCell>
-                    <TableCell align="left">{row.umur}</TableCell>
-                    <TableCell align="left" className={classes.controlText}>
-                      {row.alamat_asal}
-                    </TableCell>
-                    <TableCell align="left">{row.jenis_kelamin}</TableCell>
                     <TableCell align="left">
-                      {row.keluarga_dari.anggota_keluarga.length}
+                      {row.anggota_keluarga[0].nik}
+                    </TableCell>
+                    <TableCell align="left" className={classes.controlText}>
+                      {row.anggota_keluarga[0].nama_lengkap}
+                    </TableCell>
+                    <TableCell align="left" className={classes.controlText}>
+                      {row.anggota_keluarga[0].tempat_tanggal_lahir}
+                    </TableCell>
+                    <TableCell align="left">
+                      {row.anggota_keluarga[0].umur}
+                    </TableCell>
+                    <TableCell align="left" className={classes.controlText}>
+                      {row.anggota_keluarga[0].alamat_asal}
+                    </TableCell>
+                    <TableCell align="left">
+                      {row.anggota_keluarga[0].jenis_kelamin}
+                    </TableCell>
+                    <TableCell align="left">
+                      {row.anggota_keluarga.length}
                     </TableCell>
                     <TableCell align="left">
                       {
@@ -162,7 +168,7 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                           <Typography variant="body2">
                             <Link
                               className={classes.controlLink}
-                              to={`/kartu_keluarga/${row.keluarga_dari._id}/d/${row._id}`}
+                              to={`/kartu_keluarga/${row._id}/d`}
                               color="primary"
                             >
                               Lihat Detail

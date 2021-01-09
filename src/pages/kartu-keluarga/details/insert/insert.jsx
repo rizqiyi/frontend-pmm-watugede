@@ -30,7 +30,6 @@ const DetailKartuKeluargaInsertPage = ({ ...props }) => {
     infos,
     clearInfos,
   } = props;
-  const paramsId = match.params.id_kepala;
   const paramsIdKK = match.params.id_kk;
   const isFirstRender = useRef(true);
 
@@ -280,7 +279,7 @@ const DetailKartuKeluargaInsertPage = ({ ...props }) => {
                     <Box marginRight={3}>
                       <Button
                         component={Link}
-                        to={`/kartu_keluarga/${paramsIdKK}/d/${paramsId}`}
+                        to={`/kartu_keluarga/${paramsIdKK}/d`}
                         className={classes.backButton}
                       >
                         Kembali

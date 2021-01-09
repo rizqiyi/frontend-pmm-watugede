@@ -14,6 +14,7 @@ import {
 import { tokenConfig } from "../users/users.actions";
 import { returnInfos } from "../infos/info.actions";
 import { getKartuKeluargaByID } from "../kartu_keluarga/kartu_keluarga.actions";
+import { fetchAnggotaKeluargaByID } from "../anggota_keluarga/anggota_keluarga.actions";
 
 export const getAllDataPendudukKeluar = () => (dispatch, getState) => {
   dispatch({
@@ -102,16 +103,14 @@ export const postPendudukKeluarData = (value, id) => (dispatch, getState) => {
         returnInfos(result.data.message, 201, "POST_PENGIKUT_KELUAR_SUCCESS")
       );
     })
+    .then(() => dispatch(fetchAnggotaKeluargaByID(id)))
     .catch((err) => {
       dispatch(isLoadingToFalse());
       dispatch(returnInfos(err.response.data.message, err.response.status));
     });
 };
 
-export const postManyPendudukKeluar = (idKK, idKepala) => (
-  dispatch,
-  getState
-) => {
+export const postManyPendudukKeluar = (idKK) => (dispatch, getState) => {
   dispatch({
     type: Types.START_REQUEST_PENDUDUK_KELUAR,
   });
@@ -134,7 +133,7 @@ export const postManyPendudukKeluar = (idKK, idKepala) => (
         )
       );
     })
-    .then(() => dispatch(getKartuKeluargaByID(idKepala)))
+    .then(() => dispatch(getKartuKeluargaByID(idKK)))
     .catch((err) => {
       dispatch(
         returnInfos(

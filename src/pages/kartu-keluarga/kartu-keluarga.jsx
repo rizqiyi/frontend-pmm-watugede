@@ -67,34 +67,23 @@ const KartuKeluargaPage = ({ ...props }) => {
     setSearch(event.target.value);
   };
 
-  const rows = kartuKeluarga.map((d) => d);
+  const rows = kartuKeluarga;
 
   let dataToExcel = [];
 
   kartuKeluarga.map((a) => {
-    const {
-      nik,
-      umur,
-      alamat_asal,
-      jenis_kelamin,
-      nama_lengkap,
-      agama,
-      tempat_tanggal_lahir,
-      posisi_dalam_keluarga,
-      status_perkawinan,
-    } = a;
-
     let sendToOuter = {
-      "Nomor Induk Keluarga": `=""${nik}""`,
-      "Nama Lengkap": nama_lengkap,
-      "Tempat Tanggal Lahir": tempat_tanggal_lahir,
-      Umur: umur,
-      Alamat: alamat_asal,
-      Agama: agama,
-      "Posisi Dalam Keluarga": posisi_dalam_keluarga,
-      "Status Perkawinan": status_perkawinan,
-      "Jenis Kelamin": jenis_kelamin,
-      "Anggota Keluarga": a.keluarga_dari.anggota_keluarga.length,
+      "Nomor Kartu Keluarga": `=""${a.no_kk}""`,
+      "Nomor Induk Keluarga": `=""${a.anggota_keluarga[0].nik}""`,
+      "Nama Lengkap": a.anggota_keluarga[0].nama_lengkap,
+      "Tempat Tanggal Lahir": a.anggota_keluarga[0].tempat_tanggal_lahir,
+      Umur: a.anggota_keluarga[0].umur,
+      Alamat: a.anggota_keluarga[0].alamat_asal,
+      Agama: a.anggota_keluarga[0].agama,
+      "Posisi Dalam Keluarga": a.anggota_keluarga[0].posisi_dalam_keluarga,
+      "Status Perkawinan": a.anggota_keluarga[0].status_perkawinan,
+      "Jenis Kelamin": a.anggota_keluarga[0].jenis_kelamin,
+      "Anggota Keluarga": a.anggota_keluarga.length,
     };
 
     return dataToExcel.push(sendToOuter);

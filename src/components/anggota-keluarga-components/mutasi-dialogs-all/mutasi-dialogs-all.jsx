@@ -13,7 +13,7 @@ import { postManyPendudukKeluar } from "../../../reducers/penduduk_keluar/pendud
 import { useStyles } from "./mutasi-dialogs-all.style";
 
 const MutasiDialogAll = ({ ...props }) => {
-  const { handleClose, open, postManyPendudukKeluar, idKK, idKepala } = props;
+  const { handleClose, open, postManyPendudukKeluar, idKK } = props;
   const classes = useStyles();
 
   return (
@@ -28,9 +28,9 @@ const MutasiDialogAll = ({ ...props }) => {
         aria-describedby="alert-dialog-description"
       >
         <Formik
-          initialValues={{ idKK, idKepala }}
+          initialValues={{ idKK }}
           onSubmit={(values) => {
-            postManyPendudukKeluar(values.idKK, values.idKepala);
+            postManyPendudukKeluar(values.idKK);
             handleClose(false);
           }}
         >
@@ -99,8 +99,7 @@ const MutasiDialogAll = ({ ...props }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    postManyPendudukKeluar: (idKK, idKepala) =>
-      dispatch(postManyPendudukKeluar(idKK, idKepala)),
+    postManyPendudukKeluar: (idKK) => dispatch(postManyPendudukKeluar(idKK)),
   };
 };
 

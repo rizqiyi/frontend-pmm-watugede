@@ -43,17 +43,16 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
   const [idToDelete, setIdToDelete] = useState([]);
   const [dialogMutasiAll, setDialogMutasiAll] = useState(false);
-  const paramsId = match.params.id_kepala;
   const paramsIdKK = match.params.id_kk;
   const isFirstRender = useRef(true);
 
   useEffect(() => {
     if (isFirstRender.current) {
       clearInfos();
-      getKartuKeluargaByID(paramsId);
+      getKartuKeluargaByID(paramsIdKK);
       isFirstRender.current = false;
     }
-  }, [paramsId, getKartuKeluargaByID, clearInfos]);
+  }, [paramsIdKK, getKartuKeluargaByID, clearInfos]);
 
   const rows = detailAnggotaKeluarga;
 
@@ -186,7 +185,7 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
                         data={dataToExcel}
                         className={classes.downloadButton}
                         disabled={rows.length === 0}
-                        filename="penduduk_keluar.csv"
+                        filename="anggota_keluarga.csv"
                       >
                         Unduh CSV
                       </Button>
@@ -195,7 +194,7 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
                       <Button
                         color="primary"
                         component={Link}
-                        to={`/kartu_keluarga/${paramsIdKK}/d/${paramsId}/i`}
+                        to={`/kartu_keluarga/${paramsIdKK}/i`}
                         className={classes.textButton}
                         startIcon={<AddIcon />}
                         variant="contained"
@@ -272,13 +271,11 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
         handleClose={setOpenDialogDelete}
         idToDelete={idToDelete}
         paramsIdKK={paramsIdKK}
-        idKepala={paramsId}
       />
       <MutasiDialogAll
         open={dialogMutasiAll}
         handleClose={setDialogMutasiAll}
         idKK={paramsIdKK}
-        idKepala={paramsId}
       />
     </React.Fragment>
   );
