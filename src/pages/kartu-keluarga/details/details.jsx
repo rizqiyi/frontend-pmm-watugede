@@ -158,110 +158,113 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
           >
             <CircularProgress color="primary" />
           </Box>
-        ) : rows.length !== 0 ? (
-          <Box marginTop={3}>
-            <Paper className={classes.paper}>
-              <Box p={3}>
-                <Box
-                  p={2}
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Box>
-                    <Typography variant="h6">
-                      Daftar Anggota Keluarga
-                    </Typography>
-                  </Box>
-                  <Box display="flex" flexDirection="row">
-                    <Box>
-                      <Button
-                        color="primary"
-                        size="small"
-                        component={CSVLink}
-                        data={dataToExcel}
-                        className={classes.downloadButton}
-                        disabled={rows.length === 0}
-                        filename="anggota_keluarga.csv"
-                      >
-                        Unduh CSV
-                      </Button>
-                    </Box>
-                    <Box>
-                      <Button
-                        color="primary"
-                        component={Link}
-                        to={`/kartu_keluarga/${paramsIdKK}/i`}
-                        className={classes.textButton}
-                        startIcon={<AddIcon />}
-                        variant="contained"
-                      >
-                        Tambah Anggota Keluarga
-                      </Button>
-                    </Box>
-                  </Box>
-                </Box>
-                <TableContainer>
-                  <Divider />
-                  <Table
-                    className={classes.table}
-                    aria-labelledby="tableTitle"
-                    aria-label="enhanced table"
+        ) : null}
+        {rows.length !== 0 ? (
+          isLoading ? null : (
+            <Box marginTop={3}>
+              <Paper className={classes.paper}>
+                <Box p={3}>
+                  <Box
+                    p={2}
+                    display="flex"
+                    flexDirection="row"
+                    justifyContent="space-between"
+                    alignItems="center"
                   >
-                    <AnggotaKeluargaTableHeadComponent
-                      classes={classes}
-                      order={order}
-                      orderBy={orderBy}
-                      setOrder={setOrder}
-                      setOrderBy={setOrderBy}
-                      rowCount={rows.length}
-                    />
-                    <AnggotaKeluargaTableBodyComponent
-                      rows={rows}
-                      order={order}
-                      orderBy={orderBy}
-                      page={page}
-                      setOpenDialogDelete={setOpenDialogDelete}
-                      setIdToDelete={setIdToDelete}
-                      rowsPerPage={rowsPerPage}
-                      emptyRows={emptyRows}
-                    />
-                  </Table>
-                </TableContainer>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Box>
-                    <Button
-                      variant="contained"
-                      className={classes.mutasiButton}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setDialogMutasiAll(true);
-                      }}
-                    >
-                      Mutasi
-                    </Button>
+                    <Box>
+                      <Typography variant="h6">
+                        Daftar Anggota Keluarga
+                      </Typography>
+                    </Box>
+                    <Box display="flex" flexDirection="row">
+                      <Box>
+                        <Button
+                          color="primary"
+                          size="small"
+                          component={CSVLink}
+                          data={dataToExcel}
+                          className={classes.downloadButton}
+                          disabled={rows.length === 0}
+                          filename="anggota_keluarga.csv"
+                        >
+                          Unduh CSV
+                        </Button>
+                      </Box>
+                      <Box>
+                        <Button
+                          color="primary"
+                          component={Link}
+                          to={`/kartu_keluarga/${paramsIdKK}/i`}
+                          className={classes.textButton}
+                          startIcon={<AddIcon />}
+                          variant="contained"
+                        >
+                          Tambah Anggota Keluarga
+                        </Button>
+                      </Box>
+                    </Box>
                   </Box>
-                  <Box>
-                    <TablePagination
-                      rowsPerPageOptions={[5, 10, 25]}
-                      component="div"
-                      count={rows.length}
-                      rowsPerPage={rowsPerPage}
-                      page={page}
-                      onChangePage={handleChangePage}
-                      onChangeRowsPerPage={handleChangeRowsPerPage}
-                    />
+                  <TableContainer>
+                    <Divider />
+                    <Table
+                      className={classes.table}
+                      aria-labelledby="tableTitle"
+                      aria-label="enhanced table"
+                    >
+                      <AnggotaKeluargaTableHeadComponent
+                        classes={classes}
+                        order={order}
+                        orderBy={orderBy}
+                        setOrder={setOrder}
+                        setOrderBy={setOrderBy}
+                        rowCount={rows.length}
+                      />
+                      <AnggotaKeluargaTableBodyComponent
+                        rows={rows}
+                        order={order}
+                        orderBy={orderBy}
+                        page={page}
+                        setOpenDialogDelete={setOpenDialogDelete}
+                        setIdToDelete={setIdToDelete}
+                        rowsPerPage={rowsPerPage}
+                        emptyRows={emptyRows}
+                      />
+                    </Table>
+                  </TableContainer>
+                  <Box
+                    display="flex"
+                    flexDirection="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <Box>
+                      <Button
+                        variant="contained"
+                        className={classes.mutasiButton}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setDialogMutasiAll(true);
+                        }}
+                      >
+                        Mutasi
+                      </Button>
+                    </Box>
+                    <Box>
+                      <TablePagination
+                        rowsPerPageOptions={[5, 10, 25]}
+                        component="div"
+                        count={rows.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onChangePage={handleChangePage}
+                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                      />
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
-            </Paper>
-          </Box>
+              </Paper>
+            </Box>
+          )
         ) : null}
       </div>
       <DialogDeleteComponents

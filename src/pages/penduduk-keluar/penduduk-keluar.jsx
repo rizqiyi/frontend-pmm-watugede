@@ -103,71 +103,76 @@ const PendudukKeluarPage = ({ ...props }) => {
           >
             <CircularProgress color="primary" />
           </Box>
-        ) : rows.length !== 0 ? (
-          <Box marginTop={3} marginBottom={matches ? 10 : 2}>
-            <Paper className={classes.paper}>
-              <Box p={3}>
-                <Box
-                  p={2}
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Box>
-                    <Typography variant="h6">Daftar Penduduk Keluar</Typography>
-                  </Box>
-                  <Box>
-                    <Button
-                      color="primary"
-                      size="small"
-                      component={CSVLink}
-                      data={dataToExcel}
-                      className={classes.downloadButton}
-                      disabled={rows.length === 0}
-                      filename="penduduk_keluar.csv"
-                    >
-                      Unduh CSV
-                    </Button>
-                  </Box>
-                </Box>
-                <TableContainer>
-                  <Divider />
-                  <Table
-                    className={classes.table}
-                    aria-labelledby="tableTitle"
-                    aria-label="enhanced table"
+        ) : null}
+        {rows.length !== 0 ? (
+          isLoading ? null : (
+            <Box marginTop={3} marginBottom={matches ? 10 : 2}>
+              <Paper className={classes.paper}>
+                <Box p={3}>
+                  <Box
+                    p={2}
+                    display="flex"
+                    flexDirection="row"
+                    justifyContent="space-between"
+                    alignItems="center"
                   >
-                    <PendudukKeluarEnhancedTableHead
-                      classes={classes}
-                      order={order}
-                      orderBy={orderBy}
-                      setOrder={setOrder}
-                      setOrderBy={setOrderBy}
-                      rowCount={rows.length}
-                    />
-                    <PendudukKeluarTableBodyComponent
-                      rows={rows}
-                      order={order}
-                      orderBy={orderBy}
-                      page={page}
-                      rowsPerPage={rowsPerPage}
-                      emptyRows={emptyRows}
-                    />
-                  </Table>
-                </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25]}
-                  component="div"
-                  count={rows.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onChangePage={handleChangePage}
-                  onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-              </Box>
-            </Paper>
-          </Box>
+                    <Box>
+                      <Typography variant="h6">
+                        Daftar Penduduk Keluar
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Button
+                        color="primary"
+                        size="small"
+                        component={CSVLink}
+                        data={dataToExcel}
+                        className={classes.downloadButton}
+                        disabled={rows.length === 0}
+                        filename="penduduk_keluar.csv"
+                      >
+                        Unduh CSV
+                      </Button>
+                    </Box>
+                  </Box>
+                  <TableContainer>
+                    <Divider />
+                    <Table
+                      className={classes.table}
+                      aria-labelledby="tableTitle"
+                      aria-label="enhanced table"
+                    >
+                      <PendudukKeluarEnhancedTableHead
+                        classes={classes}
+                        order={order}
+                        orderBy={orderBy}
+                        setOrder={setOrder}
+                        setOrderBy={setOrderBy}
+                        rowCount={rows.length}
+                      />
+                      <PendudukKeluarTableBodyComponent
+                        rows={rows}
+                        order={order}
+                        orderBy={orderBy}
+                        page={page}
+                        rowsPerPage={rowsPerPage}
+                        emptyRows={emptyRows}
+                      />
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                  />
+                </Box>
+              </Paper>
+            </Box>
+          )
         ) : null}
       </div>
     </React.Fragment>

@@ -6,7 +6,9 @@ import persistedReducer from "../reducers/rootReducer";
 
 let store = createStore(
   persistedReducer,
-  composeWithDevTools(applyMiddleware(thunk))
+  process.env.NODE_ENV === "production"
+    ? applyMiddleware(thunk)
+    : composeWithDevTools(applyMiddleware(thunk))
 );
 
 let persistor = persistStore(store);
