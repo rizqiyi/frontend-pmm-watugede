@@ -10,4 +10,31 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: 50,
     textTransform: "inherit",
   },
+  textIsNull: {
+    color: "black",
+    fontSize: "18px",
+    fontWeight: 500,
+  },
+  textButton: {
+    color: "#fff",
+    width: theme.spacing(30),
+    padding: "10px",
+    borderRadius: 50,
+    fontWeight: 400,
+    textTransform: "inherit",
+    marginBottom: 4,
+    "&:hover": {
+      backgroundColor: "#1E94F8",
+    },
+  },
+  textCons: {
+    fontWeight: 350,
+  },
+  dataIsNull: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "0 auto",
+    marginTop: theme.spacing(7),
+  },
 }));

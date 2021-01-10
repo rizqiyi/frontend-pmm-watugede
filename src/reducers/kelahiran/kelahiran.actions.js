@@ -1,5 +1,10 @@
 import axios from "axios";
-import { initialURL, fetchKelahiranByIdURI } from "../../utilities/baseURL";
+import {
+  initialURL,
+  fetchKelahiranByIdURI,
+  deleteKelahiranByIdURI,
+  updateKelahiranByIdURI,
+} from "../../utilities/baseURL";
 import { returnInfos } from "../infos/info.actions";
 import { tokenConfig } from "../users/users.actions";
 import Types from "./kelahiran.types";
@@ -33,7 +38,7 @@ export const fetchKelahiranId = (id) => (dispatch, getState) => {
       dispatch({
         type: Types.FETCH_KELAHIRAN_BY_ID_SUCCESS,
         payload: {
-          kelahiran: result.data.data,
+          kelahiran: result.data.data ? result.data.data : [],
           data_ayah: result.data.data ? result.data.data.data_ayah : [],
           data_ibu: result.data.data ? result.data.data.data_ibu : [],
         },
@@ -41,6 +46,7 @@ export const fetchKelahiranId = (id) => (dispatch, getState) => {
     })
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
+      if (err.response.status === 404) dispatch(setLoadingToFalse());
     });
 };
 
@@ -67,6 +73,51 @@ export const postKelahiran = ({ ...requests }, onSuccess) => (
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
       dispatch(setLoadingToFalse());
+    });
+};
+
+export const updateKelahiran = ({ ...requests }, id) => (
+  dispatch,
+  getState
+) => {
+  dispatch({
+    type: Types.START_REQUEST_KELAHIRAN,
+  });
+
+  const body = JSON.stringify({ ...requests });
+
+  axios
+    .put(updateKelahiranByIdURI(id), body, tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.PUT_KELAHIRAN_SUCCESS,
+        payload: result.data.data,
+      });
+      dispatch(returnInfos(result.data.message, 200, "UPDATE"));
+    })
+    .then(() => dispatch(fetchKelahiranId(id)))
+    .catch((err) => {
+      dispatch(returnInfos(err.response.data.message, err.response.status));
+    });
+};
+
+export const deleteDataKelahiran = (id) => (dispatch, getState) => {
+  dispatch({
+    type: Types.START_REQUEST_KELAHIRAN,
+  });
+
+  axios
+    .delete(deleteKelahiranByIdURI(id), tokenConfig(getState))
+    .then((result) => {
+      dispatch({
+        type: Types.DELETE_KELAHIRAN_SUCCESS,
+        payload: id,
+      });
+      dispatch(returnInfos(result.data.message, 200));
+    })
+    .then(() => dispatch(fetchKelahiranId(id)))
+    .catch((err) => {
+      dispatch(returnInfos(err.response.data.message, err.response.status));
     });
 };
 

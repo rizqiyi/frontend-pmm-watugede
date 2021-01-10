@@ -2,7 +2,7 @@ import Types from "./kelahiran.types";
 
 const initialState = {
   kelahiran: [],
-  kelahiran_obj: {},
+  kelahiran_obj: [],
   data_ayah: {},
   data_ibu: {},
   isLoading: false,
@@ -50,6 +50,7 @@ export const kelahiranReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        kelahiran_obj: [],
       };
 
     case Types.SET_LOADING_TO_FALSE_KELAHIRAN:
