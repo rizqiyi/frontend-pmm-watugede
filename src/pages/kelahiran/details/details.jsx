@@ -55,8 +55,6 @@ const KelahiranDetailsPage = ({ ...props }) => {
     fetchKelahiranId(paramsId);
   }, [paramsId, fetchKelahiranId, clearInfos]);
 
-  console.log(dataKelahiran);
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
