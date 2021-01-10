@@ -58,6 +58,7 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
   const rows = detailAnggotaKeluarga;
 
   let dataToExcel = [];
+  let statusPenduduk = [];
 
   rows.map((a) => {
     const {
@@ -70,6 +71,7 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
       tempat_tanggal_lahir,
       posisi_dalam_keluarga,
       status_perkawinan,
+      status_penduduk,
     } = a;
 
     let sendToOuter = {
@@ -83,6 +85,8 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
       "Status Perkawinan": status_perkawinan,
       "Jenis Kelamin": jenis_kelamin,
     };
+
+    statusPenduduk.push(status_penduduk);
 
     return dataToExcel.push(sendToOuter);
   });
@@ -240,6 +244,7 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
                     <Box>
                       <Button
                         variant="contained"
+                        disabled={statusPenduduk.includes("meninggal")}
                         className={classes.mutasiButton}
                         onClick={(e) => {
                           e.preventDefault();

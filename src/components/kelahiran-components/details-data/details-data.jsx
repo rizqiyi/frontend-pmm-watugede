@@ -1,9 +1,19 @@
 import { Box, Typography } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 import React from "react";
+import { Link } from "react-router-dom";
 import { useStyles } from "./details-data.style";
 
-export const DetailsDataComponent = () => {
+export const DetailsDataComponent = ({ ...props }) => {
   const classes = useStyles();
+  const {
+    isLoading,
+    dataKelahiran,
+    dataAyah,
+    dataIbu,
+    setOpenDialogDetails,
+    setDataToDialog,
+  } = props;
 
   return (
     <React.Fragment>
@@ -22,7 +32,11 @@ export const DetailsDataComponent = () => {
               <Typography className={classes.header}>NIK</Typography>
             </Box>
             <Box>
-              <Typography>32112312312312323</Typography>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography>{dataKelahiran.nik}</Typography>
+              )}
             </Box>
           </Box>
           <Box marginBottom={4}>
@@ -30,7 +44,11 @@ export const DetailsDataComponent = () => {
               <Typography className={classes.header}>Nama Lengkap</Typography>
             </Box>
             <Box>
-              <Typography>Ferro Febrianto</Typography>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography>{dataKelahiran.nama}</Typography>
+              )}
             </Box>
           </Box>
           <Box marginBottom={4}>
@@ -38,7 +56,11 @@ export const DetailsDataComponent = () => {
               <Typography className={classes.header}>Jenis Kelamin</Typography>
             </Box>
             <Box>
-              <Typography>Laki laki</Typography>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography>{dataKelahiran.jenis_kelamin}</Typography>
+              )}
             </Box>
           </Box>
         </Box>
@@ -48,7 +70,11 @@ export const DetailsDataComponent = () => {
               <Typography className={classes.header}>Tempat Lahir</Typography>
             </Box>
             <Box>
-              <Typography>Gondanglegi</Typography>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography>{dataKelahiran.tempat_lahir}</Typography>
+              )}
             </Box>
           </Box>
           <Box marginBottom={4}>
@@ -56,7 +82,11 @@ export const DetailsDataComponent = () => {
               <Typography className={classes.header}>Tanggal Lahir</Typography>
             </Box>
             <Box>
-              <Typography>2 Februari 1945</Typography>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography>{dataKelahiran.tanggal_lahir}</Typography>
+              )}
             </Box>
           </Box>
           <Box marginBottom={4}>
@@ -64,17 +94,25 @@ export const DetailsDataComponent = () => {
               <Typography className={classes.header}>Agama</Typography>
             </Box>
             <Box>
-              <Typography>Islam</Typography>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography>{dataKelahiran.agama}</Typography>
+              )}
             </Box>
           </Box>
         </Box>
         <Box>
           <Box marginBottom={4}>
             <Box>
-              <Typography className={classes.header}>Data dibuat</Typography>
+              <Typography className={classes.header}>Pelapor</Typography>
             </Box>
             <Box>
-              <Typography>12 Desember 2020</Typography>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography>{dataKelahiran.hubungan_pelapor}</Typography>
+              )}
             </Box>
           </Box>
           <Box marginBottom={4}>
@@ -82,7 +120,22 @@ export const DetailsDataComponent = () => {
               <Typography className={classes.header}>Data Ayah</Typography>
             </Box>
             <Box>
-              <Typography>Lihat Detail</Typography>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography
+                  component={Link}
+                  to="#!"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenDialogDetails(true);
+                    setDataToDialog(dataAyah);
+                  }}
+                  className={classes.detailText}
+                >
+                  Lihat Detail
+                </Typography>
+              )}
             </Box>
           </Box>
           <Box marginBottom={4}>
@@ -90,7 +143,22 @@ export const DetailsDataComponent = () => {
               <Typography className={classes.header}>Data Ibu</Typography>
             </Box>
             <Box>
-              <Typography>Lihat Detail</Typography>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography
+                  component={Link}
+                  to="#!"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenDialogDetails(true);
+                    setDataToDialog(dataIbu);
+                  }}
+                  className={classes.detailText}
+                >
+                  Lihat Detail
+                </Typography>
+              )}
             </Box>
           </Box>
         </Box>

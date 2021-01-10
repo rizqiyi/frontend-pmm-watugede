@@ -5,4 +5,8 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 300,
     color: theme.palette.grey.main,
   },
+  detailText: {
+    textDecoration: "none",
+    color: theme.palette.primary.main,
+  },
 }));

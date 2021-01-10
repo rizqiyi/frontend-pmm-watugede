@@ -78,50 +78,55 @@ export const AdminActivityPage = ({ ...props }) => {
           >
             <CircularProgress color="primary" />
           </Box>
-        ) : rows.length !== 0 ? (
-          <Box marginTop={3}>
-            <Paper className={classes.paper}>
-              <Box p={3}>
-                <TableContainer>
-                  <Box marginBottom={2}>
-                    <Typography variant="h6">Daftar Aktifitas Admin</Typography>
-                  </Box>
-                  <Divider />
-                  <Table
-                    className={classes.table}
-                    aria-labelledby="tableTitle"
-                    aria-label="enhanced table"
-                  >
-                    <AdminActivityTableHeadComponent
-                      classes={classes}
-                      order={order}
-                      orderBy={orderBy}
-                      setOrder={setOrder}
-                      setOrderBy={setOrderBy}
-                      rowCount={rows.length}
-                    />
-                    <AdminActivityTableBodyComponent
-                      rows={rows}
-                      order={order}
-                      orderBy={orderBy}
-                      page={page}
-                      rowsPerPage={rowsPerPage}
-                      emptyRows={emptyRows}
-                    />
-                  </Table>
-                </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25]}
-                  component="div"
-                  count={rows.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onChangePage={handleChangePage}
-                  onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-              </Box>
-            </Paper>
-          </Box>
+        ) : null}
+        {rows.length !== 0 ? (
+          isLoading ? null : (
+            <Box marginTop={3}>
+              <Paper className={classes.paper}>
+                <Box p={3}>
+                  <TableContainer>
+                    <Box marginBottom={2}>
+                      <Typography variant="h6">
+                        Daftar Aktifitas Admin
+                      </Typography>
+                    </Box>
+                    <Divider />
+                    <Table
+                      className={classes.table}
+                      aria-labelledby="tableTitle"
+                      aria-label="enhanced table"
+                    >
+                      <AdminActivityTableHeadComponent
+                        classes={classes}
+                        order={order}
+                        orderBy={orderBy}
+                        setOrder={setOrder}
+                        setOrderBy={setOrderBy}
+                        rowCount={rows.length}
+                      />
+                      <AdminActivityTableBodyComponent
+                        rows={rows}
+                        order={order}
+                        orderBy={orderBy}
+                        page={page}
+                        rowsPerPage={rowsPerPage}
+                        emptyRows={emptyRows}
+                      />
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                  />
+                </Box>
+              </Paper>
+            </Box>
+          )
         ) : null}
       </Box>
     </React.Fragment>

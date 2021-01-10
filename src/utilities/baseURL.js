@@ -54,6 +54,7 @@ const getDataKematianByIdURI = (id) => `${initialURL.kematianURI}/${id}`;
 const updateDataKematianByIdURI = (id) => `${initialURL.kematianURI}/${id}`;
 const deleteDataKematianByIdURI = (id) => `${initialURL.kematianURI}/${id}`;
 const postArsipKematianURI = (id) => `${initialURL.arsipURI}/${id}`;
+const fetchKelahiranByIdURI = (id) => `${initialURL.kelahiranURI}/${id}`;
 
 export {
   baseURL,
@@ -86,4 +87,5 @@ export {
   updateDataKematianByIdURI,
   deleteDataKematianByIdURI,
   postArsipKematianURI,
+  fetchKelahiranByIdURI,
 };

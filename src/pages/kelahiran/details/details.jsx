@@ -8,17 +8,34 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { DetailsDataComponent } from "../../../components/kelahiran-components/details-data/details-data";
 import { useStyles } from "./details.style";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useHistory } from "react-router-dom";
+import { fetchKelahiranId } from "../../../reducers/kelahiran/kelahiran.actions";
+import DialogDetailsComponent from "../../../components/kelahiran-components/dialog-details/dialog-details";
 
 const KelahiranDetailsPage = ({ ...props }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openDialogDetails, setOpenDialogDetails] = useState(false);
+  const [dataToDialog, setDataToDialog] = useState([]);
   const history = useHistory();
+  const {
+    isLoading,
+    dataKelahiran,
+    dataAyah,
+    dataIbu,
+    fetchKelahiranId,
+    match,
+  } = props;
+  const paramsId = match.params.id;
+
+  useEffect(() => {
+    fetchKelahiranId(paramsId);
+  }, [paramsId, fetchKelahiranId]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -62,7 +79,14 @@ const KelahiranDetailsPage = ({ ...props }) => {
             <Box marginTop={1} marginBottom={1}>
               <Divider />
             </Box>
-            <DetailsDataComponent />
+            <DetailsDataComponent
+              isLoading={isLoading}
+              dataKelahiran={dataKelahiran}
+              dataAyah={dataAyah}
+              dataIbu={dataIbu}
+              setOpenDialogDetails={setOpenDialogDetails}
+              setDataToDialog={setDataToDialog}
+            />
             <Box marginTop={1} marginBottom={2}>
               <Divider />
             </Box>
@@ -80,16 +104,28 @@ const KelahiranDetailsPage = ({ ...props }) => {
           </Box>
         </Paper>
       </Box>
+      <DialogDetailsComponent
+        open={openDialogDetails}
+        handleClose={setOpenDialogDetails}
+        data={dataToDialog}
+      />
     </React.Fragment>
   );
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    isLoading: state.kelahiran.isLoading,
+    dataKelahiran: state.kelahiran.kelahiran_obj,
+    dataAyah: state.kelahiran.data_ayah,
+    dataIbu: state.kelahiran.data_ibu,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    fetchKelahiranId: (id) => dispatch(fetchKelahiranId(id)),
+  };
 };
 
 export default connect(

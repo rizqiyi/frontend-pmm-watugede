@@ -124,7 +124,7 @@ const KelahiranPage = ({ ...props }) => {
                           data={rows}
                           className={classes.controlButton}
                           disabled={rows.length === 0}
-                          filename="penduduk.csv"
+                          filename="kelahiran.csv"
                         >
                           Unduh CSV
                         </Button>
@@ -134,11 +134,11 @@ const KelahiranPage = ({ ...props }) => {
                           color="primary"
                           component={Link}
                           to="/kelahiran/insert"
-                          className={classes.textButton}
+                          className={classes.toInsert}
                           startIcon={<AddIcon />}
                           variant="contained"
                         >
-                          Tambah Penduduk
+                          Tambah Data
                         </Button>
                       </Box>
                     </Box>

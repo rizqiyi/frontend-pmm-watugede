@@ -80,77 +80,80 @@ const KematianPage = ({ ...props }) => {
           >
             <CircularProgress color="primary" />
           </Box>
-        ) : rows.length !== 0 ? (
-          <Box marginTop={3}>
-            <Paper className={classes.paper}>
-              <Box p={3}>
-                <Box
-                  p={2}
-                  display="flex"
-                  flexDirection="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Box>
-                    <Typography variant="h6">
-                      Daftar Penduduk Meninggal
-                    </Typography>
-                  </Box>
+        ) : null}
+        {rows.length !== 0 ? (
+          isLoading ? null : (
+            <Box marginTop={3}>
+              <Paper className={classes.paper}>
+                <Box p={3}>
                   <Box
+                    p={2}
                     display="flex"
-                    justifyContent="center"
+                    flexDirection="row"
                     alignItems="center"
+                    justifyContent="space-between"
                   >
                     <Box>
-                      <Button
-                        color="primary"
-                        size="small"
-                        className={classes.controlButton}
-                        disabled={rows.length === 0}
-                        filename="penduduk.csv"
-                      >
-                        Unduh CSV
-                      </Button>
+                      <Typography variant="h6">
+                        Daftar Penduduk Meninggal
+                      </Typography>
+                    </Box>
+                    <Box
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box>
+                        <Button
+                          color="primary"
+                          size="small"
+                          className={classes.controlButton}
+                          disabled={rows.length === 0}
+                          filename="penduduk.csv"
+                        >
+                          Unduh CSV
+                        </Button>
+                      </Box>
                     </Box>
                   </Box>
+                  <TableContainer>
+                    <Divider />
+                    <Table
+                      className={classes.table}
+                      aria-labelledby="tableTitle"
+                      aria-label="enhanced table"
+                    >
+                      <KematianTableHeadComponent
+                        classes={classes}
+                        order={order}
+                        orderBy={orderBy}
+                        setOrder={setOrder}
+                        setOrderBy={setOrderBy}
+                        rowCount={rows.length}
+                      />
+                      <KematianTableBodyComponent
+                        rows={rows}
+                        order={order}
+                        orderBy={orderBy}
+                        page={page}
+                        rowsPerPage={rowsPerPage}
+                        emptyRows={emptyRows}
+                      />
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                  />
                 </Box>
-                <TableContainer>
-                  <Divider />
-                  <Table
-                    className={classes.table}
-                    aria-labelledby="tableTitle"
-                    aria-label="enhanced table"
-                  >
-                    <KematianTableHeadComponent
-                      classes={classes}
-                      order={order}
-                      orderBy={orderBy}
-                      setOrder={setOrder}
-                      setOrderBy={setOrderBy}
-                      rowCount={rows.length}
-                    />
-                    <KematianTableBodyComponent
-                      rows={rows}
-                      order={order}
-                      orderBy={orderBy}
-                      page={page}
-                      rowsPerPage={rowsPerPage}
-                      emptyRows={emptyRows}
-                    />
-                  </Table>
-                </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25]}
-                  component="div"
-                  count={rows.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onChangePage={handleChangePage}
-                  onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-              </Box>
-            </Paper>
-          </Box>
+              </Paper>
+            </Box>
+          )
         ) : null}
       </div>
     </React.Fragment>

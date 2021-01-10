@@ -34,6 +34,18 @@ export const useStyles = makeStyles((theme) => ({
       backgroundColor: "#1E94F8",
     },
   },
+  toInsert: {
+    color: "#fff",
+    width: theme.spacing(25),
+    padding: "10px",
+    borderRadius: 50,
+    fontWeight: 400,
+    textTransform: "inherit",
+    marginBottom: 4,
+    "&:hover": {
+      backgroundColor: "#1E94F8",
+    },
+  },
   textIsNull: {
     color: "black",
     fontSize: "18px",
