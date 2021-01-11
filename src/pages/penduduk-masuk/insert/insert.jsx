@@ -17,6 +17,7 @@ import { postKKPendudukMasuk } from "../../../reducers/penduduk_masuk/penduduk_m
 import { clearInfos } from "../../../reducers/infos/info.actions";
 import { Alert } from "@material-ui/lab";
 import { kartuKeluargaInsertValidation } from "../../../validations/kartu-keluarga";
+import { SelectFormField } from "../../../components/select-menus/select-menus";
 
 const PendudukMasukInsertPage = ({ ...props }) => {
   const classes = useStyles();
@@ -170,6 +171,7 @@ const PendudukMasukInsertPage = ({ ...props }) => {
                         component={TextFormField}
                         label="Umur"
                         name="umur"
+                        id="umur"
                         className={classes.largeTextField}
                         size="small"
                         variant="filled"
@@ -183,6 +185,7 @@ const PendudukMasukInsertPage = ({ ...props }) => {
                           component={TextFormField}
                           label="Pekerjaan"
                           name="pekerjaan"
+                          id="pekerjaan"
                           className={classes.largeTextField}
                           size="small"
                           variant="filled"
@@ -204,6 +207,7 @@ const PendudukMasukInsertPage = ({ ...props }) => {
                           component={TextFormField}
                           label="Status Perkawinan"
                           name="status_perkawinan"
+                          id="status_perkawinan"
                           className={classes.largeTextField}
                           size="small"
                           variant="filled"
@@ -213,6 +217,7 @@ const PendudukMasukInsertPage = ({ ...props }) => {
                         component={TextFormField}
                         label="Alamat"
                         name="alamat_asal"
+                        id="alamat_asal"
                         size="small"
                         multiline
                         rows={4}
@@ -231,19 +236,9 @@ const PendudukMasukInsertPage = ({ ...props }) => {
                     <Box>
                       <FastField
                         component={TextFormField}
-                        label="Jenis Kelamin"
-                        name="jenis_kelamin"
-                        className={classes.lastField}
-                        size="small"
-                        id="jenis_kelamin"
-                        variant="filled"
-                      />
-                    </Box>
-                    <Box>
-                      <FastField
-                        component={TextFormField}
                         label="Agama"
                         name="agama"
+                        id="agama"
                         className={classes.lastField}
                         size="small"
                         variant="filled"
@@ -254,9 +249,25 @@ const PendudukMasukInsertPage = ({ ...props }) => {
                         component={TextFormField}
                         label="Pendidikan Terakhir"
                         name="pendidikan_terakhir"
+                        id="pendidikan_terakhir"
                         className={classes.lastField}
                         size="small"
+                        style={{ marginBottom: 25 }}
                         variant="filled"
+                      />
+                    </Box>
+                    <Box>
+                      <FastField
+                        name="jenis_kelamin"
+                        className={classes.lastField}
+                        component={SelectFormField}
+                        size="small"
+                        id="jenis_kelamin"
+                        label="Jenis Kelamin"
+                        options={[
+                          { label: "Laki laki", value: "Laki laki" },
+                          { label: "Perempuan", value: "Perempuan" },
+                        ]}
                       />
                     </Box>
                     <Box marginBottom={10}></Box>

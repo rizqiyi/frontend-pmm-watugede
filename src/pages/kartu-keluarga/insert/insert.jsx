@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import { postKartuKeluarga } from "../../../reducers/kartu_keluarga/kartu_keluarga.actions";
 import { kartuKeluargaInsertValidation } from "../../../validations/kartu-keluarga";
 import { clearInfos } from "../../../reducers/infos/info.actions";
+import { SelectFormField } from "../../../components/select-menus/select-menus";
 
 const KartuKeluargaInsertPage = ({ ...props }) => {
   const { postKartuKeluarga, infos, infoStatus, isLoading, clearInfos } = props;
@@ -159,6 +160,7 @@ const KartuKeluargaInsertPage = ({ ...props }) => {
                         component={TextFormField}
                         label="Umur"
                         name="umur"
+                        id="umur"
                         className={classes.largeTextField}
                         size="small"
                         variant="filled"
@@ -172,6 +174,7 @@ const KartuKeluargaInsertPage = ({ ...props }) => {
                           component={TextFormField}
                           label="Pekerjaan"
                           name="pekerjaan"
+                          id="pekerjaan"
                           className={classes.largeTextField}
                           size="small"
                           variant="filled"
@@ -193,6 +196,7 @@ const KartuKeluargaInsertPage = ({ ...props }) => {
                           component={TextFormField}
                           label="Status Perkawinan"
                           name="status_perkawinan"
+                          id="status_perkawinan"
                           className={classes.largeTextField}
                           size="small"
                           variant="filled"
@@ -202,6 +206,7 @@ const KartuKeluargaInsertPage = ({ ...props }) => {
                         component={TextFormField}
                         label="Alamat"
                         name="alamat_asal"
+                        id="alamat_asal"
                         size="small"
                         multiline
                         rows={4}
@@ -220,19 +225,9 @@ const KartuKeluargaInsertPage = ({ ...props }) => {
                     <Box>
                       <FastField
                         component={TextFormField}
-                        label="Jenis Kelamin"
-                        name="jenis_kelamin"
-                        className={classes.lastField}
-                        size="small"
-                        id="jenis_kelamin"
-                        variant="filled"
-                      />
-                    </Box>
-                    <Box>
-                      <FastField
-                        component={TextFormField}
                         label="Agama"
                         name="agama"
+                        id="agama"
                         className={classes.lastField}
                         size="small"
                         variant="filled"
@@ -243,9 +238,25 @@ const KartuKeluargaInsertPage = ({ ...props }) => {
                         component={TextFormField}
                         label="Pendidikan Terakhir"
                         name="pendidikan_terakhir"
+                        id="pendidikan_terakhir"
                         className={classes.lastField}
                         size="small"
+                        style={{ marginBottom: 25 }}
                         variant="filled"
+                      />
+                    </Box>
+                    <Box>
+                      <FastField
+                        name="jenis_kelamin"
+                        className={classes.lastField}
+                        component={SelectFormField}
+                        size="small"
+                        id="jenis_kelamin"
+                        label="Jenis Kelamin"
+                        options={[
+                          { label: "Laki laki", value: "Laki laki" },
+                          { label: "Perempuan", value: "Perempuan" },
+                        ]}
                       />
                     </Box>
                     <Box marginBottom={10}></Box>

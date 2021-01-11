@@ -3,6 +3,7 @@ import { Formik, Form, FastField } from "formik";
 import React from "react";
 import { connect } from "react-redux";
 import { updateKelahiran } from "../../../reducers/kelahiran/kelahiran.actions";
+import { SelectFormField } from "../../select-menus/select-menus";
 import { TextFormField } from "../../styled-textfield/styled-textfield";
 import { useStyles } from "./dialog-edit.style";
 
@@ -71,15 +72,18 @@ const DialogEditKelahiranComponent = ({ ...props }) => {
                         className={classes.controlInput}
                       />
                     </Box>
-                    <Box>
+                    <Box marginTop={2}>
                       <FastField
-                        size="medium"
-                        component={TextFormField}
-                        variant="filled"
                         name="jenis_kelamin"
+                        component={SelectFormField}
+                        className={classes.controlInput}
+                        size="small"
                         id="jenis_kelamin"
                         label="Jenis Kelamin"
-                        className={classes.controlInput}
+                        options={[
+                          { label: "Laki laki", value: "Laki laki" },
+                          { label: "Perempuan", value: "Perempuan" },
+                        ]}
                       />
                     </Box>
                   </Box>

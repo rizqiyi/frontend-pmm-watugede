@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom";
 import { TextFormField } from "../../../../components/styled-textfield/styled-textfield";
 import { useStyles } from "./update.style";
 import { pendudukInsertValidation } from "../../../../validations/penduduk";
+import { SelectFormField } from "../../../../components/select-menus/select-menus";
 
 export const UpdateAnggotaPendudukMasukPage = ({ ...props }) => {
   const {
@@ -234,21 +235,6 @@ export const UpdateAnggotaPendudukMasukPage = ({ ...props }) => {
                       ) : (
                         <FastField
                           component={TextFormField}
-                          label="Jenis Kelamin"
-                          name="jenis_kelamin"
-                          className={classes.lastField}
-                          size="small"
-                          id="jenis_kelamin"
-                          variant="filled"
-                        />
-                      )}
-                    </Box>
-                    <Box>
-                      {isLoading ? (
-                        <Skeleton animation="wave" width={280} height={70} />
-                      ) : (
-                        <FastField
-                          component={TextFormField}
                           label="Agama"
                           name="agama"
                           id="agama"
@@ -267,9 +253,28 @@ export const UpdateAnggotaPendudukMasukPage = ({ ...props }) => {
                           label="Pendidikan Terakhir"
                           name="pendidikan_terakhir"
                           id="pendidikan_terakhir"
+                          style={{ marginBottom: 25 }}
                           className={classes.lastField}
                           size="small"
                           variant="filled"
+                        />
+                      )}
+                    </Box>
+                    <Box>
+                      {isLoading ? (
+                        <Skeleton animation="wave" width={280} height={70} />
+                      ) : (
+                        <FastField
+                          name="jenis_kelamin"
+                          className={classes.lastField}
+                          component={SelectFormField}
+                          size="small"
+                          id="jenis_kelamin"
+                          label="Jenis Kelamin"
+                          options={[
+                            { label: "Laki laki", value: "Laki laki" },
+                            { label: "Perempuan", value: "Perempuan" },
+                          ]}
                         />
                       )}
                     </Box>

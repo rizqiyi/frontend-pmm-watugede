@@ -28,6 +28,9 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: "18px",
     fontWeight: 500,
   },
+  lastField: {
+    marginTop: 10,
+  },
   textCons: {
     fontWeight: 350,
     maxWidth: 350,
@@ -47,6 +50,13 @@ export const useStyles = makeStyles((theme) => ({
   },
   controlInput: {
     margin: "10px 0px",
+    width: theme.spacing(40),
+    [theme.breakpoints.between(0, 1300)]: {
+      width: theme.spacing(32),
+    },
+  },
+  controlInputDate: {
+    margin: "2px 0px 5px 0px",
     width: theme.spacing(40),
     [theme.breakpoints.between(0, 1300)]: {
       width: theme.spacing(32),

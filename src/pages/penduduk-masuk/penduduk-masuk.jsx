@@ -94,88 +94,93 @@ const PendudukMasukPage = ({ ...props }) => {
           >
             <CircularProgress color="primary" />
           </Box>
-        ) : rows.length !== 0 ? (
-          <Box marginTop={3}>
-            <Paper className={classes.paper}>
-              <Box p={3}>
-                <Box
-                  p={2}
-                  display="flex"
-                  flexDirection="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Box>
-                    <Typography variant="h6">Daftar Penduduk Masuk</Typography>
-                  </Box>
+        ) : null}
+        {rows.length !== 0 ? (
+          isLoading ? null : (
+            <Box marginTop={3}>
+              <Paper className={classes.paper}>
+                <Box p={3}>
                   <Box
+                    p={2}
                     display="flex"
-                    justifyContent="center"
+                    flexDirection="row"
                     alignItems="center"
+                    justifyContent="space-between"
                   >
                     <Box>
-                      <Button
-                        color="primary"
-                        size="small"
-                        data={rows}
-                        className={classes.controlButton}
-                        disabled={rows.length === 0}
-                        filename="penduduk.csv"
-                      >
-                        Unduh CSV
-                      </Button>
+                      <Typography variant="h6">
+                        Daftar Penduduk Masuk
+                      </Typography>
                     </Box>
-                    <Box>
-                      <Button
-                        color="primary"
-                        component={Link}
-                        to="/penduduk_masuk/insert/kk"
-                        className={classes.textButton}
-                        startIcon={<AddIcon />}
-                        variant="contained"
-                      >
-                        Tambah Data
-                      </Button>
+                    <Box
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box>
+                        <Button
+                          color="primary"
+                          size="small"
+                          data={rows}
+                          className={classes.controlButton}
+                          disabled={rows.length === 0}
+                          filename="penduduk.csv"
+                        >
+                          Unduh CSV
+                        </Button>
+                      </Box>
+                      <Box>
+                        <Button
+                          color="primary"
+                          component={Link}
+                          to="/penduduk_masuk/insert/kk"
+                          className={classes.textButton}
+                          startIcon={<AddIcon />}
+                          variant="contained"
+                        >
+                          Tambah Data
+                        </Button>
+                      </Box>
                     </Box>
                   </Box>
+                  <TableContainer>
+                    <Divider />
+                    <Table
+                      className={classes.table}
+                      aria-labelledby="tableTitle"
+                      aria-label="enhanced table"
+                    >
+                      <PendudukMasukTableHeadComponent
+                        classes={classes}
+                        order={order}
+                        orderBy={orderBy}
+                        setOrder={setOrder}
+                        setOrderBy={setOrderBy}
+                        rowCount={rows.length}
+                      />
+                      <PendudukMasukTableBodyComponent
+                        rows={rows}
+                        order={order}
+                        orderBy={orderBy}
+                        page={page}
+                        rowsPerPage={rowsPerPage}
+                        emptyRows={emptyRows}
+                      />
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                  />
                 </Box>
-                <TableContainer>
-                  <Divider />
-                  <Table
-                    className={classes.table}
-                    aria-labelledby="tableTitle"
-                    aria-label="enhanced table"
-                  >
-                    <PendudukMasukTableHeadComponent
-                      classes={classes}
-                      order={order}
-                      orderBy={orderBy}
-                      setOrder={setOrder}
-                      setOrderBy={setOrderBy}
-                      rowCount={rows.length}
-                    />
-                    <PendudukMasukTableBodyComponent
-                      rows={rows}
-                      order={order}
-                      orderBy={orderBy}
-                      page={page}
-                      rowsPerPage={rowsPerPage}
-                      emptyRows={emptyRows}
-                    />
-                  </Table>
-                </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25]}
-                  component="div"
-                  count={rows.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onChangePage={handleChangePage}
-                  onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-              </Box>
-            </Paper>
-          </Box>
+              </Paper>
+            </Box>
+          )
         ) : null}
       </div>
     </React.Fragment>

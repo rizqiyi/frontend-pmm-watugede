@@ -17,6 +17,7 @@ import { postPendudukMasukToKK } from "../../../../reducers/penduduk_masuk/pendu
 import { Alert } from "@material-ui/lab";
 import { clearInfos } from "../../../../reducers/infos/info.actions";
 import { pendudukInsertValidation } from "../../../../validations/penduduk";
+import { SelectFormField } from "../../../../components/select-menus/select-menus";
 
 const InsertPendudukMasukAnggotaPage = ({ ...props }) => {
   const classes = useStyles();
@@ -162,6 +163,7 @@ const InsertPendudukMasukAnggotaPage = ({ ...props }) => {
                         component={TextFormField}
                         label="Umur"
                         name="umur"
+                        id="umur"
                         className={classes.largeTextField}
                         size="small"
                         variant="filled"
@@ -172,6 +174,7 @@ const InsertPendudukMasukAnggotaPage = ({ ...props }) => {
                         component={TextFormField}
                         label="Pekerjaan"
                         name="pekerjaan"
+                        id="pekerjaan"
                         className={classes.largeTextField}
                         size="small"
                         variant="filled"
@@ -196,6 +199,7 @@ const InsertPendudukMasukAnggotaPage = ({ ...props }) => {
                           component={TextFormField}
                           label="Status Perkawinan"
                           name="status_perkawinan"
+                          id="status_perkawinan"
                           className={classes.largeTextField}
                           size="small"
                           variant="filled"
@@ -206,6 +210,7 @@ const InsertPendudukMasukAnggotaPage = ({ ...props }) => {
                           component={TextFormField}
                           label="Posisi Dalam Keluarga"
                           name="posisi_dalam_keluarga"
+                          id="posisi_dalam_keluarga"
                           className={classes.largeTextField}
                           size="small"
                           variant="filled"
@@ -215,6 +220,7 @@ const InsertPendudukMasukAnggotaPage = ({ ...props }) => {
                         component={TextFormField}
                         label="Alamat"
                         name="alamat_asal"
+                        id="alamat_asal"
                         size="small"
                         multiline
                         rows={4}
@@ -233,19 +239,9 @@ const InsertPendudukMasukAnggotaPage = ({ ...props }) => {
                     <Box>
                       <FastField
                         component={TextFormField}
-                        label="Jenis Kelamin"
-                        name="jenis_kelamin"
-                        className={classes.lastField}
-                        size="small"
-                        id="jenis_kelamin"
-                        variant="filled"
-                      />
-                    </Box>
-                    <Box>
-                      <FastField
-                        component={TextFormField}
                         label="Agama"
                         name="agama"
+                        id="agama"
                         className={classes.lastField}
                         size="small"
                         variant="filled"
@@ -256,9 +252,25 @@ const InsertPendudukMasukAnggotaPage = ({ ...props }) => {
                         component={TextFormField}
                         label="Pendidikan Terakhir"
                         name="pendidikan_terakhir"
+                        id="pendidikan_terakhir"
                         className={classes.lastField}
+                        style={{ marginBottom: 25 }}
                         size="small"
                         variant="filled"
+                      />
+                    </Box>
+                    <Box>
+                      <FastField
+                        name="jenis_kelamin"
+                        className={classes.lastField}
+                        component={SelectFormField}
+                        size="small"
+                        id="jenis_kelamin"
+                        label="Jenis Kelamin"
+                        options={[
+                          { label: "Laki laki", value: "Laki laki" },
+                          { label: "Perempuan", value: "Perempuan" },
+                        ]}
                       />
                     </Box>
                     <Box marginBottom={10}></Box>

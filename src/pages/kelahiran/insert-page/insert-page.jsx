@@ -22,6 +22,7 @@ import localization from "moment/locale/id";
 import { postKelahiran } from "../../../reducers/kelahiran/kelahiran.actions";
 import { Alert } from "@material-ui/lab";
 import { clearInfos } from "../../../reducers/infos/info.actions";
+import { SelectFormField } from "../../../components/select-menus/select-menus";
 
 const KelahiranInsertPage = ({ ...props }) => {
   const history = useHistory();
@@ -198,8 +199,7 @@ const KelahiranInsertPage = ({ ...props }) => {
                           inputValue={inputValueDate}
                           value={selectedDate}
                           rifmFormatter={dateFormatter}
-                          className={classes.controlInput}
-                          style={{ marginBottom: 0 }}
+                          className={classes.controlInputDate}
                           onChange={handleDateChange}
                           KeyboardButtonProps={{
                             "aria-label": "change date",
@@ -207,7 +207,7 @@ const KelahiranInsertPage = ({ ...props }) => {
                         />
                       </MuiPickersUtilsProvider>
                     </Box>
-                    <Box marginTop={2.2}>
+                    <Box marginTop={1} marginBottom={1.5}>
                       <FastField
                         component={TextFormField}
                         variant="filled"
@@ -217,14 +217,18 @@ const KelahiranInsertPage = ({ ...props }) => {
                         className={classes.controlInput}
                       />
                     </Box>
-                    <Box>
+                    <Box marginTop={1}>
                       <FastField
-                        component={TextFormField}
-                        variant="filled"
                         name="jenis_kelamin"
+                        className={classes.lastField}
+                        component={SelectFormField}
+                        size="small"
                         id="jenis_kelamin"
                         label="Jenis Kelamin"
-                        className={classes.controlInput}
+                        options={[
+                          { label: "Laki laki", value: "Laki laki" },
+                          { label: "Perempuan", value: "Perempuan" },
+                        ]}
                       />
                     </Box>
                   </Box>

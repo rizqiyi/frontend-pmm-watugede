@@ -97,11 +97,11 @@ export const DataListsComponent = ({ data, isLoading }) => {
               </Box>
             </Box>
           </Box>
-
           <Box
             display="flex"
             flexDirection="row"
             alignItems="center"
+            justifyContent="flex-end"
             width="max-content"
           >
             <Box>

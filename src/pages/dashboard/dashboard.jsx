@@ -99,7 +99,7 @@ const DashboardPage = ({ ...props }) => {
                   <Box marginBottom={2}>
                     <Typography className={classes.values}>
                       {checkIsNaN(
-                        Math.round((data.data_penduduk / total) * 100)
+                        Math.floor((data.data_penduduk / total) * 100)
                       )}
                       %
                     </Typography>
@@ -112,7 +112,7 @@ const DashboardPage = ({ ...props }) => {
                   <Box marginBottom={2} marginTop={2}>
                     <Typography className={classes.values}>
                       {checkIsNaN(
-                        Math.round((data.data_penduduk_masuk / total) * 100)
+                        Math.floor((data.data_penduduk_masuk / total) * 100)
                       )}
                       %
                     </Typography>
@@ -125,7 +125,7 @@ const DashboardPage = ({ ...props }) => {
                   <Box marginBottom={2} marginTop={2}>
                     <Typography className={classes.values}>
                       {checkIsNaN(
-                        Math.round((data.data_penduduk_keluar / total) * 100)
+                        Math.floor((data.data_penduduk_keluar / total) * 100)
                       )}
                       %
                     </Typography>

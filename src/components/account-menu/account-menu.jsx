@@ -48,7 +48,6 @@ export const AccountMenuComponent = () => {
         open={openAccountMenu}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem
           onClick={(e) => {
             e.preventDefault();

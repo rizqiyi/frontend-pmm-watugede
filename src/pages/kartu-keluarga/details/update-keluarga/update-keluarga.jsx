@@ -15,6 +15,7 @@ import { clearInfos } from "../../../../reducers/infos/info.actions";
 import { pendudukInsertValidation } from "../../../../validations/penduduk";
 import MutasiDialogPerson from "../../../../components/anggota-keluarga-components/mutasi-dialogs-person/mutasi-dialogs-person";
 import DialogKematianComponent from "../../../../components/anggota-keluarga-components/dialog-kematian/dialog-kematian";
+import { SelectFormField } from "../../../../components/select-menus/select-menus";
 
 const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
   const {
@@ -286,21 +287,6 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
                       ) : (
                         <FastField
                           component={TextFormField}
-                          label="Jenis Kelamin"
-                          name="jenis_kelamin"
-                          className={classes.lastField}
-                          size="small"
-                          id="jenis_kelamin"
-                          variant="filled"
-                        />
-                      )}
-                    </Box>
-                    <Box>
-                      {isLoading ? (
-                        <Skeleton animation="wave" width={280} height={70} />
-                      ) : (
-                        <FastField
-                          component={TextFormField}
                           label="Agama"
                           name="agama"
                           id="agama"
@@ -319,9 +305,28 @@ const DetailKartuKeluargaUpdatePage = ({ ...props }) => {
                           label="Pendidikan Terakhir"
                           name="pendidikan_terakhir"
                           id="pendidikan_terakhir"
+                          style={{ marginBottom: 25 }}
                           className={classes.lastField}
                           size="small"
                           variant="filled"
+                        />
+                      )}
+                    </Box>
+                    <Box>
+                      {isLoading ? (
+                        <Skeleton animation="wave" width={280} height={70} />
+                      ) : (
+                        <FastField
+                          name="jenis_kelamin"
+                          className={classes.lastField}
+                          component={SelectFormField}
+                          size="small"
+                          id="jenis_kelamin"
+                          label="Jenis Kelamin"
+                          options={[
+                            { label: "Laki laki", value: "Laki laki" },
+                            { label: "Perempuan", value: "Perempuan" },
+                          ]}
                         />
                       )}
                     </Box>

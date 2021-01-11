@@ -10,8 +10,8 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  CircularProgress,
 } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { fetchKartuKeluargaPendudukMasukByID } from "../../../reducers/penduduk_masuk/penduduk_masuk.actions";
@@ -112,193 +112,197 @@ const DetailPendudukMasukPage = ({ ...props }) => {
         )
       ) : null}
       {isLoading ? (
-        <Box marginTop={15}>
-          <Box className={classes.isLoading}>
-            <Skeleton height={50} width={1000} />
-          </Box>
-          <Box className={classes.isLoading}>
-            <Skeleton height={50} width={1000} />
-          </Box>
-          <Box className={classes.isLoading}>
-            <Skeleton height={50} width={1000} />
-          </Box>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          margin="10rem auto 0px auto"
+        >
+          <CircularProgress color="primary" />
         </Box>
-      ) : rows.length !== 0 ? (
-        <Box marginTop={3}>
-          <Paper className={classes.paper}>
-            <Box p={3}>
-              <Box
-                p={2}
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Box>
-                  <Typography variant="h6">
-                    Daftar Anggota Keluarga Penduduk Masuk
-                  </Typography>
-                </Box>
-                <Box display="flex" justifyContent="center" alignItems="center">
-                  <Box>
-                    <Button
-                      color="primary"
-                      size="small"
-                      data={rows}
-                      className={classes.controlButton}
-                      disabled={rows.length === 0}
-                      filename="penduduk.csv"
-                    >
-                      Unduh CSV
-                    </Button>
-                  </Box>
-                  <Box>
-                    <Button
-                      color="primary"
-                      component={Link}
-                      to={`/penduduk_masuk/${paramsIdKK}/d/${paramsIdKepala}/insert`}
-                      className={classes.textButton}
-                      startIcon={<AddIcon />}
-                      variant="contained"
-                    >
-                      Tambah Data
-                    </Button>
-                  </Box>
-                </Box>
-              </Box>
-              <TableContainer>
-                <Divider />
-                <Table
-                  className={classes.table}
-                  aria-labelledby="tableTitle"
-                  aria-label="enhanced table"
+      ) : null}
+      {rows.length !== 0 ? (
+        isLoading ? null : (
+          <Box marginTop={3}>
+            <Paper className={classes.paper}>
+              <Box p={3}>
+                <Box
+                  p={2}
+                  display="flex"
+                  flexDirection="row"
+                  alignItems="center"
+                  justifyContent="space-between"
                 >
-                  <PendudukMasukDetailsTableHeadComponent
-                    classes={classes}
-                    order={order}
-                    orderBy={orderBy}
-                    setOrder={setOrder}
-                    setOrderBy={setOrderBy}
-                    rowCount={rows.length}
-                  />
-                  <PendudukMasukDetailsTableBodyComponent
-                    rows={rows}
-                    order={order}
-                    orderBy={orderBy}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    emptyRows={emptyRows}
-                    setOpenDialogDeleteAnggota={setOpenDialogDeleteAnggota}
-                    setIdToDelete={setIdToDelete}
-                  />
-                </Table>
-              </TableContainer>
-              <Box
-                display="flex"
-                flexDirection="row"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Box>
-                  {keteranganMasuk ? null : (
-                    <Typography
-                      component={Link}
-                      to="#!"
-                      variant="body2"
-                      className={classes.linkModal}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setOpenInsertModal(true);
-                      }}
-                    >
-                      Tambahkan Data Keterangan Masuk
+                  <Box>
+                    <Typography variant="h6">
+                      Daftar Anggota Keluarga Penduduk Masuk
                     </Typography>
-                  )}
-                  {keteranganMasuk ? (
-                    <Box
-                      display="flex"
-                      flexDirection="row"
-                      alignItems="center"
-                      justifyContent="flex-start"
-                    >
-                      <Box position="relative" left={-5}>
-                        <IconButton
-                          style={{
-                            width: "30px",
-                            height: "30px",
-                            color: "#212121",
-                          }}
-                          aria-controls="simple-menu"
-                          aria-haspopup="true"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setAnchorEl(e.currentTarget);
-                          }}
-                        >
-                          <MoreVertIcon fontSize="small" />
-                        </IconButton>
-                        <Menu
-                          id="simple-menu"
-                          anchorEl={anchorEl}
-                          keepMounted
-                          open={Boolean(anchorEl)}
-                          onClose={(e) => {
-                            e.preventDefault();
-                            setAnchorEl(null);
-                          }}
-                        >
-                          <MenuItem
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setAnchorEl(null);
-                              setOpenUpdateModal(true);
-                            }}
-                          >
-                            Edit
-                          </MenuItem>
-                          <MenuItem
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setAnchorEl(null);
-                              setOpenDeleteModal(true);
-                            }}
-                          >
-                            Hapus
-                          </MenuItem>
-                        </Menu>
-                      </Box>
-                      <Box position="relative" bottom={-1}>
-                        <Typography
-                          component={Link}
-                          to="#!"
-                          variant="body2"
-                          className={classes.linkModal}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setOpenDetailsModal(true);
-                          }}
-                        >
-                          Lihat Data Keterangan Masuk
-                        </Typography>
-                      </Box>
+                  </Box>
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <Box>
+                      <Button
+                        color="primary"
+                        size="small"
+                        data={rows}
+                        className={classes.controlButton}
+                        disabled={rows.length === 0}
+                        filename="penduduk.csv"
+                      >
+                        Unduh CSV
+                      </Button>
                     </Box>
-                  ) : null}
+                    <Box>
+                      <Button
+                        color="primary"
+                        component={Link}
+                        to={`/penduduk_masuk/${paramsIdKK}/d/${paramsIdKepala}/insert`}
+                        className={classes.textButton}
+                        startIcon={<AddIcon />}
+                        variant="contained"
+                      >
+                        Tambah Data
+                      </Button>
+                    </Box>
+                  </Box>
                 </Box>
-                <Box>
-                  <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={rows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                  />
+                <TableContainer>
+                  <Divider />
+                  <Table
+                    className={classes.table}
+                    aria-labelledby="tableTitle"
+                    aria-label="enhanced table"
+                  >
+                    <PendudukMasukDetailsTableHeadComponent
+                      classes={classes}
+                      order={order}
+                      orderBy={orderBy}
+                      setOrder={setOrder}
+                      setOrderBy={setOrderBy}
+                      rowCount={rows.length}
+                    />
+                    <PendudukMasukDetailsTableBodyComponent
+                      rows={rows}
+                      order={order}
+                      orderBy={orderBy}
+                      page={page}
+                      rowsPerPage={rowsPerPage}
+                      emptyRows={emptyRows}
+                      setOpenDialogDeleteAnggota={setOpenDialogDeleteAnggota}
+                      setIdToDelete={setIdToDelete}
+                    />
+                  </Table>
+                </TableContainer>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Box>
+                    {keteranganMasuk ? null : (
+                      <Typography
+                        component={Link}
+                        to="#!"
+                        variant="body2"
+                        className={classes.linkModal}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setOpenInsertModal(true);
+                        }}
+                      >
+                        Tambahkan Data Keterangan Masuk
+                      </Typography>
+                    )}
+                    {keteranganMasuk ? (
+                      <Box
+                        display="flex"
+                        flexDirection="row"
+                        alignItems="center"
+                        justifyContent="flex-start"
+                      >
+                        <Box position="relative" left={-5}>
+                          <IconButton
+                            style={{
+                              width: "30px",
+                              height: "30px",
+                              color: "#212121",
+                            }}
+                            aria-controls="simple-menu"
+                            aria-haspopup="true"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setAnchorEl(e.currentTarget);
+                            }}
+                          >
+                            <MoreVertIcon fontSize="small" />
+                          </IconButton>
+                          <Menu
+                            id="simple-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={(e) => {
+                              e.preventDefault();
+                              setAnchorEl(null);
+                            }}
+                          >
+                            <MenuItem
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setAnchorEl(null);
+                                setOpenUpdateModal(true);
+                              }}
+                            >
+                              Edit
+                            </MenuItem>
+                            <MenuItem
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setAnchorEl(null);
+                                setOpenDeleteModal(true);
+                              }}
+                            >
+                              Hapus
+                            </MenuItem>
+                          </Menu>
+                        </Box>
+                        <Box position="relative" bottom={-1}>
+                          <Typography
+                            component={Link}
+                            to="#!"
+                            variant="body2"
+                            className={classes.linkModal}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setOpenDetailsModal(true);
+                            }}
+                          >
+                            Lihat Data Keterangan Masuk
+                          </Typography>
+                        </Box>
+                      </Box>
+                    ) : null}
+                  </Box>
+                  <Box>
+                    <TablePagination
+                      rowsPerPageOptions={[5, 10, 25]}
+                      component="div"
+                      count={rows.length}
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      onChangePage={handleChangePage}
+                      onChangeRowsPerPage={handleChangeRowsPerPage}
+                    />
+                  </Box>
                 </Box>
               </Box>
-            </Box>
-          </Paper>
-        </Box>
+            </Paper>
+          </Box>
+        )
       ) : null}
       {openImageDetail && (
         <DetailImagesDialog
