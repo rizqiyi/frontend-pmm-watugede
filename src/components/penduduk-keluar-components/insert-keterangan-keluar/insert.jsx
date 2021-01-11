@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { useStyles } from "./insert.style";
 import {
@@ -10,6 +10,7 @@ import {
   IconButton,
   Paper,
   Typography,
+  CircularProgress,
 } from "@material-ui/core";
 import { PhotoCamera } from "@material-ui/icons";
 import {
@@ -18,16 +19,30 @@ import {
 } from "@material-ui/pickers";
 import { TextFormField } from "../../styled-textfield/styled-textfield";
 import { FastField, Form, Formik } from "formik";
-import { postKeteranganKeluar } from "../../../reducers/penduduk_keluar/penduduk_keluar.actions";
+import {
+  getPendudukKeluarById,
+  postKeteranganKeluar,
+} from "../../../reducers/penduduk_keluar/penduduk_keluar.actions";
 import moment from "moment";
 import MomentUtils from "@date-io/moment";
 import localization from "moment/locale/id";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { keteranganKeluarInsertValidation } from "../../../validations/mutasi-keluar";
+import { Alert } from "@material-ui/lab";
+import { clearInfos } from "../../../reducers/infos/info.actions";
 
 const InsertComponents = ({ ...props }) => {
   const classes = useStyles();
-  const { postKeterangan, dataId } = props;
+  const {
+    postKeterangan,
+    dataId,
+    infosStatus,
+    infosMessage,
+    keteranganKeluar,
+    clearInfos,
+    fetchPendudukKeluar,
+    isLoading,
+  } = props;
   const [selectedDate, setSelectedDate] = useState(moment());
   const [inputValueDate, setInputValueDate] = useState(
     moment().locale("id", localization).format("LL")
@@ -36,7 +51,15 @@ const InsertComponents = ({ ...props }) => {
   const [inputValueDateLeave, setInputValueDateLeave] = useState(
     moment().locale("id", localization).format("LL")
   );
+  const isFirstRender = useRef(true);
   const history = useHistory();
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      clearInfos();
+    }
+    fetchPendudukKeluar(dataId);
+  }, [clearInfos, dataId, fetchPendudukKeluar]);
 
   const handleDateChange = (date, value) => {
     setSelectedDate(date);
@@ -52,8 +75,25 @@ const InsertComponents = ({ ...props }) => {
     return str;
   };
 
+  console.log(keteranganKeluar);
+
   return (
     <React.Fragment>
+      {infosStatus === 201 ? (
+        <Box marginBottom={2} width="100%">
+          <Alert icon={false} severity="success">
+            {infosMessage}
+          </Alert>
+        </Box>
+      ) : null}
+      {infosStatus === 400 ? (
+        <Box marginBottom={2} width="100%">
+          <Alert icon={false} severity="error">
+            {infosMessage}
+          </Alert>
+        </Box>
+      ) : null}
+      {}
       <Grow in>
         <Paper>
           <Formik
@@ -70,17 +110,44 @@ const InsertComponents = ({ ...props }) => {
             }}
             validationSchema={keteranganKeluarInsertValidation}
             enableReinitialize={true}
-            onSubmit={(values) => {
+            onSubmit={(values, { resetForm }) => {
               const { data } = DataSet(values);
               postKeterangan(data, values.id);
+              resetForm({});
             }}
           >
             {({ setFieldValue, values, touched, errors }) => (
               <Form>
                 <Box p={3}>
-                  <Typography variant="h6">
-                    Tambahkan Keterangan Penduduk Keluar
-                  </Typography>
+                  <Box
+                    display="flex"
+                    flexDirection="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <Box>
+                      <Typography variant="h6">
+                        Tambahkan Keterangan Penduduk Keluar
+                      </Typography>
+                    </Box>
+                    {keteranganKeluar.length !== 0 && keteranganKeluar ? (
+                      <Box marginTop={2}>
+                        <Box>
+                          <Typography
+                            component={Link}
+                            className={classes.controlLink}
+                            to="#!"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              history.push(`/penduduk_keluar/${dataId}/d`);
+                            }}
+                          >
+                            Lihat Data
+                          </Typography>
+                        </Box>
+                      </Box>
+                    ) : null}
+                  </Box>
                   <Box marginTop={2} marginBottom={2}>
                     <Divider />
                   </Box>
@@ -267,13 +334,16 @@ const InsertComponents = ({ ...props }) => {
                       </Button>
                     </Box>
                     <Box>
-                      <Button
-                        color="primary"
-                        type="submit"
-                        className={classes.insertButton}
-                      >
-                        Tambahkan
-                      </Button>
+                      {isLoading ? <CircularProgress color="primary" /> : null}
+                      {isLoading ? null : (
+                        <Button
+                          color="primary"
+                          type="submit"
+                          className={classes.insertButton}
+                        >
+                          Tambahkan
+                        </Button>
+                      )}
                     </Box>
                   </Box>
                 </Box>
@@ -303,12 +373,19 @@ const DataSet = (values) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    infosStatus: state.infos.status,
+    infosMessage: state.infos.message,
+    keteranganKeluar: state.penduduk_keluar.keterangan_keluar_by_id,
+    isLoading: state.penduduk_keluar.isLoading,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     postKeterangan: (val, id) => dispatch(postKeteranganKeluar(val, id)),
+    fetchPendudukKeluar: (id) => dispatch(getPendudukKeluarById(id)),
+    clearInfos: () => dispatch(clearInfos()),
   };
 };
 

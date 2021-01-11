@@ -9,6 +9,10 @@ export const useStyles = makeStyles((theme) => ({
     margin: "12px 0px 20px 2px",
     width: theme.spacing(40),
   },
+  controlLink: {
+    textDecoration: "none",
+    color: theme.palette.primary.main,
+  },
   controlInputCatatan: {
     margin: "10px 0px",
     width: theme.spacing(60),

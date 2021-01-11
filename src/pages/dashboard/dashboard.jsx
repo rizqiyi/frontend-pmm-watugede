@@ -11,13 +11,12 @@ import { fetchCountedData } from "../../reducers/dashboard/dashboard.actions";
 const DashboardPage = ({ ...props }) => {
   const classes = useStyles();
   const { data, message, fetchCountedData, isLoading } = props;
-
   useEffect(() => {
     fetchCountedData();
   }, [fetchCountedData]);
 
   const checkIfUndefined = (value) => {
-    return value === undefined && value === 0 ? 1 : value;
+    return value === undefined || value === 0 ? 0 : value;
   };
 
   const checkIsNaN = (value) => {

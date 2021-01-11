@@ -18,4 +18,12 @@ export const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: theme.palette.primary.main,
   },
+  warningChip: {
+    color: "#fff",
+    background: theme.palette.warning.main,
+  },
+  succesChip: {
+    color: "#fff",
+    background: "#66bb6a",
+  },
 }));

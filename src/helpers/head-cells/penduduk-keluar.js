@@ -42,6 +42,12 @@ export const headCellsPengikutKeluar = [
     label: "Jumlah Pengikut",
   },
   {
+    id: "data_keluar",
+    numeric: false,
+    disablePadding: false,
+    label: "Data",
+  },
+  {
     id: "action",
     numeric: true,
     disablePadding: false,

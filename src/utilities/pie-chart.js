@@ -1,4 +1,4 @@
-const options = {
+export const options = {
   chart: {
     type: "donut",
   },
@@ -32,5 +32,3 @@ const options = {
   },
   dataLabels: { enabled: false },
 };
-
-export { options };

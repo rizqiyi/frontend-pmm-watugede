@@ -12,6 +12,7 @@ import InsertPendudukMasukAnggotaPage from "../pages/penduduk-masuk/details/inse
 import UpdateAnggotaPendudukMasukPage from "../pages/penduduk-masuk/details/update-data/update";
 import PendudukKeluarPage from "../pages/penduduk-keluar/penduduk-keluar";
 import PendudukKeluarDetailPage from "../pages/penduduk-keluar/details/details";
+import InsertKeteranganKeluarPage from "../pages/penduduk-keluar/insert-keterangan/insert-keterangan";
 import KelahiranPage from "../pages/kelahiran/kelahiran";
 import KelahiranDetailsPage from "../pages/kelahiran/details/details";
 import KelahiranInsertPage from "../pages/kelahiran/insert-page/insert-page";
@@ -55,10 +56,6 @@ const Navigations = () => {
               path="/kartu_keluarga/:id_kk/d"
             />
             <PrivateRoute
-              component={PendudukKeluarDetailPage}
-              path="/penduduk_keluar/:id/d"
-            />
-            <PrivateRoute
               component={UpdateAnggotaPendudukMasukPage}
               path="/penduduk_masuk/a/:id/update"
             />
@@ -77,6 +74,14 @@ const Navigations = () => {
             <PrivateRoute
               component={PendudukMasukPage}
               path="/penduduk_masuk"
+            />
+            <PrivateRoute
+              component={PendudukKeluarDetailPage}
+              path="/penduduk_keluar/:id/d"
+            />
+            <PrivateRoute
+              component={InsertKeteranganKeluarPage}
+              path="/penduduk_keluar/:id/i/k"
             />
             <PrivateRoute
               component={PendudukKeluarPage}

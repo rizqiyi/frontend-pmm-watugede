@@ -1,4 +1,10 @@
-import { TableBody, TableCell, TableRow, Typography } from "@material-ui/core";
+import {
+  Chip,
+  TableBody,
+  TableCell,
+  TableRow,
+  Typography,
+} from "@material-ui/core";
 import React from "react";
 import { useStyles } from "./table-body.style";
 import { getComparator, stableSort } from "../../../helpers/table";
@@ -8,7 +14,7 @@ import { useSelector } from "react-redux";
 
 export const PendudukKeluarTableBodyComponent = ({ ...props }) => {
   const classes = useStyles();
-  const isLoading = useSelector((state) => state.penduduks.isLoading);
+  const isLoading = useSelector((state) => state.penduduk_keluar.isLoading);
 
   return (
     <React.Fragment>
@@ -67,16 +73,37 @@ export const PendudukKeluarTableBodyComponent = ({ ...props }) => {
                   )}
                 </TableCell>
                 <TableCell align="left">
+                  {row.keterangan_keluar_desa ? (
+                    <Chip
+                      size="small"
+                      label="Lengkap"
+                      className={classes.succesChip}
+                    />
+                  ) : (
+                    <Chip
+                      size="small"
+                      label="Tidak Lengkap"
+                      className={classes.warningChip}
+                    />
+                  )}
+                </TableCell>
+                <TableCell align="left">
                   {isLoading ? (
                     <Skeleton />
                   ) : (
                     <Typography variant="body2">
                       <Link
                         className={classes.controlLink}
-                        to={`/penduduk_keluar/${row._id}/d`}
+                        to={
+                          row.keterangan_keluar_desa
+                            ? `/penduduk_keluar/${row._id}/d`
+                            : `/penduduk_keluar/${row._id}/i/k`
+                        }
                         color="primary"
                       >
-                        Lihat Detail
+                        {row.keterangan_keluar_desa
+                          ? "Lihat Detail"
+                          : "Tambah Keterangan"}
                       </Link>
                     </Typography>
                   )}

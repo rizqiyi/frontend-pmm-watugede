@@ -73,11 +73,6 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
           </Alert>
         </Box>
       ) : null}
-      {keteranganKeluar.length === 0 || keteranganKeluar === undefined ? (
-        isLoading ? null : (
-          <InsertComponents dataId={paramsId} />
-        )
-      ) : null}
       <Box marginTop={3}>
         <Paper>
           <Box p={3}>
@@ -224,7 +219,7 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
                 justifyContent="center"
               >
                 <GreyText
-                  text="Anda dapat menambahkan pengikut keluar melalui halaman edit anggota keluarga"
+                  text="Anda dapat menambahkan pengikut keluar melalui halaman edit anggota keluarga. Dan harus satu Kartu Keluarga."
                   className={classes.textCons}
                 />
               </Box>
