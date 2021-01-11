@@ -17,7 +17,11 @@ const DashboardPage = ({ ...props }) => {
   }, [fetchCountedData]);
 
   const checkIfUndefined = (value) => {
-    return value === undefined ? 1 : value;
+    return value === undefined && value === 0 ? 1 : value;
+  };
+
+  const checkIsNaN = (value) => {
+    return isNaN(value) ? 0 : value;
   };
 
   const series = [
@@ -94,7 +98,10 @@ const DashboardPage = ({ ...props }) => {
                 <Box className={classes.pendudukShape}>
                   <Box marginBottom={2}>
                     <Typography className={classes.values}>
-                      {Math.round((data.data_penduduk / total) * 100)}%
+                      {checkIsNaN(
+                        Math.round((data.data_penduduk / total) * 100)
+                      )}
+                      %
                     </Typography>
                   </Box>
                   <Box marginBottom={1}>
@@ -104,7 +111,10 @@ const DashboardPage = ({ ...props }) => {
                 <Box className={classes.pendudukMasukShape}>
                   <Box marginBottom={2} marginTop={2}>
                     <Typography className={classes.values}>
-                      {Math.round((data.data_penduduk_masuk / total) * 100)}%
+                      {checkIsNaN(
+                        Math.round((data.data_penduduk_masuk / total) * 100)
+                      )}
+                      %
                     </Typography>
                   </Box>
                   <Box maxWidth={100} textAlign="center">
@@ -114,7 +124,10 @@ const DashboardPage = ({ ...props }) => {
                 <Box className={classes.pendudukKeluarShape}>
                   <Box marginBottom={2} marginTop={2}>
                     <Typography className={classes.values}>
-                      {Math.round((data.data_penduduk_keluar / total) * 100)}%
+                      {checkIsNaN(
+                        Math.round((data.data_penduduk_keluar / total) * 100)
+                      )}
+                      %
                     </Typography>
                   </Box>
                   <Box maxWidth={100} textAlign="center">
