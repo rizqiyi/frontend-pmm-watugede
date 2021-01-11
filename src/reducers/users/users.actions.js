@@ -1,6 +1,5 @@
 import userTypes from "./users.types";
 import axios from "axios";
-import { initialURL } from "../../utilities/baseURL";
 import { returnInfos } from "../infos/info.actions";
 
 export const loadAdmin = () => (dispatch, getState) => {
@@ -9,7 +8,7 @@ export const loadAdmin = () => (dispatch, getState) => {
   });
 
   axios
-    .get(initialURL.adminData, tokenConfig(getState))
+    .get(`${process.env.REACT_APP_ADMIN_URI}`, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: userTypes.USER_LOADED,
@@ -37,7 +36,7 @@ export const loginAdmin = ({ username, password }, onSuccess) => (dispatch) => {
   const body = JSON.stringify({ username, password });
 
   axios
-    .post(initialURL.loginURI, body, config)
+    .post(`${process.env.REACT_APP_LOGIN_URI}`, body, config)
     .then((res) => {
       dispatch({
         type: userTypes.LOGIN_SUCCESS,

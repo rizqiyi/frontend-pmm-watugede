@@ -1,10 +1,4 @@
 import axios from "axios";
-import {
-  initialURL,
-  fetchKelahiranByIdURI,
-  deleteKelahiranByIdURI,
-  updateKelahiranByIdURI,
-} from "../../utilities/baseURL";
 import { returnInfos } from "../infos/info.actions";
 import { tokenConfig } from "../users/users.actions";
 import Types from "./kelahiran.types";
@@ -15,7 +9,7 @@ export const fetchKelahiran = () => (dispatch, getState) => {
   });
 
   axios
-    .get(initialURL.kelahiranURI, tokenConfig(getState))
+    .get(`${process.env.REACT_APP_KELAHIRAN_URI}`, tokenConfig(getState))
     .then((result) => {
       dispatch({
         type: Types.FETCH_KELAHIRAN_SUCCESS,
@@ -33,7 +27,7 @@ export const fetchKelahiranId = (id) => (dispatch, getState) => {
   });
 
   axios
-    .get(fetchKelahiranByIdURI(id), tokenConfig(getState))
+    .get(`${process.env.REACT_APP_KELAHIRAN_URI}/${id}`, tokenConfig(getState))
     .then((result) => {
       dispatch({
         type: Types.FETCH_KELAHIRAN_BY_ID_SUCCESS,
@@ -61,7 +55,7 @@ export const postKelahiran = ({ ...requests }, onSuccess) => (
   const body = JSON.stringify({ ...requests });
 
   axios
-    .post(initialURL.kelahiranURI, body, tokenConfig(getState))
+    .post(`${process.env.REACT_APP_KELAHIRAN_URI}`, body, tokenConfig(getState))
     .then((result) => {
       dispatch({
         type: Types.POST_KELAHIRAN_SUCCESS,
@@ -87,7 +81,11 @@ export const updateKelahiran = ({ ...requests }, id) => (
   const body = JSON.stringify({ ...requests });
 
   axios
-    .put(updateKelahiranByIdURI(id), body, tokenConfig(getState))
+    .put(
+      `${process.env.REACT_APP_KELAHIRAN_URI}/${id}`,
+      body,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.PUT_KELAHIRAN_SUCCESS,
@@ -107,7 +105,10 @@ export const deleteDataKelahiran = (id) => (dispatch, getState) => {
   });
 
   axios
-    .delete(deleteKelahiranByIdURI(id), tokenConfig(getState))
+    .delete(
+      `${process.env.REACT_APP_KELAHIRAN_URI}/${id}`,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.DELETE_KELAHIRAN_SUCCESS,

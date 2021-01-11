@@ -1,16 +1,4 @@
 import axios from "axios";
-import {
-  initialURL,
-  postKartuKeluargaPendudukMasuk,
-  fetchPendudukMasukByID,
-  postKeteranganMasukURI,
-  updateKeteranganMasukURI,
-  deleteKeteranganMasukURI,
-  postPendudukToKKURI,
-  getPendudukById,
-  updatePendudukURI,
-  deletePendudukPadaKK,
-} from "../../utilities/baseURL";
 import { returnInfos } from "../infos/info.actions";
 import { tokenConfig } from "../users/users.actions";
 import Types from "./penduduk_masuk.types";
@@ -21,7 +9,7 @@ export const fetchKartuKeluargaPendudukMasuk = () => (dispatch, getState) => {
   });
 
   axios
-    .get(initialURL.pendudukMasukURI, tokenConfig(getState))
+    .get(`${process.env.REACT_APP_PENDUDUK_MASUK_URI}`, tokenConfig(getState))
     .then((result) => {
       dispatch({
         type: Types.FETCH_KK_PENDUDUK_MASUK,
@@ -43,15 +31,18 @@ export const fetchKartuKeluargaPendudukMasukByID = (id) => (
   });
 
   axios
-    .get(fetchPendudukMasukByID(id), tokenConfig(getState))
+    .get(
+      `${process.env.REACT_APP_PENDUDUK__MASUK_URI}/${id}`,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.FETCH_PENDUDUK_MASUK_SUCCESS_BY_ID,
         payload: {
-          data: result.data.data.keluarga_dari.anggota_keluarga
+          data: result.data.data
             ? result.data.data.keluarga_dari.anggota_keluarga
             : [],
-          keterangan_masuk: result.data.data.keluarga_dari.anggota_keluarga
+          keterangan_masuk: result.data.data
             ? result.data.data.keluarga_dari.data_penduduk_masuk
             : {},
         },
@@ -59,7 +50,6 @@ export const fetchKartuKeluargaPendudukMasukByID = (id) => (
     })
     .catch((err) => {
       dispatch(returnInfos(err.response.data.message, err.response.status));
-      dispatch(setLoadingPendudukMasukToFalse());
     });
 };
 
@@ -72,7 +62,7 @@ export const fetchAnggotaKeluargaPendudukMasukByID = (id) => (
   });
 
   axios
-    .get(getPendudukById(id), tokenConfig(getState))
+    .get(`${process.env.REACT_APP_PENDUDUK_URI}/${id}`, tokenConfig(getState))
     .then((result) => {
       dispatch({
         type: Types.FETCH_ANGGOTA_PENDUDUK_MASUK_SUCCESS_BY_ID,
@@ -93,7 +83,11 @@ export const postKKPendudukMasuk = ({ ...request }) => (dispatch, getState) => {
   const body = JSON.stringify({ ...request });
 
   axios
-    .post(postKartuKeluargaPendudukMasuk(), body, tokenConfig(getState))
+    .post(
+      `${process.env.REACT_APP_KARTU_KELUARGA_URI}/in`,
+      body,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.POST_PENDUDUK_MASUK_SUCCESS,
@@ -126,7 +120,11 @@ export const postPendudukMasukToKK = ({ ...requests }, id) => (
   const body = JSON.stringify({ ...requests });
 
   axios
-    .post(postPendudukToKKURI(id), body, tokenConfig(getState))
+    .post(
+      `${process.env.REACT_APP_PENDUDUK_URI}/${id}`,
+      body,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.POST_ANGGOTA_PENDUDUK_MASUK_SUCCESS,
@@ -150,7 +148,11 @@ export const postKeteranganMasuk = (requests, idKK, idKepala) => (
   });
 
   axios
-    .post(postKeteranganMasukURI(idKK), requests, tokenConfig(getState))
+    .post(
+      `${process.env.REACT_APP_PENDUDUK__MASUK_URI}/${idKK}/p`,
+      requests,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.POST_KET_PENDUDUK_MASUK_SUCCESS,
@@ -185,7 +187,11 @@ export const updateAnggotaKeluargaPendudukMasuk = ({ ...requests }, id) => (
   const body = JSON.stringify({ ...requests });
 
   axios
-    .put(updatePendudukURI(id), body, tokenConfig(getState))
+    .put(
+      `${process.env.REACT_APP_PENDUDUK_URI}/${id}`,
+      body,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.PUT_ANGGOTA_PENDUDUK_MASUK_SUCCESS_BY_ID,
@@ -209,7 +215,11 @@ export const updateKeteranganMasuk = (requests, id, idKepala) => (
   });
 
   axios
-    .put(updateKeteranganMasukURI(id), requests, tokenConfig(getState))
+    .put(
+      `${process.env.REACT_APP_PENDUDUK__MASUK_URI}/${id}`,
+      requests,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.PUT_KETERANGAN_MASUK_SUCCESS,
@@ -237,7 +247,7 @@ export const deleteKeteranganMasuk = (idKK, idKeteranganMasuk, idKepala) => (
 
   axios
     .delete(
-      deleteKeteranganMasukURI(idKK, idKeteranganMasuk),
+      `${process.env.REACT_APP_PENDUDUK__MASUK_URI}/${idKK}/d/${idKeteranganMasuk}`,
       tokenConfig(getState)
     )
     .then((result) => {
@@ -264,7 +274,10 @@ export const deletePendudukMasukPadaKK = (idKK, idPendudukMasuk, idKepala) => (
   });
 
   axios
-    .delete(deletePendudukPadaKK(idPendudukMasuk, idKK), tokenConfig(getState))
+    .delete(
+      `${process.env.REACT_APP_PENDUDUK_URI}/${idPendudukMasuk}/d/${idKK}`,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.DELETE_PENDUDUK_MASUK_SUCCESS,

@@ -1,13 +1,5 @@
 import Types from "./kematian.types";
 import axios from "axios";
-import {
-  postKematianURI,
-  initialURL,
-  getDataKematianByIdURI,
-  updateDataKematianByIdURI,
-  deleteDataKematianByIdURI,
-  postArsipKematianURI,
-} from "../../utilities/baseURL";
 import { tokenConfig } from "../users/users.actions";
 import { returnInfos } from "../infos/info.actions";
 import { fetchAnggotaKeluargaByID } from "../anggota_keluarga/anggota_keluarga.actions";
@@ -18,7 +10,7 @@ export const fetchDataKematian = () => (dispatch, getState) => {
   });
 
   axios
-    .get(initialURL.kematianURI, tokenConfig(getState))
+    .get(`${process.env.REACT_APP_KEMATIAN_URI}`, tokenConfig(getState))
     .then((result) => {
       dispatch({
         type: Types.FETCH_KEMATIAN_SUCCESS,
@@ -36,7 +28,7 @@ export const getDataKematianById = (id) => (dispatch, getState) => {
   });
 
   axios
-    .get(getDataKematianByIdURI(id), tokenConfig(getState))
+    .get(`${process.env.REACT_APP_KEMATIAN_URI}/${id}`, tokenConfig(getState))
     .then((result) => {
       dispatch({
         type: Types.FETCH_KEMATIAN_BY_ID_SUCCESS,
@@ -61,7 +53,11 @@ export const postKematian = ({ ...requests }, id) => (dispatch, getState) => {
   const body = JSON.stringify({ ...requests });
 
   axios
-    .post(postKematianURI(id), body, tokenConfig(getState))
+    .post(
+      `${process.env.REACT_APP_KEMATIAN_URI}/${id}`,
+      body,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.POST_KEMATIAN_SUCCESS,
@@ -82,7 +78,11 @@ export const postArsipKematian = (request, id) => (dispatch, getState) => {
   });
 
   axios
-    .post(postArsipKematianURI(id), request, tokenConfig(getState))
+    .post(
+      `${process.env.REACT_APP_ARSIP_KEMATIAN_URI}/${id}`,
+      request,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.POST_ARSIP_KEMATIAN_SUCCESS,
@@ -104,7 +104,11 @@ export const updateArsipKematian = (request, id, idData) => (
   });
 
   axios
-    .put(postArsipKematianURI(id), request, tokenConfig(getState))
+    .put(
+      `${process.env.REACT_APP_ARSIP_KEMATIAN_URI}/${id}`,
+      request,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.PUT_ARSIP_KEMATIAN_SUCCESS,
@@ -124,7 +128,10 @@ export const deleteArsipKematian = (id, idKematian) => (dispatch, getState) => {
   });
 
   axios
-    .delete(postArsipKematianURI(id), tokenConfig(getState))
+    .delete(
+      `${process.env.REACT_APP_ARSIP_KEMATIAN_URI}/${id}`,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.DELETE_ARSIP_KEMATIAN_SUCCESS,
@@ -148,7 +155,11 @@ export const updateDataKematian = ({ ...requests }, id) => (
   const body = JSON.stringify({ ...requests });
 
   axios
-    .put(updateDataKematianByIdURI(id), body, tokenConfig(getState))
+    .put(
+      `${process.env.REACT_APP_KEMATIAN_URI}/${id}`,
+      body,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.PUT_KEMATIAN_SUCCESS,
@@ -176,7 +187,10 @@ export const deleteDataKematian = (id) => (dispatch, getState) => {
   });
 
   axios
-    .delete(deleteDataKematianByIdURI(id), tokenConfig(getState))
+    .delete(
+      `${process.env.REACT_APP_KEMATIAN_URI}/${id}`,
+      tokenConfig(getState)
+    )
     .then(() => {
       dispatch({
         type: Types.DELETE_KEMATIAN_SUCCESS,

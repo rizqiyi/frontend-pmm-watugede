@@ -1,10 +1,5 @@
 import Types from "./penduduk.types";
 import axios from "axios";
-import {
-  initialURL,
-  getPendudukById,
-  updatePendudukURI,
-} from "../../utilities/baseURL";
 import { tokenConfig } from "../users/users.actions";
 import { returnInfos } from "../infos/info.actions";
 
@@ -12,7 +7,7 @@ export const fetchPenduduk = () => (dispatch, getState) => {
   dispatch({ type: Types.START_REQUEST_PENDUDUK });
 
   axios
-    .get(initialURL.pendudukURI, tokenConfig(getState))
+    .get(`${process.env.REACT_APP_PENDUDUK_URI}`, tokenConfig(getState))
     .then((result) => {
       dispatch({
         type: Types.FETCH_PENDUDUK_SUCCESS,
@@ -28,7 +23,7 @@ export const fetchPendudukById = (id) => (dispatch, getState) => {
   dispatch({ type: Types.START_REQUEST_PENDUDUK });
 
   axios
-    .get(getPendudukById(id), tokenConfig(getState))
+    .get(`${process.env.REACT_APP_PENDUDUK_URI}/${id}`, tokenConfig(getState))
     .then((result) => {
       dispatch({
         type: Types.FETCH_PENDUDUK_SUCCESS_BY_ID,
@@ -46,7 +41,7 @@ export const postPenduduk = ({ ...request }) => (dispatch, getState) => {
   const body = JSON.stringify({ ...request });
 
   axios
-    .post(initialURL.pendudukURI, body, tokenConfig(getState))
+    .post(`${process.env.REACT_APP_PENDUDUK_URI}`, body, tokenConfig(getState))
     .then((result) => {
       dispatch({
         type: Types.POST_PENDUDUK_SUCCESS,
@@ -65,7 +60,11 @@ export const patchPenduduk = ({ ...request }, id) => (dispatch, getState) => {
   const body = JSON.stringify({ ...request });
 
   axios
-    .put(updatePendudukURI(id), body, tokenConfig(getState))
+    .put(
+      `${process.env.REACT_APP_PENDUDUK_URI}/${id}`,
+      body,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.PUT_PENDUDUK_SUCCESS,
@@ -85,7 +84,10 @@ export const deletePenduduk = (id, onSuccess) => (dispatch, getState) => {
   dispatch({ type: Types.START_REQUEST_PENDUDUK });
 
   axios
-    .delete(updatePendudukURI(id), tokenConfig(getState))
+    .delete(
+      `${process.env.REACT_APP_PENDUDUK_URI}/${id}`,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.DELETE_PENDUDUK_SUCCESS,

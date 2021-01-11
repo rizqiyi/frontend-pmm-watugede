@@ -1,5 +1,4 @@
 import axios from "axios";
-import { initialURL, postAdminLogoutURI } from "../../utilities/baseURL";
 import Types from "./admin_activity.types";
 import { tokenConfig } from "../users/users.actions";
 import { returnInfos } from "../infos/info.actions";
@@ -10,7 +9,7 @@ export const getDataAdminActivity = () => (dispatch, getState) => {
   });
 
   axios
-    .get(initialURL.activityURI, tokenConfig(getState))
+    .get(process.env.REACT_APP_ACTIVITY_URI, tokenConfig(getState))
     .then((result) => {
       dispatch({
         type: Types.GET_ADMIN_ACTIVITY,
@@ -31,7 +30,11 @@ export const postDataAdminWhenLogout = (id, onAdminLogout) => (
   });
 
   axios
-    .post(postAdminLogoutURI(id), {}, tokenConfig(getState))
+    .post(
+      `${process.env.REACT_APP_ACTIVITY_URI}/${id}`,
+      {},
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.POST_ADMIN_LOGOUT_ACTIVITY,

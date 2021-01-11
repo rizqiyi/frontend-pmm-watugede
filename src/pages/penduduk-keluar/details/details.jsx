@@ -12,7 +12,6 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
-import InsertComponents from "../../../components/penduduk-keluar-components/insert-keterangan-keluar/insert";
 import dataIsNull from "../../../assets/images/no-data-found.svg";
 import { GreyText } from "../../../components/typography/typography";
 import { useStyles } from "./details.style";

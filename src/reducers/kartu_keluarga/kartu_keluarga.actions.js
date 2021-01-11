@@ -1,10 +1,4 @@
 import axios from "axios";
-import {
-  initialURL,
-  searchKKByName,
-  searchKKByNomorKK,
-  getKartuKeluargaById,
-} from "../../utilities/baseURL";
 import { returnInfos } from "../infos/info.actions";
 import { tokenConfig } from "../users/users.actions";
 import Types from "./kartu_keluarga.types";
@@ -15,7 +9,11 @@ export const postKartuKeluarga = ({ ...request }) => (dispatch, getState) => {
   const body = JSON.stringify({ ...request });
 
   axios
-    .post(initialURL.getAndPostKartuKeluargaURI, body, tokenConfig(getState))
+    .post(
+      `${process.env.REACT_APP_KARTU_KELUARGA_URI}`,
+      body,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.POST_KARTU_KELUARGA_SUCCESS,
@@ -33,7 +31,10 @@ export const getKartuKeluargaByID = (id) => (dispatch, getState) => {
   dispatch({ type: Types.START_REQUEST_KK });
 
   axios
-    .get(getKartuKeluargaById(id), tokenConfig(getState))
+    .get(
+      `${process.env.REACT_APP_KARTU_KELUARGA_URI}/${id}`,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch({
         type: Types.FETCH_KARTU_KELUARGA_SUCCESS_BY_ID,
@@ -49,7 +50,7 @@ export const getAllKartuKeluarga = () => (dispatch, getState) => {
   dispatch({ type: Types.START_REQUEST_KK });
 
   axios
-    .get(initialURL.kartuKeluargaURI, tokenConfig(getState))
+    .get(`${process.env.REACT_APP_KARTU_KELUARGA_URI}`, tokenConfig(getState))
     .then((result) => {
       dispatch({
         type: Types.FETCH_KARTU_KELUARGA_SUCCESS,
@@ -66,7 +67,10 @@ export const searchKKbyName = (params, cond) => (dispatch, getState) => {
   dispatch({ type: Types.START_REQUEST_KK });
 
   axios
-    .get(searchKKByName(params), tokenConfig(getState))
+    .get(
+      `${process.env.REACT_APP_PENDUDUK_URI}/s?name=${params}`,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch(returnInfos("", 200, null));
       dispatch({
@@ -93,7 +97,10 @@ export const searchKKbyNomorNIK = (params, cond) => (dispatch, getState) => {
   dispatch({ type: Types.START_REQUEST_KK });
 
   axios
-    .get(searchKKByNomorKK(params), tokenConfig(getState))
+    .get(
+      `${process.env.REACT_APP_PENDUDUK_URI}/s/kk?no_kk=${params}`,
+      tokenConfig(getState)
+    )
     .then((result) => {
       dispatch(returnInfos("", 200, null));
       dispatch({

@@ -24,7 +24,6 @@ const DialogDeleteAnggotaComponent = ({ ...props }) => {
   } = props;
   const classes = useStyles();
 
-  console.log(idToDelete);
   return (
     <React.Fragment>
       <Dialog
