@@ -1,65 +1,33 @@
-import {
-  Box,
-  Paper,
-  Typography,
-  Divider,
-  Grid,
-  Container,
-} from "@material-ui/core";
-import React, { useEffect, useRef } from "react";
+import { Box, Paper, Typography, Divider, Grid } from "@material-ui/core";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { clearInfos } from "../../reducers/infos/info.actions";
 import dashboardIllust from "../../assets/images/dashboard-illustration.svg";
 import { useStyles } from "./dashboard.style";
 import ReactApexChart from "react-apexcharts";
 import { DataListsComponent } from "../../components/dashboard-components/data-lists";
+import { options } from "../../utilities/pie-chart";
+import { fetchCountedData } from "../../reducers/dashboard/dashboard.actions";
 
-const DashboardPage = ({ infos, clearInfos }) => {
-  const isFirstRender = useRef(true);
+const DashboardPage = ({ ...props }) => {
   const classes = useStyles();
+  const { data, message, fetchCountedData, isLoading } = props;
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      clearInfos();
-    }
-  }, [clearInfos]);
+    fetchCountedData();
+  }, [fetchCountedData]);
 
-  const series = [44, 55, 41];
-  const options = {
-    chart: {
-      type: "donut",
-    },
-    colors: ["#A4D4FF", "#6AB4F6", "#329DF7"],
-    responsive: [
-      {
-        breakpoint: 2000,
-        options: {
-          chart: {
-            width: 500,
-          },
-          legend: {
-            show: true,
-            position: "bottom",
-            fontFamily: "Poppins, sans-serif",
-            inverseOrder: true,
-          },
-        },
-      },
-    ],
-    plotOptions: {
-      pie: {
-        customScale: 0.9,
-      },
-    },
-    labels: ["Penduduk Keluar", "Penduduk Masuk", "Penduduk"],
-    tooltip: {
-      onDatasetHover: {
-        highlightDataSeries: true,
-      },
-    },
-    dataLabels: { enabled: false },
+  const checkIfUndefined = (value) => {
+    return value === undefined ? 1 : value;
   };
+
+  const series = [
+    checkIfUndefined(data.data_penduduk_keluar),
+    checkIfUndefined(data.data_penduduk_masuk),
+    checkIfUndefined(data.data_penduduk),
+  ];
+
+  const total =
+    data.data_penduduk_keluar + data.data_penduduk_masuk + data.data_penduduk;
 
   return (
     <React.Fragment>
@@ -75,7 +43,7 @@ const DashboardPage = ({ infos, clearInfos }) => {
                 <Typography
                   style={{ fontWeight: 500, fontSize: 28, color: "#fff" }}
                 >
-                  Hi, Rizqiyanto Imanullah
+                  {message}
                 </Typography>
               </Box>
               <Box marginTop={3} style={{ color: "#fff" }}>
@@ -90,7 +58,7 @@ const DashboardPage = ({ infos, clearInfos }) => {
               />
             </Box>
           </Box>
-          <DataListsComponent />
+          <DataListsComponent data={data} isLoading={isLoading} />
         </Box>
       </Paper>
       <Box marginTop={2}>
@@ -125,7 +93,9 @@ const DashboardPage = ({ infos, clearInfos }) => {
               >
                 <Box className={classes.pendudukShape}>
                   <Box marginBottom={2}>
-                    <Typography className={classes.values}>60%</Typography>
+                    <Typography className={classes.values}>
+                      {Math.round((data.data_penduduk / total) * 100)}%
+                    </Typography>
                   </Box>
                   <Box marginBottom={1}>
                     <Typography>Penduduk</Typography>
@@ -133,7 +103,9 @@ const DashboardPage = ({ infos, clearInfos }) => {
                 </Box>
                 <Box className={classes.pendudukMasukShape}>
                   <Box marginBottom={2} marginTop={2}>
-                    <Typography className={classes.values}>60%</Typography>
+                    <Typography className={classes.values}>
+                      {Math.round((data.data_penduduk_masuk / total) * 100)}%
+                    </Typography>
                   </Box>
                   <Box maxWidth={100} textAlign="center">
                     <Typography>Penduduk Masuk</Typography>
@@ -141,7 +113,9 @@ const DashboardPage = ({ infos, clearInfos }) => {
                 </Box>
                 <Box className={classes.pendudukKeluarShape}>
                   <Box marginBottom={2} marginTop={2}>
-                    <Typography className={classes.values}>60%</Typography>
+                    <Typography className={classes.values}>
+                      {Math.round((data.data_penduduk_keluar / total) * 100)}%
+                    </Typography>
                   </Box>
                   <Box maxWidth={100} textAlign="center">
                     <Typography>Penduduk Keluar</Typography>
@@ -158,13 +132,15 @@ const DashboardPage = ({ infos, clearInfos }) => {
 
 const mapStateToProps = (state) => {
   return {
-    infos: state.infos,
+    message: state.users.message,
+    data: state.dashboard.dashboard_obj,
+    isLoading: state.dashboard.isLoading,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    clearInfos: () => dispatch(clearInfos()),
+    fetchCountedData: () => dispatch(fetchCountedData()),
   };
 };
 

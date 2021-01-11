@@ -1,6 +1,7 @@
 const baseURL = "http://localhost:5000/";
 
 const initialURL = {
+  dashboard: `${baseURL}api/activity/all`,
   loginURI: `${baseURL}api/auth/admin`,
   adminData: `${baseURL}api/auth`,
   activityURI: `${baseURL}api/activity`,

@@ -139,7 +139,7 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                 props.page * props.rowsPerPage + props.rowsPerPage
               )
               .map((row, index) => {
-                return (
+                return row.anggota_keluarga[0] !== undefined ? (
                   <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                     <TableCell align="left">
                       {row.anggota_keluarga[0].nik}
@@ -178,7 +178,7 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                       }
                     </TableCell>
                   </TableRow>
-                );
+                ) : null;
               })}
         {props.emptyRows > 0 && (
           <TableRow style={{ height: 53 }}>

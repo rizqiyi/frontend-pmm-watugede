@@ -33,6 +33,7 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
     isLoading,
     infosStatus,
     infosMessage,
+    isLoadingAnggota,
     infosID,
     clearInfos,
   } = props;
@@ -118,7 +119,7 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
       ) : null}
       <div className={classes.root}>
         {rows.length === 0 ? (
-          isLoading ? null : (
+          isLoading || isLoadingAnggota ? null : (
             <Box display="flex" flexDirection="column">
               <Box>
                 <img
@@ -153,7 +154,7 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
             </Box>
           )
         ) : null}
-        {isLoading ? (
+        {isLoading || isLoadingAnggota ? (
           <Box
             display="flex"
             justifyContent="center"
@@ -164,7 +165,7 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
           </Box>
         ) : null}
         {rows.length !== 0 ? (
-          isLoading ? null : (
+          isLoading || isLoadingAnggota ? null : (
             <Box marginTop={3}>
               <Paper className={classes.paper}>
                 <Box p={3}>
@@ -291,6 +292,7 @@ const mapStateToProps = (state) => {
   return {
     detailAnggotaKeluarga: state.kartu_keluarga.kartu_keluarga_obj,
     isLoading: state.kartu_keluarga.isLoading,
+    isLoadingAnggota: state.anggota_keluarga.isLoading,
     infosStatus: state.infos.status,
     infosMessage: state.infos.message,
     infosID: state.infos.id,

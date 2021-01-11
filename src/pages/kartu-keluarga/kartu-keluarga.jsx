@@ -71,20 +71,24 @@ const KartuKeluargaPage = ({ ...props }) => {
 
   let dataToExcel = [];
 
-  kartuKeluarga.map((a) => {
-    let sendToOuter = {
-      "Nomor Kartu Keluarga": `=""${a.no_kk}""`,
-      "Nomor Induk Keluarga": `=""${a.anggota_keluarga[0].nik}""`,
-      "Nama Lengkap": a.anggota_keluarga[0].nama_lengkap,
-      "Tempat Tanggal Lahir": a.anggota_keluarga[0].tempat_tanggal_lahir,
-      Umur: a.anggota_keluarga[0].umur,
-      Alamat: a.anggota_keluarga[0].alamat_asal,
-      Agama: a.anggota_keluarga[0].agama,
-      "Posisi Dalam Keluarga": a.anggota_keluarga[0].posisi_dalam_keluarga,
-      "Status Perkawinan": a.anggota_keluarga[0].status_perkawinan,
-      "Jenis Kelamin": a.anggota_keluarga[0].jenis_kelamin,
-      "Anggota Keluarga": a.anggota_keluarga.length,
-    };
+  rows.map((a) => {
+    let sendToOuter = {};
+
+    if (a.anggota_keluarga[0] !== undefined) {
+      sendToOuter = {
+        "Nomor Kartu Keluarga": `=""${a.no_kk}""`,
+        "Nomor Induk Keluarga": `=""${a.anggota_keluarga[0].nik}""`,
+        "Nama Lengkap": a.anggota_keluarga[0].nama_lengkap,
+        "Tempat Tanggal Lahir": a.anggota_keluarga[0].tempat_tanggal_lahir,
+        Umur: a.anggota_keluarga[0].umur,
+        Alamat: a.anggota_keluarga[0].alamat_asal,
+        Agama: a.anggota_keluarga[0].agama,
+        "Posisi Dalam Keluarga": a.anggota_keluarga[0].posisi_dalam_keluarga,
+        "Status Perkawinan": a.anggota_keluarga[0].status_perkawinan,
+        "Jenis Kelamin": a.anggota_keluarga[0].jenis_kelamin,
+        "Anggota Keluarga": a.anggota_keluarga.length,
+      };
+    }
 
     return dataToExcel.push(sendToOuter);
   });
