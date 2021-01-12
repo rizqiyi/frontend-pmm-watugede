@@ -6,6 +6,7 @@ const initialState = {
   penduduk_keluar_by_id: [],
   keterangan_keluar_by_id: [],
   isLoading: false,
+  isLoadingKeterangan: false,
 };
 
 export const pendudukKeluarReducer = (state = initialState, action) => {
@@ -16,11 +17,18 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         isLoading: true,
       };
 
+    case Types.START_REQUEST_KETERANGAN_KELUAR:
+      return {
+        ...state,
+        isLoadingKeterangan: true,
+      };
+
     case Types.FETCH_PENDUDUK_KELUAR_SUCCESS:
       return {
         ...state,
         penduduk_keluar: action.payload,
         isLoading: false,
+        isLoadingKeterangan: false,
       };
 
     case Types.FETCH_PENDUDUK_KELUAR_SUCCESS_BY_ID:
@@ -29,6 +37,7 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         penduduk_keluar_by_id: action.payload.someData,
         keterangan_keluar_by_id: action.payload.keterangan,
         isLoading: false,
+        isLoadingKeterangan: false,
       };
 
     case Types.POST_KETERANGAN_KELUAR_SUCCESS:
@@ -36,6 +45,7 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         ...state,
         keterangan_keluar_by_id: action.payload,
         isLoading: false,
+        isLoadingKeterangan: false,
       };
 
     case Types.POST_PENDUDUK_KELUAR_SUCCESS:
@@ -43,6 +53,7 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         ...state,
         penduduk_keluar_obj: action.payload,
         isLoading: false,
+        isLoadingKeterangan: false,
       };
 
     case Types.POST_MANY_PENDUDUK_KELUAR_SUCCESS:
@@ -50,6 +61,7 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         ...state,
         penduduk_keluar_obj: action.payload,
         isLoading: false,
+        isLoadingKeterangan: false,
       };
 
     case Types.DELETE_PENDUDUK_KELUAR_SUCCESS:
@@ -59,6 +71,7 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
           (data) => data._id !== action.payload
         ),
         isLoading: false,
+        isLoadingKeterangan: false,
       };
 
     case Types.DELETE_ALL_DATA_PENDUDUK_KELUAR_SUCCESS:
@@ -68,6 +81,7 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
           (data) => data._id !== action.payload
         ),
         isLoading: false,
+        isLoadingKeterangan: false,
       };
 
     case Types.DELETE_KETERANGAN_KELUAR_SUCCESS:
@@ -75,6 +89,7 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         ...state,
         keterangan_keluar_by_id: action.payload,
         isLoading: false,
+        isLoadingKeterangan: false,
       };
 
     case Types.UPDATE_KETERANGAN_KELUAR_SUCCESS:
@@ -82,12 +97,14 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         ...state,
         keterangan_keluar_by_id: action.payload,
         isLoading: false,
+        isLoadingKeterangan: false,
       };
 
     case Types.SET_LOADING_TO_FALSE_PENDUDUK_KELUAR:
       return {
         ...state,
         isLoading: false,
+        isLoadingKeterangan: false,
       };
 
     default:

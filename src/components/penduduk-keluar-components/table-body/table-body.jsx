@@ -91,19 +91,13 @@ export const PendudukKeluarTableBodyComponent = ({ ...props }) => {
                   {isLoading ? (
                     <Skeleton />
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" style={{ width: 80 }}>
                       <Link
                         className={classes.controlLink}
-                        to={
-                          row.keterangan_keluar_desa
-                            ? `/penduduk_keluar/${row._id}/d`
-                            : `/penduduk_keluar/${row._id}/i/k`
-                        }
+                        to={`/penduduk_keluar/${row._id}/d`}
                         color="primary"
                       >
-                        {row.keterangan_keluar_desa
-                          ? "Lihat Detail"
-                          : "Tambah Keterangan"}
+                        Lihat Detail
                       </Link>
                     </Typography>
                   )}

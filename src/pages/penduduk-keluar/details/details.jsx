@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Divider,
   Grid,
   Hidden,
@@ -27,6 +28,7 @@ import { Alert, Skeleton } from "@material-ui/lab";
 import DialogEditComponent from "../../../components/penduduk-keluar-components/dialog-edit-keterangan/dialog-edit";
 import DialogDeleteKeteranganComponent from "../../../components/penduduk-keluar-components/dialog-delete-keterangan/dialog-delete";
 import { clearInfos } from "../../../reducers/infos/info.actions";
+import AddIcon from "@material-ui/icons/Add";
 
 const PendudukKeluarDetailPage = ({ ...props }) => {
   const classes = useStyles();
@@ -40,6 +42,7 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
     infosMessage,
     infosID,
     clearInfos,
+    isLoadingKeterangan,
   } = props;
   const paramsId = match.params.id;
   const [anchorEl, setAnchorEl] = useState(null);
@@ -65,7 +68,7 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
 
   return (
     <React.Fragment>
-      {infosID === "DELETE_KETERANGAN_SUCCESS" && infosStatus === 200 ? (
+      {infosID === "DELETE_KETERANGAN_SUCCESS" ? (
         <Box marginBottom={2} width="50%">
           <Alert icon={false} severity="success">
             {infosMessage}
@@ -86,28 +89,37 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
                   Detail Informasi Penduduk Keluar
                 </Typography>
               </Box>
-              <Box>
-                <Hidden
-                  xlDown={
-                    keteranganKeluar.length === 0 ||
-                    keteranganKeluar === undefined
-                  }
-                >
+              <Box display="flex" flexDirection="row">
+                <Box>
                   <Button
-                    color="primary"
-                    type="submit"
-                    className={classes.insertButton}
+                    className={classes.backButton}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.push("/penduduk_keluar");
+                    }}
                   >
-                    Download PDF
+                    Kembali
                   </Button>
-                </Hidden>
+                </Box>
+                <Box>
+                  <Hidden
+                    xlDown={
+                      keteranganKeluar.length === 0 ||
+                      keteranganKeluar === undefined
+                    }
+                  >
+                    <Button type="submit" className={classes.downloadButton}>
+                      Unduh PDF
+                    </Button>
+                  </Hidden>
+                </Box>
               </Box>
             </Box>
             <Box marginTop={2} marginBottom={2}>
               <Divider />
             </Box>
             {keteranganKeluar.length === 0 || keteranganKeluar === undefined ? (
-              isLoading ? null : (
+              isLoadingKeterangan ? null : (
                 <Box display="flex" flexDirection="column">
                   <Box>
                     <img
@@ -132,62 +144,81 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
                       className={classes.textCons}
                     />
                   </Box>
+                  <Box display="flex" justifyContent="center" marginBottom={5}>
+                    <Button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        history.push(`/penduduk_keluar/${paramsId}/i/k`);
+                      }}
+                      startIcon={<AddIcon />}
+                      className={classes.goToButton}
+                    >
+                      Tambah Keterangan
+                    </Button>
+                  </Box>
                 </Box>
               )
             ) : null}
-            {keteranganKeluar.length !== 0 ? null : isLoading ? (
-              <Box display="flex" justifyContent="center" alignItems="center">
-                <Skeleton animation="wave" width="900px" height="300px" />
-              </Box>
+            {keteranganKeluar.length === 0 ? (
+              isLoadingKeterangan ? (
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  margin="10rem auto 10rem auto"
+                >
+                  <CircularProgress color="primary" />
+                </Box>
+              ) : null
             ) : null}
-            {keteranganKeluar.length !== 0 ? (
+            <Hidden
+              xlDown={
+                keteranganKeluar.length === 0 || keteranganKeluar === undefined
+              }
+            >
               <KeteranganKeluarComponent
                 data={keteranganKeluar}
-                isLoading={isLoading}
+                isLoading={isLoadingKeterangan}
                 setOpenDialogEdit={setOpenDialogEdit}
                 setOpenDialogDeleteKeterangan={setOpenDialogDeleteKeterangan}
               />
-            ) : null}
-            <Box marginTop={3}>
-              <Typography variant="h6">Pengusul Penduduk Keluar</Typography>
+            </Hidden>
+            <Box marginTop={2} marginBottom={2}>
+              <Divider />
+            </Box>
+            <Box marginTop={2} marginBottom={2}>
+              <Box
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Box>
+                  <Typography variant="h6">Pengusul Penduduk Keluar</Typography>
+                </Box>
+                <Box>
+                  {isLoadingKeterangan ? null : (
+                    <Button
+                      type="submit"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setOpenDialogDeleteAll(true);
+                      }}
+                      className={classes.deleteButton}
+                    >
+                      Hapus Semua Data
+                    </Button>
+                  )}
+                </Box>
+              </Box>
             </Box>
             <Box marginTop={2} marginBottom={2}>
               <Divider />
             </Box>
-            <PengusulKeluarComponent data={firstData} isLoading={isLoading} />
-            <Box marginTop={2} marginBottom={2}>
-              <Divider />
-            </Box>
-            <Box
-              display="flex"
-              flexDirection="row"
-              justifyContent="flex-end"
-              marginRight={2.3}
-            >
-              <Box marginRight={2}>
-                <Button
-                  className={classes.backButton}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    history.push("/penduduk_keluar");
-                  }}
-                >
-                  Kembali
-                </Button>
-              </Box>
-              <Box>
-                <Button
-                  type="submit"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenDialogDeleteAll(true);
-                  }}
-                  className={classes.deleteButton}
-                >
-                  Hapus Semua Data
-                </Button>
-              </Box>
-            </Box>
+            <PengusulKeluarComponent
+              data={firstData}
+              isLoading={isLoadingKeterangan}
+            />
           </Box>
         </Paper>
         <Box marginTop={3} marginLeft={3}>
@@ -236,65 +267,122 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
               return idx > 0 ? (
                 isLoading ? null : (
                   <Grid item key={idx}>
-                    <Paper>
-                      <Box display="flex" justifyContent="flex-end">
-                        <IconButton
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setAnchorEl(e.currentTarget);
-                          }}
+                    <Paper
+                      style={{
+                        borderRadius: 10,
+                        width: "380px",
+                        backgroundColor: "#F0F0F0",
+                        boxShadow: "none",
+                      }}
+                    >
+                      <Box position="absolute" marginTop={1.4} marginLeft={3}>
+                        <Typography className={classes.textHeader}>
+                          {d.nama_lengkap}
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <Box
+                          display="flex"
+                          justifyContent="flex-end"
+                          className={classes.cardHeader}
                         >
-                          <MoreVertIcon />
-                        </IconButton>
-                        <Menu
-                          id="simple-menu"
-                          anchorEl={anchorEl}
-                          keepMounted
-                          open={Boolean(anchorEl)}
-                          onClose={(e) => {
-                            e.preventDefault();
-                            setAnchorEl(null);
-                          }}
-                        >
-                          <MenuItem
+                          <IconButton
                             onClick={(e) => {
                               e.preventDefault();
+                              setAnchorEl(e.currentTarget);
+                            }}
+                            style={{ color: "#fff" }}
+                          >
+                            <MoreVertIcon />
+                          </IconButton>
+                          <Menu
+                            id="simple-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={(e) => {
+                              e.preventDefault();
                               setAnchorEl(null);
-                              setOpenDialogDelete(true);
-                              setDataToDetails(d);
                             }}
                           >
-                            Hapus
-                          </MenuItem>
-                        </Menu>
+                            <MenuItem
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setAnchorEl(null);
+                                setOpenDialogDelete(true);
+                                setDataToDetails(d);
+                              }}
+                            >
+                              Hapus
+                            </MenuItem>
+                          </Menu>
+                        </Box>
                       </Box>
-                      <Box p={3} paddingTop={0}>
-                        <Box>
-                          <Typography style={{ lineHeight: 2 }}>
-                            Nama Lengkap : {d.nama_lengkap}
-                          </Typography>
+                      <Box p={3} paddingTop={2} paddingBottom={2}>
+                        <Box
+                          display="flex"
+                          flexDirection="row"
+                          justifyContent="space-between"
+                          alignItems="center"
+                        >
+                          <Box>
+                            <Box marginBottom={2}>
+                              <Box marginBottom={1}>
+                                <Typography className={classes.header}>
+                                  Umur
+                                </Typography>
+                              </Box>
+                              <Box>
+                                <Typography className={classes.values}>
+                                  100
+                                </Typography>
+                              </Box>
+                            </Box>
+                            <Box marginBottom={2}>
+                              <Box marginBottom={1}>
+                                <Typography className={classes.header}>
+                                  Pekerjaan
+                                </Typography>
+                              </Box>
+                              <Box>
+                                <Typography className={classes.values}>
+                                  Web Developer
+                                </Typography>
+                              </Box>
+                            </Box>
+                          </Box>
+                          <Box>
+                            <Box marginBottom={2}>
+                              <Box marginBottom={1}>
+                                <Typography className={classes.header}>
+                                  Pendidikan Terakhir
+                                </Typography>
+                              </Box>
+                              <Box>
+                                <Typography className={classes.values}>
+                                  S3
+                                </Typography>
+                              </Box>
+                            </Box>
+                            <Box marginBottom={2}>
+                              <Box marginBottom={1}>
+                                <Typography className={classes.header}>
+                                  Kedudukan Keluarga
+                                </Typography>
+                              </Box>
+                              <Box>
+                                <Typography className={classes.values}>
+                                  Anak
+                                </Typography>
+                              </Box>
+                            </Box>
+                          </Box>
                         </Box>
-                        <Box>
-                          <Typography style={{ lineHeight: 2 }}>
-                            Umur : {d.umur}
-                          </Typography>
-                        </Box>
-                        <Box>
-                          <Typography style={{ lineHeight: 2 }}>
-                            Pendidikan Terakhir : {d.pendidikan_terakhir}
-                          </Typography>
-                        </Box>
-                        <Box>
-                          <Typography style={{ lineHeight: 2 }}>
-                            Kedudukan dalam Keluarga : {d.posisi_dalam_keluarga}
-                          </Typography>
-                        </Box>
-                        <Box>
-                          <Typography style={{ lineHeight: 2 }}>
-                            Pekerjaan : {d.pekerjaan}
-                          </Typography>
-                        </Box>
-                        <Box marginTop={2}>
+                        <Box
+                          display="flex"
+                          justifyContent="center"
+                          margin="0 auto"
+                        >
                           <Typography
                             component={Link}
                             to="#!"
@@ -356,6 +444,7 @@ const mapStateToProps = (state) => {
     pendudukKeluarByID: state.penduduk_keluar.penduduk_keluar_by_id,
     keteranganKeluar: state.penduduk_keluar.keterangan_keluar_by_id,
     isLoading: state.penduduk_keluar.isLoading,
+    isLoadingKeterangan: state.penduduk_keluar.isLoadingKeterangan,
     infosStatus: state.infos.status,
     infosMessage: state.infos.message,
     infosID: state.infos.id,

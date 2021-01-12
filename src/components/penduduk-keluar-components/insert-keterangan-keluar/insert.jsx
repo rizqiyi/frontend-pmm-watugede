@@ -270,7 +270,7 @@ const InsertComponents = ({ ...props }) => {
                           className={classes.controlInputCatatan}
                         />
                       </Box>
-                      <Box marginTop={0.8}>
+                      <Box marginTop={1.2}>
                         <Typography
                           variant="body2"
                           className={classes.fontCons}

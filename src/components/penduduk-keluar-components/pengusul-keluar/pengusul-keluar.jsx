@@ -1,73 +1,196 @@
-import { Box, Container, Typography } from "@material-ui/core";
+import { Box, Typography, Grid } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 import React from "react";
+import { useStyles } from "./pengusul-keluar.style";
 
 export const PengusulKeluarComponent = ({ ...props }) => {
-  const { data } = props;
+  const { data, isLoading } = props;
+  const classes = useStyles();
+
   const checkValues = (val) => {
     return val ? val : "";
   };
+
   return (
     <React.Fragment>
-      <Container>
-        <Box
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-evenly"
+      <Box p={3} paddingTop={0}>
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
           alignItems="baseline"
+          spacing={10}
         >
-          <Box>
+          <Grid item>
             <Box>
-              <Typography style={{ lineHeight: 2 }}>
-                Nama Pengusul : {checkValues(data[0].nama_lengkap)}
-              </Typography>
+              <Box marginTop={3} marginBottom={1}>
+                {isLoading ? (
+                  <Skeleton width={230} />
+                ) : (
+                  <Typography className={classes.header}>
+                    Nomor Induk Keluarga
+                  </Typography>
+                )}
+              </Box>
+              <Box>
+                {isLoading ? (
+                  <Skeleton width={100} />
+                ) : (
+                  <Typography className={classes.values}>
+                    {checkValues(data[0].nik)}
+                  </Typography>
+                )}{" "}
+              </Box>
+              <Box marginTop={3} marginBottom={1}>
+                {isLoading ? (
+                  <Skeleton width={230} />
+                ) : (
+                  <Typography className={classes.header}>
+                    Nama Pengusul
+                  </Typography>
+                )}
+              </Box>
+              <Box>
+                {isLoading ? (
+                  <Skeleton width={100} />
+                ) : (
+                  <Typography className={classes.values}>
+                    {checkValues(data[0].nama_lengkap)}
+                  </Typography>
+                )}{" "}
+              </Box>
+              <Box marginTop={3} marginBottom={1}>
+                {isLoading ? (
+                  <Skeleton width={230} />
+                ) : (
+                  <Typography className={classes.header}>Umur</Typography>
+                )}
+              </Box>
+              <Box>
+                {isLoading ? (
+                  <Skeleton width={100} />
+                ) : (
+                  <Typography className={classes.values}>
+                    {checkValues(data[0].umur)}
+                  </Typography>
+                )}{" "}
+              </Box>
             </Box>
-            <Box>
-              <Typography style={{ lineHeight: 2 }}>
-                Nomor Induk Keluarga : {checkValues(data[0].nik)}
-              </Typography>
+          </Grid>
+          <Grid item>
+            <Box marginLeft={isLoading ? 11 : 13}>
+              <Box marginTop={3} marginBottom={1}>
+                {isLoading ? (
+                  <Skeleton width={230} />
+                ) : (
+                  <Typography className={classes.header}>
+                    Pendidikan Terakhir
+                  </Typography>
+                )}
+              </Box>
+              <Box>
+                {isLoading ? (
+                  <Skeleton width={100} />
+                ) : (
+                  <Typography className={classes.values}>
+                    {checkValues(data[0].pendidikan_terakhir)}
+                  </Typography>
+                )}{" "}
+              </Box>
+              <Box marginTop={3} marginBottom={1}>
+                {isLoading ? (
+                  <Skeleton width={230} />
+                ) : (
+                  <Typography className={classes.header}>
+                    Kedudukan Dalam Keluarga
+                  </Typography>
+                )}
+              </Box>
+              <Box>
+                {isLoading ? (
+                  <Skeleton width={100} />
+                ) : (
+                  <Typography className={classes.values}>
+                    {checkValues(data[0].posisi_dalam_keluarga)}
+                  </Typography>
+                )}{" "}
+              </Box>
+              <Box marginTop={3} marginBottom={1}>
+                {isLoading ? (
+                  <Skeleton width={230} />
+                ) : (
+                  <Typography className={classes.header}>Pekerjaan</Typography>
+                )}
+              </Box>
+              <Box>
+                {isLoading ? (
+                  <Skeleton width={100} />
+                ) : (
+                  <Typography className={classes.values}>
+                    {checkValues(data[0].pekerjaan)}
+                  </Typography>
+                )}{" "}
+              </Box>
             </Box>
-            <Box>
-              <Typography style={{ lineHeight: 2 }}>
-                Umur : {checkValues(data[0].umur)}
-              </Typography>
+          </Grid>
+          <Grid item>
+            <Box marginLeft={2}>
+              <Box marginTop={3} marginBottom={1}>
+                {isLoading ? (
+                  <Skeleton width={230} />
+                ) : (
+                  <Typography className={classes.header}>Agama</Typography>
+                )}
+              </Box>
+              <Box>
+                {isLoading ? (
+                  <Skeleton width={100} />
+                ) : (
+                  <Typography className={classes.values}>
+                    {checkValues(data[0].agama)}
+                  </Typography>
+                )}{" "}
+              </Box>
+              <Box marginTop={3} marginBottom={1}>
+                {isLoading ? (
+                  <Skeleton width={230} />
+                ) : (
+                  <Typography className={classes.header}>
+                    Status Perkawinan
+                  </Typography>
+                )}
+              </Box>
+              <Box>
+                {isLoading ? (
+                  <Skeleton width={100} />
+                ) : (
+                  <Typography className={classes.values}>
+                    {checkValues(data[0].status_perkawinan)}
+                  </Typography>
+                )}{" "}
+              </Box>
+              <Box marginTop={3} marginBottom={1}>
+                {isLoading ? (
+                  <Skeleton width={230} />
+                ) : (
+                  <Typography className={classes.header}>
+                    Tempat Tanggal Lahir
+                  </Typography>
+                )}
+              </Box>
+              <Box>
+                {isLoading ? (
+                  <Skeleton width={100} />
+                ) : (
+                  <Typography className={classes.values}>
+                    {checkValues(data[0].tempat_tanggal_lahir)}
+                  </Typography>
+                )}{" "}
+              </Box>
             </Box>
-            <Box>
-              <Typography style={{ lineHeight: 2 }}>
-                Pendidikan Terakhir : {checkValues(data[0].pendidikan_terakhir)}
-              </Typography>
-            </Box>
-          </Box>
-          <Box>
-            <Box>
-              <Typography style={{ lineHeight: 2 }}>
-                Kedudukan dalam Keluarga :{" "}
-                {checkValues(data[0].posisi_dalam_keluarga)}
-              </Typography>
-            </Box>
-            <Box>
-              <Typography style={{ lineHeight: 2 }}>
-                Pekerjaan : {checkValues(data[0].pekerjaan)}
-              </Typography>
-            </Box>
-            <Box>
-              <Typography style={{ lineHeight: 2 }}>
-                Agama : {checkValues(data[0].agama)}
-              </Typography>
-            </Box>
-            <Box>
-              <Typography style={{ lineHeight: 2 }}>
-                Status Perkawinan : {checkValues(data[0].status_perkawinan)}
-              </Typography>
-            </Box>
-            <Box>
-              <Typography style={{ lineHeight: 2 }}>
-                Tempat Tanggal Lahir :{" "}
-                {checkValues(data[0].tempat_tanggal_lahir)}
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
-      </Container>
+          </Grid>
+        </Grid>
+      </Box>
     </React.Fragment>
   );
 };

@@ -259,12 +259,18 @@ export const DataListsComponent = ({ data, isLoading }) => {
             </Box>
           </Box>
         </Box>
-        <Box>
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+        >
           <Box
             display="flex"
             flexDirection="row"
             alignItems="center"
             width="max-content"
+            justifyContent="center"
           >
             <Box>
               {isLoading ? (
@@ -273,7 +279,7 @@ export const DataListsComponent = ({ data, isLoading }) => {
                 <img src={maleIcon} alt="icon" />
               )}
             </Box>
-            <Box marginLeft={4}>
+            <Box marginLeft={isLoading ? 4 : 4.3}>
               <Box>
                 {isLoading ? (
                   <Skeleton width={220} />
@@ -299,9 +305,8 @@ export const DataListsComponent = ({ data, isLoading }) => {
             display="flex"
             flexDirection="row"
             alignItems="center"
-            width="max-content"
-            marginTop={4}
-            marginBottom={4}
+            marginTop={isLoading ? 4 : 3}
+            marginBottom={isLoading ? 4 : 2.8}
           >
             <Box>
               {isLoading ? (
@@ -315,7 +320,10 @@ export const DataListsComponent = ({ data, isLoading }) => {
                 {isLoading ? (
                   <Skeleton width={220} />
                 ) : (
-                  <Typography className={classes.header}>
+                  <Typography
+                    style={{ maxWidth: "158px" }}
+                    className={classes.header}
+                  >
                     Jumlah Penduduk Keluar
                   </Typography>
                 )}
@@ -352,9 +360,7 @@ export const DataListsComponent = ({ data, isLoading }) => {
                 ) : (
                   <Typography
                     style={{
-                      whiteSpace: "normal",
-                      wordWrap: "break-word",
-                      maxWidth: "280px",
+                      maxWidth: "160px",
                     }}
                     className={classes.header}
                   >

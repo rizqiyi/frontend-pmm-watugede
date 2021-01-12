@@ -25,7 +25,7 @@ export const getAllDataPendudukKeluar = () => (dispatch, getState) => {
 
 export const getPendudukKeluarById = (id) => (dispatch, getState) => {
   dispatch({
-    type: Types.START_REQUEST_PENDUDUK_KELUAR,
+    type: Types.START_REQUEST_KETERANGAN_KELUAR,
   });
 
   axios

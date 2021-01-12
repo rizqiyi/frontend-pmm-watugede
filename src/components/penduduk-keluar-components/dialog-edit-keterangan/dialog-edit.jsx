@@ -8,15 +8,8 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import { Formik, Form, FastField } from "formik";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import moment from "moment";
-import MomentUtils from "@date-io/moment";
-import localization from "moment/locale/id";
 import { TextFormField } from "../../styled-textfield/styled-textfield";
 import { PhotoCamera } from "@material-ui/icons";
 import { keteranganKeluarUpdateValidation } from "../../../validations/mutasi-keluar";
@@ -25,29 +18,6 @@ import { updateKeteranganKeluar } from "../../../reducers/penduduk_keluar/pendud
 
 const DialogEditComponent = ({ ...props }) => {
   const { open, handleClose, data, updateKeteranganKeluar, paramsId } = props;
-  const [selectedDate, setSelectedDate] = useState(moment());
-  const [inputValueDate, setInputValueDate] = useState(
-    moment().locale("id", localization).format("LL")
-  );
-  const [selectedDateLeave, setSelectedDateLeave] = useState(new Date());
-  const [inputValueDateLeave, setInputValueDateLeave] = useState(
-    moment().locale("id", localization).format("LL")
-  );
-
-  const handleDateChange = (date, value) => {
-    setSelectedDate(date);
-    setInputValueDate(value);
-  };
-
-  const handleDateChangeLeave = (date, value) => {
-    setSelectedDateLeave(date);
-    setInputValueDateLeave(value);
-  };
-
-  const dateFormatter = (str) => {
-    return str;
-  };
-
   const classes = useStyles();
 
   return (
@@ -71,8 +41,8 @@ const DialogEditComponent = ({ ...props }) => {
               alamat_pindah: data.alamat_pindah,
               alasan_pindah: data.alasan_pindah,
               pengikut: data.pengikut,
-              tanggal_ktp: inputValueDate,
-              meninggalkan_desa_pada: inputValueDateLeave,
+              tanggal_ktp: data.tanggal_ktp,
+              meninggalkan_desa_pada: data.meninggalkan_desa_pada,
               catatan: data.catatan,
               foto_pengusul: data.foto_pengusul,
             }}
@@ -91,65 +61,24 @@ const DialogEditComponent = ({ ...props }) => {
                 <Box marginTop={2} marginBottom={2}>
                   <Divider />
                 </Box>
-                <Box marginBottom={1}>
-                  <Typography
-                    style={{
-                      fontSize: 12,
-                      textDecoration: "underline",
-                      fontStyle: "italic",
-                      fontWeight: 600,
-                    }}
-                  >
-                    *Harap Memperhatikan Tanggal KTP dan Tanggal Meninggalkan
-                    Desa
-                  </Typography>
-                </Box>
-                <MuiPickersUtilsProvider
-                  libInstance={moment}
-                  utils={MomentUtils}
-                >
-                  <FastField
-                    component={KeyboardDatePicker}
-                    autoOk={true}
-                    margin="normal"
-                    id="date-picker-dialog"
-                    label="Tanggal KTP"
-                    format="LL"
-                    name="tanggal_ktp"
-                    size="medium"
-                    inputValue={inputValueDate}
-                    value={selectedDate}
-                    rifmFormatter={dateFormatter}
-                    className={classes.controlInputDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change date",
-                    }}
-                  />
-                </MuiPickersUtilsProvider>
-                <MuiPickersUtilsProvider
-                  libInstance={moment}
-                  utils={MomentUtils}
-                >
-                  <FastField
-                    component={KeyboardDatePicker}
-                    autoOk={true}
-                    margin="normal"
-                    id="date-picker-dialog"
-                    label="Tanggal Meninggalkan Desa"
-                    format="LL"
-                    name="meninggalkan_desa_pada"
-                    size="medium"
-                    inputValue={inputValueDateLeave}
-                    value={selectedDateLeave}
-                    rifmFormatter={dateFormatter}
-                    className={classes.controlInputDate}
-                    onChange={handleDateChangeLeave}
-                    KeyboardButtonProps={{
-                      "aria-label": "change date",
-                    }}
-                  />
-                </MuiPickersUtilsProvider>
+                <FastField
+                  size="medium"
+                  component={TextFormField}
+                  variant="filled"
+                  name="tanggal_ktp"
+                  id="tanggal_ktp"
+                  label="Tanggal KTP"
+                  className={classes.controlInput}
+                />
+                <FastField
+                  size="medium"
+                  component={TextFormField}
+                  variant="filled"
+                  name="meninggalkan_desa_pada"
+                  id="meninggalkan_desa_pada"
+                  label="Meninggalkan Desa Padas"
+                  className={classes.controlInput}
+                />
                 <FastField
                   size="medium"
                   component={TextFormField}
