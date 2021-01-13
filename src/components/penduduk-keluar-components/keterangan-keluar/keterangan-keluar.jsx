@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import { photoPath } from "../../../helpers/getAvatars";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useStyles } from "./keterangan-keluar.style";
+import PersonIcon from "@material-ui/icons/Person";
 
 const KeteranganKeluarComponent = ({ ...props }) => {
   const {
@@ -38,12 +39,30 @@ const KeteranganKeluarComponent = ({ ...props }) => {
               <Box>
                 {isLoading ? (
                   <Skeleton variant="rect" width={275} height={275} />
+                ) : path === "//" ? (
+                  <Box
+                    width={270}
+                    height={270}
+                    style={{ backgroundColor: "#9e9e9e" }}
+                    borderRadius={10}
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <Box>
+                      <PersonIcon
+                        style={{ width: 100, height: 100, color: "#fff" }}
+                      />
+                    </Box>
+                  </Box>
                 ) : (
-                  <img
-                    alt="Foto Pengusul"
-                    className={classes.controlImage}
-                    src={path}
-                  />
+                  <React.Fragment>
+                    <img
+                      alt="Foto Pengusul"
+                      className={classes.controlImage}
+                      src={path}
+                    />
+                  </React.Fragment>
                 )}
               </Box>
               <Box marginLeft={12}>

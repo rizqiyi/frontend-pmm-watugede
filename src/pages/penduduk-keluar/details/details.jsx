@@ -38,7 +38,6 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
     match,
     isLoading,
     keteranganKeluar,
-    infosStatus,
     infosMessage,
     infosID,
     clearInfos,
@@ -55,7 +54,9 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
   const [dataToDetails, setDataToDetails] = useState([]);
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
   const isFirstRender = useRef(true);
+
   const history = useHistory();
+
   useEffect(() => {
     if (isFirstRender.current) {
       clearInfos();
@@ -108,8 +109,13 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
                       keteranganKeluar === undefined
                     }
                   >
-                    <Button type="submit" className={classes.downloadButton}>
-                      Unduh PDF
+                    <Button
+                      onClick={() =>
+                        history.push(`/penduduk_keluar/${paramsId}/d/preview`)
+                      }
+                      className={classes.downloadButton}
+                    >
+                      Lihat PDF
                     </Button>
                   </Hidden>
                 </Box>
@@ -445,7 +451,6 @@ const mapStateToProps = (state) => {
     keteranganKeluar: state.penduduk_keluar.keterangan_keluar_by_id,
     isLoading: state.penduduk_keluar.isLoading,
     isLoadingKeterangan: state.penduduk_keluar.isLoadingKeterangan,
-    infosStatus: state.infos.status,
     infosMessage: state.infos.message,
     infosID: state.infos.id,
   };

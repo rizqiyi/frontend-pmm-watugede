@@ -75,8 +75,6 @@ const InsertComponents = ({ ...props }) => {
     return str;
   };
 
-  console.log(keteranganKeluar);
-
   return (
     <React.Fragment>
       {infosStatus === 201 ? (
@@ -106,6 +104,7 @@ const InsertComponents = ({ ...props }) => {
               tanggal_ktp: inputValueDate,
               meninggalkan_desa_pada: inputValueDateLeave,
               catatan: "",
+              kewarganegaraan: "",
               foto_pengusul: "",
             }}
             validationSchema={keteranganKeluarInsertValidation}
@@ -219,6 +218,17 @@ const InsertComponents = ({ ...props }) => {
                           className={classes.controlInput}
                         />
                       </Box>
+                      <Box>
+                        <FastField
+                          size="medium"
+                          component={TextFormField}
+                          variant="filled"
+                          name="kewarganegaraan"
+                          id="kewarganegaraan"
+                          label="Kewarganegaraan"
+                          className={classes.controlInput}
+                        />
+                      </Box>
                     </Box>
                     <Box display="flex" flexDirection="column" marginLeft={2}>
                       <Box>
@@ -327,7 +337,7 @@ const InsertComponents = ({ ...props }) => {
                         className={classes.cancelButton}
                         onClick={(e) => {
                           e.preventDefault();
-                          history.push("/penduduk_keluar");
+                          history.push(`/penduduk_keluar/${dataId}/d`);
                         }}
                       >
                         Kembali

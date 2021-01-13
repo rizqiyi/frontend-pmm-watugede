@@ -25,6 +25,7 @@ import DetailKartuKeluargaPage from "../pages/kartu-keluarga/details/details";
 import DetailKartuKeluargaInsertPage from "../pages/kartu-keluarga/details/insert/insert";
 import DetailKartuKeluargaUpdatePage from "../pages/kartu-keluarga/details/update-keluarga/update-keluarga";
 import KartuKeluargaInsertPage from "../pages/kartu-keluarga/insert/insert";
+import PreviewPdfPendudukKeluarPage from "../pages/penduduk-keluar/preview-pdf/preview-pdf";
 
 const Navigations = () => {
   return (
@@ -74,6 +75,10 @@ const Navigations = () => {
             <PrivateRoute
               component={PendudukMasukPage}
               path="/penduduk_masuk"
+            />
+            <PrivateRoute
+              component={PreviewPdfPendudukKeluarPage}
+              path="/penduduk_keluar/:id/d/preview"
             />
             <PrivateRoute
               component={PendudukKeluarDetailPage}

@@ -20,7 +20,7 @@ const mutasiKeluarInsertValidation = yup.object({
     .required("Posisi dalam keluarga tidak boleh kosong"),
 });
 
-const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
+// const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
 
 const keteranganKeluarInsertValidation = yup.object({
   nomor_surat: yup.string().required("Nomor Surat tidak boleh kosong"),
@@ -33,14 +33,7 @@ const keteranganKeluarInsertValidation = yup.object({
   meninggalkan_desa_pada: yup
     .string()
     .required("Tanggal meninggalkan desa tidak boleh kosong"),
-  foto_pengusul: yup
-    .mixed()
-    .required("A file is Required")
-    .test(
-      "fileFormat",
-      "File tidak didukung, harap ganti dengan format : jpg/jpeg/png",
-      (value) => value && SUPPORTED_FORMATS.includes(value.type)
-    ),
+  foto_pengusul: yup.mixed(),
   alasan_pindah: yup.string().required("Alasan pindah tidak boleh kosong"),
 });
 
