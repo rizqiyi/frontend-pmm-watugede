@@ -52,6 +52,9 @@ const PendudukKeluarPage = ({ ...props }) => {
       "Status Perkawinan": a.penduduk_keluar_desa[0].status_perkawinan,
       "Jenis Kelamin": a.penduduk_keluar_desa[0].jenis_kelamin,
       "Anggota Keluarga": a.penduduk_keluar_desa.length,
+      "Data Penduduk Keluar": a.keterangan_keluar_desa
+        ? "lengkap"
+        : "tidak lengkap",
     };
 
     return dataToExcel.push(sendToOuter);

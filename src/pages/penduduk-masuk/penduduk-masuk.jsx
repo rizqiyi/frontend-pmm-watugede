@@ -70,6 +70,9 @@ const PendudukMasukPage = ({ ...props }) => {
         "Status Perkawinan": a.anggota_keluarga[0].status_perkawinan,
         "Jenis Kelamin": a.anggota_keluarga[0].jenis_kelamin,
         "Anggota Keluarga": a.anggota_keluarga.length,
+        "Data Penduduk Masuk": a.data_penduduk_masuk
+          ? "lengkap"
+          : "tidak lengkap",
       };
     }
 

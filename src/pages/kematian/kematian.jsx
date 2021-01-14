@@ -17,6 +17,7 @@ import { KematianTableHeadComponent } from "../../components/kematian-components
 import KematianTableBodyComponent from "../../components/kematian-components/table-body/table-body";
 import dataIsNull from "../../assets/images/no-data-found.svg";
 import { GreyText } from "../../components/typography/typography";
+import { CSVLink } from "react-csv";
 
 const KematianPage = ({ ...props }) => {
   const { fetchDataKematian, dataKematian, isLoading } = props;
@@ -30,7 +31,33 @@ const KematianPage = ({ ...props }) => {
     fetchDataKematian();
   }, [fetchDataKematian]);
 
+  const today = new Date();
+
   const rows = dataKematian;
+
+  let dataToExcel = [];
+
+  rows.map((a) => {
+    let sendToOuter = {
+      "Nomor Kartu Keluarga": `=""${a.pemilik_data.keluarga_dari.no_kk}""`,
+      "Nomor Induk Keluarga": `=""${a.pemilik_data.nik}""`,
+      "Nama Lengkap": a.pemilik_data.nama_lengkap,
+      "Tempat Tanggal Lahir": a.pemilik_data.tempat_tanggal_lahir,
+      Umur: a.pemilik_data.umur,
+      Alamat: a.pemilik_data.alamat_asal,
+      Agama: a.pemilik_data.agama,
+      "Posisi Dalam Keluarga": a.pemilik_data.posisi_dalam_keluarga,
+      "Status Perkawinan": a.pemilik_data.status_perkawinan,
+      "Jenis Kelamin": a.pemilik_data.jenis_kelamin,
+      "Data Arsip Kematian": a.arsip_kematian ? "lengkap" : "tidak lengkap",
+      "Tanggal Meninggal": a.tanggal_meninggal,
+      "Tempat Meninggal": a.tempat_meninggal,
+      "Nomor Surat Kematian": a.nomor_surat_kematian,
+      "Penyebab Meninggal": a.penyebab_meninggal,
+    };
+
+    return dataToExcel.push(sendToOuter);
+  });
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -109,7 +136,16 @@ const KematianPage = ({ ...props }) => {
                           size="small"
                           className={classes.controlButton}
                           disabled={rows.length === 0}
-                          filename="penduduk.csv"
+                          component={CSVLink}
+                          data={dataToExcel}
+                          filename={`data_kematian_${today.toLocaleDateString(
+                            "id-ID",
+                            {
+                              day: "numeric",
+                              month: "numeric",
+                              year: "numeric",
+                            }
+                          )}.csv`}
                         >
                           Unduh CSV
                         </Button>

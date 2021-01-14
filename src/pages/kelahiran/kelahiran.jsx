@@ -33,7 +33,31 @@ const KelahiranPage = ({ ...props }) => {
     fetchKelahiran();
   }, [fetchKelahiran]);
 
+  const today = new Date();
+
   const rows = dataKelahiran;
+
+  let dataToExcel = [];
+
+  rows.map((a) => {
+    let sendToOuter = {
+      "Nomor Kartu Keluarga": `=""${a.data_ayah.keluarga_dari.no_kk}""`,
+      "Nomor Induk Keluarga": `=""${a.nik}""`,
+      "Nama Lengkap": a.nama,
+      "Tempat Lahir": a.tempat_lahir,
+      "Tanggal Lahir": a.tanggal_lahir,
+      "Jam Lahir": a.jam_lahir,
+      "Alamat Ayah": a.data_ayah.alamat_asal,
+      "Alamat Ibu": a.data_ibu.alamat_asal,
+      Agama: a.agama,
+      "Jenis Kelamin": a.jenis_kelamin,
+      Pelapor: a.hubungan_pelapor,
+      "NIK Ayah": `=""${a.data_ayah.nik}""`,
+      "NIK Ibu": `=""${a.data_ibu.nik}""`,
+    };
+
+    return dataToExcel.push(sendToOuter);
+  });
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -121,10 +145,17 @@ const KelahiranPage = ({ ...props }) => {
                           color="primary"
                           size="small"
                           component={CSVLink}
-                          data={rows}
+                          data={dataToExcel}
                           className={classes.controlButton}
                           disabled={rows.length === 0}
-                          filename="kelahiran.csv"
+                          filename={`data_kelahiran_${today.toLocaleDateString(
+                            "id-ID",
+                            {
+                              day: "numeric",
+                              month: "numeric",
+                              year: "numeric",
+                            }
+                          )}.csv`}
                         >
                           Unduh CSV
                         </Button>
