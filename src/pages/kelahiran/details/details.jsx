@@ -180,15 +180,28 @@ const KelahiranDetailsPage = ({ ...props }) => {
                 <Divider />
               </Box>
               <Box display="flex" justifyContent="flex-end">
-                <Button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    history.push("/kelahiran");
-                  }}
-                  className={classes.backButton}
-                >
-                  Kembali
-                </Button>
+                <Box marginRight={3}>
+                  <Button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.push("/kelahiran");
+                    }}
+                    className={classes.backButton}
+                  >
+                    Kembali
+                  </Button>
+                </Box>
+                <Box>
+                  <Button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.push(`/kelahiran/${paramsId}/d/preview`);
+                    }}
+                    className={classes.previewButton}
+                  >
+                    Lihat PDF
+                  </Button>
+                </Box>
               </Box>
             </Box>
           </Paper>

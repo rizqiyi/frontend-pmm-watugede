@@ -14,6 +14,10 @@ export const useStyles = makeStyles((theme) => ({
     // margin: "10px",
     margin: "28px 0px 0px 0px",
   },
+  textLink: {
+    textDecoration: "none",
+    color: theme.palette.primary.main,
+  },
   paper: {
     width: "100%",
   },

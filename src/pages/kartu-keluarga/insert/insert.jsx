@@ -20,7 +20,14 @@ import { clearInfos } from "../../../reducers/infos/info.actions";
 import { SelectFormField } from "../../../components/select-menus/select-menus";
 
 const KartuKeluargaInsertPage = ({ ...props }) => {
-  const { postKartuKeluarga, infos, infoStatus, isLoading, clearInfos } = props;
+  const {
+    postKartuKeluarga,
+    infos,
+    infoStatus,
+    isLoading,
+    clearInfos,
+    id,
+  } = props;
   const classes = useStyles();
   const [progress, setProgress] = useState(0);
   const [buffer, setBuffer] = useState(10);
@@ -62,7 +69,29 @@ const KartuKeluargaInsertPage = ({ ...props }) => {
     <React.Fragment>
       <Paper className={classes.paper}>
         <Box p={3} paddingBottom={10}>
-          <Typography variant="h6">Halaman Tambah Kartu Keluarga</Typography>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Box>
+              <Typography variant="h6">
+                Halaman Tambah Kartu Keluarga
+              </Typography>
+            </Box>
+            <Box>
+              {infoStatus === 200 && id !== "" ? (
+                <Typography
+                  className={classes.textLink}
+                  component={Link}
+                  to={`/kartu_keluarga/${id}/d`}
+                >
+                  Lihat Data
+                </Typography>
+              ) : null}
+            </Box>
+          </Box>
           <Box marginTop={2} marginBottom={2}>
             <Divider />
           </Box>
@@ -320,6 +349,7 @@ const mapStateToProps = (state) => {
   return {
     infos: state.infos.message,
     infoStatus: state.infos.status,
+    id: state.kartu_keluarga.id,
     isLoading: state.kartu_keluarga.isLoading,
   };
 };

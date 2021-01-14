@@ -3,29 +3,28 @@ import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ReactToPrint from "react-to-print";
-import { getDataKematianById } from "../../../reducers/kematian/kematian.actions";
+import { SuratKelahiranComponent } from "../../../components/templating-letters/surat-kelahiran/surat-kelahiran";
+import { fetchKelahiranId } from "../../../reducers/kelahiran/kelahiran.actions";
 import { useStyles } from "./preview-pdf.style";
-import { SuratKematianComponent } from "../../../components/templating-letters/surat-kematian/surat-kematian";
 
-const PreviewPdfKematianPage = ({ ...props }) => {
-  const {
-    getDataKematianById,
-    match,
-    dataKematian,
-    childDataKematian,
-    isLoading,
-  } = props;
-  const paramsId = match.params.id;
+const PreviewPdfKelahiranPage = ({ ...props }) => {
   const classes = useStyles();
-  const previewPDF = useRef(null);
-
   const history = useHistory();
+  const previewPDF = useRef(null);
+  const {
+    match,
+    isLoading,
+    dataKelahiran,
+    dataAyah,
+    dataIbu,
+    fetchKelahiranId,
+  } = props;
 
-  console.log(dataKematian);
+  const paramsId = match.params.id;
 
   useEffect(() => {
-    getDataKematianById(paramsId);
-  }, [paramsId, getDataKematianById]);
+    fetchKelahiranId(paramsId);
+  }, [fetchKelahiranId, paramsId]);
 
   return (
     <React.Fragment>
@@ -51,7 +50,6 @@ const PreviewPdfKematianPage = ({ ...props }) => {
             <CircularProgress />
           ) : (
             <ReactToPrint
-              documentTitle={`surat-kematian-${childDataKematian.nama_lengkap}`}
               trigger={() => (
                 <Button
                   onClick={(e) => {
@@ -67,11 +65,12 @@ const PreviewPdfKematianPage = ({ ...props }) => {
           )}
         </Box>
       </Box>
-      <SuratKematianComponent
-        dataKematian={dataKematian}
-        dataPenduduk={childDataKematian}
-        isFetching={isLoading}
+      <SuratKelahiranComponent
         ref={previewPDF}
+        isFetching={isLoading}
+        dataKelahiran={dataKelahiran}
+        dataAyah={dataAyah}
+        dataIbu={dataIbu}
       />
     </React.Fragment>
   );
@@ -79,19 +78,20 @@ const PreviewPdfKematianPage = ({ ...props }) => {
 
 const mapStateToProps = (state) => {
   return {
-    dataKematian: state.kematian.kematian_details,
-    childDataKematian: state.kematian.kematian_obj,
-    isLoading: state.kematian.isLoading,
+    isLoading: state.kelahiran.isLoading,
+    dataKelahiran: state.kelahiran.kelahiran_obj,
+    dataAyah: state.kelahiran.data_ayah,
+    dataIbu: state.kelahiran.data_ibu,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getDataKematianById: (id) => dispatch(getDataKematianById(id)),
+    fetchKelahiranId: (id) => dispatch(fetchKelahiranId(id)),
   };
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PreviewPdfKematianPage);
+)(PreviewPdfKelahiranPage);

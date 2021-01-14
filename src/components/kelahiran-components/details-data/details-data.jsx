@@ -63,6 +63,20 @@ export const DetailsDataComponent = ({ ...props }) => {
               )}
             </Box>
           </Box>
+          <Box marginBottom={4}>
+            <Box>
+              <Typography className={classes.header}>
+                Nomor Surat Kelahiran
+              </Typography>
+            </Box>
+            <Box>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography>{dataKelahiran.nomor_surat_kelahiran}</Typography>
+              )}
+            </Box>
+          </Box>
         </Box>
         <Box>
           <Box marginBottom={4}>
@@ -89,6 +103,33 @@ export const DetailsDataComponent = ({ ...props }) => {
               )}
             </Box>
           </Box>
+
+          <Box marginBottom={4}>
+            <Box>
+              <Typography className={classes.header}>Hari Kelahiran</Typography>
+            </Box>
+            <Box>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography>{dataKelahiran.hari_kelahiran}</Typography>
+              )}
+            </Box>
+          </Box>
+          <Box marginBottom={4}>
+            <Box>
+              <Typography className={classes.header}>Jam Kelahiran</Typography>
+            </Box>
+            <Box>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography>{dataKelahiran.jam_lahir}</Typography>
+              )}
+            </Box>
+          </Box>
+        </Box>
+        <Box>
           <Box marginBottom={4}>
             <Box>
               <Typography className={classes.header}>Agama</Typography>
@@ -101,8 +142,6 @@ export const DetailsDataComponent = ({ ...props }) => {
               )}
             </Box>
           </Box>
-        </Box>
-        <Box>
           <Box marginBottom={4}>
             <Box>
               <Typography className={classes.header}>Pelapor</Typography>

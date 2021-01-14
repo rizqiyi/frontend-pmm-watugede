@@ -10,6 +10,18 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: 50,
     textTransform: "inherit",
   },
+  previewButton: {
+    color: "#fff",
+    fontWeight: 500,
+    backgroundColor: theme.palette.primary.main,
+    width: theme.spacing(16),
+    padding: "7px",
+    borderRadius: 50,
+    textTransform: "inherit",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+    },
+  },
   textIsNull: {
     color: "black",
     fontSize: "18px",

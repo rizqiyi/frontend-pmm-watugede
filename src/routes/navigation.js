@@ -15,6 +15,7 @@ import PendudukKeluarDetailPage from "../pages/penduduk-keluar/details/details";
 import InsertKeteranganKeluarPage from "../pages/penduduk-keluar/insert-keterangan/insert-keterangan";
 import KelahiranPage from "../pages/kelahiran/kelahiran";
 import KelahiranDetailsPage from "../pages/kelahiran/details/details";
+import PreviewPdfKelahiranPage from "../pages/kelahiran/preview-pdf/preview-pdf";
 import KelahiranInsertPage from "../pages/kelahiran/insert-page/insert-page";
 import KematianPage from "../pages/kematian/kematian";
 import KematianDetailsPage from "../pages/kematian/details/details";
@@ -96,6 +97,10 @@ const Navigations = () => {
             <PrivateRoute
               component={KelahiranInsertPage}
               path="/kelahiran/insert"
+            />
+            <PrivateRoute
+              component={PreviewPdfKelahiranPage}
+              path="/kelahiran/:id/d/preview"
             />
             <PrivateRoute
               component={KelahiranDetailsPage}

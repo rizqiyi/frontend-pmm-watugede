@@ -27,8 +27,8 @@ export const AppBarComponent = ({ handleDrawerOpen, open }) => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" className={classes.title} noWrap>
-          Sistem Kependudukan Desa Watugede
+        <Typography className={classes.title} noWrap>
+          SISTEM KEPENDUDUKAN DESA WATUGEDE
         </Typography>
         <AccountMenuComponent />
       </Toolbar>

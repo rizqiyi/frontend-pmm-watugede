@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-const pendudukInsertValidation = yup.object({
+export const pendudukInsertValidation = yup.object({
   nik: yup.string().required("NIK tidak boleh kosong"),
   nama_lengkap: yup.string().required("Nama Lengkap tidak boleh kosong"),
   jenis_kelamin: yup.string().required("Jenis Kelamin tidak boleh kosong"),
@@ -21,5 +21,3 @@ const pendudukInsertValidation = yup.object({
     .required("Posisi dalam keluarga tidak boleh kosong"),
   alamat_asal: yup.string().required("Alamat tidak boleh kosong"),
 });
-
-export { pendudukInsertValidation };

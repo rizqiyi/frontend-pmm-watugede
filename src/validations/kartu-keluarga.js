@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-const kartuKeluargaInsertValidation = yup.object({
+export const kartuKeluargaInsertValidation = yup.object({
   no_kk: yup.string().required("Nomor KK tidak boleh kosong"),
   nik: yup.string().required("NIK tidak boleh kosong"),
   nama_lengkap: yup.string().required("Nama Lengkap tidak boleh kosong"),
@@ -17,5 +17,3 @@ const kartuKeluargaInsertValidation = yup.object({
     .required("Pendidikan Terakhir tidak boleh kosong"),
   alamat_asal: yup.string().required("Alamat Asal tidak boleh kosong"),
 });
-
-export { kartuKeluargaInsertValidation };

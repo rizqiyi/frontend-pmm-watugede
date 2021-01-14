@@ -6,7 +6,7 @@ import {
   Typography,
   Divider,
   Button,
-  LinearProgress,
+  CircularProgress,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { useStyles } from "./insert-page.style";
@@ -23,6 +23,7 @@ import { postKelahiran } from "../../../reducers/kelahiran/kelahiran.actions";
 import { Alert } from "@material-ui/lab";
 import { clearInfos } from "../../../reducers/infos/info.actions";
 import { SelectFormField } from "../../../components/select-menus/select-menus";
+import { kelahiranInsertValidation } from "../../../validations/kelahiran";
 
 const KelahiranInsertPage = ({ ...props }) => {
   const history = useHistory();
@@ -40,27 +41,11 @@ const KelahiranInsertPage = ({ ...props }) => {
     clearInfos,
   } = props;
 
-  const [progress, setProgress] = useState(0);
-
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((oldProgress) => {
-        if (oldProgress === 100) {
-          return 0;
-        }
-        const diff = Math.random() * 10;
-        return Math.min(oldProgress + diff, 100);
-      });
-    }, 500);
-
     if (isFirstRender.current) {
       isFirstRender.current = false;
       clearInfos();
     }
-
-    return () => {
-      clearInterval(timer);
-    };
   }, [clearInfos]);
 
   const handleDateChange = (date, value) => {
@@ -95,15 +80,6 @@ const KelahiranInsertPage = ({ ...props }) => {
           </Alert>
         </Box>
       ) : null}
-      {isLoading ? (
-        <Box className={classes.controlAlert}>
-          <LinearProgress
-            variant="determinate"
-            color="primary"
-            value={progress}
-          />
-        </Box>
-      ) : null}
       <Paper className={classes.controlWidth}>
         <Box p={3} paddingTop={1}>
           <Box
@@ -123,6 +99,7 @@ const KelahiranInsertPage = ({ ...props }) => {
             <Divider />
           </Box>
           <Formik
+            validationSchema={kelahiranInsertValidation}
             initialValues={{
               nik: "",
               nama: "",
@@ -131,6 +108,9 @@ const KelahiranInsertPage = ({ ...props }) => {
               hubungan_pelapor: "",
               agama: "",
               jenis_kelamin: "",
+              nomor_surat_kelahiran: "",
+              jam_lahir: "",
+              hari_kelahiran: "",
               nik_ayah: "",
               nik_ibu: "",
             }}
@@ -147,7 +127,7 @@ const KelahiranInsertPage = ({ ...props }) => {
                   display="flex"
                   flexDirection="row"
                   justifyContent="space-around"
-                  alignItems="center"
+                  alignItems="baseline"
                 >
                   <Box>
                     <Box>
@@ -180,9 +160,19 @@ const KelahiranInsertPage = ({ ...props }) => {
                         className={classes.controlInput}
                       />
                     </Box>
+                    <Box>
+                      <FastField
+                        component={TextFormField}
+                        variant="filled"
+                        name="nomor_surat_kelahiran"
+                        id="nomor_surat_kelahiran"
+                        label="Nomor Surat Kelahiran"
+                        className={classes.controlInput}
+                      />
+                    </Box>
                   </Box>
                   <Box>
-                    <Box>
+                    <Box position="relative" top={14}>
                       <MuiPickersUtilsProvider
                         libInstance={moment}
                         utils={MomentUtils}
@@ -207,17 +197,7 @@ const KelahiranInsertPage = ({ ...props }) => {
                         />
                       </MuiPickersUtilsProvider>
                     </Box>
-                    <Box marginTop={1} marginBottom={1.5}>
-                      <FastField
-                        component={TextFormField}
-                        variant="filled"
-                        name="agama"
-                        id="agama"
-                        label="Agama"
-                        className={classes.controlInput}
-                      />
-                    </Box>
-                    <Box marginTop={1}>
+                    <Box marginBottom={1.2} marginTop={4.6}>
                       <FastField
                         name="jenis_kelamin"
                         className={classes.lastField}
@@ -231,8 +211,38 @@ const KelahiranInsertPage = ({ ...props }) => {
                         ]}
                       />
                     </Box>
+                    <Box>
+                      <FastField
+                        component={TextFormField}
+                        variant="filled"
+                        name="hari_kelahiran"
+                        id="hari_kelahiran"
+                        label="Hari Kelahiran"
+                        className={classes.controlInput}
+                      />
+                    </Box>
+                    <Box>
+                      <FastField
+                        component={TextFormField}
+                        variant="filled"
+                        name="jam_lahir"
+                        id="jam_lahir"
+                        label="Jam Lahir"
+                        className={classes.controlInput}
+                      />
+                    </Box>
                   </Box>
                   <Box>
+                    <Box marginTop={1}>
+                      <FastField
+                        component={TextFormField}
+                        variant="filled"
+                        name="agama"
+                        id="agama"
+                        label="Agama"
+                        className={classes.controlInput}
+                      />
+                    </Box>
                     <Box>
                       <FastField
                         component={TextFormField}
@@ -287,9 +297,13 @@ const KelahiranInsertPage = ({ ...props }) => {
                   </Box>
                   <Box marginLeft={1} marginRight={1}></Box>
                   <Box>
-                    <Button type="submit" className={classes.insertButton}>
-                      Tambahkan
-                    </Button>
+                    {isLoading ? (
+                      <CircularProgress />
+                    ) : (
+                      <Button type="submit" className={classes.insertButton}>
+                        Tambahkan
+                      </Button>
+                    )}
                   </Box>
                 </Box>
               </Form>

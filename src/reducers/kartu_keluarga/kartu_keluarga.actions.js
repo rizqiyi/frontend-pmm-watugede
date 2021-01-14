@@ -20,6 +20,10 @@ export const postKartuKeluarga = ({ ...request }) => (dispatch, getState) => {
         payload: result.data.data,
       });
       dispatch(returnInfos(result.data.message, 200));
+      dispatch({
+        type: Types.GET_KK_ID,
+        payload: result.data.data ? result.data.data.keluarga_dari : "",
+      });
     })
     .catch((err) => {
       dispatch(setLoadingToFalse());

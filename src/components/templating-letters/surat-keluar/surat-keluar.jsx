@@ -393,8 +393,8 @@ export const SuratKeluarComponent = forwardRef(({ ...props }, ref) => {
               >
                 <Box marginRight={6}>
                   <Box
-                    width={100}
-                    height={100}
+                    width="113px"
+                    height="151px"
                     border="1px solid black"
                     display="flex"
                     justifyContent="center"
@@ -404,8 +404,8 @@ export const SuratKeluarComponent = forwardRef(({ ...props }, ref) => {
                     dataKeterangan.foto_pengusul ? (
                       <img
                         src={path}
-                        width={100}
-                        height="auto"
+                        width="113px"
+                        height="151px"
                         alt="Foto Pengusul"
                         style={{ objectFit: "cover", objectPosition: "center" }}
                       />

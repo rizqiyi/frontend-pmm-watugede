@@ -34,6 +34,9 @@ const DialogEditKelahiranComponent = ({ ...props }) => {
               tempat_lahir: data.tempat_lahir,
               tanggal_lahir: data.tanggal_lahir,
               agama: data.agama,
+              hari_kelahiran: data.hari_kelahiran,
+              jam_lahir: data.jam_lahir,
+              nomor_surat_kelahiran: data.nomor_surat_kelahiran,
               hubungan_pelapor: data.hubungan_pelapor,
             }}
             enableReinitialize={true}
@@ -131,6 +134,39 @@ const DialogEditKelahiranComponent = ({ ...props }) => {
                         name="hubungan_pelapor"
                         id="hubungan_pelapor"
                         label="Pelapor"
+                        className={classes.controlInput}
+                      />
+                    </Box>
+                    <Box>
+                      <FastField
+                        size="medium"
+                        component={TextFormField}
+                        variant="filled"
+                        name="hari_kelahiran"
+                        id="hari_kelahiran"
+                        label="Hari Kelahiran"
+                        className={classes.controlInput}
+                      />
+                    </Box>
+                    <Box>
+                      <FastField
+                        size="medium"
+                        component={TextFormField}
+                        variant="filled"
+                        name="jam_lahir"
+                        id="jam_lahir"
+                        label="Jam Kelahiran"
+                        className={classes.controlInput}
+                      />
+                    </Box>
+                    <Box>
+                      <FastField
+                        size="medium"
+                        component={TextFormField}
+                        variant="filled"
+                        name="nomor_surat_kelahiran"
+                        id="nomor_surat_kelahiran"
+                        label="Nomor Surat Kelahiran"
                         className={classes.controlInput}
                       />
                     </Box>

@@ -32,7 +32,7 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                     <TableCell align="left">
-                      {isLoading ? <Skeleton /> : row.nik}
+                      {isLoading ? <Skeleton /> : row.keluarga_dari.no_kk}
                     </TableCell>
                     <TableCell align="left" className={classes.controlText}>
                       {isLoading ? <Skeleton /> : row.nama_lengkap}
@@ -88,7 +88,7 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                     <TableCell align="left">
-                      {isLoading ? <Skeleton /> : row.nik}
+                      {isLoading ? <Skeleton /> : row.keluarga_dari.no_kk}
                     </TableCell>
                     <TableCell align="left" className={classes.controlText}>
                       {isLoading ? <Skeleton /> : row.nama_lengkap}
@@ -141,9 +141,7 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
               .map((row, index) => {
                 return row.anggota_keluarga[0] !== undefined ? (
                   <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                    <TableCell align="left">
-                      {row.anggota_keluarga[0].nik}
-                    </TableCell>
+                    <TableCell align="left">{row.no_kk}</TableCell>
                     <TableCell align="left" className={classes.controlText}>
                       {row.anggota_keluarga[0].nama_lengkap}
                     </TableCell>
