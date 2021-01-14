@@ -62,7 +62,6 @@ export const getAllKartuKeluarga = () => (dispatch, getState) => {
       });
     })
     .catch((err) => {
-      console.log(err);
       dispatch(returnInfos(err.response.data.message, err.response.status));
     });
 };

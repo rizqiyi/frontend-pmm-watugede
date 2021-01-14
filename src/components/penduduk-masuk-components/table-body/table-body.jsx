@@ -23,25 +23,30 @@ const PendudukMasukTableBodyComponent = ({ ...props }) => {
             props.page * props.rowsPerPage + props.rowsPerPage
           )
           .map((row, index) => {
-            return (
+            console.log(row);
+            return row.anggota_keluarga[0] !== undefined ? (
               <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                <TableCell align="left">{row.nik}</TableCell>
+                <TableCell align="left">{row.no_kk}</TableCell>
                 <TableCell align="left" className={classes.controlText}>
-                  {row.nama_lengkap}
+                  {row.anggota_keluarga[0].nama_lengkap}
                 </TableCell>
                 <TableCell align="left" className={classes.controlText}>
-                  {row.tempat_tanggal_lahir}
-                </TableCell>
-                <TableCell align="left">{row.umur}</TableCell>
-                <TableCell align="left" className={classes.controlText}>
-                  {row.alamat_asal}
-                </TableCell>
-                <TableCell align="left">{row.jenis_kelamin}</TableCell>
-                <TableCell align="left">
-                  {row.keluarga_dari.anggota_keluarga.length}
+                  {row.anggota_keluarga[0].tempat_tanggal_lahir}
                 </TableCell>
                 <TableCell align="left">
-                  {row.keluarga_dari.data_penduduk_masuk ? (
+                  {row.anggota_keluarga[0].umur}
+                </TableCell>
+                <TableCell align="left" className={classes.controlText}>
+                  {row.anggota_keluarga[0].alamat_asal}
+                </TableCell>
+                <TableCell align="left">
+                  {row.anggota_keluarga[0].jenis_kelamin}
+                </TableCell>
+                <TableCell align="left">
+                  {row.anggota_keluarga.length}
+                </TableCell>
+                <TableCell align="left">
+                  {row.data_penduduk_masuk ? (
                     <Chip
                       size="small"
                       label="Data Lengkap"
@@ -61,7 +66,7 @@ const PendudukMasukTableBodyComponent = ({ ...props }) => {
                       <Typography variant="body2">
                         <Link
                           className={classes.controlLink}
-                          to={`/penduduk_masuk/${row.keluarga_dari._id}/d/${row._id}`}
+                          to={`/penduduk_masuk/${row._id}/d`}
                           color="primary"
                         >
                           Lihat Detail
@@ -71,7 +76,7 @@ const PendudukMasukTableBodyComponent = ({ ...props }) => {
                   }
                 </TableCell>
               </TableRow>
-            );
+            ) : null;
           })}
         {props.emptyRows > 0 && (
           <TableRow style={{ height: 53 }}>

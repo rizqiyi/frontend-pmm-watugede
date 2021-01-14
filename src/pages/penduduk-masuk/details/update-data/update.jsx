@@ -29,6 +29,7 @@ export const UpdateAnggotaPendudukMasukPage = ({ ...props }) => {
   const data = anggotaKeluargaPendudukMasuk;
   const isFirstRender = useRef(true);
   const paramsIdPendudukMasuk = match.params.id;
+  const paramsIdKK = match.params.id_kk;
   const classes = useStyles();
   const history = useHistory();
 
@@ -292,7 +293,7 @@ export const UpdateAnggotaPendudukMasukPage = ({ ...props }) => {
                       <Button
                         onClick={(e) => {
                           e.preventDefault();
-                          history.goBack();
+                          history.push(`/penduduk_masuk/${paramsIdKK}/d`);
                         }}
                         className={classes.backButton}
                       >

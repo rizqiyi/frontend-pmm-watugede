@@ -30,15 +30,6 @@ const PendudukMasukInsertPage = ({ ...props }) => {
   } = props;
   const [progress, setProgress] = useState(0);
   const [buffer, setBuffer] = useState(10);
-  const isFirstRender = useRef(true);
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      clearInfos();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const progressRef = useRef(() => {});
   useEffect(() => {

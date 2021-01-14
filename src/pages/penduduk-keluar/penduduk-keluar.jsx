@@ -36,6 +36,8 @@ const PendudukKeluarPage = ({ ...props }) => {
 
   const rows = pendudukKeluar;
 
+  const today = new Date();
+
   let dataToExcel = [];
 
   rows.map((a) => {
@@ -129,7 +131,14 @@ const PendudukKeluarPage = ({ ...props }) => {
                         data={dataToExcel}
                         className={classes.downloadButton}
                         disabled={rows.length === 0}
-                        filename="penduduk_keluar.csv"
+                        filename={`data_penduduk_keluar_${today.toLocaleDateString(
+                          "id-ID",
+                          {
+                            day: "numeric",
+                            month: "numeric",
+                            year: "numeric",
+                          }
+                        )}.csv`}
                       >
                         Unduh CSV
                       </Button>

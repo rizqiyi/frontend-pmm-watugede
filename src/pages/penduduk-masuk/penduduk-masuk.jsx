@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { PendudukMasukTableHeadComponent } from "../../components/penduduk-masuk-components/table-head/table-head";
 import PendudukMasukTableBodyComponent from "../../components/penduduk-masuk-components/table-body/table-body";
@@ -19,24 +19,62 @@ import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
 import dataIsNull from "../../assets/images/no-data-found.svg";
 import { GreyText } from "../../components/typography/typography";
+import { clearInfos } from "../../reducers/infos/info.actions";
+import { CSVLink } from "react-csv";
 
 const PendudukMasukPage = ({ ...props }) => {
-  const { fetchKartuKeluargaPendudukMasuk, pendudukMasuk, isLoading } = props;
+  const {
+    fetchKartuKeluargaPendudukMasuk,
+    pendudukMasuk,
+    isLoading,
+    clearInfos,
+  } = props;
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("");
   const classes = useStyles();
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      clearInfos();
+    }
     fetchKartuKeluargaPendudukMasuk();
-  }, [fetchKartuKeluargaPendudukMasuk]);
+  }, [fetchKartuKeluargaPendudukMasuk, clearInfos]);
+
+  const today = new Date();
 
   const rows = pendudukMasuk;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+
+  let dataToExcel = [];
+
+  rows.map((a) => {
+    let sendToOuter = {};
+
+    if (a.anggota_keluarga[0] !== undefined) {
+      sendToOuter = {
+        "Nomor Kartu Keluarga": `=""${a.no_kk}""`,
+        "Nomor Induk Keluarga": `=""${a.anggota_keluarga[0].nik}""`,
+        "Nama Lengkap": a.anggota_keluarga[0].nama_lengkap,
+        "Tempat Tanggal Lahir": a.anggota_keluarga[0].tempat_tanggal_lahir,
+        Umur: a.anggota_keluarga[0].umur,
+        Alamat: a.anggota_keluarga[0].alamat_asal,
+        Agama: a.anggota_keluarga[0].agama,
+        "Posisi Dalam Keluarga": a.anggota_keluarga[0].posisi_dalam_keluarga,
+        "Status Perkawinan": a.anggota_keluarga[0].status_perkawinan,
+        "Jenis Kelamin": a.anggota_keluarga[0].jenis_kelamin,
+        "Anggota Keluarga": a.anggota_keluarga.length,
+      };
+    }
+
+    return dataToExcel.push(sendToOuter);
+  });
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -121,10 +159,18 @@ const PendudukMasukPage = ({ ...props }) => {
                         <Button
                           color="primary"
                           size="small"
-                          data={rows}
+                          component={CSVLink}
+                          data={dataToExcel}
                           className={classes.controlButton}
                           disabled={rows.length === 0}
-                          filename="penduduk.csv"
+                          filename={`data_kartu_keluarga_penduduk_masuk_${today.toLocaleDateString(
+                            "id-ID",
+                            {
+                              day: "numeric",
+                              month: "numeric",
+                              year: "numeric",
+                            }
+                          )}.csv`}
                         >
                           Unduh CSV
                         </Button>
@@ -198,6 +244,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchKartuKeluargaPendudukMasuk: () =>
       dispatch(fetchKartuKeluargaPendudukMasuk()),
+    clearInfos: () => dispatch(clearInfos()),
   };
 };
 

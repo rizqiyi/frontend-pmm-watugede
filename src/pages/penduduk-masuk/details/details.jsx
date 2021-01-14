@@ -51,13 +51,13 @@ const DetailPendudukMasukPage = ({ ...props }) => {
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
   const [openImageDetail, setOpenImageDetail] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [paramsIdKepala, setParamsIdKepala] = useState(null);
 
-  const paramsIdKepala = match.params.id_kepala;
   const paramsIdKK = match.params.id_kk;
 
   useEffect(() => {
-    fetchKartuKeluargaPendudukMasukByID(paramsIdKepala);
-  }, [fetchKartuKeluargaPendudukMasukByID, paramsIdKepala]);
+    fetchKartuKeluargaPendudukMasukByID(paramsIdKK);
+  }, [fetchKartuKeluargaPendudukMasukByID, paramsIdKK]);
 
   const rows = anggotaPendudukMasuk;
 
@@ -159,7 +159,7 @@ const DetailPendudukMasukPage = ({ ...props }) => {
                       <Button
                         color="primary"
                         component={Link}
-                        to={`/penduduk_masuk/${paramsIdKK}/d/${paramsIdKepala}/insert`}
+                        to={`/penduduk_masuk/${paramsIdKK}/i`}
                         className={classes.textButton}
                         startIcon={<AddIcon />}
                         variant="contained"
@@ -193,6 +193,8 @@ const DetailPendudukMasukPage = ({ ...props }) => {
                       emptyRows={emptyRows}
                       setOpenDialogDeleteAnggota={setOpenDialogDeleteAnggota}
                       setIdToDelete={setIdToDelete}
+                      setParamsIdKepala={setParamsIdKepala}
+                      paramsIdKK={paramsIdKK}
                     />
                   </Table>
                 </TableContainer>
@@ -326,7 +328,7 @@ const DetailPendudukMasukPage = ({ ...props }) => {
         open={openUpdateModal}
         handleClose={setOpenUpdateModal}
         data={keteranganMasuk}
-        idKepala={paramsIdKepala}
+        idKK={paramsIdKK}
       />
       <DialogDeleteComponent
         open={openDeleteModal}

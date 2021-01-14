@@ -60,15 +60,15 @@ const Navigations = () => {
             />
             <PrivateRoute
               component={UpdateAnggotaPendudukMasukPage}
-              path="/penduduk_masuk/a/:id/update"
+              path="/penduduk_masuk/:id/u/:id_kk"
             />
             <PrivateRoute
               component={InsertPendudukMasukAnggotaPage}
-              path="/penduduk_masuk/:id_kk/d/:id_kepala/insert"
+              path="/penduduk_masuk/:id_kk/i"
             />
             <PrivateRoute
               component={DetailPendudukMasukPage}
-              path="/penduduk_masuk/:id_kk/d/:id_kepala"
+              path="/penduduk_masuk/:id_kk/d"
             />
             <PrivateRoute
               component={PendudukMasukInsertPage}

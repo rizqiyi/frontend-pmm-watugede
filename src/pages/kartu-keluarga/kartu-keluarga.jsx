@@ -54,6 +54,8 @@ const KartuKeluargaPage = ({ ...props }) => {
   const [openSelectMenu, setOpenSelectMenu] = useState(false);
   const [search, setSearch] = useState("nama_lengkap");
 
+  const today = new Date();
+
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
@@ -176,7 +178,14 @@ const KartuKeluargaPage = ({ ...props }) => {
                     data={dataToExcel}
                     className={classes.downloadButton}
                     disabled={rows.length === 0}
-                    filename="kepala_keluarga.csv"
+                    filename={`data_kartu_keluarga_${today.toLocaleDateString(
+                      "id-ID",
+                      {
+                        day: "numeric",
+                        month: "numeric",
+                        year: "numeric",
+                      }
+                    )}.csv`}
                   >
                     Unduh CSV
                   </Button>

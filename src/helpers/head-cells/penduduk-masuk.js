@@ -1,5 +1,5 @@
 export const headCellsPendudukMasuk = [
-  { id: "nik", numeric: false, disablePadding: false, label: "NIK" },
+  { id: "no_kk", numeric: false, disablePadding: false, label: "Nomor KK" },
   {
     id: "nama_lengkap",
     numeric: false,

@@ -190,7 +190,7 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
                           data={dataToExcel}
                           className={classes.downloadButton}
                           disabled={rows.length === 0}
-                          filename="anggota_keluarga.csv"
+                          filename={`anggota_keluarga_${rows[0].nik}.csv`}
                         >
                           Unduh CSV
                         </Button>

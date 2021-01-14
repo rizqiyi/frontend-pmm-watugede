@@ -8,7 +8,14 @@ import { connect } from "react-redux";
 
 const PendudukMasukDetailsTableBodyComponent = ({ ...props }) => {
   const classes = useStyles();
-  const { isLoading, setOpenDialogDeleteAnggota, setIdToDelete } = props;
+  const {
+    isLoading,
+    setOpenDialogDeleteAnggota,
+    setIdToDelete,
+    setParamsIdKepala,
+    paramsIdKK,
+  } = props;
+
   return (
     <React.Fragment>
       <TableBody>
@@ -57,7 +64,7 @@ const PendudukMasukDetailsTableBodyComponent = ({ ...props }) => {
                           color="primary"
                           className={classes.controlEdit}
                           component={Link}
-                          to={`/penduduk_masuk/a/${row._id}/update`}
+                          to={`/penduduk_masuk/${row._id}/u/${paramsIdKK}`}
                         >
                           Edit
                         </Button>
@@ -69,6 +76,7 @@ const PendudukMasukDetailsTableBodyComponent = ({ ...props }) => {
                             e.preventDefault();
                             setOpenDialogDeleteAnggota(true);
                             setIdToDelete(row);
+                            setParamsIdKepala(row._id);
                           }}
                           className={classes.controlDelete}
                         >

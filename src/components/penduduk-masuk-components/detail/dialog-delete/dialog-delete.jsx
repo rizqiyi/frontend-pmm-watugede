@@ -18,7 +18,6 @@ const DialogDeleteComponent = ({ ...props }) => {
     open,
     handleClose,
     paramsIdKK,
-    paramsIdKepala,
     idKeteranganMasuk,
     deleteKeteranganMasuk,
   } = props;
@@ -38,16 +37,11 @@ const DialogDeleteComponent = ({ ...props }) => {
         <Formik
           initialValues={{
             paramsIdKK,
-            paramsIdKepala,
             idKeteranganMasuk: idKeteranganMasuk ? idKeteranganMasuk._id : "",
           }}
           enableReinitialize={true}
           onSubmit={(values) => {
-            deleteKeteranganMasuk(
-              values.paramsIdKK,
-              values.idKeteranganMasuk,
-              values.paramsIdKepala
-            );
+            deleteKeteranganMasuk(values.paramsIdKK, values.idKeteranganMasuk);
             handleClose(false);
           }}
         >
@@ -116,8 +110,8 @@ const DialogDeleteComponent = ({ ...props }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteKeteranganMasuk: (idKK, idKeterangan, idKepala) =>
-      dispatch(deleteKeteranganMasuk(idKK, idKeterangan, idKepala)),
+    deleteKeteranganMasuk: (idKK, idKeterangan) =>
+      dispatch(deleteKeteranganMasuk(idKK, idKeterangan)),
   };
 };
 
