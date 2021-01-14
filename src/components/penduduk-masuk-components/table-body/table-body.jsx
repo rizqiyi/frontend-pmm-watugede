@@ -23,7 +23,6 @@ const PendudukMasukTableBodyComponent = ({ ...props }) => {
             props.page * props.rowsPerPage + props.rowsPerPage
           )
           .map((row, index) => {
-            console.log(row);
             return row.anggota_keluarga[0] !== undefined ? (
               <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                 <TableCell align="left">{row.no_kk}</TableCell>
@@ -49,13 +48,13 @@ const PendudukMasukTableBodyComponent = ({ ...props }) => {
                   {row.data_penduduk_masuk ? (
                     <Chip
                       size="small"
-                      label="Data Lengkap"
+                      label="Lengkap"
                       className={classes.succesChip}
                     />
                   ) : (
                     <Chip
                       size="small"
-                      label="Data Tidak Lengkap"
+                      label="Tidak Lengkap"
                       className={classes.warningChip}
                     />
                   )}

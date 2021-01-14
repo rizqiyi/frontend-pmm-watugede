@@ -27,9 +27,12 @@ const PendudukMasukInsertPage = ({ ...props }) => {
     infosMessage,
     infosID,
     isLoading,
+    id,
+    clearInfos,
   } = props;
   const [progress, setProgress] = useState(0);
   const [buffer, setBuffer] = useState(10);
+  const isFirstRender = useRef(true);
 
   const progressRef = useRef(() => {});
   useEffect(() => {
@@ -51,18 +54,43 @@ const PendudukMasukInsertPage = ({ ...props }) => {
       progressRef.current();
     }, 500);
 
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      clearInfos();
+    }
+
     return () => {
       clearInterval(timer);
     };
-  }, []);
+  }, [clearInfos]);
 
   return (
     <React.Fragment>
       <Paper className={classes.paper}>
         <Box p={3} paddingBottom={10}>
-          <Typography variant="h6">
-            Halaman Tambah Kartu Keluarga Penduduk Masuk
-          </Typography>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Box>
+              <Typography variant="h6">
+                Halaman Tambah Kartu Keluarga Penduduk Masuk
+              </Typography>
+            </Box>
+            {id !== "" ? (
+              <Box>
+                <Typography
+                  component={Link}
+                  to={`/penduduk_masuk/${id}/d`}
+                  className={classes.textLink}
+                >
+                  Lihat Data
+                </Typography>
+              </Box>
+            ) : null}
+          </Box>
           <Box marginTop={2} marginBottom={2}>
             <Divider />
           </Box>
@@ -324,6 +352,7 @@ const mapStateToProps = (state) => {
     infosMessage: state.infos.message,
     infosID: state.infos.id,
     isLoading: state.penduduk_masuk.isLoading,
+    id: state.penduduk_masuk.id,
   };
 };
 

@@ -38,7 +38,7 @@ const PreviewPdfKelahiranPage = ({ ...props }) => {
           <Button
             onClick={(e) => {
               e.preventDefault();
-              history.push(`/kematian/${paramsId}/d`);
+              history.push(`/kelahiran/${paramsId}/d`);
             }}
             className={classes.backButton}
           >

@@ -94,6 +94,10 @@ export const postKKPendudukMasuk = ({ ...request }) => (dispatch, getState) => {
       dispatch(
         returnInfos(result.data.message, 201, "POST_KK_PENDUDUK_MASUK_SUCCESS")
       );
+      dispatch({
+        type: Types.GET_ID_PENDUDUK_MASUK,
+        payload: result.data.data ? result.data.data.keluarga_dari : "",
+      });
     })
     .catch((err) => {
       dispatch(

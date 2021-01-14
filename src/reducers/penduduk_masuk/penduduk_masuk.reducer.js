@@ -7,6 +7,7 @@ const initialState = {
   anggota_keluarga: [],
   keterangan_masuk_obj: {},
   isLoading: false,
+  id: "",
 };
 
 export const pendudukMasukReducer = (state = initialState, action) => {
@@ -15,6 +16,12 @@ export const pendudukMasukReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
+      };
+
+    case Types.GET_ID_PENDUDUK_MASUK:
+      return {
+        ...state,
+        id: action.payload,
       };
 
     case Types.FETCH_KK_PENDUDUK_MASUK:
@@ -30,6 +37,7 @@ export const pendudukMasukReducer = (state = initialState, action) => {
         isLoading: false,
         penduduk_masuk_details: action.payload.data,
         keterangan_masuk_obj: action.payload.keterangan_masuk,
+        id: "",
       };
 
     case Types.PUT_ANGGOTA_PENDUDUK_MASUK_SUCCESS_BY_ID:
@@ -38,6 +46,7 @@ export const pendudukMasukReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         anggota_keluarga: action.payload,
+        id: "",
       };
 
     case Types.POST_PENDUDUK_MASUK_SUCCESS:
@@ -52,6 +61,7 @@ export const pendudukMasukReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         penduduk_masuk_obj: action.payload,
+        id: "",
       };
 
     case Types.POST_KET_PENDUDUK_MASUK_SUCCESS:

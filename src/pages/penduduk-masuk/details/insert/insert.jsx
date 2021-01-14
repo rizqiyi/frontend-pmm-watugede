@@ -15,7 +15,6 @@ import { useStyles } from "./insert.style";
 import { Link } from "react-router-dom";
 import { postPendudukMasukToKK } from "../../../../reducers/penduduk_masuk/penduduk_masuk.actions";
 import { Alert } from "@material-ui/lab";
-import { clearInfos } from "../../../../reducers/infos/info.actions";
 import { pendudukInsertValidation } from "../../../../validations/penduduk";
 import { SelectFormField } from "../../../../components/select-menus/select-menus";
 
@@ -27,21 +26,11 @@ const InsertPendudukMasukAnggotaPage = ({ ...props }) => {
     isLoading,
     infosStatus,
     infosMessage,
-    clearInfos,
   } = props;
   const paramsIdKK = match.params.id_kk;
   const paramsIdKepala = match.params.id_kepala;
   const [progress, setProgress] = useState(0);
   const [buffer, setBuffer] = useState(10);
-  const isFirstRender = useRef(true);
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      clearInfos();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const progressRef = useRef(() => {});
   useEffect(() => {
@@ -72,9 +61,11 @@ const InsertPendudukMasukAnggotaPage = ({ ...props }) => {
     <React.Fragment>
       <Paper className={classes.paper}>
         <Box p={3} paddingBottom={10}>
-          <Typography variant="h6">
-            Halaman Tambah Kartu Keluarga Penduduk Masuk
-          </Typography>
+          <Box>
+            <Typography variant="h6">
+              Halaman Tambah Kartu Keluarga Penduduk Masuk
+            </Typography>
+          </Box>
           <Box marginTop={2} marginBottom={2}>
             <Divider />
           </Box>
@@ -328,6 +319,7 @@ const InsertPendudukMasukAnggotaPage = ({ ...props }) => {
 const mapStateToProps = (state) => {
   return {
     isLoading: state.penduduk_masuk.isLoading,
+    id: state.penduduk_masuk.id,
     infosStatus: state.infos.status,
     infosMessage: state.infos.message,
   };
@@ -337,7 +329,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     postPendudukMasukToKK: (requests, idKK) =>
       dispatch(postPendudukMasukToKK(requests, idKK)),
-    clearInfos: () => dispatch(clearInfos()),
   };
 };
 
