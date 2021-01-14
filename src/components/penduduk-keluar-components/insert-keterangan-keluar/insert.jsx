@@ -218,17 +218,6 @@ const InsertComponents = ({ ...props }) => {
                           className={classes.controlInput}
                         />
                       </Box>
-                      <Box>
-                        <FastField
-                          size="medium"
-                          component={TextFormField}
-                          variant="filled"
-                          name="kewarganegaraan"
-                          id="kewarganegaraan"
-                          label="Kewarganegaraan"
-                          className={classes.controlInput}
-                        />
-                      </Box>
                     </Box>
                     <Box display="flex" flexDirection="column" marginLeft={2}>
                       <Box>
@@ -280,44 +269,59 @@ const InsertComponents = ({ ...props }) => {
                           className={classes.controlInputCatatan}
                         />
                       </Box>
-                      <Box marginTop={1.2}>
-                        <Typography
-                          variant="body2"
-                          className={classes.fontCons}
-                        >
-                          Upload Foto Pengusul
-                        </Typography>
-                        <input
-                          accept="image/*"
-                          className={classes.input}
-                          id="icon-button-file"
-                          onChange={(e) => {
-                            setFieldValue(
-                              "foto_pengusul",
-                              e.currentTarget.files[0]
-                            );
-                          }}
-                          type="file"
-                        />
-                        <label htmlFor="icon-button-file">
-                          <IconButton
-                            color="primary"
-                            aria-label="upload picture"
-                            component="span"
+                      <Box display="flex">
+                        <Box marginTop={1.2}>
+                          <Typography
+                            variant="body2"
+                            className={classes.fontCons}
                           >
-                            <PhotoCamera />
-                          </IconButton>
-                        </label>
-                        {Boolean(errors.foto_pengusul) &&
-                        touched.foto_pengusul ? (
-                          <FormHelperText className={classes.controlFileError}>
-                            {errors.foto_pengusul}
-                          </FormHelperText>
-                        ) : (
-                          <FormHelperText className={classes.controlFileName}>
-                            {values.foto_pengusul.name}
-                          </FormHelperText>
-                        )}
+                            Upload Foto Pengusul
+                          </Typography>
+                          <input
+                            accept="image/*"
+                            className={classes.input}
+                            id="icon-button-file"
+                            onChange={(e) => {
+                              setFieldValue(
+                                "foto_pengusul",
+                                e.currentTarget.files[0]
+                              );
+                            }}
+                            type="file"
+                          />
+                          <label htmlFor="icon-button-file">
+                            <IconButton
+                              color="primary"
+                              aria-label="upload picture"
+                              component="span"
+                            >
+                              <PhotoCamera />
+                            </IconButton>
+                          </label>
+                          {Boolean(errors.foto_pengusul) &&
+                          touched.foto_pengusul ? (
+                            <FormHelperText
+                              className={classes.controlFileError}
+                            >
+                              {errors.foto_pengusul}
+                            </FormHelperText>
+                          ) : (
+                            <FormHelperText className={classes.controlFileName}>
+                              {values.foto_pengusul.name}
+                            </FormHelperText>
+                          )}
+                        </Box>
+                        <Box marginLeft={7}>
+                          <FastField
+                            size="medium"
+                            component={TextFormField}
+                            variant="filled"
+                            name="kewarganegaraan"
+                            id="kewarganegaraan"
+                            label="Kewarganegaraan"
+                            className={classes.controlInputLast}
+                          />
+                        </Box>
                       </Box>
                     </Box>
                   </Box>
@@ -376,6 +380,7 @@ const DataSet = (values) => {
   data.set("tanggal_ktp", values.tanggal_ktp);
   data.set("meninggalkan_desa_pada", values.meninggalkan_desa_pada);
   data.set("catatan", values.catatan);
+  data.set("kewarganegaraan", values.kewarganegaraan);
 
   data.append("foto_pengusul", values.foto_pengusul);
 

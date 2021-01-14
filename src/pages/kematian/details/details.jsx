@@ -261,16 +261,34 @@ export const KematianDetailsPage = ({ ...props }) => {
                   )}
                 </Box>
               )}
-              <Box>
-                <Button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    history.push("/kematian");
-                  }}
-                  className={classes.backButton}
-                >
-                  Kembali
-                </Button>
+              <Box
+                display="flex"
+                flexDirection="row"
+                justifyContent="flex-end"
+                alignItems="center"
+              >
+                <Box marginRight={2}>
+                  <Button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.push("/kematian");
+                    }}
+                    className={classes.backButton}
+                  >
+                    Kembali
+                  </Button>
+                </Box>
+                <Box>
+                  <Button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.push(`/kematian/${paramsId}/d/preview`);
+                    }}
+                    className={classes.seeButton}
+                  >
+                    Lihat PDF
+                  </Button>
+                </Box>
               </Box>
             </Box>
           </Box>

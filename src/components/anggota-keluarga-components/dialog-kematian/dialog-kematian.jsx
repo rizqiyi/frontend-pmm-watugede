@@ -52,6 +52,8 @@ const DialogKematianComponent = ({ ...props }) => {
             idPenduduk: data._id,
             tanggal_meninggal: inputValueDate,
             tempat_meninggal: "",
+            hari_meninggal: "",
+            nomor_surat_kematian: "",
             penyebab_meninggal: "",
           }}
           enableReinitialize={true}
@@ -64,6 +66,7 @@ const DialogKematianComponent = ({ ...props }) => {
             <Form>
               <Box
                 p={3}
+                paddingBottom={1}
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
@@ -114,6 +117,28 @@ const DialogKematianComponent = ({ ...props }) => {
                         }}
                       />
                     </MuiPickersUtilsProvider>
+                  </Box>
+                  <Box marginBottom={1}>
+                    <FastField
+                      size="medium"
+                      component={TextFormField}
+                      variant="filled"
+                      name="nomor_surat_kematian"
+                      id="nomor_surat_kematian"
+                      label="Nomor Surat Kematian"
+                      className={classes.controlInput}
+                    />
+                  </Box>
+                  <Box marginBottom={1}>
+                    <FastField
+                      size="medium"
+                      component={TextFormField}
+                      variant="filled"
+                      name="hari_meninggal"
+                      id="hari_meninggal"
+                      label="Hari Meninggal"
+                      className={classes.controlInput}
+                    />
                   </Box>
                   <Box marginBottom={1}>
                     <FastField

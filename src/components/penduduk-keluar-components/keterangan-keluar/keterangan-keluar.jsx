@@ -194,6 +194,26 @@ const KeteranganKeluarComponent = ({ ...props }) => {
                   {isLoading ? (
                     <Skeleton width={200} />
                   ) : (
+                    <Typography className={classes.header}>
+                      Kewarganegaraan
+                    </Typography>
+                  )}
+                </Box>
+                <Box>
+                  {isLoading ? (
+                    <Skeleton width={120} />
+                  ) : (
+                    <Typography className={classes.values}>
+                      {data.kewarganegaraan}
+                    </Typography>
+                  )}
+                </Box>
+              </Box>
+              <Box marginBottom={2}>
+                <Box marginBottom={1}>
+                  {isLoading ? (
+                    <Skeleton width={200} />
+                  ) : (
                     <Typography className={classes.header}>Catatan</Typography>
                   )}
                 </Box>

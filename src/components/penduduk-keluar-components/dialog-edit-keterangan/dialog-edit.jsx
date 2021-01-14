@@ -45,6 +45,7 @@ const DialogEditComponent = ({ ...props }) => {
               meninggalkan_desa_pada: data.meninggalkan_desa_pada,
               catatan: data.catatan,
               foto_pengusul: data.foto_pengusul,
+              kewarganegaraan: data.kewarganegaraan,
             }}
             enableReinitialize={true}
             onSubmit={(values) => {
@@ -113,6 +114,15 @@ const DialogEditComponent = ({ ...props }) => {
                   name="pengikut"
                   id="pengikut"
                   label="Pengikut"
+                  className={classes.controlInput}
+                />
+                <FastField
+                  size="medium"
+                  component={TextFormField}
+                  variant="filled"
+                  name="kewarganegaraan"
+                  id="kewarganegaraan"
+                  label="Kewarganegaraan"
                   className={classes.controlInput}
                 />
                 <FastField
@@ -211,6 +221,7 @@ const DataSet = (values) => {
   data.set("tanggal_ktp", values.tanggal_ktp);
   data.set("meninggalkan_desa_pada", values.meninggalkan_desa_pada);
   data.set("catatan", values.catatan);
+  data.set("kewarganegaraan", values.kewarganegaraan);
 
   data.append("foto_pengusul", values.foto_pengusul);
 

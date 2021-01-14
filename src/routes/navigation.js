@@ -18,6 +18,7 @@ import KelahiranDetailsPage from "../pages/kelahiran/details/details";
 import KelahiranInsertPage from "../pages/kelahiran/insert-page/insert-page";
 import KematianPage from "../pages/kematian/kematian";
 import KematianDetailsPage from "../pages/kematian/details/details";
+import PreviewPdfKematianPage from "../pages/kematian/preview-pdf/preview-pdf";
 import AdminActivityPage from "../pages/activity/activity";
 import { PageNotFound } from "../pages/404-page/page-not-found";
 import KartuKeluargaPage from "../pages/kartu-keluarga/kartu-keluarga";
@@ -101,6 +102,10 @@ const Navigations = () => {
               path="/kelahiran/:id/d"
             />
             <PrivateRoute component={KelahiranPage} path="/kelahiran" />
+            <PrivateRoute
+              component={PreviewPdfKematianPage}
+              path="/kematian/:id/d/preview"
+            />
             <PrivateRoute
               component={KematianDetailsPage}
               path="/kematian/:id/d"

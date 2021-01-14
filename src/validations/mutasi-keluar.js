@@ -34,6 +34,7 @@ const keteranganKeluarInsertValidation = yup.object({
     .string()
     .required("Tanggal meninggalkan desa tidak boleh kosong"),
   foto_pengusul: yup.mixed(),
+  kewarganegaraan: yup.string().required("Kewarganegaraan tidak boleh kosong"),
   alasan_pindah: yup.string().required("Alasan pindah tidak boleh kosong"),
 });
 

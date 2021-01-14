@@ -3,6 +3,7 @@ import React, { forwardRef } from "react";
 import { photoPath } from "../../../helpers/getAvatars";
 import { useStyles } from "./surat-keluar.style";
 import angkaTerbilang from "@develoka/angka-terbilang-js";
+import logo from "../../../assets/images/logo-kabupaten-malang.png";
 
 export const SuratKeluarComponent = forwardRef(({ ...props }, ref) => {
   const classes = useStyles();
@@ -18,9 +19,12 @@ export const SuratKeluarComponent = forwardRef(({ ...props }, ref) => {
     dataKeterangan.foto_pengusul ? dataKeterangan.foto_pengusul : "//"
   );
 
+  const isUndefined =
+    dataKeterangan.pengikut === undefined ? 0 : dataKeterangan.pengikut;
+
   const numberToBahasa =
-    angkaTerbilang(dataKeterangan.pengikut).charAt(0).toUpperCase() +
-    angkaTerbilang(dataKeterangan.pengikut).slice(1);
+    angkaTerbilang(isUndefined).charAt(0).toUpperCase() +
+    angkaTerbilang(isUndefined).slice(1);
 
   const today = new Date();
 
@@ -48,11 +52,7 @@ export const SuratKeluarComponent = forwardRef(({ ...props }, ref) => {
                 borderBottom="4px solid black"
               >
                 <Box marginBottom={1} marginLeft={2}>
-                  <img
-                    src="https://i.pinimg.com/originals/db/b4/7a/dbb47a7047294e37d5af1b0213a3f2e4.png"
-                    alt="Logo Kab. Malang"
-                    width={100}
-                  />
+                  <img src={logo} alt="Logo Kab. Malang" width={100} />
                 </Box>
                 <Box marginLeft={4} marginRight={14}>
                   <Box margin="0 auto">
@@ -224,58 +224,84 @@ export const SuratKeluarComponent = forwardRef(({ ...props }, ref) => {
             <Box paddingLeft={4} paddingRight={4}>
               <Box marginTop={4}>
                 <table style={{ borderCollapse: "collapse" }}>
-                  <thead>
-                    <tr>
-                      <th
-                        style={{ border: "0.5px solid black", padding: "10px" }}
-                        className={classes.fontCons}
-                      >
-                        No
-                      </th>
-                      <th
-                        style={{ border: "0.5px solid black", padding: "10px" }}
-                        className={classes.fontCons}
-                      >
-                        Nama Lengkap
-                      </th>
-                      <th
-                        style={{ border: "0.5px solid black", padding: "10px" }}
-                        className={classes.fontCons}
-                      >
-                        Jenis Kelamin
-                      </th>
-                      <th
-                        style={{ border: "0.5px solid black", padding: "10px" }}
-                        className={classes.fontCons}
-                      >
-                        Umur
-                      </th>
-                      <th
-                        style={{ border: "0.5px solid black", padding: "10px" }}
-                        className={classes.fontCons}
-                      >
-                        Status Perkawinan
-                      </th>
-                      <th
-                        style={{ border: "0.5px solid black", padding: "10px" }}
-                        className={classes.fontCons}
-                      >
-                        Pendidikan Terakhir
-                      </th>
-                      <th
-                        style={{ border: "0.5px solid black", padding: "10px" }}
-                        className={classes.fontCons}
-                      >
-                        Nomor KTP
-                      </th>
-                      <th
-                        style={{ border: "0.5px solid black", padding: "10px" }}
-                        className={classes.fontCons}
-                      >
-                        Ket.
-                      </th>
-                    </tr>
-                  </thead>
+                  {dataPenduduk[1] !== undefined ? (
+                    <thead>
+                      <tr>
+                        <th
+                          style={{
+                            border: "0.5px solid black",
+                            padding: "10px",
+                          }}
+                          className={classes.fontCons}
+                        >
+                          No
+                        </th>
+                        <th
+                          style={{
+                            border: "0.5px solid black",
+                            padding: "10px",
+                          }}
+                          className={classes.fontCons}
+                        >
+                          Nama Lengkap
+                        </th>
+                        <th
+                          style={{
+                            border: "0.5px solid black",
+                            padding: "10px",
+                          }}
+                          className={classes.fontCons}
+                        >
+                          Jenis Kelamin
+                        </th>
+                        <th
+                          style={{
+                            border: "0.5px solid black",
+                            padding: "10px",
+                          }}
+                          className={classes.fontCons}
+                        >
+                          Umur
+                        </th>
+                        <th
+                          style={{
+                            border: "0.5px solid black",
+                            padding: "10px",
+                          }}
+                          className={classes.fontCons}
+                        >
+                          Status Perkawinan
+                        </th>
+                        <th
+                          style={{
+                            border: "0.5px solid black",
+                            padding: "10px",
+                          }}
+                          className={classes.fontCons}
+                        >
+                          Pendidikan Terakhir
+                        </th>
+                        <th
+                          style={{
+                            border: "0.5px solid black",
+                            padding: "10px",
+                          }}
+                          className={classes.fontCons}
+                        >
+                          Nomor KTP
+                        </th>
+                        <th
+                          style={{
+                            border: "0.5px solid black",
+                            padding: "10px",
+                          }}
+                          className={classes.fontCons}
+                        >
+                          Ket.
+                        </th>
+                      </tr>
+                    </thead>
+                  ) : null}
                   {dataPenduduk.map((data, idx) => {
                     return idx > 0 ? (
                       <tbody key={idx}>

@@ -5,6 +5,10 @@ export const useStyles = makeStyles((theme) => ({
     margin: "10px 0px",
     width: theme.spacing(40),
   },
+  controlInputLast: {
+    margin: "10px 0px",
+    width: theme.spacing(35),
+  },
   controlInputDate: {
     margin: "12px 0px 20px 2px",
     width: theme.spacing(40),

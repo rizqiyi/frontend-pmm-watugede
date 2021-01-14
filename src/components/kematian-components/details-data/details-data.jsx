@@ -86,7 +86,7 @@ export const DetailsDataComponent = ({ childData, data, isLoading }) => {
                 Pendidikan Terakhir
               </Typography>
             </Box>
-            <Box marginTop={1}>
+            <Box marginTop={1} marginBottom={3}>
               {isLoading ? (
                 <Skeleton animation="wave" height={20} />
               ) : (
@@ -94,8 +94,34 @@ export const DetailsDataComponent = ({ childData, data, isLoading }) => {
               )}
             </Box>
           </Box>
+          <Box>
+            <Box>
+              <Typography className={classes.header}>
+                Nomor Surat Kematian
+              </Typography>
+            </Box>
+            <Box marginTop={1}>
+              {isLoading ? (
+                <Skeleton animation="wave" height={20} />
+              ) : (
+                <Typography>{data.nomor_surat_kematian}</Typography>
+              )}
+            </Box>
+          </Box>
         </Box>
         <Box>
+          <Box>
+            <Box>
+              <Typography className={classes.header}>Hari</Typography>
+            </Box>
+            <Box marginTop={1} marginBottom={3}>
+              {isLoading ? (
+                <Skeleton animation="wave" height={20} />
+              ) : (
+                <Typography>{data.hari_meninggal}</Typography>
+              )}
+            </Box>
+          </Box>
           <Box>
             <Box>
               <Typography className={classes.header}>

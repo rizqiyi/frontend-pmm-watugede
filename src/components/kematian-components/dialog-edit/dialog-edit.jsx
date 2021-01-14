@@ -26,6 +26,8 @@ const DialogEditComponent = ({ ...props }) => {
             initialValues={{
               idData: data._id,
               tanggal_meninggal: data.tanggal_meninggal,
+              hari_meninggal: data.hari_meninggal,
+              nomor_surat_kematian: data.nomor_surat_kematian,
               tempat_meninggal: data.tempat_meninggal,
               penyebab_meninggal: data.penyebab_meninggal,
             }}
@@ -56,6 +58,28 @@ const DialogEditComponent = ({ ...props }) => {
                       name="tanggal_meninggal"
                       id="tanggal_meninggal"
                       label="Tanggal Meninggal"
+                      className={classes.controlInput}
+                    />
+                  </Box>
+                  <Box>
+                    <FastField
+                      size="medium"
+                      component={TextFormField}
+                      variant="filled"
+                      name="hari_meninggal"
+                      id="hari_meninggal"
+                      label="Hari Meninggal"
+                      className={classes.controlInput}
+                    />
+                  </Box>
+                  <Box>
+                    <FastField
+                      size="medium"
+                      component={TextFormField}
+                      variant="filled"
+                      name="nomor_surat_kematian"
+                      id="nomor_surat_kematian"
+                      label="Nomor Surat Kematian"
                       className={classes.controlInput}
                     />
                   </Box>
