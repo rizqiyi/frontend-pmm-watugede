@@ -268,6 +268,7 @@ const KartuKeluargaPage = ({ ...props }) => {
                     <Divider />
                   </Box>
                   <Box
+                    p={3}
                     display="flex"
                     flexDirection="column"
                     justifyContent="center"

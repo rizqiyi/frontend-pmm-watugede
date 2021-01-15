@@ -14,7 +14,7 @@ import React, { useEffect, useRef, useState } from "react";
 import PendudukTableBodyComponent from "../../components/penduduk-components/table-body/table-body";
 import { PendudukEnhancedTableHead } from "../../components/penduduk-components/table-head/table-head";
 import searchNotFoundImage from "../../assets/images/search-not-found.svg";
-
+import { CSVLink } from "react-csv";
 import {
   clearSearchResultPenduduk,
   fetchPenduduk,
@@ -31,6 +31,8 @@ import { SearchFormField } from "../../components/styled-textfield/styled-textfi
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { FastField, Form, Formik } from "formik";
 import { clearInfos } from "../../reducers/infos/info.actions";
+import { textStatus } from "../../helpers/status-text";
+import moment from "moment";
 
 const PendudukPage = ({ ...props }) => {
   const [page, setPage] = useState(0);
@@ -70,6 +72,32 @@ const PendudukPage = ({ ...props }) => {
   }, [fetchPenduduk, clearSearchResultPenduduk, clearInfos]);
 
   const rows = dataPenduduk;
+
+  let dataToExcel = [];
+
+  rows.map((a) => {
+    let sendToOuter = {
+      "Nomor Kartu Keluarga": `=""${a.keluarga_dari.no_kk}""`,
+      "Nomor Induk Keluarga": `=""${a.nik}""`,
+      "Nama Lengkap": a.nama_lengkap,
+      "Tempat Tanggal Lahir": a.tempat_tanggal_lahir,
+      Pekerjaan: a.pekerjaan,
+      "Pendidikan Terakhir": a.pendidikan_terakhir,
+      Umur: a.umur,
+      Alamat: a.alamat_asal,
+      Agama: a.agama,
+      "Posisi Dalam Keluarga": a.posisi_dalam_keluarga,
+      "Status Perkawinan": a.status_perkawinan,
+      "Jenis Kelamin": a.jenis_kelamin,
+      Status_Penduduk: textStatus(a.status_penduduk),
+      "Data dibuat": moment(a.createdAt).format("LL"),
+      "Data diubah": moment(a.updatedAt).format("LL"),
+    };
+
+    return dataToExcel.push(sendToOuter);
+  });
+
+  const today = new Date();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -176,6 +204,16 @@ const PendudukPage = ({ ...props }) => {
                               <Button
                                 color="primary"
                                 className={classes.downloadButton}
+                                component={CSVLink}
+                                data={dataToExcel}
+                                filename={`data_penduduk_desa_watugede_${today.toLocaleDateString(
+                                  "id-ID",
+                                  {
+                                    day: "numeric",
+                                    month: "numeric",
+                                    year: "numeric",
+                                  }
+                                )}.csv`}
                               >
                                 Unduh CSV
                               </Button>
