@@ -96,7 +96,7 @@ export const searchKKbyName = (params, cond) => (dispatch, getState) => {
     });
 };
 
-export const searchKKbyNomorNIK = (params, cond) => (dispatch, getState) => {
+export const searchKKbyNomorKK = (params, cond) => (dispatch, getState) => {
   dispatch({ type: Types.START_REQUEST_KK });
 
   axios
@@ -107,7 +107,7 @@ export const searchKKbyNomorNIK = (params, cond) => (dispatch, getState) => {
     .then((result) => {
       dispatch(returnInfos("", 200, null));
       dispatch({
-        type: Types.SEARCH_KK_NO_NIK,
+        type: Types.SEARCH_KK_NO_KK,
         payload: {
           res: result.data.data,
           cond,

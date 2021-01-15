@@ -22,8 +22,6 @@ const PendudukDetailsPage = ({ ...props }) => {
     fetchPendudukById(paramsId);
   }, [fetchPendudukById, paramsId]);
 
-  console.log(dataPendudukDetails);
-
   return (
     <React.Fragment>
       <Paper className={classes.paper}>

@@ -12,6 +12,19 @@ export const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 750,
   },
+  downloadButton: {
+    color: theme.palette.primary.main,
+    width: theme.spacing(20),
+    padding: "12px",
+    borderRadius: 50,
+    fontWeight: 400,
+    marginRight: 20,
+    backgroundColor: "#e1f5fe",
+    textTransform: "inherit",
+    "&:hover": {
+      backgroundColor: "#e3f2fd",
+    },
+  },
   visuallyHidden: {
     border: 0,
     clip: "rect(0 0 0 0)",
@@ -96,6 +109,17 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     margin: "0 auto",
     marginTop: theme.spacing(7),
+  },
+  filterButton: {
+    width: "50px",
+    height: "50px",
+    color: theme.palette.primary.main,
+    marginLeft: 5,
+    backgroundColor: "#e1f5fe",
+    textTransform: "inherit",
+    "&:hover": {
+      backgroundColor: "#e3f2fd",
+    },
   },
   isLoading: {
     display: "flex",

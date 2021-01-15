@@ -21,7 +21,7 @@ import {
   clearResultSearch,
   getAllKartuKeluarga,
   searchKKbyName,
-  searchKKbyNomorNIK,
+  searchKKbyNomorKK,
 } from "../../reducers/kartu_keluarga/kartu_keluarga.actions";
 import KartuKeluargaTableBodyComponent from "../../components/kartu-keluarga-components/table-body/table-body";
 import { KartuKeluargaTableHeadComponent } from "../../components/kartu-keluarga-components/table-head/table-head";
@@ -40,7 +40,7 @@ const KartuKeluargaPage = ({ ...props }) => {
     kartuKeluarga,
     isLoading,
     searchKKByName,
-    searchKKbyNomorNIK,
+    searchKKbyNomorKK,
     clearResultSearch,
     clearInfos,
     isNotFound,
@@ -214,7 +214,7 @@ const KartuKeluargaPage = ({ ...props }) => {
                     if (values.params === "nama_lengkap") {
                       searchKKByName(values.search, values.params);
                     } else {
-                      searchKKbyNomorNIK(values.search, values.params);
+                      searchKKbyNomorKK(values.search, values.params);
                     }
                   }}
                 >
@@ -222,6 +222,7 @@ const KartuKeluargaPage = ({ ...props }) => {
                     <Form
                       onKeyDown={(e) => {
                         if (e.key === "Enter") {
+                          e.preventDefault();
                           handleSubmit();
                         }
                       }}
@@ -351,8 +352,8 @@ const mapDispatchToProps = (dispatch) => {
     getAllKartuKeluarga: () => dispatch(getAllKartuKeluarga()),
     searchKKByName: (params, condition) =>
       dispatch(searchKKbyName(params, condition)),
-    searchKKbyNomorNIK: (params, condition) =>
-      dispatch(searchKKbyNomorNIK(params, condition)),
+    searchKKbyNomorKK: (params, condition) =>
+      dispatch(searchKKbyNomorKK(params, condition)),
     clearResultSearch: () => dispatch(clearResultSearch()),
     clearInfos: () => dispatch(clearInfos()),
   };

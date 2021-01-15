@@ -34,7 +34,7 @@ export const kartuKeluargaReducer = (state = initialState, action) => {
         isLoading: false,
       };
 
-    case Types.SEARCH_KK_NO_NIK:
+    case Types.SEARCH_KK_NO_KK:
       return {
         ...state,
         search_result_by_nik: action.payload.res,
