@@ -3,8 +3,8 @@ import Types from "./penduduk.types";
 const initialState = {
   isLoading: false,
   penduduk: [],
-  penduduk_obj: {},
-  id: null,
+  penduduk_details: [],
+  data_kk: {},
 };
 
 export const pendudukReducer = (state = initialState, action) => {
@@ -23,26 +23,11 @@ export const pendudukReducer = (state = initialState, action) => {
       };
 
     case Types.FETCH_PENDUDUK_SUCCESS_BY_ID:
-    case Types.PUT_PENDUDUK_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        penduduk_obj: action.payload.data,
-        id: action.payload.id,
-      };
-
-    case Types.POST_PENDUDUK_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        penduduk_obj: action.payload,
-      };
-
-    case Types.DELETE_PENDUDUK_SUCCESS:
-      return {
-        ...state,
-        penduduk: state.penduduk.filter((d) => d._id !== action.payload.id),
-        isLoading: false,
+        penduduk_details: action.payload.data_penduduk,
+        data_kk: action.payload.data_kk,
       };
 
     default:

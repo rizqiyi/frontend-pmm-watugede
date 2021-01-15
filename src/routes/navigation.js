@@ -12,6 +12,7 @@ import InsertPendudukMasukAnggotaPage from "../pages/penduduk-masuk/details/inse
 import UpdateAnggotaPendudukMasukPage from "../pages/penduduk-masuk/details/update-data/update";
 import PendudukKeluarPage from "../pages/penduduk-keluar/penduduk-keluar";
 import PendudukKeluarDetailPage from "../pages/penduduk-keluar/details/details";
+import PendudukDetailsPage from "../pages/penduduk/details/details";
 import InsertKeteranganKeluarPage from "../pages/penduduk-keluar/insert-keterangan/insert-keterangan";
 import KelahiranPage from "../pages/kelahiran/kelahiran";
 import KelahiranDetailsPage from "../pages/kelahiran/details/details";
@@ -117,6 +118,10 @@ const Navigations = () => {
             />
             <PrivateRoute component={KematianPage} path="/kematian" />
             <PrivateRoute component={AdminActivityPage} path="/activity" />
+            <PrivateRoute
+              component={PendudukDetailsPage}
+              path="/penduduk/:id/d"
+            />
             <PrivateRoute component={PageNotFound} path="/404" />
             <Redirect to="/404" />
           </Switch>

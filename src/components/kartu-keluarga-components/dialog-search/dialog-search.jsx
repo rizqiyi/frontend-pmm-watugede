@@ -65,7 +65,7 @@ export const DialogSearchComponent = ({ ...props }) => {
                 onChange={handleChange}
               >
                 <MenuItem value="nama_lengkap">Nama</MenuItem>
-                <MenuItem value="nik">NIK</MenuItem>
+                <MenuItem value="no_kk">Nomor KK</MenuItem>
               </Select>
             </FormControl>
             <Box

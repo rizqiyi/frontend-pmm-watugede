@@ -7,6 +7,7 @@ import ReactApexChart from "react-apexcharts";
 import { DataListsComponent } from "../../components/dashboard-components/data-lists";
 import { options } from "../../utilities/pie-chart";
 import { fetchCountedData } from "../../reducers/dashboard/dashboard.actions";
+import PendudukPage from "../penduduk/penduduk";
 
 const DashboardPage = ({ ...props }) => {
   const classes = useStyles();
@@ -137,6 +138,9 @@ const DashboardPage = ({ ...props }) => {
             </Paper>
           </Grid>
         </Grid>
+      </Box>
+      <Box>
+        <PendudukPage />
       </Box>
     </React.Fragment>
   );

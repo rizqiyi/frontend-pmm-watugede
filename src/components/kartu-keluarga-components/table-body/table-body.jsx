@@ -19,7 +19,7 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
   return (
     <React.Fragment>
       <TableBody>
-        {props.searchCondition === "nik"
+        {props.searchCondition === "no_kk"
           ? stableSort(
               props.resultSearchByNIK,
               getComparator(props.order, props.orderBy)
@@ -29,50 +29,44 @@ const KartuKeluargaTableBodyComponent = ({ ...props }) => {
                 props.page * props.rowsPerPage + props.rowsPerPage
               )
               .map((row, index) => {
-                return (
+                return row.anggota_keluarga[0] !== undefined ? (
                   <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                    <TableCell align="left">
-                      {isLoading ? <Skeleton /> : row.keluarga_dari.no_kk}
+                    <TableCell align="left">{row.no_kk}</TableCell>
+                    <TableCell align="left" className={classes.controlText}>
+                      {row.anggota_keluarga[0].nama_lengkap}
                     </TableCell>
                     <TableCell align="left" className={classes.controlText}>
-                      {isLoading ? <Skeleton /> : row.nama_lengkap}
+                      {row.anggota_keluarga[0].tempat_tanggal_lahir}
+                    </TableCell>
+                    <TableCell align="left">
+                      {row.anggota_keluarga[0].umur}
                     </TableCell>
                     <TableCell align="left" className={classes.controlText}>
-                      {isLoading ? <Skeleton /> : row.tempat_tanggal_lahir}
+                      {row.anggota_keluarga[0].alamat_asal}
                     </TableCell>
                     <TableCell align="left">
-                      {isLoading ? <Skeleton /> : row.umur}
-                    </TableCell>
-                    <TableCell align="left" className={classes.controlText}>
-                      {isLoading ? <Skeleton /> : row.alamat_asal}
+                      {row.anggota_keluarga[0].jenis_kelamin}
                     </TableCell>
                     <TableCell align="left">
-                      {isLoading ? <Skeleton /> : row.jenis_kelamin}
+                      {row.anggota_keluarga.length}
                     </TableCell>
                     <TableCell align="left">
-                      {isLoading ? (
-                        <Skeleton />
-                      ) : (
-                        row.keluarga_dari.anggota_keluarga.length
-                      )}
-                    </TableCell>
-                    <TableCell align="left">
-                      {isLoading ? (
-                        <Skeleton />
-                      ) : (
-                        <Typography variant="body2">
-                          <Link
-                            className={classes.controlLink}
-                            to={`/kartu_keluarga/${row.keluarga_dari._id}/d/${row._id}`}
-                            color="primary"
-                          >
-                            Lihat Detail
-                          </Link>
-                        </Typography>
-                      )}
+                      {
+                        <Box className={classes.controlTextLink}>
+                          <Typography variant="body2">
+                            <Link
+                              className={classes.controlLink}
+                              to={`/kartu_keluarga/${row._id}/d`}
+                              color="primary"
+                            >
+                              Lihat Detail
+                            </Link>
+                          </Typography>
+                        </Box>
+                      }
                     </TableCell>
                   </TableRow>
-                );
+                ) : null;
               })
           : null}
         {props.searchCondition === "nama_lengkap"

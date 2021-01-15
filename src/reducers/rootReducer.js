@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   dashboard: dashboardReducer,
   users: usersReducer,
   infos: infoReducer,
-  penduduks: pendudukReducer,
+  penduduk: pendudukReducer,
   kartu_keluarga: kartuKeluargaReducer,
   anggota_keluarga: anggotaKeluargaReducer,
   penduduk_keluar: pendudukKeluarReducer,

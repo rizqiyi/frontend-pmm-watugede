@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Divider,
   Paper,
   Table,
@@ -8,37 +9,27 @@ import {
   TablePagination,
   Typography,
 } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { PendudukTableBodyComponent } from "../../components/penduduk-components/table-body/table-body";
 import { PendudukEnhancedTableHead } from "../../components/penduduk-components/table-head/table-head";
 import { fetchPenduduk } from "../../reducers/penduduk/penduduk.actions";
 import { useStyles } from "./penduduk.style";
-import { clearInfos } from "../../reducers/infos/info.actions";
-import { CSVLink } from "react-csv";
 import dataIsNull from "../../assets/images/no-data-found.svg";
-import { Skeleton } from "@material-ui/lab";
 import { GreyText } from "../../components/typography/typography";
+import { connect } from "react-redux";
 
-export const PendudukPage = () => {
+const PendudukPage = ({ fetchPenduduk, dataPenduduk, isLoading }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("");
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPenduduk());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clearInfos]);
+    fetchPenduduk();
+  }, [fetchPenduduk]);
 
-  const data = useSelector((state) => state.penduduks.penduduk);
-  const isLoading = useSelector((state) => state.penduduks.isLoading);
-
-  const rows = data.map((d) => d);
+  const rows = dataPenduduk;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -76,118 +67,101 @@ export const PendudukPage = () => {
                   className={classes.textCons}
                 />
               </Box>
-              <Box display="flex" marginTop={2} justifyContent="center">
-                <Button
-                  color="primary"
-                  component={Link}
-                  to="/penduduk/insert"
-                  className={classes.textButton}
-                  startIcon={<AddIcon />}
-                  variant="contained"
-                >
-                  Tambah Penduduk
-                </Button>
-              </Box>
             </Box>
           )
         ) : null}
         {isLoading ? (
-          <Box marginTop={15}>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
-            <Box className={classes.isLoading}>
-              <Skeleton height={50} width={1000} />
-            </Box>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            margin="10rem auto 0px auto"
+          >
+            <CircularProgress color="primary" />
           </Box>
-        ) : rows.length !== 0 ? (
-          <Box marginTop={3}>
-            <Paper className={classes.paper}>
-              <Box p={3}>
-                <Box
-                  p={2}
-                  display="flex"
-                  flexDirection="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Box>
-                    <Typography variant="h6">Daftar Penduduk</Typography>
-                  </Box>
+        ) : null}
+        {rows.length !== 0 ? (
+          isLoading ? null : (
+            <Box marginTop={3}>
+              <Paper className={classes.paper}>
+                <Box p={3}>
                   <Box
+                    p={2}
                     display="flex"
-                    justifyContent="center"
+                    flexDirection="row"
                     alignItems="center"
+                    justifyContent="space-between"
                   >
                     <Box>
-                      <Button
-                        color="primary"
-                        size="small"
-                        component={CSVLink}
-                        data={rows}
-                        className={classes.controlButton}
-                        disabled={rows.length === 0}
-                        filename="penduduk.csv"
-                      >
-                        Unduh CSV
-                      </Button>
+                      <Typography variant="h6">Daftar Penduduk</Typography>
                     </Box>
-                    <Box>
-                      <Button
-                        color="primary"
-                        component={Link}
-                        to="/penduduk/insert"
-                        className={classes.textButton}
-                        startIcon={<AddIcon />}
-                        variant="contained"
-                      >
-                        Tambah Penduduk
-                      </Button>
+                    <Box
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box>
+                        <Button color="primary" size="small">
+                          Unduh CSV
+                        </Button>
+                      </Box>
                     </Box>
                   </Box>
+                  <TableContainer>
+                    <Divider />
+                    <Table
+                      className={classes.table}
+                      aria-labelledby="tableTitle"
+                      aria-label="enhanced table"
+                    >
+                      <PendudukEnhancedTableHead
+                        classes={classes}
+                        order={order}
+                        orderBy={orderBy}
+                        setOrder={setOrder}
+                        setOrderBy={setOrderBy}
+                        rowCount={rows.length}
+                      />
+                      <PendudukTableBodyComponent
+                        rows={rows}
+                        order={order}
+                        orderBy={orderBy}
+                        page={page}
+                        rowsPerPage={rowsPerPage}
+                        emptyRows={emptyRows}
+                      />
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                  />
                 </Box>
-                <TableContainer>
-                  <Divider />
-                  <Table
-                    className={classes.table}
-                    aria-labelledby="tableTitle"
-                    aria-label="enhanced table"
-                  >
-                    <PendudukEnhancedTableHead
-                      classes={classes}
-                      order={order}
-                      orderBy={orderBy}
-                      setOrder={setOrder}
-                      setOrderBy={setOrderBy}
-                      rowCount={rows.length}
-                    />
-                    <PendudukTableBodyComponent
-                      rows={rows}
-                      order={order}
-                      orderBy={orderBy}
-                      page={page}
-                      rowsPerPage={rowsPerPage}
-                      emptyRows={emptyRows}
-                    />
-                  </Table>
-                </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25]}
-                  component="div"
-                  count={rows.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onChangePage={handleChangePage}
-                  onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-              </Box>
-            </Paper>
-          </Box>
+              </Paper>
+            </Box>
+          )
         ) : null}
       </div>
     </React.Fragment>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+    dataPenduduk: state.penduduk.penduduk,
+    isLoading: state.penduduk.isLoading,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchPenduduk: () => dispatch(fetchPenduduk()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PendudukPage);
