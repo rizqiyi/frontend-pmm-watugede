@@ -178,6 +178,7 @@ const PendudukPage = ({ ...props }) => {
                       <Form
                         onKeyDown={(e) => {
                           if (e.key === "Enter") {
+                            e.preventDefault();
                             handleSubmit();
                           }
                         }}

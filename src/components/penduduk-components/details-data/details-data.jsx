@@ -10,6 +10,8 @@ export const DetailsDataComponent = ({ ...props }) => {
   const classes = useStyles();
   const history = useHistory();
 
+  console.log(data);
+
   return (
     <React.Fragment>
       <Grid
@@ -337,7 +339,8 @@ export const DetailsDataComponent = ({ ...props }) => {
                   <Skeleton />
                 </Box>
               ) : null}
-              {isFetching ? null : data.data_penduduk_keluar !== undefined ? (
+              {isFetching ? null : data.data_penduduk_keluar !== null &&
+                data.data_penduduk_keluar !== undefined ? (
                 <Typography className={classes.detailText}>
                   <Link
                     href="#!"
