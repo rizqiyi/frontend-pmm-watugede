@@ -21,8 +21,6 @@ const PreviewPdfKematianPage = ({ ...props }) => {
 
   const history = useHistory();
 
-  console.log(dataKematian);
-
   useEffect(() => {
     getDataKematianById(paramsId);
   }, [paramsId, getDataKematianById]);

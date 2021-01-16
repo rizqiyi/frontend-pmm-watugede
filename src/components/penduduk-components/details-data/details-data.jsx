@@ -10,8 +10,6 @@ export const DetailsDataComponent = ({ ...props }) => {
   const classes = useStyles();
   const history = useHistory();
 
-  console.log(data);
-
   return (
     <React.Fragment>
       <Grid
