@@ -7,7 +7,7 @@ export const useStyles = makeStyles((theme) => ({
       width: "62%",
     },
     [theme.breakpoints.down("md")]: {
-      margin: "2rem auto 1rem auto",
+      margin: "10rem auto 1rem auto",
       width: "80%",
     },
     [theme.breakpoints.between(0, 600)]: {
