@@ -245,7 +245,10 @@ const DetailKartuKeluargaPage = ({ ...props }) => {
                     <Box>
                       <Button
                         variant="contained"
-                        disabled={statusPenduduk.includes("meninggal")}
+                        disabled={
+                          statusPenduduk.includes("meninggal") ||
+                          statusPenduduk.includes("penduduk_keluar")
+                        }
                         className={classes.mutasiButton}
                         onClick={(e) => {
                           e.preventDefault();

@@ -5,7 +5,7 @@ import {
   TableSortLabel,
 } from "@material-ui/core";
 import React from "react";
-import { headCellsPenduduk } from "../../../../helpers/head-cells/penduduk";
+import { headCellsAnggotaKeluarga } from "../../../../helpers/head-cells/anggota_keluarga";
 
 const PendudukMasukDetailsTableHeadComponent = ({ ...props }) => {
   const { order, orderBy, classes, setOrder, setOrderBy } = props;
@@ -23,7 +23,7 @@ const PendudukMasukDetailsTableHeadComponent = ({ ...props }) => {
   return (
     <TableHead>
       <TableRow>
-        {headCellsPenduduk.map((headCell, idx) => (
+        {headCellsAnggotaKeluarga.map((headCell, idx) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? "left" : "left"}

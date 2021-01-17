@@ -24,7 +24,9 @@ const DialogDetailsComponent = ({ ...props }) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Detail Pengikut Keluar Desa"}
+          {`Detail ${
+            data.jenis_kelamin === "Perempuan" ? "Data Ibu" : "Data Ayah"
+          }`}
         </DialogTitle>
         <DialogContent>
           <Box marginLeft={1}>
