@@ -8,6 +8,7 @@ import { Form, Formik } from "formik";
 import { Box, FormHelperText, IconButton, Typography } from "@material-ui/core";
 import { PhotoCamera } from "@material-ui/icons";
 import { postKeteranganMasuk } from "../../../../reducers/penduduk_masuk/penduduk_masuk.actions";
+import { keteranganMasukInsertValidation } from "../../../../validations/keterangan-masuk";
 
 const DialogInsertComponent = ({ ...props }) => {
   const {
@@ -41,6 +42,7 @@ const DialogInsertComponent = ({ ...props }) => {
               foto_kk: "",
               foto_surat_masuk: "",
             }}
+            validationSchema={keteranganMasukInsertValidation}
             enableReinitialize={true}
             onSubmit={(values, { resetForm }) => {
               const { data } = DataSet(values);

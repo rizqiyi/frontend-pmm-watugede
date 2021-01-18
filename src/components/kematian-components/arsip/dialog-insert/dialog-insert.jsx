@@ -8,6 +8,7 @@ import { Form, Formik } from "formik";
 import { Box, FormHelperText, IconButton, Typography } from "@material-ui/core";
 import { PhotoCamera } from "@material-ui/icons";
 import { postArsipKematian } from "../../../../reducers/kematian/kematian.actions";
+import { arsipKematianInsertValidation } from "../../../../validations/arsip-kematian";
 
 const DialogInsertComponent = ({ ...props }) => {
   const classes = useStyles();
@@ -33,6 +34,7 @@ const DialogInsertComponent = ({ ...props }) => {
               id: idData,
               arsip_kematian: "",
             }}
+            validationSchema={arsipKematianInsertValidation}
             enableReinitialize={true}
             onSubmit={(values, { resetForm }) => {
               const { data } = DataSet(values);

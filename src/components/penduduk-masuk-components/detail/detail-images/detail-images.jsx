@@ -5,6 +5,7 @@ import { useStyles } from "./detail-images.style";
 export const DetailImagesDialog = ({ ...props }) => {
   const { setOpenImageDetail, openImageDetail } = props;
   const classes = useStyles();
+
   return (
     <React.Fragment>
       <Fade in>
