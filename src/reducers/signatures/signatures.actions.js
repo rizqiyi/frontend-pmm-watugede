@@ -32,3 +32,31 @@ export const updateSignature = ({ ...requests }, idData, idSignature) => (
       dispatch(returnInfos(err.response.data.message, err.response.status))
     );
 };
+
+export const postSignatureKelahiran = ({ ...requests }, idKelahiran) => (
+  dispatch,
+  getState
+) => {
+  dispatch({
+    type: Types.START_REQUEST_SIGNATURES,
+  });
+
+  const body = JSON.stringify({ ...requests });
+
+  axios
+    .post(
+      `${process.env.REACT_APP_SIGNATURES_URI}/${idKelahiran}/p/kelahiran`,
+      body,
+      tokenConfig(getState)
+    )
+    .then((result) => {
+      dispatch({
+        type: Types.POST_SIGNATURES_SUCCESS,
+        payload: result.data.data,
+      });
+    })
+    .then(() => dispatch(fetchKelahiranId(idKelahiran)))
+    .catch((err) =>
+      dispatch(returnInfos(err.response.data.message, err.response.status))
+    );
+};

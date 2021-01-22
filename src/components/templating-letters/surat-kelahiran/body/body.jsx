@@ -440,7 +440,7 @@ export const BodyComponent = ({ ...props }) => {
             </Box>
             <Box>
               <Typography className={classes.newFont}>
-                {signature.nama_jabatan}
+                {signature ? signature.nama_jabatan : "Tambahkan Nama Jabatan"}
               </Typography>
             </Box>
             <Box marginTop={7} marginBottom={2}>
@@ -451,7 +451,9 @@ export const BodyComponent = ({ ...props }) => {
                 }}
                 className={classes.newFont}
               >
-                {`${signature.nama_lengkap}`.toUpperCase()}
+                {signature
+                  ? `${signature.nama_lengkap}`.toUpperCase()
+                  : "Tambahkan Nama Lengkap"}
               </Typography>
             </Box>
           </Box>

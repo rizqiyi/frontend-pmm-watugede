@@ -8,13 +8,16 @@ import { fetchKelahiranId } from "../../../reducers/kelahiran/kelahiran.actions"
 import { useStyles } from "./preview-pdf.style";
 import EditIcon from "@material-ui/icons/Edit";
 import GetAppIcon from "@material-ui/icons/GetApp";
+import AddIcon from "@material-ui/icons/Add";
 import DialogEditSignatureComponent from "../../../components/kelahiran-components/signatures/dialog-edit/dialog-edit";
+import DialogInsertSignatureComponent from "../../../components/kelahiran-components/signatures/dialog-insert/dialog-insert";
 
 const PreviewPdfKelahiranPage = ({ ...props }) => {
   const classes = useStyles();
   const history = useHistory();
   const previewPDF = useRef(null);
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
+  const [openDialogInsert, setOpenDialogInsert] = useState(false);
   const {
     match,
     isLoading,
@@ -26,6 +29,8 @@ const PreviewPdfKelahiranPage = ({ ...props }) => {
   } = props;
 
   const paramsId = match.params.id;
+
+  const signatureIsUndefined = signature === undefined;
 
   useEffect(() => {
     fetchKelahiranId(paramsId);
@@ -95,7 +100,9 @@ const PreviewPdfKelahiranPage = ({ ...props }) => {
                 <Button
                   onClick={(e) => {
                     e.preventDefault();
+                    setOpenDialogInsert(true);
                   }}
+                  startIcon={<AddIcon />}
                   className={classes.insertButton}
                 >
                   Tambah Nama TTD
@@ -113,11 +120,18 @@ const PreviewPdfKelahiranPage = ({ ...props }) => {
         dataIbu={dataIbu}
         signature={signature}
       />
-      <DialogEditSignatureComponent
-        open={openDialogEdit}
+      {signatureIsUndefined ? null : (
+        <DialogEditSignatureComponent
+          open={openDialogEdit}
+          dataKelahiran={dataKelahiran}
+          handleClose={setOpenDialogEdit}
+          signature={signature}
+        />
+      )}
+      <DialogInsertSignatureComponent
+        open={openDialogInsert}
         dataKelahiran={dataKelahiran}
-        handleClose={setOpenDialogEdit}
-        signature={signature}
+        handleClose={setOpenDialogInsert}
       />
     </React.Fragment>
   );
