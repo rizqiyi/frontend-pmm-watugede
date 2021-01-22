@@ -101,7 +101,6 @@ const KelahiranInsertPage = ({ ...props }) => {
           <Formik
             validationSchema={kelahiranInsertValidation}
             initialValues={{
-              nik: "",
               nama: "",
               tanggal_lahir: inputValueDate,
               tempat_lahir: "",
@@ -134,16 +133,6 @@ const KelahiranInsertPage = ({ ...props }) => {
                       <FastField
                         component={TextFormField}
                         variant="filled"
-                        name="nik"
-                        id="nik"
-                        label="Nomor Induk Keluarga"
-                        className={classes.controlInput}
-                      />
-                    </Box>
-                    <Box>
-                      <FastField
-                        component={TextFormField}
-                        variant="filled"
                         name="nama"
                         id="nama"
                         label="Nama Lengkap"
@@ -164,9 +153,19 @@ const KelahiranInsertPage = ({ ...props }) => {
                       <FastField
                         component={TextFormField}
                         variant="filled"
-                        name="nomor_surat_kelahiran"
-                        id="nomor_surat_kelahiran"
-                        label="Nomor Surat Kelahiran"
+                        name="hubungan_pelapor"
+                        id="hubungan_pelapor"
+                        label="Hubungan Pelapor"
+                        className={classes.controlInput}
+                      />
+                    </Box>
+                    <Box marginTop={1}>
+                      <FastField
+                        component={TextFormField}
+                        variant="filled"
+                        name="agama"
+                        id="agama"
+                        label="Agama"
                         className={classes.controlInput}
                       />
                     </Box>
@@ -233,23 +232,13 @@ const KelahiranInsertPage = ({ ...props }) => {
                     </Box>
                   </Box>
                   <Box>
-                    <Box marginTop={1}>
-                      <FastField
-                        component={TextFormField}
-                        variant="filled"
-                        name="agama"
-                        id="agama"
-                        label="Agama"
-                        className={classes.controlInput}
-                      />
-                    </Box>
                     <Box>
                       <FastField
                         component={TextFormField}
                         variant="filled"
-                        name="hubungan_pelapor"
-                        id="hubungan_pelapor"
-                        label="Hubungan Pelapor"
+                        name="nomor_surat_kelahiran"
+                        id="nomor_surat_kelahiran"
+                        label="Nomor Surat Kelahiran"
                         className={classes.controlInput}
                       />
                     </Box>

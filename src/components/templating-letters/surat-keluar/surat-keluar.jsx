@@ -3,7 +3,7 @@ import React, { forwardRef } from "react";
 import { photoPath } from "../../../helpers/getAvatars";
 import { useStyles } from "./surat-keluar.style";
 import angkaTerbilang from "@develoka/angka-terbilang-js";
-import logo from "../../../assets/images/logo-kabupaten-malang.png";
+import logo from "../../../assets/images/logo-kabupaten-malang.svg";
 
 export const SuratKeluarComponent = forwardRef(({ ...props }, ref) => {
   const classes = useStyles();

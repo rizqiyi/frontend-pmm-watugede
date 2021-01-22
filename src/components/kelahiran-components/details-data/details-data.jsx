@@ -11,9 +11,13 @@ export const DetailsDataComponent = ({ ...props }) => {
     dataKelahiran,
     dataAyah,
     dataIbu,
+    signature,
     setOpenDialogDetails,
     setDataToDialog,
+    setOpenDialogSignature,
   } = props;
+
+  console.log(dataKelahiran);
 
   return (
     <React.Fragment>
@@ -21,24 +25,12 @@ export const DetailsDataComponent = ({ ...props }) => {
         display="flex"
         flexDirection="row"
         justifyContent="space-around"
-        alignItems="center"
+        alignItems="baseline"
         p={2}
         paddingLeft={1}
         paddingRight={1}
       >
         <Box>
-          <Box marginBottom={4}>
-            <Box>
-              <Typography className={classes.header}>NIK</Typography>
-            </Box>
-            <Box>
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <Typography>{dataKelahiran.nik}</Typography>
-              )}
-            </Box>
-          </Box>
           <Box marginBottom={4}>
             <Box>
               <Typography className={classes.header}>Nama Lengkap</Typography>
@@ -65,15 +57,25 @@ export const DetailsDataComponent = ({ ...props }) => {
           </Box>
           <Box marginBottom={4}>
             <Box>
-              <Typography className={classes.header}>
-                Nomor Surat Kelahiran
-              </Typography>
+              <Typography className={classes.header}>Agama</Typography>
             </Box>
             <Box>
               {isLoading ? (
                 <Skeleton />
               ) : (
-                <Typography>{dataKelahiran.nomor_surat_kelahiran}</Typography>
+                <Typography>{dataKelahiran.agama}</Typography>
+              )}
+            </Box>
+          </Box>
+          <Box marginBottom={4}>
+            <Box>
+              <Typography className={classes.header}>Pelapor</Typography>
+            </Box>
+            <Box>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography>{dataKelahiran.hubungan_pelapor}</Typography>
               )}
             </Box>
           </Box>
@@ -132,25 +134,15 @@ export const DetailsDataComponent = ({ ...props }) => {
         <Box>
           <Box marginBottom={4}>
             <Box>
-              <Typography className={classes.header}>Agama</Typography>
+              <Typography className={classes.header}>
+                Nomor Surat Kelahiran
+              </Typography>
             </Box>
             <Box>
               {isLoading ? (
                 <Skeleton />
               ) : (
-                <Typography>{dataKelahiran.agama}</Typography>
-              )}
-            </Box>
-          </Box>
-          <Box marginBottom={4}>
-            <Box>
-              <Typography className={classes.header}>Pelapor</Typography>
-            </Box>
-            <Box>
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <Typography>{dataKelahiran.hubungan_pelapor}</Typography>
+                <Typography>{dataKelahiran.nomor_surat_kelahiran}</Typography>
               )}
             </Box>
           </Box>
@@ -196,6 +188,40 @@ export const DetailsDataComponent = ({ ...props }) => {
                   className={classes.detailText}
                 >
                   Lihat Detail
+                </Typography>
+              )}
+            </Box>
+          </Box>
+          <Box marginBottom={4}>
+            <Box>
+              <Typography className={classes.header}>
+                Tanda Tangan Surat
+              </Typography>
+            </Box>
+            <Box>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography
+                  component={Link}
+                  to="#!"
+                  onClick={(e) => {
+                    if (dataKelahiran.signatures !== undefined) {
+                      setOpenDialogSignature(true);
+                      setDataToDialog(signature);
+                    }
+
+                    e.preventDefault();
+                  }}
+                  className={
+                    dataKelahiran.signatures !== undefined
+                      ? classes.detailText
+                      : classes.textIsEmpty
+                  }
+                >
+                  {dataKelahiran.signatures !== undefined
+                    ? "Lihat Detail"
+                    : "Kosong"}
                 </Typography>
               )}
             </Box>

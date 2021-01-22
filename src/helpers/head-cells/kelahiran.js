@@ -1,11 +1,5 @@
 export const headCellsKelahiran = [
   {
-    id: "nik",
-    numeric: false,
-    disablePadding: false,
-    label: "NIK",
-  },
-  {
     id: "nama_lengkap",
     numeric: false,
     disablePadding: false,

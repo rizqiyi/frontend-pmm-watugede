@@ -9,4 +9,10 @@ export const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: theme.palette.primary.main,
   },
+  textIsEmpty: {
+    color: theme.palette.grey.main,
+    textDecoration: "none",
+    cursor: "inherit",
+    fontWeight: 550,
+  },
 }));

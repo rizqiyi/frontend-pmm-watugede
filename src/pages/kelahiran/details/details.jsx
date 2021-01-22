@@ -25,6 +25,7 @@ import dataIsNull from "../../../assets/images/no-data-found.svg";
 import { GreyText } from "../../../components/typography/typography";
 import { Link } from "react-router-dom";
 import AddIcon from "@material-ui/icons/Add";
+import DialogDetailSignatureComponent from "../../../components/kelahiran-components/dialog-signature/dialog-signature";
 
 const KelahiranDetailsPage = ({ ...props }) => {
   const classes = useStyles();
@@ -32,6 +33,7 @@ const KelahiranDetailsPage = ({ ...props }) => {
   const [openDialogDetails, setOpenDialogDetails] = useState(false);
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
+  const [openDialogSignature, setOpenDialogSignature] = useState(false);
   const [dataToDialog, setDataToDialog] = useState([]);
   const history = useHistory();
   const isFirstRender = useRef(true);
@@ -45,6 +47,7 @@ const KelahiranDetailsPage = ({ ...props }) => {
     infosID,
     infosMessage,
     clearInfos,
+    signature,
   } = props;
   const paramsId = match.params.id;
 
@@ -173,8 +176,10 @@ const KelahiranDetailsPage = ({ ...props }) => {
                 dataKelahiran={dataKelahiran}
                 dataAyah={dataAyah}
                 dataIbu={dataIbu}
+                signature={signature}
                 setOpenDialogDetails={setOpenDialogDetails}
                 setDataToDialog={setDataToDialog}
+                setOpenDialogSignature={setOpenDialogSignature}
               />
               <Box marginTop={1} marginBottom={2}>
                 <Divider />
@@ -225,6 +230,11 @@ const KelahiranDetailsPage = ({ ...props }) => {
               handleClose={setOpenDialogDelete}
               data={dataToDialog}
             />
+            <DialogDetailSignatureComponent
+              open={openDialogSignature}
+              handleClose={setOpenDialogSignature}
+              data={dataToDialog}
+            />
           </React.Fragment>
         )
       ) : null}
@@ -237,6 +247,7 @@ const mapStateToProps = (state) => {
     isLoading: state.kelahiran.isLoading,
     dataKelahiran: state.kelahiran.kelahiran_obj,
     dataAyah: state.kelahiran.data_ayah,
+    signature: state.kelahiran.signature,
     dataIbu: state.kelahiran.data_ibu,
     infosID: state.infos.id,
     infosMessage: state.infos.message,

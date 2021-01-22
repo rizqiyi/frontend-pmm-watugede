@@ -5,6 +5,7 @@ const initialState = {
   kelahiran_obj: [],
   data_ayah: {},
   data_ibu: {},
+  signature: {},
   isLoading: false,
 };
 
@@ -37,6 +38,7 @@ export const kelahiranReducer = (state = initialState, action) => {
         kelahiran_obj: action.payload.kelahiran,
         data_ayah: action.payload.data_ayah,
         data_ibu: action.payload.data_ibu,
+        signature: action.payload.signature,
       };
 
     case Types.PUT_KELAHIRAN_SUCCESS:

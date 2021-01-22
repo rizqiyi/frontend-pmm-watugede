@@ -22,4 +22,28 @@ export const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.main,
     },
   },
+  insertButton: {
+    color: "#fff",
+    fontWeight: 500,
+    backgroundColor: theme.palette.primary.main,
+    width: theme.spacing(18),
+    padding: "8px",
+    borderRadius: 50,
+    textTransform: "inherit",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+    },
+  },
+  updateButton: {
+    color: "#fff",
+    fontWeight: 500,
+    backgroundColor: theme.palette.warning.main,
+    width: theme.spacing(25),
+    padding: "8px",
+    borderRadius: 50,
+    textTransform: "inherit",
+    "&:hover": {
+      backgroundColor: theme.palette.warning.main,
+    },
+  },
 }));

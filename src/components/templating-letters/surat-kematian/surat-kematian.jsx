@@ -1,7 +1,7 @@
 import { Box, CircularProgress, Typography } from "@material-ui/core";
 import React, { forwardRef } from "react";
 import { useStyles } from "./surat-kematian.style";
-import logo from "../../../assets/images/logo-kabupaten-malang.png";
+import logo from "../../../assets/images/logo-kabupaten-malang.svg";
 
 export const SuratKematianComponent = forwardRef(({ ...props }, ref) => {
   const { dataPenduduk, dataKematian, isFetching } = props;

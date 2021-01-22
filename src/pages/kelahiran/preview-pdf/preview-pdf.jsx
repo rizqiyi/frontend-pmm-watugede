@@ -6,6 +6,8 @@ import ReactToPrint from "react-to-print";
 import { SuratKelahiranComponent } from "../../../components/templating-letters/surat-kelahiran/surat-kelahiran";
 import { fetchKelahiranId } from "../../../reducers/kelahiran/kelahiran.actions";
 import { useStyles } from "./preview-pdf.style";
+import EditIcon from "@material-ui/icons/Edit";
+import GetAppIcon from "@material-ui/icons/GetApp";
 
 const PreviewPdfKelahiranPage = ({ ...props }) => {
   const classes = useStyles();
@@ -18,6 +20,7 @@ const PreviewPdfKelahiranPage = ({ ...props }) => {
     dataAyah,
     dataIbu,
     fetchKelahiranId,
+    signature,
   } = props;
 
   const paramsId = match.params.id;
@@ -33,6 +36,7 @@ const PreviewPdfKelahiranPage = ({ ...props }) => {
         flexDirection="row"
         justifyContent="space-around"
         alignItems="center"
+        marginBottom={5}
       >
         <Box marginRight={2}>
           <Button
@@ -45,25 +49,58 @@ const PreviewPdfKelahiranPage = ({ ...props }) => {
             Kembali
           </Button>
         </Box>
-        <Box>
-          {isLoading ? (
-            <CircularProgress />
-          ) : (
-            <ReactToPrint
-              trigger={() => (
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Box>
+              <ReactToPrint
+                trigger={() => (
+                  <Button
+                    onClick={(e) => {
+                      e.preventDefault();
+                    }}
+                    startIcon={<GetAppIcon />}
+                    className={classes.seeButton}
+                  >
+                    Unduh PDF
+                  </Button>
+                )}
+                content={() => previewPDF.current}
+              />
+            </Box>
+            {signature ? (
+              <Box marginLeft={4}>
                 <Button
                   onClick={(e) => {
                     e.preventDefault();
                   }}
-                  className={classes.seeButton}
+                  startIcon={<EditIcon />}
+                  className={classes.updateButton}
                 >
-                  Unduh PDF
+                  Perbarui Nama TTD
                 </Button>
-              )}
-              content={() => previewPDF.current}
-            />
-          )}
-        </Box>
+              </Box>
+            ) : null}
+            {!signature ? (
+              <Box marginLeft={4}>
+                <Button
+                  onClick={(e) => {
+                    e.preventDefault();
+                  }}
+                  className={classes.insertButton}
+                >
+                  Tambah Nama TTD
+                </Button>
+              </Box>
+            ) : null}
+          </Box>
+        )}
       </Box>
       <SuratKelahiranComponent
         ref={previewPDF}
@@ -71,6 +108,7 @@ const PreviewPdfKelahiranPage = ({ ...props }) => {
         dataKelahiran={dataKelahiran}
         dataAyah={dataAyah}
         dataIbu={dataIbu}
+        signature={signature}
       />
     </React.Fragment>
   );
@@ -82,6 +120,7 @@ const mapStateToProps = (state) => {
     dataKelahiran: state.kelahiran.kelahiran_obj,
     dataAyah: state.kelahiran.data_ayah,
     dataIbu: state.kelahiran.data_ibu,
+    signature: state.kelahiran.signature,
   };
 };
 

@@ -35,6 +35,7 @@ export const fetchKelahiranId = (id) => (dispatch, getState) => {
           kelahiran: result.data.data ? result.data.data : [],
           data_ayah: result.data.data ? result.data.data.data_ayah : [],
           data_ibu: result.data.data ? result.data.data.data_ibu : [],
+          signature: result.data.data ? result.data.data.signatures : [],
         },
       });
     })

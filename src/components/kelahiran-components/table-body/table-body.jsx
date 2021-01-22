@@ -24,7 +24,6 @@ const KelahiranTableBodyComponent = ({ ...props }) => {
           .map((row, index) => {
             return (
               <TableRow role="checkbox" tabIndex={-1} key={index}>
-                <TableCell align="left">{row.nik}</TableCell>
                 <TableCell align="left" className={classes.controlText}>
                   {row.nama}
                 </TableCell>
