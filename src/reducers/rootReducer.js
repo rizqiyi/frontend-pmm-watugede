@@ -12,6 +12,7 @@ import { adminActivityReducer } from "./aktifitas_admin/admin_activity.reducer";
 import { kematianReducer } from "./kematian/kematian.reducer";
 import { kelahiranReducer } from "./kelahiran/kelahiran.reducer";
 import { dashboardReducer } from "./dashboard/dashboard.reducer";
+import { signaturesReducer } from "./signatures/signatures.reducer";
 
 const rootReducer = combineReducers({
   dashboard: dashboardReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   kematian: kematianReducer,
   kelahiran: kelahiranReducer,
   admin_activity: adminActivityReducer,
+  signatures: signaturesReducer,
 });
 
 const persistedReducer = persistReducer(

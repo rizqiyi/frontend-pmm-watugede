@@ -17,8 +17,6 @@ export const DetailsDataComponent = ({ ...props }) => {
     setOpenDialogSignature,
   } = props;
 
-  console.log(dataKelahiran);
-
   return (
     <React.Fragment>
       <Box

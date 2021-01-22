@@ -38,7 +38,7 @@ export const useStyles = makeStyles((theme) => ({
     color: "#fff",
     fontWeight: 500,
     backgroundColor: theme.palette.warning.main,
-    width: theme.spacing(25),
+    width: theme.spacing(27),
     padding: "8px",
     borderRadius: 50,
     textTransform: "inherit",

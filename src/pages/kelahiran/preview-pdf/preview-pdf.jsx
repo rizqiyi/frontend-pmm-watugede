@@ -1,5 +1,5 @@
 import { Box, Button, CircularProgress } from "@material-ui/core";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ReactToPrint from "react-to-print";
@@ -8,11 +8,13 @@ import { fetchKelahiranId } from "../../../reducers/kelahiran/kelahiran.actions"
 import { useStyles } from "./preview-pdf.style";
 import EditIcon from "@material-ui/icons/Edit";
 import GetAppIcon from "@material-ui/icons/GetApp";
+import DialogEditSignatureComponent from "../../../components/kelahiran-components/signatures/dialog-edit/dialog-edit";
 
 const PreviewPdfKelahiranPage = ({ ...props }) => {
   const classes = useStyles();
   const history = useHistory();
   const previewPDF = useRef(null);
+  const [openDialogEdit, setOpenDialogEdit] = useState(false);
   const {
     match,
     isLoading,
@@ -79,6 +81,7 @@ const PreviewPdfKelahiranPage = ({ ...props }) => {
                 <Button
                   onClick={(e) => {
                     e.preventDefault();
+                    setOpenDialogEdit(true);
                   }}
                   startIcon={<EditIcon />}
                   className={classes.updateButton}
@@ -108,6 +111,12 @@ const PreviewPdfKelahiranPage = ({ ...props }) => {
         dataKelahiran={dataKelahiran}
         dataAyah={dataAyah}
         dataIbu={dataIbu}
+        signature={signature}
+      />
+      <DialogEditSignatureComponent
+        open={openDialogEdit}
+        dataKelahiran={dataKelahiran}
+        handleClose={setOpenDialogEdit}
         signature={signature}
       />
     </React.Fragment>
