@@ -1,10 +1,13 @@
 import { Box, Typography } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import React from "react";
+import { Link } from "react-router-dom";
 import { useStyles } from "./details-data.style";
 
-export const DetailsDataComponent = ({ childData, data, isLoading }) => {
+export const DetailsDataComponent = ({ ...props }) => {
   const classes = useStyles();
+
+  const { childData, data, isLoading, setOpenDialogSignature } = props;
 
   return (
     <React.Fragment>
@@ -44,7 +47,7 @@ export const DetailsDataComponent = ({ childData, data, isLoading }) => {
             <Box>
               <Typography className={classes.header}>Alamat</Typography>
             </Box>
-            <Box marginTop={1} maxWidth={230}>
+            <Box marginTop={1} marginBottom={3} maxWidth={230}>
               {isLoading ? (
                 <Skeleton animation="wave" height={20} />
               ) : (
@@ -52,13 +55,11 @@ export const DetailsDataComponent = ({ childData, data, isLoading }) => {
               )}
             </Box>
           </Box>
-        </Box>
-        <Box>
           <Box>
             <Box>
               <Typography className={classes.header}>Pekerjaan</Typography>
             </Box>
-            <Box marginTop={1} marginBottom={3}>
+            <Box marginTop={1}>
               {isLoading ? (
                 <Skeleton animation="wave" height={20} />
               ) : (
@@ -66,6 +67,8 @@ export const DetailsDataComponent = ({ childData, data, isLoading }) => {
               )}
             </Box>
           </Box>
+        </Box>
+        <Box>
           <Box>
             <Box>
               <Typography className={classes.header}>
@@ -96,6 +99,18 @@ export const DetailsDataComponent = ({ childData, data, isLoading }) => {
           </Box>
           <Box>
             <Box>
+              <Typography className={classes.header}>Hari</Typography>
+            </Box>
+            <Box marginTop={1} marginBottom={3}>
+              {isLoading ? (
+                <Skeleton animation="wave" height={20} />
+              ) : (
+                <Typography>{data.hari_meninggal}</Typography>
+              )}
+            </Box>
+          </Box>
+          <Box>
+            <Box>
               <Typography className={classes.header}>
                 Nomor Surat Kematian
               </Typography>
@@ -110,18 +125,6 @@ export const DetailsDataComponent = ({ childData, data, isLoading }) => {
           </Box>
         </Box>
         <Box>
-          <Box>
-            <Box>
-              <Typography className={classes.header}>Hari</Typography>
-            </Box>
-            <Box marginTop={1} marginBottom={3}>
-              {isLoading ? (
-                <Skeleton animation="wave" height={20} />
-              ) : (
-                <Typography>{data.hari_meninggal}</Typography>
-              )}
-            </Box>
-          </Box>
           <Box>
             <Box>
               <Typography className={classes.header}>
@@ -156,11 +159,35 @@ export const DetailsDataComponent = ({ childData, data, isLoading }) => {
                 Penyebab Meninggal
               </Typography>
             </Box>
-            <Box marginTop={1}>
+            <Box marginTop={1} marginBottom={3}>
               {isLoading ? (
                 <Skeleton animation="wave" height={20} />
               ) : (
                 <Typography>{data.penyebab_meninggal}</Typography>
+              )}
+            </Box>
+          </Box>
+          <Box>
+            <Box>
+              <Typography className={classes.header}>
+                Tanda Tangan Surat
+              </Typography>
+            </Box>
+            <Box marginTop={1}>
+              {isLoading ? (
+                <Skeleton animation="wave" height={20} />
+              ) : (
+                <Typography
+                  component={Link}
+                  to="#!"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenDialogSignature(true);
+                  }}
+                  className={classes.textLink}
+                >
+                  Lihat Detail
+                </Typography>
               )}
             </Box>
           </Box>

@@ -13,6 +13,7 @@ const PreviewPdfKematianPage = ({ ...props }) => {
     match,
     dataKematian,
     childDataKematian,
+    signature,
     isLoading,
   } = props;
   const paramsId = match.params.id;
@@ -70,6 +71,7 @@ const PreviewPdfKematianPage = ({ ...props }) => {
         dataPenduduk={childDataKematian}
         isFetching={isLoading}
         ref={previewPDF}
+        signature={signature}
       />
     </React.Fragment>
   );
@@ -78,6 +80,7 @@ const PreviewPdfKematianPage = ({ ...props }) => {
 const mapStateToProps = (state) => {
   return {
     dataKematian: state.kematian.kematian_details,
+    signature: state.kematian.signature,
     childDataKematian: state.kematian.kematian_obj,
     isLoading: state.kematian.isLoading,
   };

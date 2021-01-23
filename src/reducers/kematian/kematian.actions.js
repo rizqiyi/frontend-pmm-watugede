@@ -36,6 +36,7 @@ export const getDataKematianById = (id) => (dispatch, getState) => {
           kematian: result.data.data ? result.data.data : [],
           child: result.data.data ? result.data.data.pemilik_data : [],
           arsip: result.data.data ? result.data.data.arsip_kematian : [],
+          signature: result.data.data ? result.data.data.signatures : [],
         },
       });
     })

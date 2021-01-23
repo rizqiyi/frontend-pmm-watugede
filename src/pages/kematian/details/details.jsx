@@ -27,6 +27,7 @@ import { DialogDetailsComponent } from "../../../components/kematian-components/
 import { DetailImagesDialog } from "../../../components/kematian-components/arsip/detail-images/detail-images";
 import DialogEditImageComponent from "../../../components/kematian-components/arsip/dialog-edit/dialog-edit";
 import DialogDeleteImageComponent from "../../../components/kematian-components/arsip/dialog-delete/dialog-delete";
+import DialogDetailSignatureComponent from "../../../components/kematian-components/signatures/dialog-details/dialog-signature";
 
 export const KematianDetailsPage = ({ ...props }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -36,6 +37,7 @@ export const KematianDetailsPage = ({ ...props }) => {
   const [openDialogInsert, setOpenDialogInsert] = useState(false);
   const [dataToAct, setDataToAct] = useState([]);
   const [openDialogDetailArsip, setOpenDialogDetailArsip] = useState(false);
+  const [openDialogSignature, setOpenDialogSignature] = useState(false);
   const [openImageDetail, setOpenImageDetail] = useState(false);
   const [openDialogEditArsip, setOpenDialogEditArsip] = useState(false);
   const [openDialogDeleteArsip, setOpenDialogDeleteArsip] = useState(false);
@@ -50,6 +52,7 @@ export const KematianDetailsPage = ({ ...props }) => {
     infosStatus,
     infosMessage,
     clearInfos,
+    signature,
   } = props;
 
   const paramsId = match.params.id;
@@ -176,6 +179,7 @@ export const KematianDetailsPage = ({ ...props }) => {
             <DetailsDataComponent
               data={dataKematian}
               childData={childDataKematian}
+              setOpenDialogSignature={setOpenDialogSignature}
               isLoading={isLoading}
             />
             <Box marginTop={2} marginBottom={2}>
@@ -329,6 +333,11 @@ export const KematianDetailsPage = ({ ...props }) => {
         dataArsip={arsipKematian ? arsipKematian._id : ""}
         dataKematian={dataKematian}
       />
+      <DialogDetailSignatureComponent
+        open={openDialogSignature}
+        handleClose={setOpenDialogSignature}
+        signature={signature}
+      />
       {openImageDetail && (
         <DetailImagesDialog
           openImageDetail={openImageDetail}
@@ -344,6 +353,7 @@ const mapStateToProps = (state) => {
     dataKematian: state.kematian.kematian_details,
     childDataKematian: state.kematian.kematian_obj,
     arsipKematian: state.kematian.arsip_kematian,
+    signature: state.kematian.signature,
     isLoading: state.kematian.isLoading,
     infosStatus: state.infos.status,
     infosMessage: state.infos.message,

@@ -5,4 +5,9 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 300,
     color: theme.palette.grey.main,
   },
+  textLink: {
+    color: theme.palette.primary.main,
+    cursor: "pointer",
+    textDecoration: "none",
+  },
 }));

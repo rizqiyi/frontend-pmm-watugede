@@ -8,4 +8,8 @@ export const useStyles = makeStyles((theme) => ({
   fontCons: {
     fontFamily: `"Times New Roman", Times, serif`,
   },
+  position: {
+    position: "relative",
+    left: "-15%",
+  },
 }));
