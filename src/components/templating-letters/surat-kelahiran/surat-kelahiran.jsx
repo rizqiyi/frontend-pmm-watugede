@@ -1,7 +1,6 @@
-import { Box, CircularProgress, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React, { forwardRef } from "react";
 import { BodyComponent } from "./body/body";
-
 import { useStyles } from "./surat-kelahiran.style";
 
 export const SuratKelahiranComponent = forwardRef(({ ...props }, ref) => {
@@ -11,16 +10,6 @@ export const SuratKelahiranComponent = forwardRef(({ ...props }, ref) => {
 
   return (
     <div ref={ref}>
-      {isFetching ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          margin="10rem auto 0px auto"
-        >
-          <CircularProgress color="primary" />
-        </Box>
-      ) : null}
       {isFetching ? null : (
         <Grid
           container

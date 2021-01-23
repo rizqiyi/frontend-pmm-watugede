@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress } from "@material-ui/core";
+import { Box, Button, CircularProgress, Paper } from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -82,7 +82,7 @@ const PreviewPdfKelahiranPage = ({ ...props }) => {
               />
             </Box>
             {signature ? (
-              <Box marginLeft={4}>
+              <Box marginLeft={3}>
                 <Button
                   onClick={(e) => {
                     e.preventDefault();
@@ -96,7 +96,7 @@ const PreviewPdfKelahiranPage = ({ ...props }) => {
               </Box>
             ) : null}
             {!signature ? (
-              <Box marginLeft={4}>
+              <Box marginLeft={3}>
                 <Button
                   onClick={(e) => {
                     e.preventDefault();
@@ -112,14 +112,27 @@ const PreviewPdfKelahiranPage = ({ ...props }) => {
           </Box>
         )}
       </Box>
-      <SuratKelahiranComponent
-        ref={previewPDF}
-        isFetching={isLoading}
-        dataKelahiran={dataKelahiran}
-        dataAyah={dataAyah}
-        dataIbu={dataIbu}
-        signature={signature}
-      />
+      {isLoading ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          margin="10rem auto 0px auto"
+        >
+          <CircularProgress color="primary" />
+        </Box>
+      ) : (
+        <Paper style={{ boxShadow: "none" }}>
+          <SuratKelahiranComponent
+            ref={previewPDF}
+            isFetching={isLoading}
+            dataKelahiran={dataKelahiran}
+            dataAyah={dataAyah}
+            dataIbu={dataIbu}
+            signature={signature}
+          />
+        </Paper>
+      )}
       {signatureIsUndefined ? null : (
         <DialogEditSignatureComponent
           open={openDialogEdit}

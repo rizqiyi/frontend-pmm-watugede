@@ -451,9 +451,7 @@ export const BodyComponent = ({ ...props }) => {
                 }}
                 className={classes.newFont}
               >
-                {signature
-                  ? `${signature.nama_lengkap}`.toUpperCase()
-                  : "Tambahkan Nama Lengkap"}
+                {signature ? signature.nama_lengkap : "Tambahkan Nama Lengkap"}
               </Typography>
             </Box>
           </Box>

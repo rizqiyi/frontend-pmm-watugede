@@ -129,7 +129,32 @@ const KelahiranInsertPage = ({ ...props }) => {
                   alignItems="baseline"
                 >
                   <Box>
-                    <Box>
+                    <Box position="relative" top={14}>
+                      <MuiPickersUtilsProvider
+                        libInstance={moment}
+                        utils={MomentUtils}
+                      >
+                        <FastField
+                          component={KeyboardDatePicker}
+                          autoOk={true}
+                          margin="normal"
+                          id="date-picker-dialog"
+                          label="Tanggal Lahir"
+                          format="LL"
+                          name="tanggal_lahir"
+                          size="medium"
+                          inputValue={inputValueDate}
+                          value={selectedDate}
+                          rifmFormatter={dateFormatter}
+                          className={classes.controlInputDate}
+                          onChange={handleDateChange}
+                          KeyboardButtonProps={{
+                            "aria-label": "change date",
+                          }}
+                        />
+                      </MuiPickersUtilsProvider>
+                    </Box>
+                    <Box marginTop={2.6}>
                       <FastField
                         component={TextFormField}
                         variant="filled"
@@ -159,6 +184,8 @@ const KelahiranInsertPage = ({ ...props }) => {
                         className={classes.controlInput}
                       />
                     </Box>
+                  </Box>
+                  <Box>
                     <Box marginTop={1}>
                       <FastField
                         component={TextFormField}
@@ -169,34 +196,7 @@ const KelahiranInsertPage = ({ ...props }) => {
                         className={classes.controlInput}
                       />
                     </Box>
-                  </Box>
-                  <Box>
-                    <Box position="relative" top={14}>
-                      <MuiPickersUtilsProvider
-                        libInstance={moment}
-                        utils={MomentUtils}
-                      >
-                        <FastField
-                          component={KeyboardDatePicker}
-                          autoOk={true}
-                          margin="normal"
-                          id="date-picker-dialog"
-                          label="Tanggal Lahir"
-                          format="LL"
-                          name="tanggal_lahir"
-                          size="medium"
-                          inputValue={inputValueDate}
-                          value={selectedDate}
-                          rifmFormatter={dateFormatter}
-                          className={classes.controlInputDate}
-                          onChange={handleDateChange}
-                          KeyboardButtonProps={{
-                            "aria-label": "change date",
-                          }}
-                        />
-                      </MuiPickersUtilsProvider>
-                    </Box>
-                    <Box marginBottom={1.2} marginTop={4.6}>
+                    <Box marginBottom={1.2} marginTop={2}>
                       <FastField
                         name="jenis_kelamin"
                         className={classes.lastField}
