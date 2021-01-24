@@ -11,15 +11,15 @@ export const useStyles = makeStyles((theme) => ({
     textTransform: "inherit",
   },
   seeButton: {
-    color: "#fff",
-    fontWeight: 500,
-    backgroundColor: theme.palette.primary.main,
-    width: theme.spacing(18),
-    padding: "8px",
+    color: theme.palette.primary.main,
+    width: theme.spacing(20),
     borderRadius: 50,
+    fontWeight: 400,
+    padding: "8px",
+    backgroundColor: "#e1f5fe",
     textTransform: "inherit",
     "&:hover": {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: "#e3f2fd",
     },
   },
   insertButton: {

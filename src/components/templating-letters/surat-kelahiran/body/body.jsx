@@ -81,9 +81,16 @@ export const BodyComponent = ({ ...props }) => {
                 SURAT KETERANGAN KELAHIRAN
               </Typography>
             </Box>
-            <Box>
+            <Box
+              className={
+                dataKelahiran.nomor_surat_kelahiran ? null : classes.position
+              }
+            >
               <Typography className={classes.newFont}>
-                Nomor : {dataKelahiran.nomor_surat_kelahiran}
+                Nomor :{" "}
+                {dataKelahiran.nomor_surat_kelahiran
+                  ? dataKelahiran.nomor_surat_kelahiran
+                  : null}
               </Typography>
             </Box>
           </Box>

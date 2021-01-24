@@ -43,6 +43,7 @@ export const getPendudukKeluarById = (id) => (dispatch, getState) => {
           keterangan: result.data.data.keterangan_keluar_desa
             ? result.data.data.keterangan_keluar_desa
             : [],
+          signature: result.data.data ? result.data.data.signatures : [],
         },
       });
     })

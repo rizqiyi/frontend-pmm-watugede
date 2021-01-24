@@ -29,6 +29,7 @@ import DialogEditComponent from "../../../components/penduduk-keluar-components/
 import DialogDeleteKeteranganComponent from "../../../components/penduduk-keluar-components/dialog-delete-keterangan/dialog-delete";
 import { clearInfos } from "../../../reducers/infos/info.actions";
 import AddIcon from "@material-ui/icons/Add";
+import DialogDetailSignatureComponent from "../../../components/penduduk-keluar-components/signatures/dialog-details/dialog-signature";
 
 const PendudukKeluarDetailPage = ({ ...props }) => {
   const classes = useStyles();
@@ -42,6 +43,7 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
     infosID,
     clearInfos,
     isLoadingKeterangan,
+    signature,
   } = props;
   const paramsId = match.params.id;
   const [anchorEl, setAnchorEl] = useState(null);
@@ -53,6 +55,7 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
   const [openDialogDeleteAll, setOpenDialogDeleteAll] = useState(false);
   const [dataToDetails, setDataToDetails] = useState([]);
   const [openDialogEdit, setOpenDialogEdit] = useState(false);
+  const [openDialogSignature, setOpenDialogSignature] = useState(false);
   const isFirstRender = useRef(true);
 
   const history = useHistory();
@@ -224,6 +227,8 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
             <PengusulKeluarComponent
               data={firstData}
               isLoading={isLoadingKeterangan}
+              setOpenDialogSignature={setOpenDialogSignature}
+              signature={signature}
             />
           </Box>
         </Paper>
@@ -441,6 +446,13 @@ const PendudukKeluarDetailPage = ({ ...props }) => {
         data={keteranganKeluar}
         idDataKeluar={paramsId}
       />
+      {signature ? (
+        <DialogDetailSignatureComponent
+          open={openDialogSignature}
+          handleClose={setOpenDialogSignature}
+          signature={signature}
+        />
+      ) : null}
     </React.Fragment>
   );
 };
@@ -449,6 +461,7 @@ const mapStateToProps = (state) => {
   return {
     pendudukKeluarByID: state.penduduk_keluar.penduduk_keluar_by_id,
     keteranganKeluar: state.penduduk_keluar.keterangan_keluar_by_id,
+    signature: state.penduduk_keluar.signature,
     isLoading: state.penduduk_keluar.isLoading,
     isLoadingKeterangan: state.penduduk_keluar.isLoadingKeterangan,
     infosMessage: state.infos.message,

@@ -34,7 +34,7 @@ const KeteranganKeluarComponent = ({ ...props }) => {
           alignItems="stretch"
           spacing={10}
         >
-          <Grid item>
+          <Grid item m={3}>
             <Box display="flex" flexDirection="row">
               <Box>
                 {isLoading ? (
@@ -43,7 +43,7 @@ const KeteranganKeluarComponent = ({ ...props }) => {
                   <Box
                     width={270}
                     height={270}
-                    style={{ backgroundColor: "#9e9e9e" }}
+                    style={{ backgroundColor: "#e0e0e0" }}
                     borderRadius={10}
                     display="flex"
                     justifyContent="center"
@@ -80,8 +80,14 @@ const KeteranganKeluarComponent = ({ ...props }) => {
                     {isLoading ? (
                       <Skeleton width={120} />
                     ) : (
-                      <Typography className={classes.values_number}>
-                        {data.nomor_surat}
+                      <Typography
+                        className={
+                          data.nomor_surat
+                            ? classes.values_number
+                            : classes.values
+                        }
+                      >
+                        {data.nomor_surat ? data.nomor_surat : "-"}
                       </Typography>
                     )}
                   </Box>
@@ -149,7 +155,7 @@ const KeteranganKeluarComponent = ({ ...props }) => {
               </Box>
             </Box>
           </Grid>
-          <Grid item>
+          <Grid item m={3}>
             <Box>
               <Box marginBottom={2}>
                 <Box marginBottom={1}>
@@ -229,7 +235,7 @@ const KeteranganKeluarComponent = ({ ...props }) => {
               </Box>
             </Box>
           </Grid>
-          <Grid item>
+          <Grid item m={3}>
             <Box position="relative" top={-15}>
               <Box>
                 {isLoading ? (

@@ -68,7 +68,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   goToButton: {
     color: theme.palette.primary.main,
-    width: theme.spacing(25),
+    width: theme.spacing(27),
     padding: "12px",
     fontWeight: 500,
     marginLeft: 15,

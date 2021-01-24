@@ -7,4 +7,15 @@ export const useStyles = makeStyles((theme) => ({
   values: {
     fontWeight: 500,
   },
+  textLink: {
+    fontWeight: 500,
+    textDecoration: "none",
+    color: theme.palette.primary.main,
+  },
+  isEmpty: {
+    fontWeight: 500,
+    textDecoration: "none",
+    color: "inherit",
+    cursor: "inherit",
+  },
 }));

@@ -1,10 +1,11 @@
 import { Box, Typography, Grid } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import React from "react";
+import { Link } from "react-router-dom";
 import { useStyles } from "./pengusul-keluar.style";
 
 export const PengusulKeluarComponent = ({ ...props }) => {
-  const { data, isLoading } = props;
+  const { data, isLoading, setOpenDialogSignature, signature } = props;
   const classes = useStyles();
 
   const checkValues = (val) => {
@@ -21,7 +22,7 @@ export const PengusulKeluarComponent = ({ ...props }) => {
           alignItems="baseline"
           spacing={10}
         >
-          <Grid item>
+          <Grid item xs={6} lg={3}>
             <Box>
               <Box marginTop={3} marginBottom={1}>
                 {isLoading ? (
@@ -77,8 +78,8 @@ export const PengusulKeluarComponent = ({ ...props }) => {
               </Box>
             </Box>
           </Grid>
-          <Grid item>
-            <Box marginLeft={isLoading ? 11 : 13}>
+          <Grid item xs={6} lg={3}>
+            <Box>
               <Box marginTop={3} marginBottom={1}>
                 {isLoading ? (
                   <Skeleton width={230} />
@@ -133,8 +134,8 @@ export const PengusulKeluarComponent = ({ ...props }) => {
               </Box>
             </Box>
           </Grid>
-          <Grid item>
-            <Box marginLeft={2}>
+          <Grid item xs={6} lg={3}>
+            <Box>
               <Box marginTop={3} marginBottom={1}>
                 {isLoading ? (
                   <Skeleton width={230} />
@@ -186,6 +187,36 @@ export const PengusulKeluarComponent = ({ ...props }) => {
                     {checkValues(data[0].tempat_tanggal_lahir)}
                   </Typography>
                 )}{" "}
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={6} lg={3}>
+            <Box>
+              <Box marginTop={3} marginBottom={1}>
+                {isLoading ? (
+                  <Skeleton width={230} />
+                ) : (
+                  <Typography className={classes.header}>
+                    Tanda Tangan Surat
+                  </Typography>
+                )}
+              </Box>
+              <Box>
+                {isLoading ? (
+                  <Skeleton width={100} />
+                ) : (
+                  <Typography
+                    component={Link}
+                    to="#!"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (signature) setOpenDialogSignature(true);
+                    }}
+                    className={signature ? classes.textLink : classes.isEmpty}
+                  >
+                    {signature ? "Lihat Detail" : "Kosong"}
+                  </Typography>
+                )}
               </Box>
             </Box>
           </Grid>

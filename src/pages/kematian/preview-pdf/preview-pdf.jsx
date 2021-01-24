@@ -135,12 +135,16 @@ const PreviewPdfKematianPage = ({ ...props }) => {
         handleClose={setOpenDialogInsert}
         data={dataKematian}
       />
-      <DialogEditSignatureComponent
-        open={openDialogEdit}
-        handleClose={setOpenDialogEdit}
-        signature={signature}
-        dataKematian={dataKematian}
-      />
+      {signature ? (
+        <React.Fragment>
+          <DialogEditSignatureComponent
+            open={openDialogEdit}
+            handleClose={setOpenDialogEdit}
+            signature={signature}
+            dataKematian={dataKematian}
+          />
+        </React.Fragment>
+      ) : null}
     </React.Fragment>
   );
 };

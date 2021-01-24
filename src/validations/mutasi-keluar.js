@@ -23,7 +23,7 @@ const mutasiKeluarInsertValidation = yup.object({
 // const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
 
 const keteranganKeluarInsertValidation = yup.object({
-  nomor_surat: yup.string().required("Nomor Surat tidak boleh kosong"),
+  nomor_surat: yup.string(),
   pengikut: yup
     .number()
     .typeError("Input harus berupa angka")
@@ -39,7 +39,7 @@ const keteranganKeluarInsertValidation = yup.object({
 });
 
 const keteranganKeluarUpdateValidation = yup.object({
-  nomor_surat: yup.string().required("Nomor Surat tidak boleh kosong"),
+  nomor_surat: yup.string(),
   pengikut: yup
     .number()
     .typeError("Input harus berupa angka")

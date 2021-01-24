@@ -4,6 +4,7 @@ import { returnInfos } from "../infos/info.actions";
 import { fetchKelahiranId } from "../kelahiran/kelahiran.actions";
 import { tokenConfig } from "../users/users.actions";
 import { getDataKematianById } from "../kematian/kematian.actions";
+import { getPendudukKeluarById } from "../penduduk_keluar/penduduk_keluar.actions";
 
 export const updateSignature = ({ ...requests }, idData, idSignature, flag) => (
   dispatch,
@@ -35,6 +36,9 @@ export const updateSignature = ({ ...requests }, idData, idSignature, flag) => (
 
         case "kematian":
           return dispatch(getDataKematianById(idData));
+
+        case "penduduk_keluar":
+          return dispatch(getPendudukKeluarById(idData));
 
         default:
           return flag;
@@ -96,6 +100,34 @@ export const postSignatureKematian = ({ ...requests }, idKematian) => (
       });
     })
     .then(() => dispatch(getDataKematianById(idKematian)))
+    .catch((err) =>
+      dispatch(returnInfos(err.response.data.message, err.response.status))
+    );
+};
+
+export const postSignaturePendudukKeluar = (
+  { ...requests },
+  idPendudukKeluar
+) => (dispatch, getState) => {
+  dispatch({
+    type: Types.START_REQUEST_SIGNATURES,
+  });
+
+  const body = JSON.stringify({ ...requests });
+
+  axios
+    .post(
+      `${process.env.REACT_APP_SIGNATURES_URI}/${idPendudukKeluar}/p/keluar`,
+      body,
+      tokenConfig(getState)
+    )
+    .then((result) => {
+      dispatch({
+        type: Types.POST_SIGNATURES_SUCCESS,
+        payload: result.data.data,
+      });
+    })
+    .then(() => dispatch(getPendudukKeluarById(idPendudukKeluar)))
     .catch((err) =>
       dispatch(returnInfos(err.response.data.message, err.response.status))
     );

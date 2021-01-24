@@ -4,6 +4,7 @@ const initialState = {
   penduduk_keluar: [],
   penduduk_keluar_obj: {},
   penduduk_keluar_by_id: [],
+  signature: {},
   keterangan_keluar_by_id: [],
   isLoading: false,
   isLoadingKeterangan: false,
@@ -36,6 +37,7 @@ export const pendudukKeluarReducer = (state = initialState, action) => {
         ...state,
         penduduk_keluar_by_id: action.payload.someData,
         keterangan_keluar_by_id: action.payload.keterangan,
+        signature: action.payload.signature,
         isLoading: false,
         isLoadingKeterangan: false,
       };
