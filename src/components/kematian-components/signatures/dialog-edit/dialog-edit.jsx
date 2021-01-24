@@ -7,13 +7,7 @@ import { TextFormField } from "../../../styled-textfield/styled-textfield";
 import { useStyles } from "./dialog-edit.style";
 
 const DialogEditSignatureComponent = ({ ...props }) => {
-  const {
-    open,
-    handleClose,
-    signature,
-    updateSignature,
-    dataKelahiran,
-  } = props;
+  const { open, handleClose, signature, updateSignature, dataKematian } = props;
 
   const classes = useStyles();
 
@@ -38,12 +32,7 @@ const DialogEditSignatureComponent = ({ ...props }) => {
             }}
             enableReinitialize={true}
             onSubmit={(values) => {
-              updateSignature(
-                values,
-                dataKelahiran._id,
-                values.id,
-                "kelahiran"
-              );
+              updateSignature(values, dataKematian._id, values.id, "kematian");
               handleClose(false);
             }}
           >

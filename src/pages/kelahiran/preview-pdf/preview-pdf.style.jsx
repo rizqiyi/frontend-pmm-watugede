@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     border: "2px solid rgba(143, 143, 143, 0.5)",
     width: theme.spacing(14),
-    padding: "6px",
+    padding: "8px",
     borderRadius: 50,
     textTransform: "inherit",
   },

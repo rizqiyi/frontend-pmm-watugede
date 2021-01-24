@@ -7,7 +7,13 @@ import { useStyles } from "./details-data.style";
 export const DetailsDataComponent = ({ ...props }) => {
   const classes = useStyles();
 
-  const { childData, data, isLoading, setOpenDialogSignature } = props;
+  const {
+    childData,
+    data,
+    isLoading,
+    setOpenDialogSignature,
+    signature,
+  } = props;
 
   return (
     <React.Fragment>
@@ -182,11 +188,11 @@ export const DetailsDataComponent = ({ ...props }) => {
                   to="#!"
                   onClick={(e) => {
                     e.preventDefault();
-                    setOpenDialogSignature(true);
+                    if (signature) setOpenDialogSignature(true);
                   }}
-                  className={classes.textLink}
+                  className={signature ? classes.textLink : classes.isEmpty}
                 >
-                  Lihat Detail
+                  {signature ? "Lihat Detail" : "Kosong"}
                 </Typography>
               )}
             </Box>

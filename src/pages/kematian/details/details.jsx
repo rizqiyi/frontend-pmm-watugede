@@ -181,6 +181,7 @@ export const KematianDetailsPage = ({ ...props }) => {
               childData={childDataKematian}
               setOpenDialogSignature={setOpenDialogSignature}
               isLoading={isLoading}
+              signature={signature}
             />
             <Box marginTop={2} marginBottom={2}>
               <Divider />
@@ -333,11 +334,13 @@ export const KematianDetailsPage = ({ ...props }) => {
         dataArsip={arsipKematian ? arsipKematian._id : ""}
         dataKematian={dataKematian}
       />
-      <DialogDetailSignatureComponent
-        open={openDialogSignature}
-        handleClose={setOpenDialogSignature}
-        signature={signature}
-      />
+      {signature ? (
+        <DialogDetailSignatureComponent
+          open={openDialogSignature}
+          handleClose={setOpenDialogSignature}
+          signature={signature}
+        />
+      ) : null}
       {openImageDetail && (
         <DetailImagesDialog
           openImageDetail={openImageDetail}

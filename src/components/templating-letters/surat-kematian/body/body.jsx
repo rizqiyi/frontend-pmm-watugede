@@ -27,12 +27,7 @@ export const BodyComponent = ({ ...props }) => {
             marginTop={1}
           >
             <Box>
-              <img
-                src={logo}
-                alt="Logo Kab. Malang"
-                width={100}
-                height="auto"
-              />
+              <img src={logo} alt="Logo Kab. Malang" width={80} height="auto" />
             </Box>
             <Box>
               <Typography
@@ -55,7 +50,7 @@ export const BodyComponent = ({ ...props }) => {
               </Typography>
             </Box>
             <Box
-              marginTop={2}
+              marginTop={1}
               className={
                 !dataKematian.nomor_surat_kematian ? classes.position : null
               }
@@ -81,7 +76,14 @@ export const BodyComponent = ({ ...props }) => {
                   wordWrap: "break-word",
                 }}
               >
-                Yang bertanda tangan di bawah ini {signature.nama_jabatan}{" "}
+                Yang bertanda tangan di bawah ini{" "}
+                {signature ? (
+                  signature.nama_jabatan
+                ) : (
+                  <span style={{ fontWeight: "bold" }}>
+                    Tambahkan nama jabatan
+                  </span>
+                )}{" "}
                 Watugede Kecamatan Singosari Kabupaten Malang Menerangkan bahwa
                 :{" "}
               </p>
@@ -123,7 +125,7 @@ export const BodyComponent = ({ ...props }) => {
                     <td
                       style={{
                         fontSize: 14,
-                        width: "fit-content",
+                        width: "25%",
                       }}
                     >
                       Tempat Tanggal Lahir
@@ -239,7 +241,7 @@ export const BodyComponent = ({ ...props }) => {
             position="relative"
             width="fit-content"
             right="-60%"
-            marginTop={4}
+            marginTop={2}
           >
             <Box>
               <Typography className={classes.newFont} style={{ fontSize: 15 }}>
@@ -253,7 +255,13 @@ export const BodyComponent = ({ ...props }) => {
             </Box>
             <Box>
               <Typography className={classes.newFont} style={{ fontSize: 15 }}>
-                {signature.nama_jabatan}
+                {signature ? (
+                  signature.nama_jabatan
+                ) : (
+                  <span style={{ fontWeight: "bold" }}>
+                    Tambahkan nama jabatan
+                  </span>
+                )}
               </Typography>
             </Box>
             <Box marginTop={7}>
@@ -265,7 +273,13 @@ export const BodyComponent = ({ ...props }) => {
                   textDecoration: "underline",
                 }}
               >
-                {signature.nama_lengkap}
+                {signature ? (
+                  signature.nama_lengkap
+                ) : (
+                  <span style={{ fontWeight: "bold" }}>
+                    Tambahkan nama lengkap
+                  </span>
+                )}
               </Typography>
             </Box>
           </Box>

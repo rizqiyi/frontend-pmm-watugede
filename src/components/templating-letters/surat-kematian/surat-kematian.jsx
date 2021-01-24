@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React, { forwardRef } from "react";
 import { BodyComponent } from "./body/body";
 import { useStyles } from "./surat-kematian.style";
@@ -9,11 +9,6 @@ export const SuratKematianComponent = forwardRef(({ ...props }, ref) => {
 
   return (
     <div ref={ref}>
-      {isFetching ? (
-        <Box display="flex" justifyContent="center" alignItems="center">
-          <CircularProgress color="primary" />
-        </Box>
-      ) : null}
       {isFetching ? null : (
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs={6}>

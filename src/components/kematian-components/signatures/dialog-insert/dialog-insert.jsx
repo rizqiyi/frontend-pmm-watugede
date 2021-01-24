@@ -2,18 +2,12 @@ import { Dialog, Typography, Box, Button, Divider } from "@material-ui/core";
 import { Formik, Form, FastField } from "formik";
 import React from "react";
 import { connect } from "react-redux";
-import { updateSignature } from "../../../../reducers/signatures/signatures.actions";
+import { postSignatureKematian } from "../../../../reducers/signatures/signatures.actions";
 import { TextFormField } from "../../../styled-textfield/styled-textfield";
-import { useStyles } from "./dialog-edit.style";
+import { useStyles } from "./dialog-insert.style";
 
-const DialogEditSignatureComponent = ({ ...props }) => {
-  const {
-    open,
-    handleClose,
-    signature,
-    updateSignature,
-    dataKelahiran,
-  } = props;
+const DialogInsertSignatureComponent = ({ ...props }) => {
+  const { open, handleClose, data, postSignatureKematian } = props;
 
   const classes = useStyles();
 
@@ -32,24 +26,19 @@ const DialogEditSignatureComponent = ({ ...props }) => {
         <Box p={3}>
           <Formik
             initialValues={{
-              id: signature._id,
-              nama_lengkap: signature.nama_lengkap,
-              nama_jabatan: signature.nama_jabatan,
+              id: data._id,
+              nama_lengkap: "",
+              nama_jabatan: "",
             }}
             enableReinitialize={true}
             onSubmit={(values) => {
-              updateSignature(
-                values,
-                dataKelahiran._id,
-                values.id,
-                "kelahiran"
-              );
+              postSignatureKematian(values, values.id);
               handleClose(false);
             }}
           >
             {() => (
               <Form>
-                <Typography variant="h6">Perbarui Data TTD</Typography>
+                <Typography variant="h6">Tambahkan Data TTD</Typography>
                 <Box marginTop={0.5} marginBottom={1}>
                   <Divider />
                 </Box>
@@ -104,7 +93,7 @@ const DialogEditSignatureComponent = ({ ...props }) => {
                       type="submit"
                       className={classes.insertButton}
                     >
-                      Perbarui
+                      Tambahkan
                     </Button>
                   </Box>
                 </Box>
@@ -119,9 +108,12 @@ const DialogEditSignatureComponent = ({ ...props }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateSignature: (requests, idData, idSignature, flag) =>
-      dispatch(updateSignature(requests, idData, idSignature, flag)),
+    postSignatureKematian: (requests, id) =>
+      dispatch(postSignatureKematian(requests, id)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(DialogEditSignatureComponent);
+export default connect(
+  null,
+  mapDispatchToProps
+)(DialogInsertSignatureComponent);

@@ -67,6 +67,7 @@ const PreviewPdfKelahiranPage = ({ ...props }) => {
           >
             <Box>
               <ReactToPrint
+                documentTitle={`surat-kelahiran-${dataKelahiran.nama}`}
                 trigger={() => (
                   <Button
                     onClick={(e) => {

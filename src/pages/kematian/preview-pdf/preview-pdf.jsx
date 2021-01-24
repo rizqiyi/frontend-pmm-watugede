@@ -1,11 +1,16 @@
-import { Box, Button, CircularProgress } from "@material-ui/core";
-import React, { useEffect, useRef } from "react";
+import { Box, Button, CircularProgress, Paper } from "@material-ui/core";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ReactToPrint from "react-to-print";
 import { getDataKematianById } from "../../../reducers/kematian/kematian.actions";
 import { useStyles } from "./preview-pdf.style";
 import { SuratKematianComponent } from "../../../components/templating-letters/surat-kematian/surat-kematian";
+import DialogInsertSignatureComponent from "../../../components/kematian-components/signatures/dialog-insert/dialog-insert";
+import DialogEditSignatureComponent from "../../../components/kematian-components/signatures/dialog-edit/dialog-edit";
+import EditIcon from "@material-ui/icons/Edit";
+import GetAppIcon from "@material-ui/icons/GetApp";
+import AddIcon from "@material-ui/icons/Add";
 
 const PreviewPdfKematianPage = ({ ...props }) => {
   const {
@@ -19,6 +24,8 @@ const PreviewPdfKematianPage = ({ ...props }) => {
   const paramsId = match.params.id;
   const classes = useStyles();
   const previewPDF = useRef(null);
+  const [openDialogInsert, setOpenDialogInsert] = useState(false);
+  const [openDialogEdit, setOpenDialogEdit] = useState(false);
 
   const history = useHistory();
 
@@ -45,33 +52,94 @@ const PreviewPdfKematianPage = ({ ...props }) => {
             Kembali
           </Button>
         </Box>
-        <Box>
-          {isLoading ? (
-            <CircularProgress />
-          ) : (
-            <ReactToPrint
-              documentTitle={`surat-kematian-${childDataKematian.nama_lengkap}`}
-              trigger={() => (
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Box>
+              <ReactToPrint
+                documentTitle={`surat-kematian-${childDataKematian.nama_lengkap}`}
+                trigger={() => (
+                  <Button
+                    onClick={(e) => {
+                      e.preventDefault();
+                    }}
+                    startIcon={<GetAppIcon />}
+                    className={classes.seeButton}
+                  >
+                    Unduh PDF
+                  </Button>
+                )}
+                content={() => previewPDF.current}
+              />
+            </Box>
+            {signature ? (
+              <Box marginLeft={3}>
                 <Button
                   onClick={(e) => {
                     e.preventDefault();
+                    setOpenDialogEdit(true);
                   }}
-                  className={classes.seeButton}
+                  startIcon={<EditIcon />}
+                  className={classes.updateButton}
                 >
-                  Unduh PDF
+                  Perbarui Nama TTD
                 </Button>
-              )}
-              content={() => previewPDF.current}
-            />
-          )}
-        </Box>
+              </Box>
+            ) : null}
+            {!signature ? (
+              <Box marginLeft={3}>
+                <Button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenDialogInsert(true);
+                  }}
+                  startIcon={<AddIcon />}
+                  className={classes.insertButton}
+                >
+                  Tambah Nama TTD
+                </Button>
+              </Box>
+            ) : null}
+          </Box>
+        )}
       </Box>
-      <SuratKematianComponent
-        dataKematian={dataKematian}
-        dataPenduduk={childDataKematian}
-        isFetching={isLoading}
-        ref={previewPDF}
+      {isLoading ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          marginTop="2rem"
+          alignItems="center"
+        >
+          <CircularProgress color="primary" />
+        </Box>
+      ) : null}
+      {isLoading ? null : (
+        <Paper style={{ boxShadow: "none", marginTop: "2rem" }}>
+          <SuratKematianComponent
+            dataKematian={dataKematian}
+            dataPenduduk={childDataKematian}
+            isFetching={isLoading}
+            ref={previewPDF}
+            signature={signature}
+          />
+        </Paper>
+      )}
+      <DialogInsertSignatureComponent
+        open={openDialogInsert}
+        handleClose={setOpenDialogInsert}
+        data={dataKematian}
+      />
+      <DialogEditSignatureComponent
+        open={openDialogEdit}
+        handleClose={setOpenDialogEdit}
         signature={signature}
+        dataKematian={dataKematian}
       />
     </React.Fragment>
   );
