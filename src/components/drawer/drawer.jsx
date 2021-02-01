@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, LinearProgress } from "@material-ui/core";
 import useStyles from "./drawer.style";
 import { AppBarComponent } from "../appbar/appbar";
@@ -10,24 +10,28 @@ export const MiniDrawer = ({ children }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const isLoadingLogout = useSelector((state) => state.admin_activity.isLogout);
-
+  const isFirstRender = useRef(true);
   const [progress, setProgress] = React.useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setProgress((oldProgress) => {
-        if (oldProgress === 100) {
-          return 0;
-        }
-        const diff = Math.random() * 10;
-        return Math.min(oldProgress + diff, 100);
-      });
+      if (isFirstRender.current) {
+        isFirstRender.current = false;
+        setProgress((oldProgress) => {
+          if (oldProgress === 100) {
+            return 0;
+          }
+          const diff = Math.random() * 10;
+          return Math.min(oldProgress + diff, 100);
+        });
+      }
     }, 500);
 
     return () => {
       clearInterval(timer);
     };
   }, []);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };

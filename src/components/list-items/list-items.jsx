@@ -23,6 +23,8 @@ export const ListItemsComponent = () => {
     setSelected(selectedIndex);
   };
 
+  const isUndefined = (val) => controlSpace(controlTextMenu(val)) === undefined;
+
   useEffect(() => {
     const linkPath = () => {
       let path = window.location.pathname;
@@ -36,8 +38,8 @@ export const ListItemsComponent = () => {
         if (path === menuPath[index] && selected !== index) setSelected(index);
       }
     };
+
     linkPath();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
 
   return (
@@ -45,7 +47,11 @@ export const ListItemsComponent = () => {
       <List>
         {listMenu.map((list, idx) => (
           <Box key={list.id}>
-            <Box marginTop={controlSpace(list)}>
+            <Box
+              marginTop={
+                isUndefined(list) ? 0 : controlSpace(controlTextMenu(list))
+              }
+            >
               <Typography className={classes.controlText} variant="subtitle1">
                 {controlTextMenu(list)}
               </Typography>

@@ -80,11 +80,11 @@ const controlTextMenu = (params) => {
 };
 
 const controlSpace = (params) => {
-  switch (params.name) {
-    case "Kartu Keluarga":
+  switch (params) {
+    case "Kependudukan":
       return 2.5;
 
-    case "Activity Logs":
+    case "Aktifitas Admin":
       return 2.5;
 
     default:
