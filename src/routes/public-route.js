@@ -1,20 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
+import checkAuth from "./check-auth";
 
 const PublicRoute = ({ component: Component, ...rest }) => {
-  const isAuthenticated = useSelector((state) => state.users.isAuthenticated);
-  const isSuccess = useSelector((state) => state.users.success);
+  console.log(`${checkAuth()} from public`);
   return (
     <Route
       {...rest}
-      render={(props) =>
-        isAuthenticated && isSuccess && localStorage.getItem("token") ? (
-          <Redirect to="/" />
-        ) : (
-          <Component {...props} />
-        )
-      }
+      render={(props) => {
+        return checkAuth() ? <Redirect to="/" /> : <Component {...props} />;
+      }}
     />
   );
 };

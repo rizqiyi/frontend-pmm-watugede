@@ -2,7 +2,7 @@ import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 import { postDataAdminWhenLogout } from "../../reducers/aktifitas_admin/admin_activity.actions";
 import { logoutAdmin } from "../../reducers/users/users.actions";
 import { useStyles } from "./account-menu.style";
@@ -12,6 +12,7 @@ export const AccountMenuComponent = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openAccountMenu = Boolean(anchorEl);
   const dispatch = useDispatch();
+  const history = useHistory();
   const adminID = useSelector((state) => state.users.id);
 
   const handleMenu = (event) => {
@@ -51,12 +52,11 @@ export const AccountMenuComponent = () => {
         <MenuItem
           onClick={(e) => {
             e.preventDefault();
+            const redirect = () => history.push("/login");
             const onAdminLogout = () => logoutAdmin();
-            dispatch(postDataAdminWhenLogout(adminID, onAdminLogout));
+            dispatch(postDataAdminWhenLogout(adminID, onAdminLogout, redirect));
             handleClose();
           }}
-          component={Link}
-          to="/login"
         >
           Log Out
         </MenuItem>
