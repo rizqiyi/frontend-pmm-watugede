@@ -5,6 +5,7 @@ import {
   ListItemText,
   Typography,
 } from "@material-ui/core";
+import decode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { ListItem, useStyles } from "./list-items.style";
 import { Link } from "react-router-dom";
@@ -23,8 +24,6 @@ export const ListItemsComponent = () => {
     setSelected(selectedIndex);
   };
 
-  const isUndefined = (val) => controlSpace(controlTextMenu(val)) === undefined;
-
   useEffect(() => {
     const linkPath = () => {
       let path = window.location.pathname;
@@ -42,20 +41,28 @@ export const ListItemsComponent = () => {
     linkPath();
   }, [selected]);
 
+  let tempArr = [];
+
+  const jwtToken = localStorage.getItem("token");
+
+  const d = decode(jwtToken);
+
+  const isAdmin = d.role === "Admin";
+
+  if (isAdmin) tempArr = listMenu.filter((data) => data.name !== "Users");
+
   return (
     <React.Fragment>
       <List>
-        {listMenu.map((list, idx) => (
+        {(isAdmin ? tempArr : listMenu).map((list, idx) => (
           <Box key={list.id}>
-            <Box
-              marginTop={
-                isUndefined(list) ? 0 : controlSpace(controlTextMenu(list))
-              }
-            >
-              <Typography className={classes.controlText} variant="subtitle1">
-                {controlTextMenu(list)}
-              </Typography>
-              <Box marginTop={idx === 3 || idx === 6 ? 2 : 0}>
+            <Box>
+              <Box marginTop={`${controlSpace(controlTextMenu(list))}px`}>
+                <Typography className={classes.controlText} variant="subtitle1">
+                  {controlTextMenu(list)}
+                </Typography>
+              </Box>
+              <Box>
                 <Link to={list.link} className={classes.itemText}>
                   <ListItem
                     button

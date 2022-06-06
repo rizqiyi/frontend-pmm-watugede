@@ -46,7 +46,7 @@ export const TextFormField = ({ field, form, ...props }) => {
   );
 };
 
-export const PasswordField = (props) => {
+export const PasswordField = ({ field, ...props }) => {
   const classes = useStyles();
 
   const [values, setValues] = React.useState({
@@ -86,6 +86,7 @@ export const PasswordField = (props) => {
           </InputAdornment>
         ),
       }}
+      {...field}
       {...props}
     />
   );

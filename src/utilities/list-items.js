@@ -64,6 +64,14 @@ const listMenu = [
       outlinedIcon: <img src={activityIcon} alt="activity-icon" />,
     },
   },
+  {
+    id: 8,
+    name: "Users",
+    link: "/users",
+    icons: {
+      outlinedIcon: <img src={activityIcon} alt="activity-icon" />,
+    },
+  },
 ];
 
 const controlTextMenu = (params) => {
@@ -73,6 +81,9 @@ const controlTextMenu = (params) => {
 
     case "Activity Logs":
       return "Aktifitas Admin";
+
+    case "Users":
+      return "Super Admin";
 
     default:
       break;
@@ -85,6 +96,9 @@ const controlSpace = (params) => {
       return 2.5;
 
     case "Aktifitas Admin":
+      return 2.5;
+
+    case "Users":
       return 2.5;
 
     default:

@@ -63,11 +63,11 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
       {isLoading ? <LinearProgComponent /> : null}
       <Box className={classes.padding}>
         <Paper className={classes.root}>
-          <Alert severity="info">
+          {/* <Alert severity="info">
             For demos login using:
             <br />
             username: rizqiyi, password: 123456
-          </Alert>
+          </Alert> */}
           <Box className={classes.controlContent}>
             <Box display="flex" justifyContent="center" alignItems="flex-end">
               <img
