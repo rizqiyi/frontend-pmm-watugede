@@ -42,14 +42,17 @@ export const ListItemsComponent = () => {
   }, [selected]);
 
   let tempArr = [];
+  let isAdmin = false;
 
   const jwtToken = localStorage.getItem("token");
 
-  const d = decode(jwtToken);
+  if (jwtToken) {
+    const d = decode(jwtToken);
 
-  const isAdmin = d.role === "Admin";
+    isAdmin = d.role === "Admin";
 
-  if (isAdmin) tempArr = listMenu.filter((data) => data.name !== "Users");
+    if (isAdmin) tempArr = listMenu.filter((data) => data.name !== "Users");
+  }
 
   return (
     <React.Fragment>

@@ -6,7 +6,7 @@ import {
   StyledTextField,
 } from "../../components/styled-textfield/styled-textfield";
 import { useHistory } from "react-router-dom";
-import { useFormik } from "formik";
+import { Field, Form, Formik } from "formik";
 import { loginAdmin } from "../../reducers/users/users.actions";
 import { connect, useSelector } from "react-redux";
 import { clearInfos } from "../../reducers/infos/info.actions";
@@ -37,25 +37,6 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
 
   const handleClose = () => {
     setState({ ...state, open: false });
-  };
-
-  const formik = useFormik({
-    initialValues: {
-      username: "",
-      password: "",
-    },
-    enableReinitialize: true,
-    onSubmit: (values) => {
-      const onSuccess = () => history.push("/");
-      loginAdmin(values, onSuccess);
-      setState({ open: true, vertical: "bottom", horizontal: "left" });
-      clearInfos();
-    },
-  });
-
-  const change = (value, e) => {
-    e.persist();
-    formik.handleChange(e);
   };
 
   return (
@@ -102,40 +83,62 @@ const LoginPage = ({ loginAdmin, clearInfos }) => {
                   kependudukan Desa Watugede
                 </Typography>
               </Box>
-              <Box
-                display="flex"
-                flexDirection="column"
-                alignItems="flex-start"
-                justifyContent="flex-start"
-                p={3}
-                paddingLeft={0}
+              <Formik
+                initialValues={{
+                  username: "",
+                  password: "",
+                }}
+                onSubmit={(values) => {
+                  const onSuccess = () => history.push("/");
+                  loginAdmin(values, onSuccess);
+                  setState({
+                    open: true,
+                    vertical: "bottom",
+                    horizontal: "left",
+                  });
+                  clearInfos();
+                }}
               >
-                <StyledTextField
-                  label="Username"
-                  name="username"
-                  size="small"
-                  onChange={change.bind(null, "username")}
-                  className={classes.margin}
-                  variant="filled"
-                />
-                <PasswordField
-                  label="Password"
-                  name="password"
-                  size="small"
-                  onChange={change.bind(null, "password")}
-                  className={classes.margin}
-                  variant="filled"
-                />
-                <Button
-                  variant="contained"
-                  className={classes.controlButton}
-                  color="primary"
-                  type="submit"
-                  onClick={formik.handleSubmit}
-                >
-                  Login
-                </Button>
-              </Box>
+                {() => (
+                  <Form>
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      alignItems="flex-start"
+                      justifyContent="flex-start"
+                      p={3}
+                      paddingLeft={0}
+                    >
+                      <Field
+                        component={StyledTextField}
+                        label="Username"
+                        name="username"
+                        id="username"
+                        size="small"
+                        className={classes.margin}
+                        variant="filled"
+                      />
+                      <Field
+                        component={PasswordField}
+                        label="Password"
+                        name="password"
+                        id="password"
+                        size="small"
+                        className={classes.margin}
+                        variant="filled"
+                      />
+                      <Button
+                        variant="contained"
+                        className={classes.controlButton}
+                        color="primary"
+                        type="submit"
+                      >
+                        Login
+                      </Button>
+                    </Box>
+                  </Form>
+                )}
+              </Formik>
             </Box>
           </Box>
         </Paper>

@@ -8,7 +8,7 @@ import { getIn } from "formik";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
 
-export const StyledTextField = (props) => {
+export const StyledTextField = ({ field, form, ...props }) => {
   const classes = useStyles();
   return (
     <TextField
@@ -20,6 +20,7 @@ export const StyledTextField = (props) => {
         disableUnderline: true,
       }}
       {...props}
+      {...field}
     />
   );
 };
